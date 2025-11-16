@@ -13,7 +13,7 @@ import json
 import sys
 from pathlib import Path
 
-BASE_DIR = Path("/home/user/kingdom-arabic")
+BASE_DIR = Path(__file__).parent.parent
 UNIFIED_DIR = BASE_DIR / "bible-translations" / "unified"
 MAPPINGS_DIR = BASE_DIR / "bible-translations" / "mappings"
 
