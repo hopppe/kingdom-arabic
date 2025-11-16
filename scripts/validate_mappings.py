@@ -101,7 +101,11 @@ def validate_order(verse_data):
     return issues
 
 def check_semantic_quality(verse_data):
-    """Identify potential semantic issues (heuristic checks)."""
+    """Identify potential semantic issues (heuristic checks).
+
+    NOTE: We're mapping between two existing translations, not creating
+    literal translations. Focus on learner clarity, not linguistic accuracy.
+    """
     issues = []
 
     for i, mapping in enumerate(verse_data["mappings"]):
@@ -123,31 +127,20 @@ def check_semantic_quality(verse_data):
                 "index": i,
                 "arabic": ar,
                 "english": en,
-                "note": "Very short Arabic word mapped to long English phrase"
+                "note": "Very short Arabic word mapped to long English phrase - verify this is correct"
             })
 
-        # Check for common words that should have standard translations
-        known_translations = {
-            "يَسُوعَ": "Jesus",
-            "يَسُوعُ": "Jesus",
-            "اللهِ": "God",
-            "اللهُ": "God",
-            "الرَّبِّ": "the Lord",
-            "الْمَسِيحِ": "Christ",
-        }
-
-        # Strip punctuation for comparison
+        # Check for unhelpful single-word mappings (learner clarity)
+        unhelpful_singles = ["لَا", "أَنْ", "أَنَّ", "مَا", "إِنَّ"]
         ar_clean = ar.strip('،.:؟!«» ')
-        if ar_clean in known_translations:
-            expected = known_translations[ar_clean]
-            if expected.lower() not in en.lower():
-                issues.append({
-                    "type": "inconsistent_translation",
-                    "index": i,
-                    "arabic": ar,
-                    "got": en,
-                    "expected": expected
-                })
+        if ar_clean in unhelpful_singles and len(en.split()) == 1 and len(en) < 4:
+            issues.append({
+                "type": "potentially_unhelpful",
+                "index": i,
+                "arabic": ar,
+                "english": en,
+                "note": "Consider grouping with adjacent words for better learner understanding"
+            })
 
     return issues
 

@@ -99,38 +99,50 @@ Runs both technical and semantic validation, providing:
 | Wrong meaning | Arabic doesn't mean English | غَيْرَ → "Now" (should be "But/However") |
 | Missing context | Single word doesn't make sense | لَا alone instead of with verb |
 
-## Common Semantic Errors
+## Key Principle: Mapping Between Translations
 
-### Phrases That MUST Stay Together
+**IMPORTANT**: You're mapping between TWO EXISTING BIBLE TRANSLATIONS, not creating literal translations. The Arabic Bible and English Bible are independent translations of the same source.
+
+### What This Means
+
+- Map Arabic segments to their **corresponding English segments**
+- If English says "of the council", map فِي to "of" (even though فِي literally means "in")
+- Follow the actual translation text, not literal Arabic meanings
+- Goal: When learner taps Arabic word → sees what it corresponds to in English translation
+
+## Phrase Grouping for Learner Clarity
+
+Group words when single words don't help:
 
 ```
-إِلّا إِذَا     → "unless" (NOT "unless" + "if")
-غَيْرَ أَنَّ      → "But/However" (NOT "Now" + "that")
-لَا يَقْدِرُ أَحَدٌ → "no one could" (negation phrase)
-مَا دَامَ        → "as long as"
-حَتَّى لَوْ      → "even if"
-بِمَا أَنَّ      → "since/because"
+بُحَيْرَةِ الْجَلِيلِ → "Sea of Galilee" (proper noun)
+ابْنِ اللهِ          → "Son of God" (compound concept)
+لَا أَحَدَ           → "no one" (single word meaningless)
+يُوحَنَّا الْمَعْمَدَانِ → "John the Baptist" (name + title)
 ```
 
-### Preposition Accuracy
-
+BUT you CAN split if both parts are clear:
 ```
-فِي  = "in"        ❌ NEVER "of"
-مِنْ  = "from"      (sometimes "of" in genitive)
-عَلَى = "on/upon"   ❌ NEVER "in"
-إِلَى = "to/toward" ❌ NEVER "for"
+فِي → "in", الْبَيْتِ → "the house" (both understandable alone)
 ```
 
-### Negation Handling
+### Unhelpful Single-Word Mappings to Avoid
 
-Arabic negation often spans multiple words:
+These don't help learners when mapped alone:
 ```
-لَا يَقْدِرُ أَحَدٌ = "no one could"
-لَا يُمْكِنُ        = "cannot"
-لَا...أَحَدٌ       = "no one"
+❌ لَا → "no" (meaningless by itself)
+❌ أَنْ → "to" (which "to"?)
+❌ مَا → "what" (too vague)
 ```
 
-Don't split these as separate words with partial meanings.
+Better groupings:
+```
+✅ لَا أَحَدَ → "no one"
+✅ أَنْ يَعْمَلَ → "to do"
+✅ مَا تَعْمَلُ → "what you are doing"
+```
+
+The test: **"Does tapping this word show something helpful to a learner?"**
 
 ## Validation Workflow
 

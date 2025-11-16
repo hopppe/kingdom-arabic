@@ -123,37 +123,44 @@ Each verse object contains:
 
 6. **Batch process**: Do 5-10 verses at once, write all mappings, then next batch
 
-## Critical Semantic Rules
+## Critical Mapping Rules
 
-### MUST Group These Phrases Together
+**IMPORTANT**: You're mapping between TWO EXISTING TRANSLATIONS. Match Arabic to corresponding English content, not literal translations.
 
-| Arabic | English | Reason |
-|--------|---------|--------|
-| إِلّا إِذَا | "unless" | Conditional exception (NEVER split) |
-| غَيْرَ أَنَّ | "But/However" | Adversative conjunction |
-| لَا يَقْدِرُ أَحَدٌ | "no one could" | Negation phrase |
-| لَا يُمْكِنُ أَحَدٌ | "no one can" | Negation phrase |
-| مَا دَامَ | "as long as" | Temporal idiom |
-| حَتَّى لَوْ | "even if" | Concessive |
-| بِمَا أَنَّ | "since/because" | Causal |
+### Core Principle
 
-### Preposition Accuracy - CRITICAL
+Map Arabic segments to their **corresponding English segments** in the translations:
+- If English says "of the council", map فِي to "of" (even though فِي literally means "in")
+- Follow the actual translation text, not literal Arabic meanings
+- Goal: Learner taps Arabic word → sees corresponding English from that translation
 
-**These are NOT interchangeable:**
+### Group for Learner Clarity
 
-| Arabic | CORRECT | WRONG |
-|--------|---------|-------|
-| فِي | "in" | ❌ "of" |
-| مِنْ | "from" | (can be "of" in genitive only) |
-| عَلَى | "on/upon" | ❌ "in" |
-| إِلَى | "to/toward" | ❌ "for" |
+| Group These | Why? |
+|-------------|------|
+| بُحَيْرَةِ الْجَلِيلِ → "Sea of Galilee" | Proper noun |
+| ابْنِ اللهِ → "Son of God" | Compound concept |
+| لَا أَحَدَ → "no one" | Single word meaningless |
 
-### Common Mistakes to Avoid
+BUT you CAN split if clear:
+- فِي → "in", الْبَيْتِ → "the house" (both understandable alone)
 
-1. **Splitting negation**: لَا...أَحَدٌ = "no one" (not "no" + "one")
-2. **Wrong preposition**: فِي means "IN", never "of"
-3. **Breaking idioms**: إِلّا إِذَا is ONE phrase meaning "unless"
-4. **Missing words**: Every Arabic word must be mapped
+### Avoid Unhelpful Single-Word Mappings
+
+These don't help learners:
+- ❌ لَا → "no" (meaningless alone)
+- ❌ أَنْ → "to" (which "to"?)
+- ❌ مَا → "what" (vague)
+
+Better:
+- ✅ لَا أَحَدَ → "no one"
+- ✅ أَنْ يَعْمَلَ → "to do"
+
+### Common Issues
+
+1. **Missing words**: Every Arabic word must be mapped
+2. **Unhelpful mappings**: Ask "Does this help a learner?"
+3. **Match the translation**: Use what the English Bible actually says
 
 ## Example - Complete Verse Mapping
 

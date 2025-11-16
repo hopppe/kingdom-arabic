@@ -39,35 +39,45 @@ When this command is invoked, perform the following:
 
 5. **Report completion** with verse count and sample mappings.
 
-## Critical Semantic Rules
+## Critical Mapping Rules
 
-### Phrase Grouping - KEEP TOGETHER
+**IMPORTANT**: You're mapping between TWO EXISTING BIBLE TRANSLATIONS, not creating literal word translations. The Arabic and English Bibles are independent translations of the same source text.
 
-These multi-word constructions must be mapped as single units:
+### Core Principle: Match Corresponding Content
 
-| Arabic | English | Why group? |
-|--------|---------|-----------|
-| إِلّا إِذَا | "unless" or "except if" | Conditional exception phrase |
-| غَيْرَ أَنَّ | "But" or "However" | Adversative conjunction |
-| لَا يَقْدِرُ أَحَدٌ | "no one could" | Negation + verb + indefinite |
-| لَا يُمْكِنُ أَحَدٌ | "no one can" | Same pattern |
-| مَا دَامَ | "as long as" | Temporal phrase |
-| بِمَا أَنَّ | "since" or "because" | Causal conjunction |
-| حَتَّى لَوْ | "even if" | Concessive phrase |
-| عَلَى الرَّغْمِ مِنْ | "despite" | Prepositional phrase |
+Map Arabic segments to their **corresponding English segments** in the translations, even if:
+- The literal meaning differs (فِي = "in" literally, but map to "of" if English says "of")
+- Word order differs between translations
+- One translation has words the other doesn't
 
-### Prepositions - CORRECT MEANINGS
+**Goal**: When a learner taps an Arabic word, they see what it corresponds to in the English translation.
 
-**NEVER confuse these:**
+### Phrase Grouping - FOR LEARNER CLARITY
 
-| Arabic | Correct | Wrong |
-|--------|---------|-------|
-| فِي | "in" | ❌ "of" |
-| مِنْ | "from" | (sometimes "of" in genitive) |
-| عَلَى | "on/upon" | ❌ "in" |
-| إِلَى | "to/toward" | ❌ "for" |
-| بِ | "with/by/in" | context-dependent |
-| لِ | "to/for" | context-dependent |
+Group words when it helps the learner understand:
+
+| Group These | Why? |
+|-------------|------|
+| بُحَيْرَةِ الْجَلِيلِ → "Sea of Galilee" | Proper noun, meaningless if split |
+| ابْنِ اللهِ → "Son of God" | Compound concept |
+| لَا أَحَدَ → "no one" | Single word is meaningless |
+| يُوحَنَّا الْمَعْمَدَانِ → "John the Baptist" | Name + title |
+
+BUT you CAN split if both parts are clear:
+- فِي → "in", الْبَيْتِ → "the house" (both understandable)
+- وَقَالَ → "and said" (clear as is)
+
+### Unhelpful Mappings to Avoid
+
+These single-word mappings don't help learners:
+- ❌ لَا → "no" (what does "no" mean alone?)
+- ❌ أَنْ → "to" (which "to"?)
+- ❌ مَا → "what" (vague)
+
+Instead, group with adjacent words:
+- ✅ لَا أَحَدَ → "no one"
+- ✅ أَنْ يَعْمَلَ → "to do"
+- ✅ مَا تَعْمَلُ → "what you are doing"
 
 ### Attached Prefixes - INCLUDE IN WORD
 
@@ -76,23 +86,19 @@ These are attached and should NOT be split off:
 - وَ (and) - attached: وَقَالَ = "and said"
 - فَ (then/so) - attached: فَذَهَبَ = "then he went"
 
-### Common Errors to Avoid
+### Common Issues to Check
 
-1. **DON'T split negation phrases**:
-   - ❌ لَا → "no", أَحَدٌ → "one"
-   - ✅ لَا...أَحَدٌ together contribute to "no one"
-
-2. **DON'T mistranslate فِي**:
-   - ❌ فِي الْمَجْلِسِ → "of the council"
-   - ✅ فِي الْمَجْلِسِ → "in the council"
-
-3. **DON'T separate conditional pairs**:
-   - ❌ إِلّا → "unless", إِذَا → "if"
-   - ✅ إِلّا إِذَا → "unless"
-
-4. **DON'T leave words unmapped**:
+1. **DON'T leave words unmapped**:
    - Every Arabic word/phrase must have a mapping
    - Check that positions cover entire verse (except spaces/punctuation)
+
+2. **DON'T create unhelpful single-word mappings**:
+   - If tapping a word shows something meaningless, group it better
+   - Ask: "Does this help a learner?"
+
+3. **DO match the English translation exactly**:
+   - If English says "of the council", map فِي to "of" (even though فِي = "in")
+   - Follow the actual translation, not literal meanings
 
 ## Output Format
 
@@ -126,9 +132,9 @@ These are attached and should NOT be split off:
 Before saving, verify:
 - [ ] All Arabic text is covered (no unmapped words)
 - [ ] Positions are sequential (no overlaps)
-- [ ] Phrases grouped correctly (idioms stay together)
-- [ ] Prepositions translated accurately (فِي = "in", not "of")
-- [ ] Negations handled properly (لَا...أَحَدٌ = "no one")
+- [ ] Mappings match the English translation text (not literal meanings)
+- [ ] Phrases grouped for learner clarity (proper nouns, compound concepts together)
+- [ ] No unhelpful single-word mappings (لَا alone, أَنْ alone, etc.)
 
 ## Validation
 

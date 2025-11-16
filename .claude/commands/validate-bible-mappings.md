@@ -39,24 +39,31 @@ Extract first 5-10 verses for semantic review.
 
 ### 3. Semantic Analysis
 
+**IMPORTANT**: You're mapping between TWO EXISTING TRANSLATIONS, not creating literal translations. The Arabic Bible and English Bible are independent translations. Focus on:
+
 For each verse in the sample, check:
 
-**A. Phrase Grouping**
-- Are idioms kept together?
-  - إِلّا إِذَا → "unless" (NOT split)
-  - غَيْرَ أَنَّ → "But/However" (NOT split)
-  - لَا...أَحَدٌ → "no one" (negation phrase)
+**A. Mapping Correspondence**
+- Does the Arabic segment correspond to the English segment in meaning/position?
+- Example: If English says "of the council", map فِي to "of" even though فِي literally means "in"
+- The goal: When user taps Arabic word, they see what it corresponds to in the English translation
 
-**B. Preposition Accuracy**
-- فِي = "in" (❌ NOT "of")
-- مِنْ = "from" (sometimes "of")
-- عَلَى = "on/upon" (❌ NOT "in")
-- إِلَى = "to/toward"
+**B. Phrase Grouping for Clarity**
+- Group when single words don't help the learner:
+  - بُحَيْرَةِ الْجَلِيلِ → "Sea of Galilee" (proper noun)
+  - ابْنِ اللهِ → "Son of God" (compound concept)
+- BUT: Can split if individual words are clear:
+  - فِي → "in", الْبَيْتِ → "the house" (both understandable alone)
 
-**C. Translation Meaning**
-- Does the Arabic actually mean the English?
-- Are anchor words correct? (يَسُوعَ → Jesus, اللهِ → God)
-- Do single-word mappings make sense alone?
+**C. Learner Usefulness**
+- Will tapping this word show something helpful?
+- Avoid: لَا → "no" (meaningless alone)
+- Better: لَا أَحَدَ → "no one" (complete concept)
+
+**D. Coverage Alignment**
+- Do the mappings cover the full Arabic verse?
+- Do they account for the full English verse?
+- Some words may not have direct counterparts (that's OK)
 
 ### 4. Generate Report
 
@@ -85,8 +92,8 @@ OR
 ### Phrase Grouping Problems
 - [List any split idioms or incorrectly grouped phrases]
 
-### Preposition Errors
-- [List any فِي = "of" or similar mistakes]
+### Mapping Clarity Issues
+- [List any mappings that won't help the learner]
 
 ## Summary
 
@@ -127,11 +134,11 @@ python3 scripts/validate_mappings.py <BOOK> <CHAPTER>
 | مَا دَامَ | "as long as" |
 | حَتَّى لَوْ | "even if" |
 
-### Correct Prepositions
-- فِي = "in" ❌ NEVER "of"
-- مِنْ = "from"
-- عَلَى = "on/upon"
-- إِلَى = "to/toward"
+### Mapping Strategy
+- Match Arabic to corresponding English in the translation
+- Group for learner clarity, not linguistic purity
+- Cover all Arabic words (some English words may not have Arabic counterparts)
+- Focus on: "Is this helpful when tapped?"
 
 ### Anchor Words
 - يَسُوعَ/يَسُوعُ = "Jesus"
