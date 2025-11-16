@@ -7,6 +7,12 @@ import { useTheme } from '../context/ThemeContext';
 // Run: node scripts/generate-book-imports.js
 const BOOKS = [
   {
+    id: 'MAT',
+    name: 'Matthew',
+    arabicName: 'متى',
+    chapters: [1, 2, 3, 4, 5]
+  },
+  {
     id: 'MRK',
     name: 'Mark',
     arabicName: 'مرقس',
@@ -22,6 +28,7 @@ const BOOKS = [
 
 // Book name mapping for Arabic titles
 const BOOK_ARABIC_NAMES = {
+  'MAT': 'متى',
   'MRK': 'مرقس',
   'JHN': 'يوحنا'
 };
@@ -74,6 +81,15 @@ const loadChapterData = async (book, chapter) => {
 
   if (false) {
     // placeholder
+  } else if (book === 'MAT') {
+    bookName = 'Matthew';
+    switch (chapter) {
+      case 1: rawData = require('../../bible-translations/mappings/MAT/1.json'); break;
+      case 2: rawData = require('../../bible-translations/mappings/MAT/2.json'); break;
+      case 3: rawData = require('../../bible-translations/mappings/MAT/3.json'); break;
+      case 4: rawData = require('../../bible-translations/mappings/MAT/4.json'); break;
+      case 5: rawData = require('../../bible-translations/mappings/MAT/5.json'); break;
+    }
   } else if (book === 'MRK') {
     bookName = 'Mark';
     switch (chapter) {

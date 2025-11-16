@@ -383,6 +383,14 @@ export default function FlashcardScreen({ navigation }) {
       color: '#fff',
       textAlign: 'center',
     },
+    referenceText: {
+      fontSize: isSmallScreen ? 14 : 16,
+      fontWeight: '500',
+      color: 'rgba(255, 255, 255, 0.8)',
+      textAlign: 'center',
+      marginTop: 12,
+      fontStyle: 'italic',
+    },
     tapHint: {
       fontSize: 14,
       color: theme.colors.textSecondary,
@@ -558,6 +566,9 @@ export default function FlashcardScreen({ navigation }) {
             >
               <View style={styles.cardContent}>
                 <Text style={styles.englishText}>{currentCard.english}</Text>
+                {currentCard.reference && (
+                  <Text style={styles.referenceText}>{currentCard.reference}</Text>
+                )}
               </View>
             </Animated.View>
           </Animated.View>

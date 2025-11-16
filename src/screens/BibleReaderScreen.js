@@ -32,6 +32,30 @@ export default function BibleReaderScreen({ route, navigation }) {
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const wordTapInProgress = useRef(false);
 
+  // Helper to convert book codes to readable names
+  const getBookName = (bookCode) => {
+    const bookNames = {
+      'GEN': 'Genesis', 'EXO': 'Exodus', 'LEV': 'Leviticus', 'NUM': 'Numbers',
+      'DEU': 'Deuteronomy', 'JOS': 'Joshua', 'JDG': 'Judges', 'RUT': 'Ruth',
+      '1SA': '1 Samuel', '2SA': '2 Samuel', '1KI': '1 Kings', '2KI': '2 Kings',
+      '1CH': '1 Chronicles', '2CH': '2 Chronicles', 'EZR': 'Ezra', 'NEH': 'Nehemiah',
+      'EST': 'Esther', 'JOB': 'Job', 'PSA': 'Psalms', 'PRO': 'Proverbs',
+      'ECC': 'Ecclesiastes', 'SNG': 'Song of Solomon', 'ISA': 'Isaiah', 'JER': 'Jeremiah',
+      'LAM': 'Lamentations', 'EZK': 'Ezekiel', 'DAN': 'Daniel', 'HOS': 'Hosea',
+      'JOL': 'Joel', 'AMO': 'Amos', 'OBA': 'Obadiah', 'JON': 'Jonah',
+      'MIC': 'Micah', 'NAM': 'Nahum', 'HAB': 'Habakkuk', 'ZEP': 'Zephaniah',
+      'HAG': 'Haggai', 'ZEC': 'Zechariah', 'MAL': 'Malachi',
+      'MAT': 'Matthew', 'MRK': 'Mark', 'LUK': 'Luke', 'JHN': 'John',
+      'ACT': 'Acts', 'ROM': 'Romans', '1CO': '1 Corinthians', '2CO': '2 Corinthians',
+      'GAL': 'Galatians', 'EPH': 'Ephesians', 'PHP': 'Philippians', 'COL': 'Colossians',
+      '1TH': '1 Thessalonians', '2TH': '2 Thessalonians', '1TI': '1 Timothy', '2TI': '2 Timothy',
+      'TIT': 'Titus', 'PHM': 'Philemon', 'HEB': 'Hebrews', 'JAS': 'James',
+      '1PE': '1 Peter', '2PE': '2 Peter', '1JN': '1 John', '2JN': '2 John',
+      '3JN': '3 John', 'JUD': 'Jude', 'REV': 'Revelation'
+    };
+    return bookNames[bookCode] || bookCode;
+  };
+
   // Define styles first so they can be used in memoized callbacks
   const styles = useMemo(() => StyleSheet.create({
     container: {
@@ -295,6 +319,12 @@ export default function BibleReaderScreen({ route, navigation }) {
       fontSize: 16,
       color: theme.colors.primary,
     },
+    savedWordReference: {
+      fontSize: 12,
+      color: theme.colors.textSecondary,
+      fontStyle: 'italic',
+      marginTop: 2,
+    },
     removeWordButton: {
       width: 32,
       height: 32,
@@ -429,7 +459,14 @@ export default function BibleReaderScreen({ route, navigation }) {
 
       const exists = savedWords.some(w => w.word === word && w.translation === translation);
       if (!exists) {
-        setSavedWords([{ word, translation, timestamp: Date.now() }, ...savedWords]);
+        setSavedWords([{
+          word,
+          translation,
+          book: chapterMeta.book,
+          chapter: chapterMeta.chapter,
+          verse: verseIndex + 1,
+          timestamp: Date.now()
+        }, ...savedWords]);
       }
     }
   };
@@ -630,6 +667,11 @@ export default function BibleReaderScreen({ route, navigation }) {
                       <View style={styles.wordContent}>
                         <Text style={styles.savedWordArabic}>{item.word}</Text>
                         <Text style={styles.savedWordEnglish}>{item.translation}</Text>
+                        {item.book && item.chapter && item.verse && (
+                          <Text style={styles.savedWordReference}>
+                            {getBookName(item.book)} {item.chapter}:{item.verse}
+                          </Text>
+                        )}
                       </View>
                       <TouchableOpacity
                         style={styles.removeWordButton}
