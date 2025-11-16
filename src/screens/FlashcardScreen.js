@@ -1,0 +1,594 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Alert,
+  Animated,
+  Dimensions,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useTheme } from '../context/ThemeContext';
+import { useFlashcards } from '../context/FlashcardContext';
+import { AnkiCardCounts } from './components/AnkiCardCounts';
+import { AnkiRatingButtons } from './components/AnkiRatingButtons';
+import { ProgressIndicator } from './components/ProgressIndicator';
+import { QuickSettingsModal } from './components/QuickSettingsModal';
+import { LocalQueueManager } from '../../Flashcards/utils/localQueueManager';
+import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../Flashcards/utils/ankiScheduler';
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const isSmallScreen = screenHeight < 700;
+const isMediumScreen = screenHeight >= 700 && screenHeight < 800;
+
+export default function FlashcardScreen({ navigation }) {
+  const { theme } = useTheme();
+  const { flashcards, userProgress, recordAnswer, removeFlashcard, resetCardProgress } = useFlashcards();
+
+  const [sessionCards, setSessionCards] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [settingsLoading, setSettingsLoading] = useState(false);
+  const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
+  const [sessionInitialized, setSessionInitialized] = useState(false);
+
+  // Card counts for Anki-style display
+  const [cardCounts, setCardCounts] = useState({ new: 0, learning: 0, review: 0 });
+
+  // Local user progress state for immediate updates
+  const [localUserProgress, setLocalUserProgress] = useState({});
+
+  // Animations
+  const flipAnimation = useRef(new Animated.Value(0)).current;
+  const slideAnimation = useRef(new Animated.Value(0)).current;
+
+  // Refs
+  const queueManagerRef = useRef(null);
+  const isMountedRef = useRef(true);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+      if (queueManagerRef.current) {
+        queueManagerRef.current.cleanup();
+        queueManagerRef.current = null;
+      }
+    };
+  }, []);
+
+  // Sync local progress with context progress
+  useEffect(() => {
+    setLocalUserProgress(userProgress);
+  }, [userProgress]);
+
+  // Initialize session with queue manager
+  useEffect(() => {
+    if (flashcards.length === 0 || Object.keys(userProgress).length === 0) {
+      setSessionInitialized(true);
+      return;
+    }
+
+    if (sessionInitialized) return;
+
+    // Clean up old queue manager if exists
+    if (queueManagerRef.current) {
+      queueManagerRef.current.cleanup();
+    }
+
+    // Create new queue manager
+    queueManagerRef.current = new LocalQueueManager();
+
+    // Set up callback for when cards reappear from timers
+    queueManagerRef.current.setQueueUpdateCallback((queueState) => {
+      if (isMountedRef.current) {
+        setSessionCards([...queueState.queue]);
+        setCardCounts(queueState.counts);
+
+        // If we were waiting and now have cards, reset state
+        if (queueState.queue.length > 0) {
+          setCurrentIndex(0);
+          setShowAnswer(false);
+          flipAnimation.setValue(0);
+        }
+      }
+    });
+
+    // Get cards due for review
+    const now = new Date();
+    const dueCards = flashcards.filter(card => {
+      const progress = userProgress[card.id];
+      if (!progress) return true;
+      const nextReview = new Date(progress.next_review_at);
+      return nextReview <= now;
+    });
+
+    if (dueCards.length > 0) {
+      const cards = queueManagerRef.current.initialize(dueCards, userProgress);
+      const queueState = queueManagerRef.current.getQueueState();
+
+      setSessionCards(cards);
+      setCardCounts(queueState.counts);
+      setCurrentIndex(0);
+    } else {
+      setSessionCards([]);
+      setCardCounts({ new: 0, learning: 0, review: 0 });
+    }
+
+    setSessionInitialized(true);
+  }, [flashcards, userProgress, sessionInitialized]);
+
+  const flipCard = useCallback(() => {
+    Animated.spring(flipAnimation, {
+      toValue: showAnswer ? 0 : 1,
+      friction: 12,
+      tension: 40,
+      useNativeDriver: true,
+    }).start();
+    setShowAnswer(!showAnswer);
+  }, [showAnswer, flipAnimation]);
+
+  const handleRating = useCallback((rating) => {
+    if (currentIndex >= sessionCards.length || isProcessingAnswer || !queueManagerRef.current) return;
+
+    setIsProcessingAnswer(true);
+    const card = sessionCards[currentIndex];
+
+    // Calculate new schedule locally - prefer embedded cardProgress over localUserProgress
+    // because cardProgress is updated by the queue manager
+    const currentProgress = card.cardProgress || localUserProgress[card.id] || {
+      card_state: 'new',
+      ease_factor: DEFAULT_EASE_FACTOR,
+      interval_days: 0,
+      step_index: 0,
+      lapses: 0,
+      reviews_count: 0,
+    };
+
+    const ankiData = calculateAnkiSchedule(currentProgress, rating);
+
+    // Update local progress immediately
+    const updatedProgress = {
+      ...localUserProgress,
+      [card.id]: {
+        ...ankiData,
+        last_reviewed_at: new Date().toISOString(),
+      },
+    };
+    setLocalUserProgress(updatedProgress);
+
+    // Record answer to persistent storage (fire-and-forget)
+    recordAnswer(card.id, rating);
+
+    // Update queue manager
+    const newQueue = queueManagerRef.current.answerCard(card.id, ankiData);
+    const queueState = queueManagerRef.current.getQueueState();
+
+    // Slide out animation
+    Animated.timing(slideAnimation, {
+      toValue: -screenWidth,
+      duration: 250,
+      useNativeDriver: true,
+    }).start(() => {
+      // Update UI state after slide-out
+      setSessionCards(newQueue);
+      setCardCounts(queueState.counts);
+
+      if (newQueue.length > 0) {
+        // We have cards to show
+        setCurrentIndex(0);
+        setShowAnswer(false);
+        flipAnimation.setValue(0);
+
+        // Slide in next card
+        slideAnimation.setValue(screenWidth);
+        Animated.timing(slideAnimation, {
+          toValue: 0,
+          duration: 250,
+          useNativeDriver: true,
+        }).start(() => {
+          setTimeout(() => setIsProcessingAnswer(false), 100);
+        });
+      } else {
+        // Check if we truly have no more cards
+        const hasMoreCards = queueState.hasCardsInSession;
+
+        if (!hasMoreCards) {
+          // Session truly complete
+          setIsProcessingAnswer(false);
+          Alert.alert(
+            'Session Complete!',
+            'Great job! You\'ve finished all cards for now.',
+            [{ text: 'OK', onPress: () => navigation.goBack() }]
+          );
+        } else {
+          // We have waiting cards - they should automatically appear via timer
+          setIsProcessingAnswer(false);
+        }
+      }
+    });
+  }, [currentIndex, sessionCards, localUserProgress, recordAnswer, isProcessingAnswer, slideAnimation, flipAnimation, navigation]);
+
+  const handleRemoveCard = useCallback(() => {
+    if (currentIndex >= sessionCards.length) return;
+
+    const card = sessionCards[currentIndex];
+    setSettingsLoading(true);
+
+    setTimeout(() => {
+      removeFlashcard(card.id);
+      const newCards = sessionCards.filter((_, i) => i !== currentIndex);
+      setSessionCards(newCards);
+
+      if (newCards.length === 0) {
+        setSettingsLoading(false);
+        setShowSettingsModal(false);
+        navigation.goBack();
+      } else if (currentIndex >= newCards.length) {
+        setCurrentIndex(Math.max(0, newCards.length - 1));
+      }
+
+      setShowAnswer(false);
+      flipAnimation.setValue(0);
+      setSettingsLoading(false);
+      setShowSettingsModal(false);
+    }, 300);
+  }, [currentIndex, sessionCards, removeFlashcard, navigation, flipAnimation]);
+
+  const handleResetProgress = useCallback(() => {
+    if (currentIndex >= sessionCards.length) return;
+
+    const card = sessionCards[currentIndex];
+
+    Alert.alert(
+      'Reset Progress',
+      'This will reset the learning progress for this card. Continue?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Reset',
+          style: 'destructive',
+          onPress: () => {
+            resetCardProgress(card.id);
+            setShowSettingsModal(false);
+          },
+        },
+      ]
+    );
+  }, [currentIndex, sessionCards, resetCardProgress]);
+
+  const frontInterpolate = flipAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '180deg'],
+  });
+
+  const backInterpolate = flipAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['180deg', '360deg'],
+  });
+
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 16,
+      paddingTop: isSmallScreen ? 8 : 12,
+      paddingBottom: isSmallScreen ? 8 : 12,
+    },
+    headerButton: {
+      padding: 8,
+      borderRadius: 8,
+    },
+    headerTitle: {
+      fontSize: isSmallScreen ? 18 : 20,
+      fontWeight: '700',
+      color: theme.colors.text,
+    },
+    content: {
+      flex: 1,
+      paddingHorizontal: 20,
+    },
+    emptyContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: 32,
+    },
+    emptyIcon: {
+      marginBottom: 20,
+    },
+    emptyText: {
+      fontSize: 18,
+      color: theme.colors.textSecondary,
+      textAlign: 'center',
+      marginBottom: 24,
+      lineHeight: 26,
+    },
+    goBackButton: {
+      backgroundColor: theme.colors.primary,
+      paddingVertical: 14,
+      paddingHorizontal: 28,
+      borderRadius: 12,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 4,
+    },
+    goBackButtonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    cardContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      maxHeight: isSmallScreen ? screenHeight * 0.5 : isMediumScreen ? screenHeight * 0.55 : screenHeight * 0.6,
+    },
+    cardWrapper: {
+      width: screenWidth - 40,
+      height: isSmallScreen ? Math.min(screenHeight * 0.5, 350) :
+             isMediumScreen ? Math.min(screenHeight * 0.55, 420) :
+             Math.min(screenHeight * 0.6, 480),
+      maxHeight: screenHeight * 0.65,
+    },
+    card: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      borderRadius: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backfaceVisibility: 'hidden',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 8 },
+      shadowOpacity: 0.18,
+      shadowRadius: 16,
+      elevation: 12,
+      borderWidth: 0.5,
+      borderColor: 'rgba(0, 0, 0, 0.05)',
+    },
+    cardFront: {
+      backgroundColor: theme.colors.cardBackground,
+    },
+    cardBack: {
+      backgroundColor: theme.colors.primary,
+    },
+    cardContent: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: isSmallScreen ? 20 : 24,
+    },
+    arabicText: {
+      fontSize: isSmallScreen ? 42 : isMediumScreen ? 48 : 54,
+      fontWeight: 'bold',
+      color: theme.colors.text,
+      textAlign: 'center',
+      marginBottom: 16,
+    },
+    englishText: {
+      fontSize: isSmallScreen ? 28 : isMediumScreen ? 32 : 36,
+      fontWeight: '700',
+      color: '#fff',
+      textAlign: 'center',
+    },
+    tapHint: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+      fontStyle: 'italic',
+      position: 'absolute',
+      top: isSmallScreen ? 16 : 20,
+    },
+    ratingContainer: {
+      paddingVertical: isSmallScreen ? 12 : 16,
+      paddingHorizontal: 4,
+    },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    loadingText: {
+      marginTop: 16,
+      fontSize: 16,
+      color: theme.colors.textSecondary,
+    },
+  });
+
+  // Loading state
+  if (!sessionInitialized) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Flashcards</Text>
+          <View style={styles.headerButton} />
+        </View>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={theme.colors.primary} />
+          <Text style={styles.loadingText}>Loading flashcards...</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // No flashcards at all
+  if (flashcards.length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Flashcards</Text>
+          <View style={styles.headerButton} />
+        </View>
+        <View style={styles.emptyContainer}>
+          <Ionicons name="card-outline" size={80} color={theme.colors.textSecondary} style={styles.emptyIcon} />
+          <Text style={styles.emptyText}>
+            No flashcards yet.{'\n'}Read Bible chapters and save words to create flashcards.
+          </Text>
+          <TouchableOpacity
+            style={styles.goBackButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.goBackButtonText}>Go to Chapters</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // No cards due for review
+  if (sessionCards.length === 0) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Flashcards</Text>
+          <View style={styles.headerButton} />
+        </View>
+        <View style={styles.emptyContainer}>
+          <Ionicons name="checkmark-circle-outline" size={80} color="#34C759" style={styles.emptyIcon} />
+          <Text style={styles.emptyText}>
+            All caught up!{'\n'}No cards due for review right now.{'\n'}Check back later or add more words.
+          </Text>
+          <TouchableOpacity
+            style={styles.goBackButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.goBackButtonText}>Go Back</Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  const currentCard = sessionCards[currentIndex];
+
+  // Safety check
+  if (!currentCard) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
+            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>Flashcards</Text>
+          <View style={styles.headerButton} />
+        </View>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={theme.colors.primary} />
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  // Get the current card's progress for the rating buttons
+  const currentCardProgress = currentCard.cardProgress || localUserProgress[currentCard.id] || {
+    card_state: 'new',
+    ease_factor: DEFAULT_EASE_FACTOR,
+    interval_days: 0,
+    step_index: 0,
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
+          <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>Flashcards</Text>
+        <TouchableOpacity style={styles.headerButton} onPress={() => setShowSettingsModal(true)}>
+          <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.content}>
+        {/* Anki-style Card Counts */}
+        <AnkiCardCounts counts={cardCounts} />
+
+        {/* Card */}
+        <TouchableOpacity
+          style={styles.cardContainer}
+          onPress={flipCard}
+          activeOpacity={1}
+        >
+          <Animated.View
+            style={[
+              styles.cardWrapper,
+              { transform: [{ translateX: slideAnimation }] }
+            ]}
+          >
+            <Animated.View
+              style={[
+                styles.card,
+                styles.cardFront,
+                { transform: [{ rotateY: frontInterpolate }] },
+              ]}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.tapHint}>Tap to flip</Text>
+                <Text style={styles.arabicText}>{currentCard.arabic}</Text>
+              </View>
+            </Animated.View>
+
+            <Animated.View
+              style={[
+                styles.card,
+                styles.cardBack,
+                { transform: [{ rotateY: backInterpolate }] },
+              ]}
+            >
+              <View style={styles.cardContent}>
+                <Text style={styles.englishText}>{currentCard.english}</Text>
+              </View>
+            </Animated.View>
+          </Animated.View>
+        </TouchableOpacity>
+
+        {/* Progress Indicator */}
+        <ProgressIndicator
+          currentIndex={currentIndex}
+          totalCards={sessionCards.length}
+        />
+
+        {/* Rating Buttons */}
+        <View style={styles.ratingContainer}>
+          <AnkiRatingButtons
+            onRatingPress={handleRating}
+            currentCard={currentCard}
+            cardProgress={currentCardProgress}
+            disabled={isProcessingAnswer}
+          />
+        </View>
+      </View>
+
+      {/* Quick Settings Modal */}
+      <QuickSettingsModal
+        visible={showSettingsModal}
+        onClose={() => setShowSettingsModal(false)}
+        currentCard={currentCard}
+        onRemoveCard={handleRemoveCard}
+        onResetProgress={handleResetProgress}
+        settingsLoading={settingsLoading}
+      />
+    </SafeAreaView>
+  );
+}
