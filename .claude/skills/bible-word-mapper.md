@@ -123,6 +123,38 @@ Each verse object contains:
 
 6. **Batch process**: Do 5-10 verses at once, write all mappings, then next batch
 
+## Critical Semantic Rules
+
+### MUST Group These Phrases Together
+
+| Arabic | English | Reason |
+|--------|---------|--------|
+| إِلّا إِذَا | "unless" | Conditional exception (NEVER split) |
+| غَيْرَ أَنَّ | "But/However" | Adversative conjunction |
+| لَا يَقْدِرُ أَحَدٌ | "no one could" | Negation phrase |
+| لَا يُمْكِنُ أَحَدٌ | "no one can" | Negation phrase |
+| مَا دَامَ | "as long as" | Temporal idiom |
+| حَتَّى لَوْ | "even if" | Concessive |
+| بِمَا أَنَّ | "since/because" | Causal |
+
+### Preposition Accuracy - CRITICAL
+
+**These are NOT interchangeable:**
+
+| Arabic | CORRECT | WRONG |
+|--------|---------|-------|
+| فِي | "in" | ❌ "of" |
+| مِنْ | "from" | (can be "of" in genitive only) |
+| عَلَى | "on/upon" | ❌ "in" |
+| إِلَى | "to/toward" | ❌ "for" |
+
+### Common Mistakes to Avoid
+
+1. **Splitting negation**: لَا...أَحَدٌ = "no one" (not "no" + "one")
+2. **Wrong preposition**: فِي means "IN", never "of"
+3. **Breaking idioms**: إِلّا إِذَا is ONE phrase meaning "unless"
+4. **Missing words**: Every Arabic word must be mapped
+
 ## Example - Complete Verse Mapping
 
 ```
