@@ -15,7 +15,6 @@ import { useTheme } from '../context/ThemeContext';
 import { useFlashcards } from '../context/FlashcardContext';
 import { AnkiCardCounts } from './components/AnkiCardCounts';
 import { AnkiRatingButtons } from './components/AnkiRatingButtons';
-import { ProgressIndicator } from './components/ProgressIndicator';
 import { QuickSettingsModal } from './components/QuickSettingsModal';
 import { LocalQueueManager } from '../../Flashcards/utils/localQueueManager';
 import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../Flashcards/utils/ankiScheduler';
@@ -573,12 +572,6 @@ export default function FlashcardScreen({ navigation }) {
             </Animated.View>
           </Animated.View>
         </TouchableOpacity>
-
-        {/* Progress Indicator */}
-        <ProgressIndicator
-          currentIndex={currentIndex}
-          totalCards={sessionCards.length}
-        />
 
         {/* Rating Buttons */}
         <View style={styles.ratingContainer}>

@@ -7,6 +7,12 @@ import { useTheme } from '../context/ThemeContext';
 // Run: node scripts/generate-book-imports.js
 const BOOKS = [
   {
+    id: 'GEN',
+    name: 'Genesis',
+    arabicName: 'التكوين',
+    chapters: [1, 2, 3, 4, 5]
+  },
+  {
     id: 'MAT',
     name: 'Matthew',
     arabicName: 'متى',
@@ -16,21 +22,29 @@ const BOOKS = [
     id: 'MRK',
     name: 'Mark',
     arabicName: 'مرقس',
-    chapters: [1, 2, 3, 5, 6]
+    chapters: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   },
   {
     id: 'JHN',
     name: 'John',
     arabicName: 'يوحنا',
     chapters: [2, 3]
+  },
+  {
+    id: 'PHP',
+    name: 'Philippians',
+    arabicName: 'فيلبي',
+    chapters: [1, 2, 3, 4]
   }
 ];
 
 // Book name mapping for Arabic titles
 const BOOK_ARABIC_NAMES = {
+  'GEN': 'التكوين',
   'MAT': 'متى',
   'MRK': 'مرقس',
-  'JHN': 'يوحنا'
+  'JHN': 'يوحنا',
+  'PHP': 'فيلبي'
 };
 
 // Transform function moved to be called on-demand
@@ -81,6 +95,15 @@ const loadChapterData = async (book, chapter) => {
 
   if (false) {
     // placeholder
+  } else if (book === 'GEN') {
+    bookName = 'Genesis';
+    switch (chapter) {
+      case 1: rawData = require('../../bible-translations/mappings/GEN/1.json'); break;
+      case 2: rawData = require('../../bible-translations/mappings/GEN/2.json'); break;
+      case 3: rawData = require('../../bible-translations/mappings/GEN/3.json'); break;
+      case 4: rawData = require('../../bible-translations/mappings/GEN/4.json'); break;
+      case 5: rawData = require('../../bible-translations/mappings/GEN/5.json'); break;
+    }
   } else if (book === 'MAT') {
     bookName = 'Matthew';
     switch (chapter) {
@@ -96,14 +119,27 @@ const loadChapterData = async (book, chapter) => {
       case 1: rawData = require('../../bible-translations/mappings/MRK/1.json'); break;
       case 2: rawData = require('../../bible-translations/mappings/MRK/2.json'); break;
       case 3: rawData = require('../../bible-translations/mappings/MRK/3.json'); break;
+      case 4: rawData = require('../../bible-translations/mappings/MRK/4.json'); break;
       case 5: rawData = require('../../bible-translations/mappings/MRK/5.json'); break;
       case 6: rawData = require('../../bible-translations/mappings/MRK/6.json'); break;
+      case 7: rawData = require('../../bible-translations/mappings/MRK/7.json'); break;
+      case 8: rawData = require('../../bible-translations/mappings/MRK/8.json'); break;
+      case 9: rawData = require('../../bible-translations/mappings/MRK/9.json'); break;
+      case 10: rawData = require('../../bible-translations/mappings/MRK/10.json'); break;
     }
   } else if (book === 'JHN') {
     bookName = 'John';
     switch (chapter) {
       case 2: rawData = require('../../bible-translations/mappings/JHN/2.json'); break;
       case 3: rawData = require('../../bible-translations/mappings/JHN/3.json'); break;
+    }
+  } else if (book === 'PHP') {
+    bookName = 'Philippians';
+    switch (chapter) {
+      case 1: rawData = require('../../bible-translations/mappings/PHP/1.json'); break;
+      case 2: rawData = require('../../bible-translations/mappings/PHP/2.json'); break;
+      case 3: rawData = require('../../bible-translations/mappings/PHP/3.json'); break;
+      case 4: rawData = require('../../bible-translations/mappings/PHP/4.json'); break;
     }
   }
 
