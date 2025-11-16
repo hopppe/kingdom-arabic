@@ -218,21 +218,95 @@ def print_summary(results):
     print(f"Total issues found: {total_issues}")
     return total_issues
 
+def validate_multiple_books(books):
+    """Validate multiple books and return combined results."""
+    mappings_dir = Path("bible-translations/mappings")
+    all_results = {}
+
+    for book in books:
+        book_dir = mappings_dir / book
+        if book_dir.exists():
+            all_results[book] = validate_book(book_dir)
+        else:
+            print(f"Warning: Book directory not found: {book_dir}")
+
+    return all_results
+
+def print_multi_book_summary(all_results):
+    """Print summary for multiple books."""
+    grand_total_issues = 0
+    books_with_issues = []
+
+    for book, results in all_results.items():
+        book_issues = 0
+        chapters_with_issues = 0
+
+        for chapter_result in results:
+            if chapter_result["verses_with_issues"] > 0:
+                chapters_with_issues += 1
+                for verse_issues in chapter_result["verse_issues"].values():
+                    book_issues += len(verse_issues)
+
+        if book_issues > 0:
+            books_with_issues.append((book, chapters_with_issues, book_issues))
+            grand_total_issues += book_issues
+
+    print(f"\n{'='*60}")
+    print("MULTI-BOOK VALIDATION SUMMARY")
+    print(f"{'='*60}")
+
+    if books_with_issues:
+        print("\nBooks with issues:")
+        for book, chapters, issues in sorted(books_with_issues, key=lambda x: -x[2]):
+            print(f"  {book}: {issues} issues across {chapters} chapters")
+
+        print(f"\n{'─'*60}")
+        print(f"Total issues: {grand_total_issues}")
+
+        # Show detailed breakdown per book
+        print(f"\n{'='*60}")
+        print("DETAILED BREAKDOWN BY BOOK")
+        print(f"{'='*60}")
+
+        for book, results in all_results.items():
+            print_summary(results)
+    else:
+        print("\nAll books validated successfully!")
+
+    return grand_total_issues
+
 def main():
     if len(sys.argv) < 2:
         print("Usage:")
         print("  python validate_mappings.py <BOOK>              # Validate entire book")
         print("  python validate_mappings.py <BOOK> <CHAPTER>    # Validate single chapter")
+        print("  python validate_mappings.py <BOOK1> <BOOK2> ... # Validate multiple books")
+        print("  python validate_mappings.py --all               # Validate all mapped books")
         print("\nExample:")
         print("  python validate_mappings.py MRK")
         print("  python validate_mappings.py JHN 3")
+        print("  python validate_mappings.py MRK JHN MAT LUK")
+        print("  python validate_mappings.py --all")
         sys.exit(1)
 
-    book = sys.argv[1]
     mappings_dir = Path("bible-translations/mappings")
 
-    if len(sys.argv) == 3:
-        # Validate single chapter
+    # Check for --all flag
+    if sys.argv[1] == "--all":
+        # Get all book directories
+        books = sorted([d.name for d in mappings_dir.iterdir() if d.is_dir()])
+        if not books:
+            print("No mapped books found")
+            sys.exit(1)
+        print(f"Validating all {len(books)} books: {', '.join(books)}")
+        all_results = validate_multiple_books(books)
+        print_multi_book_summary(all_results)
+        return
+
+    # Check if second arg is a chapter number or another book
+    if len(sys.argv) == 3 and sys.argv[2].isdigit():
+        # Single chapter validation
+        book = sys.argv[1]
         chapter = sys.argv[2]
         filepath = mappings_dir / book / f"{chapter}.json"
 
@@ -250,8 +324,9 @@ def main():
                 print(f"\nVerse {verse_num}:")
                 for issue in issues:
                     print(f"  - {issue}")
-    else:
-        # Validate entire book
+    elif len(sys.argv) == 2:
+        # Single book validation
+        book = sys.argv[1]
         book_dir = mappings_dir / book
 
         if not book_dir.exists():
@@ -263,6 +338,12 @@ def main():
 
         if total_issues == 0:
             print("All mappings validated successfully!")
+    else:
+        # Multiple books validation
+        books = sys.argv[1:]
+        print(f"Validating {len(books)} books: {', '.join(books)}")
+        all_results = validate_multiple_books(books)
+        print_multi_book_summary(all_results)
 
 if __name__ == "__main__":
     main()

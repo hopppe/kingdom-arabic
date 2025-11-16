@@ -26,17 +26,17 @@ When this command is invoked, launch parallel Task agents to process each chapte
    - Extract chapter numbers from filenames (e.g., "1.json" → 1, "2.json" → 2)
    - Sort chapters numerically
 
-2. **IMPORTANT: Maximum 10 chapters at a time**
-   - If more than 10 chapters need mapping, only process the FIRST 10
+2. **IMPORTANT: Maximum 20 chapters at a time**
+   - If more than 20 chapters need mapping, only process the FIRST 20
    - Inform the user how many remain and they can run the command again for the next batch
-   - Example: "Mapping GEN chapters 1-10. Run again for chapters 11-20."
+   - Example: "Mapping GEN chapters 1-20. Run again for chapters 21-40."
 
 3. For each chapter, launch a Task agent with:
    - `subagent_type`: "general-purpose"
    - `description`: "Map {BOOK} chapter {CHAPTER}"
    - `prompt`: The detailed mapping instructions below
 
-4. **IMPORTANT**: Launch ALL agents (up to 10) in a SINGLE message with multiple Task tool calls to ensure parallel execution.
+4. **IMPORTANT**: Launch ALL agents (up to 20) in a SINGLE message with multiple Task tool calls to ensure parallel execution.
 
 ## Agent Prompt Template
 
@@ -118,14 +118,14 @@ Launch THREE Task agents in parallel (single message, multiple tool calls):
 2. Task agent for JHN chapter 2
 3. Task agent for JHN chapter 3
 
-### Example 2: Entire book (small book)
-When user runs: `/map-bible-chapters MRK`
+### Example 2: Entire book (medium book)
+When user runs: `/map-bible-chapters MAT`
 
-1. List files in `/Users/ethanhoppe/Documents/Cursor_Code/LearnArabic/bible-translations/unified/MRK/`
-2. Find: 1.json, 2.json, ..., 16.json (16 chapters total)
-3. Since 16 > 10, only process chapters 1-10
-4. Inform user: "Mapping MRK chapters 1-10 (10 of 16). Run `/map-bible-chapters MRK 11,12,13,14,15,16` for remaining chapters."
-5. Launch 10 Task agents in parallel
+1. List files in `/Users/ethanhoppe/Documents/Cursor_Code/LearnArabic/bible-translations/unified/MAT/`
+2. Find: 1.json, 2.json, ..., 28.json (28 chapters total)
+3. Since 28 > 20, only process chapters 1-20
+4. Inform user: "Mapping MAT chapters 1-20 (20 of 28). Run `/map-bible-chapters MAT 21,22,23,24,25,26,27,28` for remaining chapters."
+5. Launch 20 Task agents in parallel
 
 ### Example 3: Entire book (small book, fits in one batch)
 When user runs: `/map-bible-chapters JUD`
