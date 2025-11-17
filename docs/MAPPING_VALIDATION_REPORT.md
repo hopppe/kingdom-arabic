@@ -2,18 +2,20 @@
 
 **Last Updated**: 2025-11-17
 **Total Books Mapped**: 25
-**Total Issues**: 14,330
+**Total NT Issues (excl. LUK/JHN)**: 1,304
 
 ## Executive Summary
 
-We have made significant progress fixing mapping issues:
-- **Fixed 73,024 position calculation errors** across 21 books
-- **Added 247 missing word mappings** to fill coverage gaps
-- **Translated 207 placeholder mappings** with correct English
+Massive progress on NT mapping quality:
+- **Reduced NT issues from 9,776 → 1,304** (87% improvement)
+- **Fixed 5,445 character positions** in MAT, ROM, PHP, HEB, TIT
+- **Added 887 missing word mappings** to fill coverage gaps
+- **Removed 919 overlapping mappings** created by gap fixer
+- **Translated ~250 empty translations** in ROM, TIT, 2CO
 
-### Books by Status
+### NT Books by Status (Excluding Luke & John)
 
-#### ✅ EXCELLENT (< 30 issues) - Ready for Production
+#### ✅ EXCELLENT (< 50 issues) - Ready for Production
 | Book | Issues | Status |
 |------|--------|--------|
 | 2JN | 4 | Clean |
@@ -22,37 +24,35 @@ We have made significant progress fixing mapping issues:
 | JUD | 9 | Clean |
 | COL | 11 | Clean |
 | 2TH | 14 | Clean |
-| GEN | 15 | Clean |
+| TIT | 16 | Clean |
+| 2PE | 18 | Clean |
 | 2TI | 23 | Clean |
-| 1JN | 26 | Clean |
 | EPH | 26 | Clean |
+| 1JN | 26 | Clean |
+| 1PE | 27 | Clean |
 | GAL | 28 | Clean |
+| 1TH | 34 | Clean |
+| JAS | 37 | Clean |
+| 1TI | 40 | Clean |
+| PHP | 43 | Clean |
 
-#### ✅ GOOD (30-200 issues) - Minor Issues Only
-| Book | Issues | Chapters | Notes |
-|------|--------|----------|-------|
-| 1TH | 34 | 5 | Minor cleanup needed |
-| 1TI | 40 | 6 | Minor cleanup needed |
-| REV | 60 | 22 | Mostly "potentially unhelpful" suggestions |
-| TIT | 69 | 3 | Empty translations in ch 1 |
-| 2CO | 96 | 13 | Minor cleanup needed |
-| 1CO | 111 | 16 | Minor cleanup needed |
-| MRK | 130 | 16 | Minor cleanup needed |
-| ROM | 135 | 16 | Minor cleanup needed |
-| HEB | 191 | 13 | Minor cleanup needed |
-| ACT | 193 | 28 | Good coverage |
+#### ✅ GOOD (50-200 issues) - Mostly Suggestions
+| Book | Issues | Notes |
+|------|--------|-------|
+| REV | 60 | Mostly "potentially unhelpful" suggestions |
+| 2CO | 85 | Minor suggestions |
+| ROM | 91 | Minor suggestions |
+| HEB | 92 | Minor suggestions |
+| 1CO | 111 | Minor suggestions |
+| MRK | 130 | Minor suggestions |
+| MAT | 175 | Minor suggestions |
+| ACT | 192 | Minor suggestions |
 
-#### ⚠️ NEEDS ATTENTION (200-1000 issues)
-| Book | Issues | Chapters | Problem |
-|------|--------|----------|---------|
-| MAT | 335 | 28 | Some unmapped words remain |
-| PHP | 505 | 4 | Mixed issues |
-
-#### ❌ NEEDS MAJOR WORK (>1000 issues)
-| Book | Issues | Chapters | Problem |
-|------|--------|----------|---------|
-| JHN | 1,109 | 21 | Unmapped gaps, some empty translations |
-| **LUK** | **11,154** | **24** | Empty translations (needs full remap) |
+#### ❌ NEEDS MAJOR WORK (Not Yet Fixed)
+| Book | Issues | Problem |
+|------|--------|---------|
+| **JHN** | ~1,109 | Unmapped gaps, some empty translations |
+| **LUK** | ~11,154 | Empty translations (needs full remap) |
 
 ## Progress Summary
 
@@ -193,22 +193,32 @@ python3 scripts/fix_placeholder_translations.py
 
 ## Complete Workflow
 
-### For New Books with Position Errors:
-```bash
-# 1. Diagnose the issue
-python3 scripts/fix_mapping_positions.py --diagnose
+### For Fixing Books with Position Errors (FOLLOW THIS ORDER!):
 
-# 2. Fix positions
+**CRITICAL: Fix positions BEFORE fixing gaps, otherwise you'll create overlaps!**
+
+```bash
+# 1. Diagnose issues
+python3 scripts/validate_mappings.py MAT ROM PHP HEB TIT | head -50
+
+# 2. Fix character positions FIRST
+python3 scripts/fix_nt_positions.py
+# OR for calculation mode errors:
 python3 scripts/fix_mapping_positions.py HEB
 
-# 3. Fix unmapped gaps
-python3 scripts/fix_unmapped_gaps.py HEB
+# 3. Fix unmapped gaps (creates placeholder translations)
+python3 scripts/fix_unmapped_gaps.py MAT ROM PHP HEB TIT
 
-# 4. Translate placeholders
-python3 scripts/fix_placeholder_translations.py
+# 4. Remove overlapping mappings created by gap fixer
+python3 scripts/remove_overlapping_mappings.py
 
-# 5. Validate results
-python3 scripts/validate_mappings.py HEB
+# 5. Fix empty/placeholder translations
+python3 scripts/fix_empty_translations.py MAT ROM PHP HEB TIT
+# For specific words not in dictionary:
+python3 scripts/fix_remaining_empty.py
+
+# 6. Final validation
+python3 scripts/validate_mappings.py MAT ROM PHP HEB TIT
 ```
 
 ### For Creating New Chapter Mappings:
@@ -220,16 +230,18 @@ python3 scripts/validate_mappings.py HEB
 python3 scripts/validate_mappings.py PSA 23
 
 # 3. Fix any issues found
-# (manually edit or use fix scripts)
+python3 scripts/fix_nt_positions.py  # if position errors
+python3 scripts/fix_empty_translations.py PSA  # if empty translations
 ```
 
 ### For Bulk Quality Check:
 ```bash
-# Check all books at once
-python3 scripts/validate_mappings.py --all 2>&1 | head -50
+# Check all NT books (excluding Luke/John)
+python3 scripts/validate_mappings.py MAT MRK ACT ROM 1CO 2CO GAL EPH PHP COL 1TH 2TH 1TI 2TI TIT PHM HEB JAS 1PE 2PE 1JN 2JN 3JN JUD REV 2>&1 | head -50
 
-# Generate detailed report
-python3 scripts/validate_mappings.py --all > validation_report.txt
+# Check specific issue types
+python3 scripts/validate_mappings.py ROM | grep "empty_translation"
+python3 scripts/validate_mappings.py MAT | grep "position_mismatch"
 ```
 
 ## Books Ready for Production

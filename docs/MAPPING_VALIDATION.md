@@ -177,17 +177,62 @@ This will report issues across all chapters with a summary.
 
 ## Fixing Issues
 
-### Position Mismatch
-Recalculate character positions by counting from start of Arabic string.
+**IMPORTANT: Follow this exact order to avoid creating new issues!**
 
-### Unmapped Gap
-Add a mapping for the missing Arabic word. Ensure positions are continuous.
+### Step 1: Fix Character Positions FIRST
+Position mismatches MUST be fixed before anything else. If positions are wrong, gap detection will be incorrect.
 
-### Wrong Preposition
+```bash
+# Check if book has position issues
+python3 scripts/validate_mappings.py MAT | grep "position_mismatch"
+
+# Fix positions by finding actual word locations in text
+python3 scripts/fix_nt_positions.py  # For NT books
+# OR use fix_mapping_positions.py for calculation mode errors
+```
+
+### Step 2: Fix Unmapped Gaps
+Only after positions are correct, add mappings for unmapped words.
+
+```bash
+python3 scripts/fix_unmapped_gaps.py MAT ROM PHP
+```
+
+**Warning**: This creates placeholder translations `[word]` that need filling in later.
+
+### Step 3: Remove Overlapping Mappings
+Gap fixer may create mappings that overlap with existing ones. Clean them up:
+
+```bash
+python3 scripts/remove_overlapping_mappings.py
+```
+
+### Step 4: Fix Empty/Placeholder Translations
+Fill in actual English translations for placeholders:
+
+```bash
+python3 scripts/fix_empty_translations.py MAT ROM
+# OR use fix_remaining_empty.py for specific words
+```
+
+### Step 5: Final Validation
+Verify all fixes:
+
+```bash
+python3 scripts/validate_mappings.py MAT ROM
+```
+
+Remaining issues should be mostly "potentially_unhelpful" (suggestions, not errors).
+
+---
+
+### Manual Fixes
+
+#### Wrong Preposition
 Edit the English translation:
 - فِي الْمَجْلِسِ → "in the council" (not "of the council")
 
-### Split Phrase
+#### Split Phrase
 Combine the mappings:
 ```json
 // WRONG
@@ -207,9 +252,56 @@ A good mapping should:
 - ✅ Group semantic phrases together
 - ✅ Provide meaningful translations for learners
 
+## Available Scripts
+
+### Validation Scripts
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `validate_mappings.py` | Check for all issues | `python3 scripts/validate_mappings.py MAT ROM` |
+| `spot_check_mappings.py` | Visual inspection | `python3 scripts/spot_check_mappings.py JHN 3 16` |
+
+### Fix Scripts (Use in Order!)
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `fix_nt_positions.py` | Fix character positions by finding words in text | `python3 scripts/fix_nt_positions.py` |
+| `fix_mapping_positions.py` | Fix off-by-1 calculation errors | `python3 scripts/fix_mapping_positions.py HEB` |
+| `fix_unmapped_gaps.py` | Add mappings for unmapped Arabic words | `python3 scripts/fix_unmapped_gaps.py MAT ROM` |
+| `remove_overlapping_mappings.py` | Remove duplicate/overlapping mappings | `python3 scripts/remove_overlapping_mappings.py` |
+| `fix_empty_translations.py` | Fill empty translations from dictionary | `python3 scripts/fix_empty_translations.py ROM TIT` |
+| `fix_remaining_empty.py` | Fill specific empty translations | `python3 scripts/fix_remaining_empty.py` |
+| `fix_placeholder_translations.py` | Translate `[word]` placeholders | `python3 scripts/fix_placeholder_translations.py` |
+
+### Diagnostic Scripts
+| Script | Purpose | Usage |
+|--------|---------|-------|
+| `fix_mapping_positions.py --diagnose` | Check calculation mode | `python3 scripts/fix_mapping_positions.py --diagnose` |
+
+## Complete Fix Workflow Example
+
+```bash
+# 1. Diagnose issues
+python3 scripts/validate_mappings.py MAT ROM PHP HEB TIT
+
+# 2. Fix positions FIRST (critical!)
+python3 scripts/fix_nt_positions.py
+
+# 3. Fill unmapped gaps
+python3 scripts/fix_unmapped_gaps.py MAT ROM PHP HEB TIT
+
+# 4. Remove overlaps created by gap fixer
+python3 scripts/remove_overlapping_mappings.py
+
+# 5. Fix empty translations
+python3 scripts/fix_empty_translations.py MAT ROM PHP HEB TIT
+
+# 6. Validate results
+python3 scripts/validate_mappings.py MAT ROM PHP HEB TIT
+```
+
 ## File Locations
 
 - **Validation scripts**: `scripts/validate_mappings.py`, `scripts/spot_check_mappings.py`
+- **Fix scripts**: `scripts/fix_*.py`
 - **Mapping data**: `bible-translations/mappings/<BOOK>/<CHAPTER>.json`
 - **Source text**: `bible-translations/unified/<BOOK>/<CHAPTER>.json`
 - **Validation command**: `.claude/commands/validate-bible-mappings.md`
