@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   InteractionManager,
   ActivityIndicator,
+  Linking,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
@@ -39,7 +40,9 @@ export default function BibleReaderScreen({ navigation }) {
   const [activeWord, setActiveWord] = useState(null);
   const [savedWords, setSavedWords] = useState([]);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const wordTapInProgress = useRef(false);
+  const dismissTimeoutRef = useRef(null);
 
   const getCurrentBookName = () => {
     return getBookName(currentBook);
@@ -78,15 +81,20 @@ export default function BibleReaderScreen({ navigation }) {
       marginRight: 4,
     },
     flashcardsButton: {
-      padding: 8,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 8,
+      paddingHorizontal: 12,
       borderRadius: 20,
       backgroundColor: theme.colors.surface,
       borderWidth: 1,
       borderColor: theme.colors.border,
-      minWidth: 36,
-      minHeight: 36,
-      alignItems: 'center',
-      justifyContent: 'center',
+    },
+    flashcardsButtonText: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: theme.colors.text,
+      marginLeft: 4,
     },
     headerRightButtons: {
       flexDirection: 'row',
@@ -182,7 +190,7 @@ export default function BibleReaderScreen({ navigation }) {
       fontWeight: '500',
     },
     activeWordContainer: {
-      backgroundColor: '#FFF9C4',
+      backgroundColor: 'transparent',
     },
     activeWordText: {
       color: theme.colors.text,
@@ -198,6 +206,7 @@ export default function BibleReaderScreen({ navigation }) {
       color: theme.colors.text,
       fontWeight: '600',
       textAlign: 'center',
+      flexShrink: 0,
     },
     verseNumber: {
       fontSize: 14,
@@ -480,6 +489,95 @@ export default function BibleReaderScreen({ navigation }) {
       fontSize: 16,
       color: theme.colors.textSecondary,
     },
+    settingsModalOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    settingsModalContent: {
+      backgroundColor: theme.colors.background,
+      borderRadius: 16,
+      padding: 24,
+      marginHorizontal: 32,
+      maxWidth: 400,
+      width: '85%',
+    },
+    settingsModalTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: theme.colors.text,
+      textAlign: 'center',
+      marginBottom: 16,
+    },
+    settingsModalText: {
+      fontSize: 16,
+      color: theme.colors.text,
+      textAlign: 'center',
+      lineHeight: 24,
+      marginBottom: 24,
+    },
+    settingsModalButton: {
+      paddingVertical: 12,
+      paddingHorizontal: 24,
+      borderRadius: 12,
+      backgroundColor: theme.colors.primary,
+      alignItems: 'center',
+    },
+    settingsModalButtonText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#fff',
+    },
+    venmoButton: {
+      paddingVertical: 12,
+      paddingHorizontal: 24,
+      borderRadius: 12,
+      backgroundColor: '#008CFF',
+      alignItems: 'center',
+      marginBottom: 12,
+    },
+    venmoButtonText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#fff',
+    },
+    paypalButton: {
+      paddingVertical: 12,
+      paddingHorizontal: 24,
+      borderRadius: 12,
+      backgroundColor: '#003087',
+      alignItems: 'center',
+      marginBottom: 12,
+    },
+    paypalButtonText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: '#fff',
+    },
+    feedbackSection: {
+      marginTop: 16,
+      marginBottom: 16,
+      paddingTop: 16,
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.border,
+      alignItems: 'center',
+    },
+    feedbackLabel: {
+      fontSize: 14,
+      color: theme.colors.textSecondary,
+      marginBottom: 8,
+      textAlign: 'center',
+    },
+    emailLink: {
+      padding: 8,
+      alignSelf: 'center',
+    },
+    emailText: {
+      fontSize: 16,
+      color: theme.colors.primary,
+      textDecorationLine: 'underline',
+    },
   }), [theme]);
 
   // Load chapter data
@@ -536,46 +634,42 @@ export default function BibleReaderScreen({ navigation }) {
     return bookObj.chapters.indexOf(currentChapter) < bookObj.chapters.length - 1;
   };
 
-  // Smart tooltip positioning based on translation length
-  const getTooltipStyle = useCallback((translation) => {
-    const estimatedWidth = Math.min(
-      Math.max(translation.length * 10 + 24, 120),
-      screenWidth * 0.7
-    );
-
-    const centerOffset = -estimatedWidth / 2;
-
+  // Smart tooltip positioning - centered over word
+  const getTooltipStyle = useCallback(() => {
     return {
       position: 'absolute',
-      bottom: '100%',
+      bottom: 36,
       left: '50%',
-      marginLeft: centerOffset,
+      transform: [{ translateX: '-50%' }],
       backgroundColor: theme.colors.surface,
       paddingHorizontal: 12,
-      paddingVertical: 8,
+      paddingVertical: 6,
       borderRadius: 8,
-      marginBottom: 2,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.25,
       shadowRadius: 4,
       elevation: 5,
       zIndex: 9999,
-      minWidth: 100,
-      maxWidth: screenWidth * 0.7,
-      alignItems: 'center',
-      justifyContent: 'center',
     };
   }, [theme.colors.surface]);
 
   const handleGlobalTap = () => {
-    if (wordTapInProgress.current) {
-      wordTapInProgress.current = false;
-      return;
+    // Clear any existing timeout
+    if (dismissTimeoutRef.current) {
+      clearTimeout(dismissTimeoutRef.current);
     }
-    if (activeWord) {
-      setActiveWord(null);
-    }
+
+    // Use a short delay to allow word press to set the flag first
+    dismissTimeoutRef.current = setTimeout(() => {
+      if (wordTapInProgress.current) {
+        wordTapInProgress.current = false;
+        return;
+      }
+      if (activeWord) {
+        setActiveWord(null);
+      }
+    }, 50);
   };
 
   // Memoize the translation lookup function
@@ -594,7 +688,7 @@ export default function BibleReaderScreen({ navigation }) {
     return null;
   }, [chapter]);
 
-  const handleWordPress = (word, verseIndex, event) => {
+  const handleWordPress = useCallback((word, verseIndex, event) => {
     if (event) {
       event.stopPropagation();
     }
@@ -610,7 +704,12 @@ export default function BibleReaderScreen({ navigation }) {
     if (activeWord?.id === wordId) {
       setActiveWord(null);
     } else {
-      setActiveWord({ id: wordId, word, translation, verseIndex });
+      setActiveWord({
+        id: wordId,
+        word,
+        translation,
+        verseIndex
+      });
 
       const exists = savedWords.some(w => w.word === word && w.translation === translation);
       if (!exists) {
@@ -620,11 +719,13 @@ export default function BibleReaderScreen({ navigation }) {
           book: currentBook,
           chapter: currentChapter,
           verse: verseIndex + 1,
+          verseTextArabic: chapter?.data?.content_arabic?.[verseIndex] || '',
+          verseTextEnglish: chapter?.data?.content_english?.[verseIndex] || '',
           timestamp: Date.now()
         }, ...savedWords]);
       }
     }
-  };
+  }, [findTranslation, activeWord, savedWords, currentBook, currentChapter, chapter]);
 
   const handleAddToFlashcards = () => {
     if (savedWords.length === 0) {
@@ -662,7 +763,7 @@ export default function BibleReaderScreen({ navigation }) {
     return (
       <View key={wordIndex} style={styles.wordWrapper}>
         {isActive && translation && (
-          <View style={getTooltipStyle(translation)}>
+          <View style={getTooltipStyle()}>
             <Text style={styles.tooltipText}>{translation}</Text>
           </View>
         )}
@@ -807,7 +908,8 @@ export default function BibleReaderScreen({ navigation }) {
               style={styles.flashcardsButton}
               onPress={() => navigation.navigate('Flashcards')}
             >
-              <Ionicons name="albums-outline" size={20} color={theme.colors.text} />
+              <Ionicons name="albums-outline" size={18} color={theme.colors.text} />
+              <Text style={styles.flashcardsButtonText}>Flashcards</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -840,12 +942,14 @@ export default function BibleReaderScreen({ navigation }) {
             style={styles.flashcardsButton}
             onPress={() => navigation.navigate('Flashcards')}
           >
-            <Ionicons name="albums-outline" size={20} color={theme.colors.text} />
+            <Ionicons name="albums-outline" size={18} color={theme.colors.text} />
+            <Text style={styles.flashcardsButtonText}>Flashcards</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             style={[styles.translationButton, showTranslations && styles.headerButtonActive]}
             onPress={() => setShowTranslations(!showTranslations)}
+            activeOpacity={1}
           >
             <Ionicons
               name={showTranslations ? "eye-off" : "eye"}
@@ -855,26 +959,29 @@ export default function BibleReaderScreen({ navigation }) {
           </TouchableOpacity>
 
           <TouchableOpacity
-            style={styles.wordsCountButton}
-            onPress={() => setShowSavedPanel(true)}
+            style={styles.translationButton}
+            onPress={() => setShowSettingsModal(true)}
           >
-            <Text style={styles.wordsCountText}>+ ({savedWords.length})</Text>
+            <Ionicons name="settings-outline" size={20} color={theme.colors.text} />
           </TouchableOpacity>
         </View>
       </View>
 
-      <TouchableWithoutFeedback onPress={handleGlobalTap}>
-        <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
-          <View style={styles.storyContent}>
-            <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
-            <Text style={styles.storyTitleEnglish}>
-              {getCurrentBookName()} {currentChapter}
-            </Text>
+      <ScrollView
+        style={styles.content}
+        showsVerticalScrollIndicator={false}
+        onScrollBeginDrag={() => setActiveWord(null)}
+        onTouchStart={handleGlobalTap}
+      >
+        <View style={styles.storyContent}>
+          <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
+          <Text style={styles.storyTitleEnglish}>
+            {getCurrentBookName()} {currentChapter}
+          </Text>
 
-            {versesWithWords.map((words, index) => renderVerse(words, index))}
-          </View>
-        </ScrollView>
-      </TouchableWithoutFeedback>
+          {versesWithWords.map((words, index) => renderVerse(words, index))}
+        </View>
+      </ScrollView>
 
       <View style={styles.bottomButtonRow}>
         <TouchableOpacity
@@ -908,6 +1015,7 @@ export default function BibleReaderScreen({ navigation }) {
       <Modal
         visible={showSavedPanel}
         animationType="slide"
+        transparent={true}
         onRequestClose={() => setShowSavedPanel(false)}
       >
         <View style={styles.modalOverlay}>
@@ -942,8 +1050,8 @@ export default function BibleReaderScreen({ navigation }) {
                   <Text style={styles.wordCount}>
                     {savedWords.length} {savedWords.length === 1 ? 'word' : 'words'} total
                   </Text>
-                  {savedWords.map((item, index) => (
-                    <View key={index} style={styles.savedWordItem}>
+                  {savedWords.map((item) => (
+                    <View key={`${item.word}-${item.timestamp}`} style={styles.savedWordItem}>
                       <View style={styles.wordContent}>
                         <Text style={styles.savedWordArabic}>{item.word}</Text>
                         <Text style={styles.savedWordEnglish}>{item.translation}</Text>
@@ -955,7 +1063,7 @@ export default function BibleReaderScreen({ navigation }) {
                       </View>
                       <TouchableOpacity
                         style={styles.removeWordButton}
-                        onPress={() => setSavedWords(savedWords.filter((_, i) => i !== index))}
+                        onPress={() => setSavedWords(savedWords.filter((w) => w.timestamp !== item.timestamp))}
                       >
                         <Text style={styles.removeWordText}>×</Text>
                       </TouchableOpacity>
@@ -970,6 +1078,55 @@ export default function BibleReaderScreen({ navigation }) {
             </ScrollView>
           </View>
         </View>
+      </Modal>
+
+      <Modal
+        visible={showSettingsModal}
+        animationType="none"
+        transparent={true}
+        onRequestClose={() => setShowSettingsModal(false)}
+      >
+        <TouchableWithoutFeedback onPress={() => setShowSettingsModal(false)}>
+          <View style={styles.settingsModalOverlay}>
+            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+              <View style={styles.settingsModalContent}>
+                <Text style={styles.settingsModalTitle}>Settings</Text>
+                <Text style={styles.settingsModalText}>
+                  If you enjoy the app you can leave an optional tip!
+                </Text>
+                <TouchableOpacity
+                  style={styles.venmoButton}
+                  onPress={() => Linking.openURL('venmo://paycharge?txn=pay&recipients=EthanHoppe').catch(() =>
+                    Linking.openURL('https://venmo.com/u/EthanHoppe')
+                  )}
+                >
+                  <Text style={styles.venmoButtonText}>Tip on Venmo</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.paypalButton}
+                  onPress={() => Linking.openURL('https://paypal.me/ethandhoppe')}
+                >
+                  <Text style={styles.paypalButtonText}>Tip on PayPal</Text>
+                </TouchableOpacity>
+                <View style={styles.feedbackSection}>
+                  <Text style={styles.settingsModalText}>Leave feedback or comments:</Text>
+                  <TouchableOpacity
+                    style={styles.emailLink}
+                    onPress={() => Linking.openURL('mailto:ethan@ingenuitylabs.net')}
+                  >
+                    <Text style={styles.emailText}>ethan@ingenuitylabs.net</Text>
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity
+                  style={styles.settingsModalButton}
+                  onPress={() => setShowSettingsModal(false)}
+                >
+                  <Text style={styles.settingsModalButtonText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </SafeAreaView>
   );

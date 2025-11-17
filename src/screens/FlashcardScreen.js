@@ -9,8 +9,10 @@ import {
   Dimensions,
   SafeAreaView,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../context/ThemeContext';
 import { useFlashcards } from '../context/FlashcardContext';
 import { AnkiCardCounts } from './components/AnkiCardCounts';
@@ -34,6 +36,8 @@ export default function FlashcardScreen({ navigation }) {
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
   const [sessionInitialized, setSessionInitialized] = useState(false);
+  const [showEnglishFirst, setShowEnglishFirst] = useState(false);
+  const [showVerseOnFront, setShowVerseOnFront] = useState(false);
 
   // Card counts for Anki-style display
   const [cardCounts, setCardCounts] = useState({ new: 0, learning: 0, review: 0 });
@@ -59,6 +63,49 @@ export default function FlashcardScreen({ navigation }) {
       }
     };
   }, []);
+
+  // Load display preferences from storage
+  useEffect(() => {
+    const loadDisplayPreferences = async () => {
+      try {
+        const [englishFirst, verseOnFront] = await Promise.all([
+          AsyncStorage.getItem('@flashcard_show_english_first'),
+          AsyncStorage.getItem('@flashcard_show_verse_on_front'),
+        ]);
+        if (englishFirst !== null) {
+          setShowEnglishFirst(JSON.parse(englishFirst));
+        }
+        if (verseOnFront !== null) {
+          setShowVerseOnFront(JSON.parse(verseOnFront));
+        }
+      } catch (error) {
+        console.error('Error loading display preferences:', error);
+      }
+    };
+    loadDisplayPreferences();
+  }, []);
+
+  // Toggle flip preference
+  const toggleFlipPreference = useCallback(async () => {
+    const newValue = !showEnglishFirst;
+    setShowEnglishFirst(newValue);
+    try {
+      await AsyncStorage.setItem('@flashcard_show_english_first', JSON.stringify(newValue));
+    } catch (error) {
+      console.error('Error saving flip preference:', error);
+    }
+  }, [showEnglishFirst]);
+
+  // Toggle verse on front preference
+  const toggleVerseOnFront = useCallback(async () => {
+    const newValue = !showVerseOnFront;
+    setShowVerseOnFront(newValue);
+    try {
+      await AsyncStorage.setItem('@flashcard_show_verse_on_front', JSON.stringify(newValue));
+    } catch (error) {
+      console.error('Error saving verse on front preference:', error);
+    }
+  }, [showVerseOnFront]);
 
   // Sync local progress with context progress
   useEffect(() => {
@@ -216,26 +263,42 @@ export default function FlashcardScreen({ navigation }) {
     if (currentIndex >= sessionCards.length) return;
 
     const card = sessionCards[currentIndex];
-    setSettingsLoading(true);
 
-    setTimeout(() => {
-      removeFlashcard(card.id);
-      const newCards = sessionCards.filter((_, i) => i !== currentIndex);
-      setSessionCards(newCards);
+    Alert.alert(
+      'Remove Flashcard',
+      `Remove "${card.arabic}" from your deck? This cannot be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => {
+            setSettingsLoading(true);
 
-      if (newCards.length === 0) {
-        setSettingsLoading(false);
-        setShowSettingsModal(false);
-        navigation.goBack();
-      } else if (currentIndex >= newCards.length) {
-        setCurrentIndex(Math.max(0, newCards.length - 1));
-      }
+            setTimeout(() => {
+              if (!isMountedRef.current) return;
 
-      setShowAnswer(false);
-      flipAnimation.setValue(0);
-      setSettingsLoading(false);
-      setShowSettingsModal(false);
-    }, 300);
+              removeFlashcard(card.id);
+              const newCards = sessionCards.filter((_, i) => i !== currentIndex);
+              setSessionCards(newCards);
+
+              if (newCards.length === 0) {
+                setSettingsLoading(false);
+                setShowSettingsModal(false);
+                navigation.goBack();
+              } else if (currentIndex >= newCards.length) {
+                setCurrentIndex(Math.max(0, newCards.length - 1));
+              }
+
+              setShowAnswer(false);
+              flipAnimation.setValue(0);
+              setSettingsLoading(false);
+              setShowSettingsModal(false);
+            }, 300);
+          },
+        },
+      ]
+    );
   }, [currentIndex, sessionCards, removeFlashcard, navigation, flipAnimation]);
 
   const handleResetProgress = useCallback(() => {
@@ -259,6 +322,43 @@ export default function FlashcardScreen({ navigation }) {
       ]
     );
   }, [currentIndex, sessionCards, resetCardProgress]);
+
+  // Helper to highlight word in verse text
+  const highlightWordInVerse = useCallback((verseText, word, textStyle) => {
+    if (!verseText || !word) return <Text style={textStyle}>{verseText}</Text>;
+
+    // Try exact match first
+    let parts = verseText.split(word);
+    let matchedWord = word;
+
+    // If no exact match, try case-insensitive
+    if (parts.length === 1) {
+      const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+      const matches = verseText.match(regex);
+      if (matches && matches.length > 0) {
+        matchedWord = matches[0];
+        parts = verseText.split(matchedWord);
+      }
+    }
+
+    // Still no match, return plain text
+    if (parts.length === 1) {
+      return <Text style={textStyle}>{verseText}</Text>;
+    }
+
+    return (
+      <Text style={textStyle}>
+        {parts.map((part, index) => (
+          <React.Fragment key={index}>
+            {part}
+            {index < parts.length - 1 && (
+              <Text style={{ fontWeight: 'bold', backgroundColor: 'rgba(255, 255, 0, 0.3)' }}>{matchedWord}</Text>
+            )}
+          </React.Fragment>
+        ))}
+      </Text>
+    );
+  }, []);
 
   const frontInterpolate = flipAnimation.interpolate({
     inputRange: [0, 1],
@@ -291,6 +391,22 @@ export default function FlashcardScreen({ navigation }) {
       fontSize: isSmallScreen ? 18 : 20,
       fontWeight: '700',
       color: theme.colors.text,
+    },
+    bibleButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 20,
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
+    bibleButtonText: {
+      fontSize: 14,
+      fontWeight: '600',
+      color: theme.colors.text,
+      marginLeft: 4,
     },
     content: {
       flex: 1,
@@ -376,11 +492,25 @@ export default function FlashcardScreen({ navigation }) {
       textAlign: 'center',
       marginBottom: 16,
     },
+    arabicTextBack: {
+      fontSize: isSmallScreen ? 36 : isMediumScreen ? 42 : 48,
+      fontWeight: 'bold',
+      color: '#fff',
+      textAlign: 'center',
+      marginBottom: 16,
+    },
     englishText: {
       fontSize: isSmallScreen ? 28 : isMediumScreen ? 32 : 36,
       fontWeight: '700',
       color: '#fff',
       textAlign: 'center',
+    },
+    englishTextFront: {
+      fontSize: isSmallScreen ? 32 : isMediumScreen ? 38 : 44,
+      fontWeight: '700',
+      color: theme.colors.text,
+      textAlign: 'center',
+      marginBottom: 8,
     },
     referenceText: {
       fontSize: isSmallScreen ? 14 : 16,
@@ -389,6 +519,60 @@ export default function FlashcardScreen({ navigation }) {
       textAlign: 'center',
       marginTop: 12,
       fontStyle: 'italic',
+    },
+    referenceTextFront: {
+      fontSize: isSmallScreen ? 14 : 16,
+      fontWeight: '500',
+      color: theme.colors.textSecondary,
+      textAlign: 'center',
+      marginTop: 8,
+      fontStyle: 'italic',
+    },
+    verseTextContainer: {
+      marginTop: 16,
+      padding: 12,
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      borderRadius: 12,
+      maxHeight: isSmallScreen ? 120 : 150,
+    },
+    verseScrollView: {
+      flexGrow: 0,
+    },
+    verseTextArabic: {
+      fontSize: isSmallScreen ? 14 : 16,
+      color: '#fff',
+      textAlign: 'right',
+      writingDirection: 'rtl',
+      marginBottom: 8,
+      lineHeight: isSmallScreen ? 22 : 26,
+    },
+    verseTextEnglish: {
+      fontSize: isSmallScreen ? 12 : 14,
+      color: 'rgba(255, 255, 255, 0.8)',
+      textAlign: 'left',
+      fontStyle: 'italic',
+      lineHeight: isSmallScreen ? 18 : 22,
+    },
+    verseTextContainerFront: {
+      marginTop: 12,
+      padding: 10,
+      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      borderRadius: 10,
+      maxHeight: isSmallScreen ? 100 : 120,
+    },
+    verseTextArabicFront: {
+      fontSize: isSmallScreen ? 14 : 16,
+      color: theme.colors.text,
+      textAlign: 'right',
+      writingDirection: 'rtl',
+      lineHeight: isSmallScreen ? 22 : 26,
+    },
+    verseTextEnglishFront: {
+      fontSize: isSmallScreen ? 12 : 14,
+      color: theme.colors.textSecondary,
+      textAlign: 'left',
+      fontStyle: 'italic',
+      lineHeight: isSmallScreen ? 18 : 22,
     },
     tapHint: {
       fontSize: 14,
@@ -418,10 +602,13 @@ export default function FlashcardScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          <TouchableOpacity
+            style={styles.bibleButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name="book-outline" size={18} color={theme.colors.text} />
+            <Text style={styles.bibleButtonText}>Bible</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Flashcards</Text>
           <View style={styles.headerButton} />
         </View>
         <View style={styles.loadingContainer}>
@@ -437,10 +624,13 @@ export default function FlashcardScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          <TouchableOpacity
+            style={styles.bibleButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name="book-outline" size={18} color={theme.colors.text} />
+            <Text style={styles.bibleButtonText}>Bible</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Flashcards</Text>
           <View style={styles.headerButton} />
         </View>
         <View style={styles.emptyContainer}>
@@ -464,10 +654,13 @@ export default function FlashcardScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          <TouchableOpacity
+            style={styles.bibleButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name="book-outline" size={18} color={theme.colors.text} />
+            <Text style={styles.bibleButtonText}>Bible</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Flashcards</Text>
           <View style={styles.headerButton} />
         </View>
         <View style={styles.emptyContainer}>
@@ -493,10 +686,13 @@ export default function FlashcardScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
-            <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+          <TouchableOpacity
+            style={styles.bibleButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Ionicons name="book-outline" size={18} color={theme.colors.text} />
+            <Text style={styles.bibleButtonText}>Bible</Text>
           </TouchableOpacity>
-          <Text style={styles.headerTitle}>Flashcards</Text>
           <View style={styles.headerButton} />
         </View>
         <View style={styles.loadingContainer}>
@@ -518,10 +714,13 @@ export default function FlashcardScreen({ navigation }) {
     <SafeAreaView style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.headerButton} onPress={() => navigation.goBack()}>
-          <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
+        <TouchableOpacity
+          style={styles.bibleButton}
+          onPress={() => navigation.goBack()}
+        >
+          <Ionicons name="book-outline" size={18} color={theme.colors.text} />
+          <Text style={styles.bibleButtonText}>Bible</Text>
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Flashcards</Text>
         <TouchableOpacity style={styles.headerButton} onPress={() => setShowSettingsModal(true)}>
           <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
         </TouchableOpacity>
@@ -552,7 +751,28 @@ export default function FlashcardScreen({ navigation }) {
             >
               <View style={styles.cardContent}>
                 <Text style={styles.tapHint}>Tap to flip</Text>
-                <Text style={styles.arabicText}>{currentCard.arabic}</Text>
+                {showEnglishFirst ? (
+                  <>
+                    <Text style={styles.englishTextFront}>{currentCard.english}</Text>
+                    {currentCard.reference && (
+                      <Text style={styles.referenceTextFront}>{currentCard.reference}</Text>
+                    )}
+                    {showVerseOnFront && currentCard.verseTextEnglish && (
+                      <View style={styles.verseTextContainerFront}>
+                        {highlightWordInVerse(currentCard.verseTextEnglish, currentCard.english, styles.verseTextEnglishFront)}
+                      </View>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.arabicText}>{currentCard.arabic}</Text>
+                    {showVerseOnFront && currentCard.verseTextArabic && (
+                      <View style={styles.verseTextContainerFront}>
+                        {highlightWordInVerse(currentCard.verseTextArabic, currentCard.arabic, styles.verseTextArabicFront)}
+                      </View>
+                    )}
+                  </>
+                )}
               </View>
             </Animated.View>
 
@@ -564,9 +784,45 @@ export default function FlashcardScreen({ navigation }) {
               ]}
             >
               <View style={styles.cardContent}>
-                <Text style={styles.englishText}>{currentCard.english}</Text>
-                {currentCard.reference && (
-                  <Text style={styles.referenceText}>{currentCard.reference}</Text>
+                {showEnglishFirst ? (
+                  <>
+                    <Text style={styles.arabicTextBack}>{currentCard.arabic}</Text>
+                    {currentCard.verseTextArabic && (
+                      <View style={styles.verseTextContainer}>
+                        <ScrollView
+                          style={styles.verseScrollView}
+                          showsVerticalScrollIndicator={true}
+                          nestedScrollEnabled={true}
+                        >
+                          {highlightWordInVerse(currentCard.verseTextArabic, currentCard.arabic, styles.verseTextArabic)}
+                          {currentCard.verseTextEnglish && (
+                            highlightWordInVerse(currentCard.verseTextEnglish, currentCard.english, styles.verseTextEnglish)
+                          )}
+                        </ScrollView>
+                      </View>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <Text style={styles.englishText}>{currentCard.english}</Text>
+                    {currentCard.reference && (
+                      <Text style={styles.referenceText}>{currentCard.reference}</Text>
+                    )}
+                    {currentCard.verseTextArabic && (
+                      <View style={styles.verseTextContainer}>
+                        <ScrollView
+                          style={styles.verseScrollView}
+                          showsVerticalScrollIndicator={true}
+                          nestedScrollEnabled={true}
+                        >
+                          {highlightWordInVerse(currentCard.verseTextArabic, currentCard.arabic, styles.verseTextArabic)}
+                          {currentCard.verseTextEnglish && (
+                            highlightWordInVerse(currentCard.verseTextEnglish, currentCard.english, styles.verseTextEnglish)
+                          )}
+                        </ScrollView>
+                      </View>
+                    )}
+                  </>
                 )}
               </View>
             </Animated.View>
@@ -592,6 +848,10 @@ export default function FlashcardScreen({ navigation }) {
         onRemoveCard={handleRemoveCard}
         onResetProgress={handleResetProgress}
         settingsLoading={settingsLoading}
+        showEnglishFirst={showEnglishFirst}
+        onToggleFlip={toggleFlipPreference}
+        showVerseOnFront={showVerseOnFront}
+        onToggleVerseOnFront={toggleVerseOnFront}
       />
     </SafeAreaView>
   );

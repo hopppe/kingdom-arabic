@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -16,6 +17,10 @@ export const QuickSettingsModal = ({
   onRemoveCard,
   onResetProgress,
   settingsLoading,
+  showEnglishFirst,
+  onToggleFlip,
+  showVerseOnFront,
+  onToggleVerseOnFront,
 }) => {
   const { theme } = useTheme();
 
@@ -23,10 +28,10 @@ export const QuickSettingsModal = ({
     modalContent: {
       backgroundColor: theme.colors.cardBackground || theme.colors.surface || '#fff',
       borderRadius: 20,
-      padding: 20,
-      margin: 20,
-      maxWidth: 300,
-      width: '80%',
+      padding: 24,
+      marginHorizontal: 24,
+      maxWidth: 400,
+      width: '90%',
     },
   };
 
@@ -52,25 +57,56 @@ export const QuickSettingsModal = ({
     <Modal
       visible={visible}
       transparent={true}
-      animationType="fade"
+      animationType="none"
       onRequestClose={onClose}
     >
-      <View style={styles.modalOverlay}>
-        <View style={modalStyles.modalContent}>
-          <View style={styles.modalHeader}>
-            <View style={[styles.modalIcon, { backgroundColor: theme.colors.primary }]}>
-              <Ionicons name="card" size={30} color="white" />
-            </View>
-            <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
-              Card Actions
-            </Text>
-            <Text style={[styles.modalDescription, { color: theme.colors.textSecondary }]}>
-              "{currentCard?.arabic}"
-            </Text>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.modalOverlay}>
+          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <View style={modalStyles.modalContent}>
+              <View style={styles.modalHeader}>
+                <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
+                  Settings
+                </Text>
+              </View>
 
-            {/* Card Progress Information */}
-            {currentCard && (
-              <View style={styles.progressInfo}>
+          {/* Display Settings */}
+          <View style={styles.section}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.textSecondary }]}>
+              Display
+            </Text>
+            <TouchableOpacity
+              style={[styles.modalButton, { backgroundColor: theme.colors.text }]}
+              onPress={onToggleFlip}
+            >
+              <Ionicons name="swap-horizontal" size={20} color={theme.colors.background} />
+              <Text style={[styles.modalButtonText, { color: theme.colors.background }]}>
+                {showEnglishFirst ? 'Show Arabic First' : 'Show English First'}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalButton, { backgroundColor: showVerseOnFront ? theme.colors.text : theme.colors.textSecondary, marginTop: 10 }]}
+              onPress={onToggleVerseOnFront}
+            >
+              <Ionicons name={showVerseOnFront ? 'eye' : 'eye-off'} size={20} color={theme.colors.background} />
+              <Text style={[styles.modalButtonText, { color: theme.colors.background }]}>
+                {showVerseOnFront ? 'Hide Verse on Front' : 'Show Verse on Front'}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Flashcard Section */}
+          {currentCard && (
+            <View style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: theme.colors.textSecondary }]}>
+                Current Flashcard
+              </Text>
+
+              <Text style={[styles.cardWord, { color: theme.colors.text }]}>
+                {currentCard?.arabic}
+              </Text>
+
+              <View style={[styles.progressInfo, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
                 <View style={styles.progressRow}>
                   <View style={styles.progressItem}>
                     <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
@@ -88,8 +124,6 @@ export const QuickSettingsModal = ({
                       {(currentCard.easeFactor || 2.5).toFixed(2)}
                     </Text>
                   </View>
-                </View>
-                <View style={styles.progressRow}>
                   <View style={styles.progressItem}>
                     <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
                       Reviews
@@ -102,58 +136,51 @@ export const QuickSettingsModal = ({
                     <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
                       Interval
                     </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.textSecondary }]}>
+                    <Text style={[styles.progressValue, { color: theme.colors.text }]}>
                       {formatInterval(currentCard.interval)}
                     </Text>
                   </View>
                 </View>
               </View>
-            )}
 
-            {/* Show "New Card" if no reviews */}
-            {currentCard && currentCard.reviewCount === 0 && (
-              <View style={styles.newCardBadge}>
-                <Text style={[styles.newCardText, { color: theme.colors.primary }]}>
-                  New Card
-                </Text>
+              <View style={styles.cardActions}>
+                <TouchableOpacity
+                  style={[styles.smallButton, { backgroundColor: '#FF3B30' }]}
+                  onPress={onRemoveCard}
+                  disabled={settingsLoading}
+                >
+                  <Ionicons name="trash" size={16} color="white" />
+                  <Text style={[styles.smallButtonText, { color: 'white' }]}>
+                    {settingsLoading ? 'Removing...' : 'Remove'}
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[styles.smallButton, { backgroundColor: theme.colors.text }]}
+                  onPress={onResetProgress}
+                  disabled={settingsLoading}
+                >
+                  <Ionicons name="refresh" size={16} color={theme.colors.background} />
+                  <Text style={[styles.smallButtonText, { color: theme.colors.background }]}>
+                    {settingsLoading ? 'Resetting...' : 'Reset'}
+                  </Text>
+                </TouchableOpacity>
               </View>
-            )}
-          </View>
+            </View>
+          )}
 
-          <View style={styles.modalButtons}>
-            <TouchableOpacity
-              style={[styles.modalButton, { backgroundColor: '#FF3B30' }]}
-              onPress={onRemoveCard}
-              disabled={settingsLoading}
-            >
-              <Ionicons name="trash" size={20} color="white" />
-              <Text style={[styles.modalButtonText, { color: 'white' }]}>
-                {settingsLoading ? 'Removing...' : 'Remove from Deck'}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.modalButton, { backgroundColor: '#34C759' }]}
-              onPress={onResetProgress}
-              disabled={settingsLoading}
-            >
-              <Ionicons name="refresh" size={20} color="white" />
-              <Text style={[styles.modalButtonText, { color: 'white' }]}>
-                {settingsLoading ? 'Resetting...' : 'Reset Progress'}
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.modalButton, styles.cancelButton]}
-              onPress={onClose}
-            >
-              <Text style={[styles.cancelButtonText, { color: theme.colors.text }]}>
-                Cancel
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity
+            style={[styles.modalButton, styles.cancelButton]}
+            onPress={onClose}
+          >
+            <Text style={[styles.cancelButtonText, { color: theme.colors.text }]}>
+              Close
+            </Text>
+          </TouchableOpacity>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
@@ -168,98 +195,94 @@ const styles = StyleSheet.create({
   },
   modalHeader: {
     alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 16,
   },
   modalTitle: {
     fontSize: 22,
     fontWeight: '700',
     textAlign: 'center',
-    marginBottom: 8,
     letterSpacing: 0.2,
   },
-  modalDescription: {
-    fontSize: 18,
+  section: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: 10,
+  },
+  cardWord: {
+    fontSize: 20,
+    fontWeight: '600',
     textAlign: 'center',
-    marginBottom: 16,
-    lineHeight: 22,
-    paddingHorizontal: 4,
+    marginBottom: 12,
   },
   progressInfo: {
-    width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    borderRadius: 16,
-    padding: 16,
-    marginTop: 12,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 12,
   },
   progressRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
   },
   progressItem: {
     flex: 1,
     alignItems: 'center',
   },
   progressLabel: {
-    fontSize: 12,
-    marginBottom: 2,
+    fontSize: 11,
+    marginBottom: 4,
+    textTransform: 'uppercase',
   },
   progressValue: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '700',
-    letterSpacing: 0.1,
   },
-  newCardBadge: {
-    backgroundColor: 'rgba(0, 123, 255, 0.1)',
-    borderRadius: 20,
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    marginTop: 12,
-  },
-  newCardText: {
-    fontSize: 15,
-    fontWeight: '700',
-    letterSpacing: 0.2,
-  },
-  modalButtons: {
+  cardActions: {
+    flexDirection: 'row',
     gap: 10,
+  },
+  smallButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    gap: 6,
+  },
+  smallButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
   },
   modalButton: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 12,
     gap: 10,
-    minHeight: 44,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
+    minHeight: 48,
   },
   cancelButton: {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: '#ddd',
+    marginTop: 4,
   },
   modalButtonText: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '600',
     letterSpacing: 0.2,
     textAlign: 'center',
   },
   cancelButtonText: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '600',
     letterSpacing: 0.2,
     textAlign: 'center',

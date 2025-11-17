@@ -3,7 +3,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '../context/ThemeContext';
 
-import HomeScreen from '../screens/HomeScreen';
 import BibleReaderScreen from '../screens/BibleReaderScreen';
 import FlashcardScreen from '../screens/FlashcardScreen';
 
@@ -15,18 +14,13 @@ export default function AppNavigator() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Home"
+        initialRouteName="Reader"
         screenOptions={{
           headerStyle: { backgroundColor: theme.colors.primary },
           headerTintColor: '#fff',
           headerTitleStyle: { fontWeight: '600' }
         }}
       >
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Learn Arabic' }}
-        />
         <Stack.Screen
           name="Reader"
           component={BibleReaderScreen}

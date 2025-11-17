@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../Flashcards/utils/ankiScheduler';
+import { getBookName } from '../data/bibleData';
 
 const FlashcardContext = createContext({});
 
@@ -163,67 +164,13 @@ export const FlashcardProvider = ({ children }) => {
     loadData();
   }, [loadData]);
 
-  // Add a new flashcard
-  const addFlashcard = useCallback((arabic, english) => {
-    // Check if already exists
-    const exists = flashcards.some(card => card.arabic === arabic);
-    if (exists) {
-      console.log(`Flashcard already exists for: ${arabic}`);
-      return false;
-    }
-
-    const newCard = {
-      id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-      arabic,
-      english,
-    };
-
-    const updatedCards = [...flashcards, newCard];
-    const updatedProgress = {
-      ...userProgress,
-      [newCard.id]: createNewCardProgress(),
-    };
-
-    setFlashcards(updatedCards);
-    setUserProgress(updatedProgress);
-    saveFlashcards(updatedCards);
-    saveProgress(updatedProgress);
-
-    console.log(`Added flashcard: ${arabic} -> ${english}`);
-    return true;
-  }, [flashcards, userProgress, saveFlashcards, saveProgress]);
-
-  // Helper to convert book codes to readable names
-  const getBookName = (bookCode) => {
-    const bookNames = {
-      'GEN': 'Genesis', 'EXO': 'Exodus', 'LEV': 'Leviticus', 'NUM': 'Numbers',
-      'DEU': 'Deuteronomy', 'JOS': 'Joshua', 'JDG': 'Judges', 'RUT': 'Ruth',
-      '1SA': '1 Samuel', '2SA': '2 Samuel', '1KI': '1 Kings', '2KI': '2 Kings',
-      '1CH': '1 Chronicles', '2CH': '2 Chronicles', 'EZR': 'Ezra', 'NEH': 'Nehemiah',
-      'EST': 'Esther', 'JOB': 'Job', 'PSA': 'Psalms', 'PRO': 'Proverbs',
-      'ECC': 'Ecclesiastes', 'SNG': 'Song of Solomon', 'ISA': 'Isaiah', 'JER': 'Jeremiah',
-      'LAM': 'Lamentations', 'EZK': 'Ezekiel', 'DAN': 'Daniel', 'HOS': 'Hosea',
-      'JOL': 'Joel', 'AMO': 'Amos', 'OBA': 'Obadiah', 'JON': 'Jonah',
-      'MIC': 'Micah', 'NAM': 'Nahum', 'HAB': 'Habakkuk', 'ZEP': 'Zephaniah',
-      'HAG': 'Haggai', 'ZEC': 'Zechariah', 'MAL': 'Malachi',
-      'MAT': 'Matthew', 'MRK': 'Mark', 'LUK': 'Luke', 'JHN': 'John',
-      'ACT': 'Acts', 'ROM': 'Romans', '1CO': '1 Corinthians', '2CO': '2 Corinthians',
-      'GAL': 'Galatians', 'EPH': 'Ephesians', 'PHP': 'Philippians', 'COL': 'Colossians',
-      '1TH': '1 Thessalonians', '2TH': '2 Thessalonians', '1TI': '1 Timothy', '2TI': '2 Timothy',
-      'TIT': 'Titus', 'PHM': 'Philemon', 'HEB': 'Hebrews', 'JAS': 'James',
-      '1PE': '1 Peter', '2PE': '2 Peter', '1JN': '1 John', '2JN': '2 John',
-      '3JN': '3 John', 'JUD': 'Jude', 'REV': 'Revelation'
-    };
-    return bookNames[bookCode] || bookCode;
-  };
-
   // Add multiple flashcards at once
   const addMultipleFlashcards = useCallback((words) => {
     let addedCount = 0;
     const newCards = [];
     const newProgress = { ...userProgress };
 
-    words.forEach(({ word, translation, book, chapter, verse }) => {
+    words.forEach(({ word, translation, book, chapter, verse, verseTextArabic, verseTextEnglish }) => {
       const arabic = word;
       const english = translation;
 
@@ -240,6 +187,8 @@ export const FlashcardProvider = ({ children }) => {
           arabic,
           english,
           reference,
+          verseTextArabic: verseTextArabic || null,
+          verseTextEnglish: verseTextEnglish || null,
         });
         newProgress[cardId] = createNewCardProgress();
         console.log(`Added flashcard: ${arabic} -> ${english} (${reference || 'no ref'})`);
@@ -272,18 +221,6 @@ export const FlashcardProvider = ({ children }) => {
     saveProgress(updatedProgress);
   }, [flashcards, userProgress, saveFlashcards, saveProgress]);
 
-  // Get cards due for review (returns all cards, let LocalQueueManager handle scheduling)
-  const getCardsForReview = useCallback(() => {
-    const now = new Date();
-    return flashcards.filter(card => {
-      const progress = userProgress[card.id];
-      if (!progress) return true; // New card
-
-      const nextReview = new Date(progress.next_review_at);
-      return nextReview <= now;
-    });
-  }, [flashcards, userProgress]);
-
   // Record answer using Anki algorithm
   const recordAnswer = useCallback((cardId, rating) => {
     const currentProgress = userProgress[cardId] || createNewCardProgress();
@@ -312,39 +249,14 @@ export const FlashcardProvider = ({ children }) => {
     saveProgress(updatedProgress);
   }, [userProgress, saveProgress]);
 
-  // Clear all flashcards
-  const clearAllFlashcards = useCallback(async () => {
-    setFlashcards([]);
-    setUserProgress({});
-    await AsyncStorage.removeItem(FLASHCARDS_KEY);
-    await AsyncStorage.removeItem(PROGRESS_KEY);
-  }, []);
-
-  // Reset to initial cards (for testing)
-  const resetToInitialCards = useCallback(async () => {
-    const initialProgress = {};
-    INITIAL_FLASHCARDS.forEach(card => {
-      initialProgress[card.id] = createNewCardProgress();
-    });
-
-    setFlashcards(INITIAL_FLASHCARDS);
-    setUserProgress(initialProgress);
-    await AsyncStorage.setItem(FLASHCARDS_KEY, JSON.stringify(INITIAL_FLASHCARDS));
-    await AsyncStorage.setItem(PROGRESS_KEY, JSON.stringify(initialProgress));
-  }, []);
-
   const value = {
     flashcards,
     userProgress,
     loading,
-    addFlashcard,
     addMultipleFlashcards,
     removeFlashcard,
-    getCardsForReview,
     recordAnswer,
     resetCardProgress,
-    clearAllFlashcards,
-    resetToInitialCards,
   };
 
   return (

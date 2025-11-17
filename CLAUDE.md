@@ -27,43 +27,17 @@ npm install react-native-sound expo-av @react-native-community/slider
 ```
 src/
 ├── screens/                    # App screens
-│   ├── HomeScreen.js                # Main menu with activity buttons
-│   ├── ReadingActivity.js           # Story reading (from StoryListScreen.js)
-│   ├── FlashcardActivity.js         # Flashcard system with Anki scheduling
-│   ├── SettingsScreen.js            # Basic app settings
-│   ├── StoryReader.js               # Individual story reading interface
-│   ├── StoryContext.js              # Story state management
-│   ├── components/                  # Activity-specific components
-│   │   ├── AnkiRatingButtons.js
-│   │   ├── FlashcardItem.js
-│   │   ├── ProgressIndicator.js
-│   │   └── QuickSettingsModal.js
-│   ├── hooks/
-│   │   └── useFlashcardAnimations.js
-│   └── utils/
-│       └── ankiScheduler.js
-├── context/                    # React contexts (simplified versions)
-│   ├── ThemeContext.js              # Basic theme colors and styling
-│   ├── LanguageContext.js           # Simple translation function
-│   ├── FlashcardContext.js          # Flashcard state management
-│   └── HelpContext.js               # Help overlay system
-├── components/                 # Shared UI components
-│   ├── ui/                          # Basic UI components
-│   │   ├── Card.js                  # Activity cards
-│   │   ├── HelpOverlay.js           # Help system
-│   │   ├── HelpButton.js
-│   │   └── index.js
-│   ├── ActivityPickerScreen.js     # Generic activity list screen
-│   └── UnifiedActivityWrapper.js   # Activity tracking wrapper
-├── services/                   # External services
-│   ├── UnifiedAudioService.js       # Text-to-speech functionality
-│   └── posthogService.js            # Analytics (optional)
-├── utils/                      # Utility functions
-│   ├── logger.js                    # Logging utility
-│   ├── imageMapping.js              # Image utility for flashcards
-│   └── imagePreloader.js            # Image preloading
+│   ├── BibleReaderScreen.js         # Main screen - Bible reading with word mappings
+│   ├── FlashcardScreen.js           # Flashcard review system with Anki scheduling
+│   └── components/                  # Screen-specific components
+│       ├── AnkiRatingButtons.js          # Rating buttons for flashcard review
+│       ├── AnkiCardCounts.js             # Card count display (new/learning/review)
+│       └── QuickSettingsModal.js         # Settings modal for flashcards
+├── context/                    # React contexts
+│   ├── ThemeContext.js              # Theme colors and styling
+│   └── FlashcardContext.js          # Flashcard state management and persistence
 ├── data/
-│   └── helpContent.js               # Help content definitions
+│   └── bibleData.js                 # Bible book/chapter definitions and data loading
 └── navigation/                 # Navigation setup
     └── AppNavigator.js              # Stack navigator configuration
 ```
@@ -131,12 +105,12 @@ Each chapter file contains just the verses object - simple and fast to read!
 ## Key Conventions
 
 - **Expo for React Native development** - Simple setup and deployment
-- **React Navigation Stack** - Basic screen navigation
-- **Local JSON Storage** - All data stored in local JSON files
-- **AsyncStorage** - For user preferences and progress
-- **No Learning Stages** - Removed complexity, all content available
-- **Minimal Context Providers** - Only essential contexts, no complex state management
-- **Activity-focused** - Just 2 main activities: Stories and Flashcards
+- **React Navigation Stack** - Simple 2-screen navigation (Reader → Flashcards)
+- **Local JSON Storage** - Bible content and mappings stored in local JSON files
+- **AsyncStorage** - For flashcard data, user progress, and preferences
+- **Anki-style SRS** - Spaced repetition system for flashcard scheduling
+- **Minimal Context Providers** - Only ThemeContext and FlashcardContext
+- **Two main screens** - BibleReaderScreen (home) and FlashcardScreen
 
 ## Bible Word Mapping Commands
 
@@ -154,24 +128,24 @@ See `.claude/skills/bible-word-mapper.md` for detailed mapping instructions.
 
 ## Important Implementation Notes
 
-1. **No Learning Stages**: All references to learning stages have been removed. Stories and flashcards show all available content.
+1. **Two-Screen App**: BibleReaderScreen is the home screen where users read Arabic Bible text and save words. FlashcardScreen provides Anki-style spaced repetition review.
 
-2. **Local Storage**: All Bible content and mappings are stored in local JSON files, not a database.
+2. **Word Saving Flow**: Users tap Arabic words in BibleReaderScreen to see translations. Tapped words are automatically saved to a session list, which can be added to flashcards.
 
-3. **Activity Integration**: Both activities were copied from the English learning app and adapted for Arabic content.
+3. **Local Storage**: All Bible content and mappings are stored in local JSON files under `bible-translations/`. Flashcard data and progress is persisted via AsyncStorage.
 
-4. **File Organization**: Original files are in `/oldsourcefiles/` for reference. The `/Stories/` and `/Flashcards/` directories contain the original activity code.
+4. **Anki Algorithm**: FlashcardContext uses a proper Anki-style spaced repetition algorithm with ease factors, intervals, and card states (new/learning/review).
 
-5. **Navigation**: App uses simple stack navigation with 4 main screens: Home, Reading, Flashcard, Settings.
+5. **Navigation**: Simple stack navigation with 2 screens. Reader is the initial route.
 
-6. **Audio Support**: UnifiedAudioService provides text-to-speech for Arabic content.
+6. **External Dependencies**: The app uses utilities from `/Flashcards/utils/` directory (ankiScheduler.js, localQueueManager.js) for SRS logic.
 
-7. **Image Assets**: Activities support images through imageMapping utility.
+7. **RTL Support**: Arabic text is displayed right-to-left with proper styling.
 
 ## Development Workflow
 
-1. Content should be Arabic-focused (RTL support may be needed)
-2. Activities are self-contained with their own components
-3. Data is stored in local JSON files
-4. User progress stored in AsyncStorage
-5. Keep the architecture simple - avoid adding complex state management
+1. Content is Arabic Bible text with RTL support
+2. Add new Bible books/chapters by creating JSON files in `bible-translations/`
+3. Generate word mappings using the `/bible-word-mapping` command
+4. Flashcard progress and preferences are stored in AsyncStorage
+5. Keep the architecture simple - currently just 2 screens and 2 contexts
