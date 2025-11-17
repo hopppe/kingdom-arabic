@@ -27,6 +27,8 @@ Read both files:
 - **Current mappings**: `bible-translations/mappings/<BOOK>/<CHAPTER>.json`
   - Contains: `{ "book": "...", "chapter": ..., "verses": { "1": { "ar": "...", "en": "...", "mappings": [...] } } }`
 
+**CRITICAL: You must WRITE the corrected JSON back to the mappings file. Do NOT just create reports or analysis files. Actually edit and save the JSON.**
+
 ### 2. Process Each Verse
 
 For EVERY verse in the chapter:
@@ -107,8 +109,18 @@ When you find incorrect mappings, create new ones by:
 
 ### 5. Output Format
 
-Save the fixed mappings to the same file:
+**USE THE WRITE TOOL** to save the fixed mappings directly to:
 `bible-translations/mappings/<BOOK>/<CHAPTER>.json`
+
+**DO NOT:**
+- Create temporary files in /tmp/
+- Write analysis reports or markdown files
+- Just document what should be fixed
+
+**DO:**
+- Read the current JSON file
+- Fix the mapping objects in memory
+- Write the ENTIRE corrected JSON back using the Write tool
 
 ```json
 {
@@ -129,6 +141,8 @@ Save the fixed mappings to the same file:
   }
 }
 ```
+
+The goal is that after you're done, the JSON file at `bible-translations/mappings/<BOOK>/<CHAPTER>.json` contains the CORRECTED mappings, not the old broken ones.
 
 ## Common Error Patterns to Fix
 
