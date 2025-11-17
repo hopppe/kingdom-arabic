@@ -73,9 +73,9 @@ export default function HomeScreen({ navigation }) {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('Chapters')}
+          onPress={() => navigation.navigate('Reader')}
         >
-          <Text style={styles.buttonText}>Bible Chapters</Text>
+          <Text style={styles.buttonText}>Bible</Text>
         </TouchableOpacity>
 
         <TouchableOpacity

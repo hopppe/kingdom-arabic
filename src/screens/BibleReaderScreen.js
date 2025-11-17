@@ -16,44 +16,33 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../context/ThemeContext';
 import { useFlashcards } from '../context/FlashcardContext';
+import { BOOKS, getBookName, loadChapterData } from '../data/bibleData';
 
 const { width: screenWidth } = Dimensions.get('window');
 
-export default function BibleReaderScreen({ route, navigation }) {
-  const { chapterMeta, loadChapterData } = route.params;
+export default function BibleReaderScreen({ navigation }) {
   const { theme } = useTheme();
   const { addMultipleFlashcards } = useFlashcards();
 
+  // Current chapter state
+  const [currentBook, setCurrentBook] = useState('MRK');
+  const [currentChapter, setCurrentChapter] = useState(1);
   const [chapter, setChapter] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Chapter selector state
+  const [showChapterSelector, setShowChapterSelector] = useState(false);
+  const [expandedBook, setExpandedBook] = useState(null);
+
+  // Reading state
   const [showTranslations, setShowTranslations] = useState(false);
   const [activeWord, setActiveWord] = useState(null);
   const [savedWords, setSavedWords] = useState([]);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const wordTapInProgress = useRef(false);
 
-  // Helper to convert book codes to readable names
-  const getBookName = (bookCode) => {
-    const bookNames = {
-      'GEN': 'Genesis', 'EXO': 'Exodus', 'LEV': 'Leviticus', 'NUM': 'Numbers',
-      'DEU': 'Deuteronomy', 'JOS': 'Joshua', 'JDG': 'Judges', 'RUT': 'Ruth',
-      '1SA': '1 Samuel', '2SA': '2 Samuel', '1KI': '1 Kings', '2KI': '2 Kings',
-      '1CH': '1 Chronicles', '2CH': '2 Chronicles', 'EZR': 'Ezra', 'NEH': 'Nehemiah',
-      'EST': 'Esther', 'JOB': 'Job', 'PSA': 'Psalms', 'PRO': 'Proverbs',
-      'ECC': 'Ecclesiastes', 'SNG': 'Song of Solomon', 'ISA': 'Isaiah', 'JER': 'Jeremiah',
-      'LAM': 'Lamentations', 'EZK': 'Ezekiel', 'DAN': 'Daniel', 'HOS': 'Hosea',
-      'JOL': 'Joel', 'AMO': 'Amos', 'OBA': 'Obadiah', 'JON': 'Jonah',
-      'MIC': 'Micah', 'NAM': 'Nahum', 'HAB': 'Habakkuk', 'ZEP': 'Zephaniah',
-      'HAG': 'Haggai', 'ZEC': 'Zechariah', 'MAL': 'Malachi',
-      'MAT': 'Matthew', 'MRK': 'Mark', 'LUK': 'Luke', 'JHN': 'John',
-      'ACT': 'Acts', 'ROM': 'Romans', '1CO': '1 Corinthians', '2CO': '2 Corinthians',
-      'GAL': 'Galatians', 'EPH': 'Ephesians', 'PHP': 'Philippians', 'COL': 'Colossians',
-      '1TH': '1 Thessalonians', '2TH': '2 Thessalonians', '1TI': '1 Timothy', '2TI': '2 Timothy',
-      'TIT': 'Titus', 'PHM': 'Philemon', 'HEB': 'Hebrews', 'JAS': 'James',
-      '1PE': '1 Peter', '2PE': '2 Peter', '1JN': '1 John', '2JN': '2 John',
-      '3JN': '3 John', 'JUD': 'Jude', 'REV': 'Revelation'
-    };
-    return bookNames[bookCode] || bookCode;
+  const getCurrentBookName = () => {
+    return getBookName(currentBook);
   };
 
   // Define styles first so they can be used in memoized callbacks
@@ -62,18 +51,49 @@ export default function BibleReaderScreen({ route, navigation }) {
       flex: 1,
       backgroundColor: theme.colors.background,
     },
-    backButton: {
+    headerBar: {
       position: 'absolute',
       top: 60,
       left: 16,
+      right: 16,
       zIndex: 1000,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+    referenceButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 8,
+      paddingHorizontal: 12,
+      borderRadius: 20,
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
+    referenceText: {
+      fontSize: 16,
+      fontWeight: '600',
+      color: theme.colors.text,
+      marginRight: 4,
+    },
+    flashcardsButton: {
       padding: 8,
+      borderRadius: 20,
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      minWidth: 36,
+      minHeight: 36,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    headerRightButtons: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
     },
     translationButton: {
-      position: 'absolute',
-      top: 60,
-      right: 92,
-      zIndex: 1000,
       padding: 8,
       borderRadius: 20,
       backgroundColor: theme.colors.surface,
@@ -89,10 +109,6 @@ export default function BibleReaderScreen({ route, navigation }) {
       borderColor: theme.colors.primary,
     },
     wordsCountButton: {
-      position: 'absolute',
-      top: 60,
-      right: 16,
-      zIndex: 1000,
       padding: 8,
       borderRadius: 20,
       backgroundColor: theme.colors.surface,
@@ -209,9 +225,22 @@ export default function BibleReaderScreen({ route, navigation }) {
       bottom: 30,
       left: 0,
       right: 0,
+      justifyContent: 'center',
+      gap: 12,
+    },
+    navButton: {
+      width: 50,
+      height: 50,
+      borderRadius: 25,
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     learnedWordsButton: {
       flex: 1,
+      maxWidth: 200,
       paddingVertical: 14,
       paddingHorizontal: 8,
       borderRadius: 16,
@@ -220,7 +249,6 @@ export default function BibleReaderScreen({ route, navigation }) {
       borderColor: theme.colors.border,
       alignItems: 'center',
       justifyContent: 'center',
-      marginRight: 12,
     },
     learnedWordsButtonText: {
       fontSize: 15,
@@ -228,6 +256,96 @@ export default function BibleReaderScreen({ route, navigation }) {
       color: theme.colors.text,
       textAlign: 'center',
     },
+    // Chapter selector modal styles
+    selectorOverlay: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      justifyContent: 'flex-end',
+    },
+    selectorContent: {
+      backgroundColor: theme.colors.background,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
+      maxHeight: '80%',
+    },
+    selectorHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 20,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    selectorTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: theme.colors.text,
+    },
+    cancelButton: {
+      padding: 8,
+    },
+    cancelButtonText: {
+      fontSize: 16,
+      color: theme.colors.primary,
+      fontWeight: '500',
+    },
+    bookRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: 16,
+      paddingHorizontal: 20,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    bookRowExpanded: {
+      backgroundColor: theme.colors.surface,
+      borderBottomWidth: 0,
+    },
+    bookName: {
+      fontSize: 18,
+      fontWeight: '500',
+      color: theme.colors.text,
+    },
+    bookNameExpanded: {
+      fontWeight: '700',
+    },
+    chapterGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      paddingHorizontal: 20,
+      paddingBottom: 16,
+      backgroundColor: theme.colors.surface,
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    },
+    chapterButton: {
+      width: '20%',
+      aspectRatio: 1,
+      padding: 4,
+    },
+    chapterButtonInner: {
+      flex: 1,
+      backgroundColor: theme.colors.cardBackground,
+      borderRadius: 8,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
+    chapterButtonCurrent: {
+      backgroundColor: theme.colors.primary,
+      borderColor: theme.colors.primary,
+    },
+    chapterNumber: {
+      fontSize: 18,
+      fontWeight: '500',
+      color: theme.colors.text,
+    },
+    chapterNumberCurrent: {
+      color: '#fff',
+    },
+    // Saved words modal styles
     modalOverlay: {
       flex: 1,
       backgroundColor: 'rgba(0,0,0,0.5)',
@@ -364,21 +482,59 @@ export default function BibleReaderScreen({ route, navigation }) {
     },
   }), [theme]);
 
-  // Load chapter data after navigation animation completes
-  useEffect(() => {
-    const task = InteractionManager.runAfterInteractions(async () => {
-      try {
-        const data = await loadChapterData(chapterMeta.book, chapterMeta.chapter);
-        setChapter(data);
-      } catch (error) {
-        console.error('Failed to load chapter:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    });
+  // Load chapter data
+  const loadCurrentChapter = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const data = await loadChapterData(currentBook, currentChapter);
+      setChapter(data);
+    } catch (error) {
+      console.error('Failed to load chapter:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [currentBook, currentChapter]);
 
+  useEffect(() => {
+    const task = InteractionManager.runAfterInteractions(() => {
+      loadCurrentChapter();
+    });
     return () => task.cancel();
-  }, [chapterMeta, loadChapterData]);
+  }, [loadCurrentChapter]);
+
+  // Chapter navigation
+  const handleChapterSelect = (bookId, chapterNum) => {
+    setCurrentBook(bookId);
+    setCurrentChapter(chapterNum);
+    setShowChapterSelector(false);
+    setExpandedBook(null);
+    setActiveWord(null);
+  };
+
+  const navigateChapter = (direction) => {
+    const bookObj = BOOKS.find(b => b.id === currentBook);
+    if (!bookObj) return;
+
+    const currentIndex = bookObj.chapters.indexOf(currentChapter);
+    const newIndex = currentIndex + direction;
+
+    if (newIndex >= 0 && newIndex < bookObj.chapters.length) {
+      setCurrentChapter(bookObj.chapters[newIndex]);
+      setActiveWord(null);
+    }
+  };
+
+  const canNavigatePrev = () => {
+    const bookObj = BOOKS.find(b => b.id === currentBook);
+    if (!bookObj) return false;
+    return bookObj.chapters.indexOf(currentChapter) > 0;
+  };
+
+  const canNavigateNext = () => {
+    const bookObj = BOOKS.find(b => b.id === currentBook);
+    if (!bookObj) return false;
+    return bookObj.chapters.indexOf(currentChapter) < bookObj.chapters.length - 1;
+  };
 
   // Smart tooltip positioning based on translation length
   const getTooltipStyle = useCallback((translation) => {
@@ -387,7 +543,6 @@ export default function BibleReaderScreen({ route, navigation }) {
       screenWidth * 0.7
     );
 
-    // Calculate center offset
     const centerOffset = -estimatedWidth / 2;
 
     return {
@@ -462,8 +617,8 @@ export default function BibleReaderScreen({ route, navigation }) {
         setSavedWords([{
           word,
           translation,
-          book: chapterMeta.book,
-          chapter: chapterMeta.chapter,
+          book: currentBook,
+          chapter: currentChapter,
           verse: verseIndex + 1,
           timestamp: Date.now()
         }, ...savedWords]);
@@ -558,56 +713,163 @@ export default function BibleReaderScreen({ route, navigation }) {
     );
   }, [renderWord, showTranslations, chapter, styles]);
 
+  const renderChapterSelector = () => (
+    <Modal
+      visible={showChapterSelector}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={() => setShowChapterSelector(false)}
+    >
+      <View style={styles.selectorOverlay}>
+        <View style={styles.selectorContent}>
+          <View style={styles.selectorHeader}>
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => setShowChapterSelector(false)}
+            >
+              <Text style={styles.cancelButtonText}>Cancel</Text>
+            </TouchableOpacity>
+            <Text style={styles.selectorTitle}>Books</Text>
+            <View style={{ width: 60 }} />
+          </View>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {BOOKS.map((book) => {
+              const isExpanded = expandedBook === book.id;
+
+              return (
+                <View key={book.id}>
+                  <TouchableOpacity
+                    style={[styles.bookRow, isExpanded && styles.bookRowExpanded]}
+                    onPress={() => setExpandedBook(isExpanded ? null : book.id)}
+                  >
+                    <Text style={[styles.bookName, isExpanded && styles.bookNameExpanded]}>
+                      {book.name}
+                    </Text>
+                    <Ionicons
+                      name={isExpanded ? 'chevron-up' : 'chevron-down'}
+                      size={24}
+                      color={theme.colors.textSecondary}
+                    />
+                  </TouchableOpacity>
+
+                  {isExpanded && (
+                    <View style={styles.chapterGrid}>
+                      {book.chapters.map((chapterNum) => {
+                        const isCurrent = book.id === currentBook && chapterNum === currentChapter;
+                        return (
+                          <View key={chapterNum} style={styles.chapterButton}>
+                            <TouchableOpacity
+                              style={[
+                                styles.chapterButtonInner,
+                                isCurrent && styles.chapterButtonCurrent,
+                              ]}
+                              onPress={() => handleChapterSelect(book.id, chapterNum)}
+                            >
+                              <Text style={[
+                                styles.chapterNumber,
+                                isCurrent && styles.chapterNumberCurrent,
+                              ]}>
+                                {chapterNum}
+                              </Text>
+                            </TouchableOpacity>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  )}
+                </View>
+              );
+            })}
+          </ScrollView>
+        </View>
+      </View>
+    </Modal>
+  );
+
   // Show loading state while chapter data is being fetched
   if (isLoading || !chapter) {
     return (
       <SafeAreaView style={styles.container}>
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.goBack()}
-        >
-          <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
-        </TouchableOpacity>
+        <View style={styles.headerBar}>
+          <TouchableOpacity
+            style={styles.referenceButton}
+            onPress={() => setShowChapterSelector(true)}
+          >
+            <Text style={styles.referenceText}>
+              {getCurrentBookName()} {currentChapter}
+            </Text>
+            <Ionicons name="chevron-down" size={16} color={theme.colors.text} />
+          </TouchableOpacity>
+
+          <View style={styles.headerRightButtons}>
+            <TouchableOpacity
+              style={styles.flashcardsButton}
+              onPress={() => navigation.navigate('Flashcards')}
+            >
+              <Ionicons name="albums-outline" size={20} color={theme.colors.text} />
+            </TouchableOpacity>
+          </View>
+        </View>
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={theme.colors.primary} />
-          <Text style={styles.loadingText}>Loading {chapterMeta.title}...</Text>
+          <Text style={styles.loadingText}>
+            Loading {getCurrentBookName()} {currentChapter}...
+          </Text>
         </View>
+        {renderChapterSelector()}
       </SafeAreaView>
     );
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="arrow-back" size={24} color={theme.colors.text} />
-      </TouchableOpacity>
+      <View style={styles.headerBar}>
+        <TouchableOpacity
+          style={styles.referenceButton}
+          onPress={() => setShowChapterSelector(true)}
+        >
+          <Text style={styles.referenceText}>
+            {getCurrentBookName()} {currentChapter}
+          </Text>
+          <Ionicons name="chevron-down" size={16} color={theme.colors.text} />
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.translationButton, showTranslations && styles.headerButtonActive]}
-        onPress={() => setShowTranslations(!showTranslations)}
-      >
-        <Ionicons
-          name={showTranslations ? "eye-off" : "eye"}
-          size={20}
-          color={showTranslations ? '#fff' : theme.colors.text}
-        />
-      </TouchableOpacity>
+        <View style={styles.headerRightButtons}>
+          <TouchableOpacity
+            style={styles.flashcardsButton}
+            onPress={() => navigation.navigate('Flashcards')}
+          >
+            <Ionicons name="albums-outline" size={20} color={theme.colors.text} />
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.wordsCountButton}
-        onPress={() => setShowSavedPanel(true)}
-      >
-        <Text style={styles.wordsCountText}>+ ({savedWords.length})</Text>
-      </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.translationButton, showTranslations && styles.headerButtonActive]}
+            onPress={() => setShowTranslations(!showTranslations)}
+          >
+            <Ionicons
+              name={showTranslations ? "eye-off" : "eye"}
+              size={20}
+              color={showTranslations ? '#fff' : theme.colors.text}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.wordsCountButton}
+            onPress={() => setShowSavedPanel(true)}
+          >
+            <Text style={styles.wordsCountText}>+ ({savedWords.length})</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       <TouchableWithoutFeedback onPress={handleGlobalTap}>
         <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.storyContent}>
             <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
-            <Text style={styles.storyTitleEnglish}>{chapterMeta.title}</Text>
+            <Text style={styles.storyTitleEnglish}>
+              {getCurrentBookName()} {currentChapter}
+            </Text>
 
             {versesWithWords.map((words, index) => renderVerse(words, index))}
           </View>
@@ -616,6 +878,14 @@ export default function BibleReaderScreen({ route, navigation }) {
 
       <View style={styles.bottomButtonRow}>
         <TouchableOpacity
+          style={[styles.navButton, !canNavigatePrev() && { opacity: 0.3 }]}
+          onPress={() => navigateChapter(-1)}
+          disabled={!canNavigatePrev()}
+        >
+          <Ionicons name="chevron-back" size={24} color={theme.colors.text} />
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={styles.learnedWordsButton}
           onPress={() => setShowSavedPanel(true)}
         >
@@ -623,7 +893,17 @@ export default function BibleReaderScreen({ route, navigation }) {
             View Saved Words ({savedWords.length})
           </Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.navButton, !canNavigateNext() && { opacity: 0.3 }]}
+          onPress={() => navigateChapter(1)}
+          disabled={!canNavigateNext()}
+        >
+          <Ionicons name="chevron-forward" size={24} color={theme.colors.text} />
+        </TouchableOpacity>
       </View>
+
+      {renderChapterSelector()}
 
       <Modal
         visible={showSavedPanel}

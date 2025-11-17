@@ -4,7 +4,6 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '../context/ThemeContext';
 
 import HomeScreen from '../screens/HomeScreen';
-import ChapterListScreen from '../screens/ChapterListScreen';
 import BibleReaderScreen from '../screens/BibleReaderScreen';
 import FlashcardScreen from '../screens/FlashcardScreen';
 
@@ -27,11 +26,6 @@ export default function AppNavigator() {
           name="Home"
           component={HomeScreen}
           options={{ title: 'Learn Arabic' }}
-        />
-        <Stack.Screen
-          name="Chapters"
-          component={ChapterListScreen}
-          options={{ title: 'Bible Chapters' }}
         />
         <Stack.Screen
           name="Reader"
