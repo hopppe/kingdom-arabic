@@ -634,25 +634,9 @@ export default function BibleReaderScreen({ navigation }) {
     return bookObj.chapters.indexOf(currentChapter) < bookObj.chapters.length - 1;
   };
 
-  // Smart tooltip positioning - centered over word
-  const getTooltipStyle = useCallback(() => {
-    return {
-      position: 'absolute',
-      bottom: 36,
-      left: '50%',
-      transform: [{ translateX: '-50%' }],
-      backgroundColor: theme.colors.surface,
-      paddingHorizontal: 12,
-      paddingVertical: 6,
-      borderRadius: 8,
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
-      zIndex: 9999,
-    };
-  }, [theme.colors.surface]);
+  // Tooltip ref for measuring position
+  const tooltipRef = useRef(null);
+  const wordRefs = useRef({});
 
   const handleGlobalTap = () => {
     // Clear any existing timeout
@@ -704,11 +688,17 @@ export default function BibleReaderScreen({ navigation }) {
     if (activeWord?.id === wordId) {
       setActiveWord(null);
     } else {
+      // Get screen position from touch event
+      const touchX = event?.nativeEvent?.pageX || 0;
+      const touchY = event?.nativeEvent?.pageY || 0;
+
       setActiveWord({
         id: wordId,
         word,
         translation,
-        verseIndex
+        verseIndex,
+        x: touchX,
+        y: touchY
       });
 
       const exists = savedWords.some(w => w.word === word && w.translation === translation);
@@ -762,11 +752,6 @@ export default function BibleReaderScreen({ navigation }) {
 
     return (
       <View key={wordIndex} style={styles.wordWrapper}>
-        {isActive && translation && (
-          <View style={getTooltipStyle()}>
-            <Text style={styles.tooltipText}>{translation}</Text>
-          </View>
-        )}
         <TouchableOpacity
           onPress={(event) => handleWordPress(word, verseIndex, event)}
           style={[
@@ -785,7 +770,7 @@ export default function BibleReaderScreen({ navigation }) {
         </TouchableOpacity>
       </View>
     );
-  }, [activeWord, savedWordsSet, findTranslation, handleWordPress, styles, getTooltipStyle]);
+  }, [activeWord, savedWordsSet, findTranslation, handleWordPress, styles]);
 
   // Memoize verse splitting to avoid re-computing on every render
   const versesWithWords = useMemo(() => {
@@ -982,6 +967,39 @@ export default function BibleReaderScreen({ navigation }) {
           {versesWithWords.map((words, index) => renderVerse(words, index))}
         </View>
       </ScrollView>
+
+      {activeWord && (() => {
+        // Estimate tooltip width based on text length
+        const estimatedWidth = Math.min(
+          Math.max(activeWord.translation.length * 10 + 24, 80),
+          screenWidth - 40
+        );
+        const tooltipLeft = Math.max(20, Math.min(activeWord.x - estimatedWidth / 2, screenWidth - estimatedWidth - 20));
+
+        return (
+          <View
+            style={{
+              position: 'absolute',
+              left: tooltipLeft,
+              top: activeWord.y - 60,
+              backgroundColor: theme.colors.surface,
+              paddingHorizontal: 12,
+              paddingVertical: 6,
+              borderRadius: 8,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+              elevation: 5,
+              zIndex: 9999,
+              maxWidth: screenWidth - 40,
+            }}
+            pointerEvents="none"
+          >
+            <Text style={styles.tooltipText}>{activeWord.translation}</Text>
+          </View>
+        );
+      })()}
 
       <View style={styles.bottomButtonRow}>
         <TouchableOpacity

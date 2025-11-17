@@ -127,6 +127,43 @@ Each verse object contains:
 
 **IMPORTANT**: You're mapping between TWO EXISTING TRANSLATIONS. Match Arabic to corresponding English content, not literal translations.
 
+### CRITICAL WARNING: DO NOT DO SEQUENTIAL WORD-FOR-WORD PAIRING
+
+**THE #1 MISTAKE**: Mapping Arabic word 1 → English word 1, Arabic word 2 → English word 2 in sequence WITHOUT understanding what each Arabic word means.
+
+**BAD EXAMPLE (Galatians 6:14 - CATASTROPHICALLY WRONG):**
+```
+Arabic: أَمَّا أَنَا فَحَاشَا لِي أَنْ أَفْتَخِرَ إِلّا بِصَلِيبِ
+English: May I never boast except in the cross
+
+WRONG sequential pairing:
+- أَمَّا → "May" ❌ (أَمَّا means "as for")
+- فَحَاشَا → "never" ❌ (means "far be it")
+- لِي → "boast" ❌ (means "for me")
+- أَفْتَخِرَ → "in" ❌ (means "I boast")
+- إِلّا → "the cross" ❌ (means "except")
+```
+Every single word is wrong! The AI just paired words in order.
+
+**GOOD EXAMPLE (John 3:16 - CORRECT):**
+```
+Arabic: لأَنَّهُ هكَذَا أَحَبَّ اللهُ الْعَالَمَ
+English: For God so loved the world
+
+CORRECT semantic matching:
+- لأَنَّهُ → "For" ✅ (actually means "because/for")
+- هكَذَا → "so" ✅ (actually means "thus/so")
+- أَحَبَّ → "loved" ✅ (actually means "loved")
+- اللهُ → "God" ✅ (actually means "God")
+```
+Each Arabic word genuinely means its English counterpart.
+
+**YOU MUST:**
+1. Understand what each Arabic word ACTUALLY means
+2. Find its semantic equivalent in the English text
+3. Match based on MEANING, not position
+4. Verify: "Does this Arabic word really mean this?"
+
 ### Core Principle
 
 Map Arabic segments to their **corresponding English segments** in the translations:

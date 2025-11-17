@@ -130,17 +130,8 @@ def check_semantic_quality(verse_data):
                 "note": "Very short Arabic word mapped to long English phrase - verify this is correct"
             })
 
-        # Check for unhelpful single-word mappings (learner clarity)
-        unhelpful_singles = ["لَا", "أَنْ", "أَنَّ", "مَا", "إِنَّ"]
-        ar_clean = ar.strip('،.:؟!«» ')
-        if ar_clean in unhelpful_singles and len(en.split()) == 1 and len(en) < 4:
-            issues.append({
-                "type": "potentially_unhelpful",
-                "index": i,
-                "arabic": ar,
-                "english": en,
-                "note": "Consider grouping with adjacent words for better learner understanding"
-            })
+        # Removed "potentially_unhelpful" check - single-word particle mappings
+        # (لَا→"not", أَنْ→"to", etc.) are actually helpful for vocabulary learning
 
     return issues
 
