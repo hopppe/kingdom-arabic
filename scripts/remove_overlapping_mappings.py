@@ -69,9 +69,14 @@ def remove_overlaps(book):
 
 
 def main():
-    books = ['MAT', 'ROM', 'PHP', 'HEB', 'TIT']
+    import sys
 
-    print("Removing overlapping mappings from NT books...")
+    if len(sys.argv) > 1:
+        books = sys.argv[1:]
+    else:
+        books = ['MAT', 'ROM', 'PHP', 'HEB', 'TIT']
+
+    print(f"Removing overlapping mappings from {len(books)} books...")
     print("=" * 50)
 
     grand_total = 0

@@ -66,9 +66,14 @@ def fix_book_positions(book):
 
 
 def main():
-    books = ['MAT', 'ROM', 'PHP', 'HEB', 'TIT']
+    import sys
 
-    print("Fixing position mismatches in NT books...")
+    if len(sys.argv) > 1:
+        books = sys.argv[1:]
+    else:
+        books = ['MAT', 'ROM', 'PHP', 'HEB', 'TIT']
+
+    print(f"Fixing position mismatches in {len(books)} books...")
     print("=" * 50)
 
     grand_total = 0

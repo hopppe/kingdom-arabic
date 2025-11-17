@@ -46,7 +46,7 @@ def calculate_positions(ar_text: str, word_pairs: list[tuple[str, str]]) -> list
                 print(f"WARNING: Could not find '{ar_word}' in text")
                 continue
 
-        end_pos = pos + len(ar_word) - 1
+        end_pos = pos + len(ar_word)
 
         mappings.append({
             "ar": ar_word,
@@ -56,7 +56,7 @@ def calculate_positions(ar_text: str, word_pairs: list[tuple[str, str]]) -> list
         })
 
         # Move current position past this word
-        current_pos = end_pos + 1
+        current_pos = end_pos
 
     return mappings
 
@@ -127,11 +127,11 @@ def validate_verse_mapping(ar_text: str, mappings: list[dict]) -> list[str]:
         end = m["end"]
         expected = m["ar"]
 
-        if end >= len(ar_text):
+        if end > len(ar_text):
             errors.append(f"Mapping {i}: end position {end} out of bounds (text length {len(ar_text)})")
             continue
 
-        actual = ar_text[start:end+1]
+        actual = ar_text[start:end]
         if actual != expected:
             errors.append(f"Mapping {i}: expected '{expected}' but found '{actual}'")
 
