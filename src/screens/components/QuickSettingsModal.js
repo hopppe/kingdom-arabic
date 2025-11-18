@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,14 @@ import {
   StyleSheet,
   Modal,
   TouchableWithoutFeedback,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
+import { Dropdown } from './Dropdown';
 
 export const QuickSettingsModal = ({
   visible,
@@ -16,6 +21,13 @@ export const QuickSettingsModal = ({
   currentCard,
   onRemoveCard,
   onResetProgress,
+  onResetDeck,
+  onUpdateEnglish,
+  onCreateGroup,
+  onAddToGroup,
+  onRemoveFromGroup,
+  availableGroups,
+  selectedGroup,
   settingsLoading,
   showEnglishFirst,
   onToggleFlip,
@@ -23,6 +35,70 @@ export const QuickSettingsModal = ({
   onToggleVerseOnFront,
 }) => {
   const { theme } = useTheme();
+  const [showEditEnglish, setShowEditEnglish] = useState(false);
+  const [editedEnglish, setEditedEnglish] = useState('');
+  const [showCreateGroup, setShowCreateGroup] = useState(false);
+  const [newGroupName, setNewGroupName] = useState('');
+
+  // Reset edit state when modal closes or card changes
+  useEffect(() => {
+    if (!visible) {
+      setShowEditEnglish(false);
+      setEditedEnglish('');
+      setShowCreateGroup(false);
+      setNewGroupName('');
+    }
+  }, [visible]);
+
+  // Initialize edited text when opening edit mode
+  const handleOpenEditEnglish = () => {
+    setEditedEnglish(currentCard?.english || '');
+    setShowEditEnglish(true);
+  };
+
+  const handleSaveEnglish = () => {
+    if (editedEnglish.trim() && onUpdateEnglish) {
+      onUpdateEnglish(editedEnglish.trim());
+    }
+    setShowEditEnglish(false);
+  };
+
+  const handleCancelEdit = () => {
+    setShowEditEnglish(false);
+    setEditedEnglish('');
+  };
+
+  const handleOpenCreateGroup = () => {
+    setNewGroupName('');
+    setShowCreateGroup(true);
+  };
+
+  const handleSaveGroup = () => {
+    if (newGroupName.trim() && onCreateGroup) {
+      const success = onCreateGroup(newGroupName.trim());
+      if (success) {
+        setShowCreateGroup(false);
+        setNewGroupName('');
+      }
+    }
+  };
+
+  const handleCancelCreateGroup = () => {
+    setShowCreateGroup(false);
+    setNewGroupName('');
+  };
+
+  const handleAddToGroup = (groupName) => {
+    if (onAddToGroup) {
+      onAddToGroup(groupName);
+    }
+  };
+
+  const handleRemoveFromGroup = (groupName) => {
+    if (onRemoveFromGroup) {
+      onRemoveFromGroup(groupName);
+    }
+  };
 
   const modalStyles = {
     modalContent: {
@@ -35,23 +111,6 @@ export const QuickSettingsModal = ({
     },
   };
 
-  // Get card state based on review count and interval
-  const getCardState = () => {
-    if (!currentCard) return 'New';
-    if (currentCard.reviewCount === 0) return 'New';
-    if (currentCard.interval < 1) return 'Learning';
-    if (currentCard.interval >= 21) return 'Mature';
-    return 'Review';
-  };
-
-  // Format interval for display
-  const formatInterval = (days) => {
-    if (!days || days === 0) return '0d';
-    if (days < 1) {
-      return `${Math.round(days * 24 * 60)}m`;
-    }
-    return `${Math.round(days)}d`;
-  };
 
   return (
     <Modal
@@ -60,21 +119,26 @@ export const QuickSettingsModal = ({
       animationType="none"
       onRequestClose={onClose}
     >
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.modalOverlay}>
-          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-            <View style={modalStyles.modalContent}>
-              <View style={styles.modalHeader}>
-                <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
-                  Settings
-                </Text>
-              </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <TouchableWithoutFeedback onPress={onClose}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+              <View style={modalStyles.modalContent}>
+                <ScrollView
+                  style={styles.scrollView}
+                  contentContainerStyle={styles.scrollContent}
+                  showsVerticalScrollIndicator={true}
+                >
+                  <View style={styles.modalHeader}>
+                    <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
+                      Settings
+                    </Text>
+                  </View>
 
-          {/* Display Settings */}
           <View style={styles.section}>
-            <Text style={[styles.sectionTitle, { color: theme.colors.textSecondary }]}>
-              Display
-            </Text>
             <TouchableOpacity
               style={[styles.modalButton, { backgroundColor: theme.colors.text }]}
               onPress={onToggleFlip}
@@ -93,6 +157,25 @@ export const QuickSettingsModal = ({
                 {showVerseOnFront ? 'Hide Verse on Front' : 'Show Verse on Front'}
               </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalButton, { backgroundColor: theme.colors.primary, marginTop: 10 }]}
+              onPress={handleOpenCreateGroup}
+            >
+              <Ionicons name="add-circle-outline" size={20} color="#fff" />
+              <Text style={[styles.modalButtonText, { color: '#fff' }]}>
+                Create Group
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.modalButton, { backgroundColor: '#FF9500', marginTop: 10 }]}
+              onPress={onResetDeck}
+              disabled={settingsLoading}
+            >
+              <Ionicons name="refresh-circle-outline" size={20} color="#fff" />
+              <Text style={[styles.modalButtonText, { color: '#fff' }]}>
+                Reset Deck ({selectedGroup})
+              </Text>
+            </TouchableOpacity>
           </View>
 
           {/* Flashcard Section */}
@@ -106,42 +189,49 @@ export const QuickSettingsModal = ({
                 {currentCard?.arabic}
               </Text>
 
-              <View style={[styles.progressInfo, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
-                <View style={styles.progressRow}>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      State
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.primary }]}>
-                      {getCardState()}
-                    </Text>
-                  </View>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      Ease
-                    </Text>
-                    <Text style={[styles.progressValue, { color: '#FF9500' }]}>
-                      {(currentCard.easeFactor || 2.5).toFixed(2)}
-                    </Text>
-                  </View>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      Reviews
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.text }]}>
-                      {currentCard.reviewCount || 0}
-                    </Text>
-                  </View>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      Interval
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.text }]}>
-                      {formatInterval(currentCard.interval)}
-                    </Text>
-                  </View>
+              <TouchableOpacity
+                style={[styles.modalButton, { backgroundColor: theme.colors.primary, marginBottom: 10 }]}
+                onPress={handleOpenEditEnglish}
+                disabled={settingsLoading}
+              >
+                <Ionicons name="create-outline" size={20} color="#fff" />
+                <Text style={[styles.modalButtonText, { color: '#fff' }]}>
+                  Update English Side
+                </Text>
+              </TouchableOpacity>
+
+              {availableGroups && availableGroups.length > 0 && (
+                <View style={styles.addToGroupContainer}>
+                  <Text style={[styles.addToGroupLabel, { color: theme.colors.textSecondary }]}>
+                    Add to Group:
+                  </Text>
+                  <Dropdown
+                    items={availableGroups.filter(group => !currentCard?.groups?.includes(group))}
+                    selectedValue={null}
+                    onSelect={handleAddToGroup}
+                    placeholder="Select Group"
+                    maxHeight={150}
+                    buttonStyle={styles.addToGroupDropdown}
+                  />
                 </View>
-              </View>
+              )}
+
+              {/* Display current groups */}
+              {currentCard.groups && currentCard.groups.length > 0 && (
+                <View style={[styles.groupsList, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
+                  <Text style={[styles.groupsListTitle, { color: theme.colors.textSecondary }]}>
+                    In Groups:
+                  </Text>
+                  {currentCard.groups.map((group, index) => (
+                    <View key={index} style={styles.groupChip}>
+                      <Text style={[styles.groupChipText, { color: theme.colors.text }]}>{group}</Text>
+                      <TouchableOpacity onPress={() => handleRemoveFromGroup(group)}>
+                        <Ionicons name="close-circle" size={18} color={theme.colors.textSecondary} />
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </View>
+              )}
 
               <View style={styles.cardActions}>
                 <TouchableOpacity
@@ -169,6 +259,80 @@ export const QuickSettingsModal = ({
             </View>
           )}
 
+          {/* Edit English Popup */}
+          {showEditEnglish && (
+            <View style={[styles.editPopup, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
+              <Text style={[styles.editPopupTitle, { color: theme.colors.text }]}>
+                Edit English Translation
+              </Text>
+              <TextInput
+                style={[styles.editInput, {
+                  color: theme.colors.text,
+                  borderColor: theme.colors.primary,
+                  backgroundColor: theme.colors.cardBackground || '#fff',
+                }]}
+                value={editedEnglish}
+                onChangeText={setEditedEnglish}
+                placeholder="Enter new translation"
+                placeholderTextColor={theme.colors.textSecondary}
+                autoFocus={true}
+                selectTextOnFocus={true}
+              />
+              <View style={styles.editPopupActions}>
+                <TouchableOpacity
+                  style={[styles.smallButton, { backgroundColor: theme.colors.textSecondary }]}
+                  onPress={handleCancelEdit}
+                >
+                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.smallButton, { backgroundColor: theme.colors.primary }]}
+                  onPress={handleSaveEnglish}
+                >
+                  <Ionicons name="checkmark" size={16} color="#fff" />
+                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Save</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
+          {/* Create Group Popup */}
+          {showCreateGroup && (
+            <View style={[styles.editPopup, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
+              <Text style={[styles.editPopupTitle, { color: theme.colors.text }]}>
+                Create New Group
+              </Text>
+              <TextInput
+                style={[styles.editInput, {
+                  color: theme.colors.text,
+                  borderColor: theme.colors.primary,
+                  backgroundColor: theme.colors.cardBackground || '#fff',
+                }]}
+                value={newGroupName}
+                onChangeText={setNewGroupName}
+                placeholder="Enter group name"
+                placeholderTextColor={theme.colors.textSecondary}
+                autoFocus={true}
+                selectTextOnFocus={true}
+              />
+              <View style={styles.editPopupActions}>
+                <TouchableOpacity
+                  style={[styles.smallButton, { backgroundColor: theme.colors.textSecondary }]}
+                  onPress={handleCancelCreateGroup}
+                >
+                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.smallButton, { backgroundColor: theme.colors.primary }]}
+                  onPress={handleSaveGroup}
+                >
+                  <Ionicons name="checkmark" size={16} color="#fff" />
+                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Create</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
+
           <TouchableOpacity
             style={[styles.modalButton, styles.cancelButton]}
             onPress={onClose}
@@ -177,10 +341,12 @@ export const QuickSettingsModal = ({
               Close
             </Text>
           </TouchableOpacity>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      </TouchableWithoutFeedback>
+                </ScrollView>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };
@@ -192,6 +358,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 24,
+  },
+  scrollView: {
+    maxHeight: '80vh',
+  },
+  scrollContent: {
+    flexGrow: 1,
   },
   modalHeader: {
     alignItems: 'center',
@@ -218,28 +390,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign: 'center',
     marginBottom: 12,
-  },
-  progressInfo: {
-    borderRadius: 12,
-    padding: 12,
-    marginBottom: 12,
-  },
-  progressRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  progressItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  progressLabel: {
-    fontSize: 11,
-    marginBottom: 4,
-    textTransform: 'uppercase',
-  },
-  progressValue: {
-    fontSize: 16,
-    fontWeight: '700',
   },
   cardActions: {
     flexDirection: 'row',
@@ -286,5 +436,64 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     letterSpacing: 0.2,
     textAlign: 'center',
+  },
+  editPopup: {
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+  },
+  editPopupTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  editInput: {
+    borderWidth: 2,
+    borderRadius: 10,
+    padding: 12,
+    fontSize: 16,
+    marginBottom: 12,
+  },
+  editPopupActions: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  groupsList: {
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
+  },
+  groupsListTitle: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 8,
+    textTransform: 'uppercase',
+  },
+  groupChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+    marginBottom: 6,
+  },
+  groupChipText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  addToGroupContainer: {
+    marginBottom: 10,
+  },
+  addToGroupLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    marginBottom: 8,
+  },
+  addToGroupDropdown: {
+    width: '100%',
   },
 });

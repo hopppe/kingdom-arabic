@@ -25,9 +25,20 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
 
     if (cardState === 'new') {
       // New card behavior
-      if (rating === 1 || rating === 2 || rating === 3) {
-        // Again, Hard, Good all start learning at first step
-        nextInterval = LEARNING_STEPS[0] / (24 * 60); // 1 minute in days
+      if (rating === 1) {
+        // Again - first learning step (1m)
+        nextInterval = LEARNING_STEPS[0] / (24 * 60);
+      } else if (rating === 2) {
+        // Hard - average of first two steps (Anki behavior: 6m for [1m, 10m])
+        if (LEARNING_STEPS.length >= 2) {
+          const hardMinutes = (LEARNING_STEPS[0] + LEARNING_STEPS[1]) / 2;
+          nextInterval = hardMinutes / (24 * 60);
+        } else {
+          nextInterval = (LEARNING_STEPS[0] * 1.5) / (24 * 60);
+        }
+      } else if (rating === 3) {
+        // Good - first learning step (1m)
+        nextInterval = LEARNING_STEPS[0] / (24 * 60);
       } else if (rating === 4) {
         // Easy graduates immediately
         nextInterval = EASY_INTERVAL;
@@ -38,9 +49,14 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
         // Again - reset to first step
         nextInterval = LEARNING_STEPS[0] / (24 * 60);
       } else if (rating === 2) {
-        // Hard - repeat current step
-        const stepMinutes = LEARNING_STEPS[Math.min(stepIndex, LEARNING_STEPS.length - 1)];
-        nextInterval = stepMinutes / (24 * 60);
+        // Hard - On first step, average of Again and Good; otherwise repeat current step
+        if (stepIndex === 0 && LEARNING_STEPS.length >= 2) {
+          const hardMinutes = (LEARNING_STEPS[0] + LEARNING_STEPS[1]) / 2;
+          nextInterval = hardMinutes / (24 * 60);
+        } else {
+          const stepMinutes = LEARNING_STEPS[Math.min(stepIndex, LEARNING_STEPS.length - 1)];
+          nextInterval = stepMinutes / (24 * 60);
+        }
       } else if (rating === 3) {
         // Good - advance to next step or graduate
         const nextStepIndex = stepIndex + 1;
@@ -108,8 +124,11 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
       // Less than 1 day - show in hours
       const hours = Math.round(days * 24);
       return `${hours}h`;
+    } else if (days < 2) {
+      // Between 1 and 2 days - show with decimal precision
+      return `${days.toFixed(1)}d`;
     } else if (days < 30) {
-      // Less than 30 days - show in days
+      // Less than 30 days - show in days (round to nearest integer)
       const d = Math.round(days);
       return `${d}d`;
     } else if (days < 365) {

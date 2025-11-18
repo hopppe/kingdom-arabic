@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../Flashcards/utils/ankiScheduler';
 import { getBookName } from '../data/bibleData';
@@ -7,6 +7,7 @@ const FlashcardContext = createContext({});
 
 const FLASHCARDS_KEY = '@learnarabic_flashcards';
 const PROGRESS_KEY = '@learnarabic_flashcard_progress';
+const GROUPS_KEY = '@learnarabic_flashcard_groups';
 
 // Sample flashcards to start with
 const INITIAL_FLASHCARDS = [
@@ -53,18 +54,26 @@ const createNewCardProgress = () => ({
 export const FlashcardProvider = ({ children }) => {
   const [flashcards, setFlashcards] = useState([]);
   const [userProgress, setUserProgress] = useState({});
+  const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  // Use refs to access latest state without recreating callbacks
+  const flashcardsRef = useRef(flashcards);
+  const userProgressRef = useRef(userProgress);
+  const groupsRef = useRef(groups);
 
   // Load flashcards and progress from storage
   const loadData = useCallback(async () => {
     try {
-      const [storedCards, storedProgress] = await Promise.all([
+      const [storedCards, storedProgress, storedGroups] = await Promise.all([
         AsyncStorage.getItem(FLASHCARDS_KEY),
         AsyncStorage.getItem(PROGRESS_KEY),
+        AsyncStorage.getItem(GROUPS_KEY),
       ]);
 
       let cards = [];
       let progress = {};
+      let groupsList = [];
 
       // Load cards
       if (storedCards) {
@@ -126,8 +135,14 @@ export const FlashcardProvider = ({ children }) => {
       // Save updated progress
       await AsyncStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
 
+      // Load groups
+      if (storedGroups) {
+        groupsList = JSON.parse(storedGroups);
+      }
+
       setFlashcards(cards);
       setUserProgress(progress);
+      setGroups(groupsList);
     } catch (error) {
       console.error('Error loading flashcard data:', error);
       // On error, provide initial cards
@@ -164,21 +179,34 @@ export const FlashcardProvider = ({ children }) => {
     loadData();
   }, [loadData]);
 
+  // Keep refs in sync with state
+  useEffect(() => {
+    flashcardsRef.current = flashcards;
+  }, [flashcards]);
+
+  useEffect(() => {
+    userProgressRef.current = userProgress;
+  }, [userProgress]);
+
+  useEffect(() => {
+    groupsRef.current = groups;
+  }, [groups]);
+
   // Add multiple flashcards at once
   const addMultipleFlashcards = useCallback((words) => {
     let addedCount = 0;
     const newCards = [];
-    const newProgress = { ...userProgress };
+    const newProgress = { ...userProgressRef.current };
 
     words.forEach(({ word, translation, book, chapter, verse, verseTextArabic, verseTextEnglish }) => {
       const arabic = word;
       const english = translation;
 
-      const existsInCurrent = flashcards.some(card => card.arabic === arabic);
+      const existsInCurrent = flashcardsRef.current.some(card => card.arabic === arabic);
       const existsInNew = newCards.some(card => card.arabic === arabic);
 
       if (!existsInCurrent && !existsInNew) {
-        const cardId = Date.now().toString() + Math.random().toString(36).substr(2, 9) + addedCount;
+        const cardId = Date.now().toString() + Math.random().toString(36).substring(2, 11) + addedCount;
         const reference = book && chapter && verse
           ? `${getBookName(book)} ${chapter}:${verse}`
           : null;
@@ -199,7 +227,7 @@ export const FlashcardProvider = ({ children }) => {
     });
 
     if (newCards.length > 0) {
-      const updatedCards = [...flashcards, ...newCards];
+      const updatedCards = [...flashcardsRef.current, ...newCards];
       setFlashcards(updatedCards);
       setUserProgress(newProgress);
       saveFlashcards(updatedCards);
@@ -207,27 +235,27 @@ export const FlashcardProvider = ({ children }) => {
     }
 
     return addedCount;
-  }, [flashcards, userProgress, saveFlashcards, saveProgress]);
+  }, [saveFlashcards, saveProgress]);
 
   // Remove a flashcard
   const removeFlashcard = useCallback((id) => {
-    const updatedCards = flashcards.filter(card => card.id !== id);
-    const updatedProgress = { ...userProgress };
+    const updatedCards = flashcardsRef.current.filter(card => card.id !== id);
+    const updatedProgress = { ...userProgressRef.current };
     delete updatedProgress[id];
 
     setFlashcards(updatedCards);
     setUserProgress(updatedProgress);
     saveFlashcards(updatedCards);
     saveProgress(updatedProgress);
-  }, [flashcards, userProgress, saveFlashcards, saveProgress]);
+  }, [saveFlashcards, saveProgress]);
 
   // Record answer using Anki algorithm
   const recordAnswer = useCallback((cardId, rating) => {
-    const currentProgress = userProgress[cardId] || createNewCardProgress();
+    const currentProgress = userProgressRef.current[cardId] || createNewCardProgress();
     const newSchedule = calculateAnkiSchedule(currentProgress, rating);
 
     const updatedProgress = {
-      ...userProgress,
+      ...userProgressRef.current,
       [cardId]: {
         ...newSchedule,
         last_reviewed_at: new Date().toISOString(),
@@ -236,27 +264,121 @@ export const FlashcardProvider = ({ children }) => {
 
     setUserProgress(updatedProgress);
     saveProgress(updatedProgress);
-  }, [userProgress, saveProgress]);
+  }, [saveProgress]);
 
   // Reset progress for a specific card
   const resetCardProgress = useCallback((cardId) => {
     const updatedProgress = {
-      ...userProgress,
+      ...userProgressRef.current,
       [cardId]: createNewCardProgress(),
     };
 
     setUserProgress(updatedProgress);
     saveProgress(updatedProgress);
-  }, [userProgress, saveProgress]);
+  }, [saveProgress]);
+
+  // Update a flashcard's content (e.g., change English translation)
+  const updateFlashcard = useCallback((cardId, updates) => {
+    const updatedCards = flashcardsRef.current.map(card => {
+      if (card.id === cardId) {
+        return { ...card, ...updates };
+      }
+      return card;
+    });
+
+    setFlashcards(updatedCards);
+    saveFlashcards(updatedCards);
+  }, [saveFlashcards]);
+
+  // Save groups to storage
+  const saveGroups = useCallback(async (groupsList) => {
+    try {
+      await AsyncStorage.setItem(GROUPS_KEY, JSON.stringify(groupsList));
+    } catch (error) {
+      console.error('Error saving groups:', error);
+    }
+  }, []);
+
+  // Create a new group
+  const createGroup = useCallback((groupName) => {
+    if (!groupName || groupName.trim() === '') return false;
+    const trimmedName = groupName.trim();
+
+    // Check if group already exists
+    if (groupsRef.current.includes(trimmedName)) return false;
+
+    const updatedGroups = [...groupsRef.current, trimmedName];
+    setGroups(updatedGroups);
+    saveGroups(updatedGroups);
+    return true;
+  }, [saveGroups]);
+
+  // Delete a group
+  const deleteGroup = useCallback((groupName) => {
+    const updatedGroups = groupsRef.current.filter(g => g !== groupName);
+    setGroups(updatedGroups);
+    saveGroups(updatedGroups);
+
+    // Remove group from all flashcards
+    const updatedCards = flashcardsRef.current.map(card => {
+      if (card.groups && card.groups.includes(groupName)) {
+        return {
+          ...card,
+          groups: card.groups.filter(g => g !== groupName),
+        };
+      }
+      return card;
+    });
+    setFlashcards(updatedCards);
+    saveFlashcards(updatedCards);
+  }, [saveGroups, saveFlashcards]);
+
+  // Add card to group
+  const addCardToGroup = useCallback((cardId, groupName) => {
+    const updatedCards = flashcardsRef.current.map(card => {
+      if (card.id === cardId) {
+        const currentGroups = card.groups || [];
+        if (!currentGroups.includes(groupName)) {
+          return { ...card, groups: [...currentGroups, groupName] };
+        }
+      }
+      return card;
+    });
+
+    setFlashcards(updatedCards);
+    saveFlashcards(updatedCards);
+  }, [saveFlashcards]);
+
+  // Remove card from group
+  const removeCardFromGroup = useCallback((cardId, groupName) => {
+    const updatedCards = flashcardsRef.current.map(card => {
+      if (card.id === cardId && card.groups) {
+        return {
+          ...card,
+          groups: card.groups.filter(g => g !== groupName),
+        };
+      }
+      return card;
+    });
+
+    setFlashcards(updatedCards);
+    saveFlashcards(updatedCards);
+  }, [saveFlashcards]);
 
   const value = {
     flashcards,
     userProgress,
+    groups,
     loading,
     addMultipleFlashcards,
     removeFlashcard,
     recordAnswer,
     resetCardProgress,
+    updateFlashcard,
+    createGroup,
+    deleteGroup,
+    addCardToGroup,
+    removeCardFromGroup,
   };
 
   return (

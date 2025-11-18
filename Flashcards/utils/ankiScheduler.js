@@ -7,7 +7,7 @@ export const LEARNING_STEPS = [1, 10];
 export const GRADUATING_INTERVAL = 1;
 
 // Easy interval for new/learning cards (in days)
-// Set to 2 days for gentler progression
+// Set to 2 days for gentler progression (Anki default is 4)
 export const EASY_INTERVAL = 2;
 
 // Maximum interval (in days)
@@ -89,7 +89,14 @@ export const calculateAnkiSchedule = (currentProgress, rating) => {
     } else if (rating === 2) { // Hard
       newCardState = 'learning';
       newStepIndex = 0;
-      newInterval = parseFloat((LEARNING_STEPS[0] / (24 * 60)).toFixed(6));
+      // Hard on new cards: average of first two learning steps (Anki behavior)
+      // If only one step, use 1.5x that step
+      if (LEARNING_STEPS.length >= 2) {
+        const hardMinutes = (LEARNING_STEPS[0] + LEARNING_STEPS[1]) / 2;
+        newInterval = parseFloat((hardMinutes / (24 * 60)).toFixed(6));
+      } else {
+        newInterval = parseFloat(((LEARNING_STEPS[0] * 1.5) / (24 * 60)).toFixed(6));
+      }
     } else if (rating === 3) { // Good
       newCardState = 'learning';
       newStepIndex = 0;
@@ -105,9 +112,17 @@ export const calculateAnkiSchedule = (currentProgress, rating) => {
       newStepIndex = 0;
       newInterval = parseFloat((LEARNING_STEPS[0] / (24 * 60)).toFixed(6));
     } else if (rating === 2) { // Hard
-      // Repeat current step
-      const stepMinutes = LEARNING_STEPS[Math.min(newStepIndex, LEARNING_STEPS.length - 1)];
-      newInterval = parseFloat((stepMinutes / (24 * 60)).toFixed(6));
+      // Anki behavior: On first step, Hard = average of Again and Good
+      // On other steps, Hard repeats the current step
+      if (newStepIndex === 0 && LEARNING_STEPS.length >= 2) {
+        // Average of step 0 (Again) and step 1 (Good)
+        const hardMinutes = (LEARNING_STEPS[0] + LEARNING_STEPS[1]) / 2;
+        newInterval = parseFloat((hardMinutes / (24 * 60)).toFixed(6));
+      } else {
+        // Repeat current step
+        const stepMinutes = LEARNING_STEPS[Math.min(newStepIndex, LEARNING_STEPS.length - 1)];
+        newInterval = parseFloat((stepMinutes / (24 * 60)).toFixed(6));
+      }
     } else if (rating === 3) { // Good
       newStepIndex++;
       if (newStepIndex >= LEARNING_STEPS.length) {
