@@ -10,9 +10,8 @@ export const useTheme = () => {
   return context;
 };
 
-// Simple theme provider with basic colors
-export const ThemeProvider = ({ children }) => {
-  const theme = {
+// Define theme outside component to prevent recreation on every render
+const theme = {
     colors: {
       // Primary palette - clean minimal design like Bible app screenshots
       background: '#FFFFFF',
@@ -167,10 +166,15 @@ export const ThemeProvider = ({ children }) => {
         }
       }
     }
-  };
+};
 
+// Create stable context value object
+const contextValue = { theme };
+
+// Simple theme provider with basic colors
+export const ThemeProvider = ({ children }) => {
   return (
-    <ThemeContext.Provider value={{ theme }}>
+    <ThemeContext.Provider value={contextValue}>
       {children}
     </ThemeContext.Provider>
   );

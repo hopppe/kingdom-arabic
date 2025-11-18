@@ -55,15 +55,19 @@ export const FlashcardProvider = ({ children }) => {
   const [flashcards, setFlashcards] = useState([]);
   const [userProgress, setUserProgress] = useState({});
   const [groups, setGroups] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
   // Use refs to access latest state without recreating callbacks
   const flashcardsRef = useRef(flashcards);
   const userProgressRef = useRef(userProgress);
   const groupsRef = useRef(groups);
 
-  // Load flashcards and progress from storage
+  // Load flashcards and progress from storage (lazy load)
   const loadData = useCallback(async () => {
+    if (initialized) return; // Already loaded
+    setLoading(true);
+    setInitialized(true);
     try {
       const [storedCards, storedProgress, storedGroups] = await Promise.all([
         AsyncStorage.getItem(FLASHCARDS_KEY),
@@ -86,8 +90,6 @@ export const FlashcardProvider = ({ children }) => {
             const hasEnglish = card.english && typeof card.english === 'string' && card.english.trim() !== '';
 
             if (!hasArabic || !hasEnglish) {
-              console.log(`Removing invalid card ${card.id} - missing arabic (${hasArabic}) or english (${hasEnglish}) field`);
-              console.log(`Card data:`, JSON.stringify(card));
               return false;
             }
             return true;
@@ -95,7 +97,6 @@ export const FlashcardProvider = ({ children }) => {
 
           // If we filtered out some cards, save the cleaned list
           if (cards.length !== parsedCards.length) {
-            console.log(`Cleaned up ${parsedCards.length - cards.length} invalid cards`);
             await AsyncStorage.setItem(FLASHCARDS_KEY, JSON.stringify(cards));
           }
         }
@@ -103,7 +104,6 @@ export const FlashcardProvider = ({ children }) => {
 
       // If no valid cards, use initial ones
       if (cards.length === 0) {
-        console.log('No valid cards found, adding initial flashcards');
         cards = INITIAL_FLASHCARDS;
         await AsyncStorage.setItem(FLASHCARDS_KEY, JSON.stringify(cards));
       }
@@ -118,8 +118,6 @@ export const FlashcardProvider = ({ children }) => {
         Object.keys(progress).forEach(cardId => {
           if (validCardIds.has(cardId)) {
             cleanedProgress[cardId] = progress[cardId];
-          } else {
-            console.log(`Removing orphaned progress for card ${cardId}`);
           }
         });
         progress = cleanedProgress;
@@ -155,7 +153,7 @@ export const FlashcardProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [initialized]);
 
   // Save flashcards to storage
   const saveFlashcards = useCallback(async (cards) => {
@@ -175,6 +173,7 @@ export const FlashcardProvider = ({ children }) => {
     }
   }, []);
 
+  // Auto-load flashcards on mount
   useEffect(() => {
     loadData();
   }, [loadData]);
@@ -193,7 +192,12 @@ export const FlashcardProvider = ({ children }) => {
   }, [groups]);
 
   // Add multiple flashcards at once
-  const addMultipleFlashcards = useCallback((words) => {
+  const addMultipleFlashcards = useCallback(async (words) => {
+    // Ensure data is loaded before adding
+    if (!initialized) {
+      await loadData();
+    }
+
     let addedCount = 0;
     const newCards = [];
     const newProgress = { ...userProgressRef.current };
@@ -219,10 +223,7 @@ export const FlashcardProvider = ({ children }) => {
           verseTextEnglish: verseTextEnglish || null,
         });
         newProgress[cardId] = createNewCardProgress();
-        console.log(`Added flashcard: ${arabic} -> ${english} (${reference || 'no ref'})`);
         addedCount++;
-      } else {
-        console.log(`Flashcard already exists for: ${arabic}`);
       }
     });
 
@@ -235,7 +236,7 @@ export const FlashcardProvider = ({ children }) => {
     }
 
     return addedCount;
-  }, [saveFlashcards, saveProgress]);
+  }, [initialized, loadData, saveFlashcards, saveProgress]);
 
   // Remove a flashcard
   const removeFlashcard = useCallback((id) => {
@@ -370,6 +371,7 @@ export const FlashcardProvider = ({ children }) => {
     userProgress,
     groups,
     loading,
+    loadData,
     addMultipleFlashcards,
     removeFlashcard,
     recordAnswer,

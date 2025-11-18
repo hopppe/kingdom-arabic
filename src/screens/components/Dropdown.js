@@ -93,20 +93,19 @@ export const Dropdown = ({
       </TouchableOpacity>
 
       {isOpen && (
-        <Animated.View
+        <View
           style={[
             styles.dropdown,
             {
-              backgroundColor: theme.colors.cardBackground,
-              borderColor: theme.colors.border,
-              maxHeight: maxDropdownHeight,
-              opacity: animatedHeight,
+              backgroundColor: '#FFFFFF',
+              borderColor: theme.colors.border || '#DDDDDD',
             },
             dropdownStyle,
           ]}
         >
           <ScrollView
-            style={styles.scrollView}
+            style={[styles.scrollView, { backgroundColor: '#FFFFFF' }]}
+            contentContainerStyle={{ backgroundColor: '#FFFFFF' }}
             showsVerticalScrollIndicator={true}
             nestedScrollEnabled={true}
           >
@@ -149,7 +148,7 @@ export const Dropdown = ({
               );
             })}
           </ScrollView>
-        </Animated.View>
+        </View>
       )}
     </View>
   );
@@ -192,15 +191,18 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 12,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 8,
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 10,
     overflow: 'hidden',
+    zIndex: 10000,
   },
   scrollView: {
     flexGrow: 0,
+    backgroundColor: '#FFFFFF',
   },
   item: {
+    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

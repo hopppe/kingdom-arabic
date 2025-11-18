@@ -18,6 +18,7 @@ import { useFlashcards } from '../context/FlashcardContext';
 import { AnkiCardCounts } from './components/AnkiCardCounts';
 import { AnkiRatingButtons } from './components/AnkiRatingButtons';
 import { QuickSettingsModal } from './components/QuickSettingsModal';
+import { Dropdown } from './components/Dropdown';
 import { LocalQueueManager } from '../../Flashcards/utils/localQueueManager';
 import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../Flashcards/utils/ankiScheduler';
 
@@ -27,7 +28,18 @@ const isMediumScreen = screenHeight >= 700 && screenHeight < 800;
 
 export default function FlashcardScreen({ navigation }) {
   const { theme } = useTheme();
-  const { flashcards, userProgress, recordAnswer, removeFlashcard, resetCardProgress } = useFlashcards();
+  const {
+    flashcards,
+    userProgress,
+    groups,
+    recordAnswer,
+    removeFlashcard,
+    resetCardProgress,
+    createGroup,
+    addCardToGroup,
+    removeCardFromGroup,
+    deleteGroup,
+  } = useFlashcards();
 
   const [sessionCards, setSessionCards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,6 +50,7 @@ export default function FlashcardScreen({ navigation }) {
   const [sessionInitialized, setSessionInitialized] = useState(false);
   const [showEnglishFirst, setShowEnglishFirst] = useState(false);
   const [showVerseOnFront, setShowVerseOnFront] = useState(false);
+  const [selectedGroup, setSelectedGroup] = useState('All Cards');
 
   // Card counts for Anki-style display
   const [cardCounts, setCardCounts] = useState({ new: 0, learning: 0, review: 0 });
@@ -112,6 +125,35 @@ export default function FlashcardScreen({ navigation }) {
     setLocalUserProgress(userProgress);
   }, [userProgress]);
 
+  // Sync session cards' groups from flashcards when flashcards change
+  useEffect(() => {
+    if (sessionCards.length > 0) {
+      let hasChanges = false;
+      const updatedSessionCards = sessionCards.map(sessionCard => {
+        const updatedCard = flashcards.find(fc => fc.id === sessionCard.id);
+        if (updatedCard) {
+          const sessionGroups = JSON.stringify(sessionCard.groups || []);
+          const updatedGroups = JSON.stringify(updatedCard.groups || []);
+          if (sessionGroups !== updatedGroups) {
+            hasChanges = true;
+            return { ...sessionCard, groups: updatedCard.groups };
+          }
+        }
+        return sessionCard;
+      });
+      if (hasChanges) {
+        setSessionCards(updatedSessionCards);
+      }
+    }
+  }, [flashcards, sessionCards]);
+
+  // Reset session when group changes
+  useEffect(() => {
+    if (sessionInitialized) {
+      setSessionInitialized(false);
+    }
+  }, [selectedGroup]);
+
   // Initialize session with queue manager
   useEffect(() => {
     if (flashcards.length === 0 || Object.keys(userProgress).length === 0) {
@@ -144,9 +186,14 @@ export default function FlashcardScreen({ navigation }) {
       }
     });
 
+    // Filter flashcards by selected group
+    const filteredFlashcards = selectedGroup === 'All Cards'
+      ? flashcards
+      : flashcards.filter(card => card.groups && card.groups.includes(selectedGroup));
+
     // Get cards due for review
     const now = new Date();
-    const dueCards = flashcards.filter(card => {
+    const dueCards = filteredFlashcards.filter(card => {
       const progress = userProgress[card.id];
       if (!progress) return true;
       const nextReview = new Date(progress.next_review_at);
@@ -166,7 +213,7 @@ export default function FlashcardScreen({ navigation }) {
     }
 
     setSessionInitialized(true);
-  }, [flashcards, userProgress, sessionInitialized]);
+  }, [flashcards, userProgress, sessionInitialized, selectedGroup]);
 
   const flipCard = useCallback(() => {
     Animated.spring(flipAnimation, {
@@ -184,42 +231,40 @@ export default function FlashcardScreen({ navigation }) {
     setIsProcessingAnswer(true);
     const card = sessionCards[currentIndex];
 
-    // Calculate new schedule locally - prefer embedded cardProgress over localUserProgress
-    // because cardProgress is updated by the queue manager
-    const currentProgress = card.cardProgress || localUserProgress[card.id] || {
-      card_state: 'new',
-      ease_factor: DEFAULT_EASE_FACTOR,
-      interval_days: 0,
-      step_index: 0,
-      lapses: 0,
-      reviews_count: 0,
-    };
-
-    const ankiData = calculateAnkiSchedule(currentProgress, rating);
-
-    // Update local progress immediately
-    const updatedProgress = {
-      ...localUserProgress,
-      [card.id]: {
-        ...ankiData,
-        last_reviewed_at: new Date().toISOString(),
-      },
-    };
-    setLocalUserProgress(updatedProgress);
-
-    // Record answer to persistent storage (fire-and-forget)
-    recordAnswer(card.id, rating);
-
-    // Update queue manager
-    const newQueue = queueManagerRef.current.answerCard(card.id, ankiData);
-    const queueState = queueManagerRef.current.getQueueState();
-
-    // Slide out animation
+    // Start slide out animation IMMEDIATELY for instant feedback
     Animated.timing(slideAnimation, {
       toValue: -screenWidth,
       duration: 250,
       useNativeDriver: true,
     }).start(() => {
+      // Do all the heavy work during/after the animation
+      const currentProgress = card.cardProgress || localUserProgress[card.id] || {
+        card_state: 'new',
+        ease_factor: DEFAULT_EASE_FACTOR,
+        interval_days: 0,
+        step_index: 0,
+        lapses: 0,
+        reviews_count: 0,
+      };
+
+      const ankiData = calculateAnkiSchedule(currentProgress, rating);
+
+      // Update local progress
+      const updatedProgress = {
+        ...localUserProgress,
+        [card.id]: {
+          ...ankiData,
+          last_reviewed_at: new Date().toISOString(),
+        },
+      };
+      setLocalUserProgress(updatedProgress);
+
+      // Record answer to persistent storage (fire-and-forget, async)
+      recordAnswer(card.id, rating);
+
+      // Update queue manager
+      const newQueue = queueManagerRef.current.answerCard(card.id, ankiData);
+      const queueState = queueManagerRef.current.getQueueState();
       // Update UI state after slide-out
       setSessionCards(newQueue);
       setCardCounts(queueState.counts);
@@ -323,6 +368,23 @@ export default function FlashcardScreen({ navigation }) {
     );
   }, [currentIndex, sessionCards, resetCardProgress]);
 
+  // Group management handlers
+  const handleCreateGroup = useCallback((groupName) => {
+    return createGroup(groupName);
+  }, [createGroup]);
+
+  const handleAddToGroup = useCallback((groupName) => {
+    if (currentIndex >= sessionCards.length) return;
+    const card = sessionCards[currentIndex];
+    addCardToGroup(card.id, groupName);
+  }, [currentIndex, sessionCards, addCardToGroup]);
+
+  const handleRemoveFromGroup = useCallback((groupName) => {
+    if (currentIndex >= sessionCards.length) return;
+    const card = sessionCards[currentIndex];
+    removeCardFromGroup(card.id, groupName);
+  }, [currentIndex, sessionCards, removeCardFromGroup]);
+
   // Helper to highlight word in verse text
   const highlightWordInVerse = useCallback((verseText, word, textStyle) => {
     if (!verseText || !word) return <Text style={textStyle}>{verseText}</Text>;
@@ -407,6 +469,17 @@ export default function FlashcardScreen({ navigation }) {
       fontWeight: '600',
       color: theme.colors.text,
       marginLeft: 4,
+    },
+    headerRight: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 12,
+    },
+    groupDropdown: {
+      minWidth: 160,
+      maxWidth: 200,
+      zIndex: 9999,
+      elevation: 9999,
     },
     content: {
       flex: 1,
@@ -721,9 +794,22 @@ export default function FlashcardScreen({ navigation }) {
           <Ionicons name="book-outline" size={18} color={theme.colors.text} />
           <Text style={styles.bibleButtonText}>Bible</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.headerButton} onPress={() => setShowSettingsModal(true)}>
-          <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
-        </TouchableOpacity>
+        <View style={styles.headerRight}>
+          <Dropdown
+            items={['All Cards', ...groups]}
+            selectedValue={selectedGroup}
+            onSelect={setSelectedGroup}
+            maxHeight={250}
+            style={styles.groupDropdown}
+            dropdownStyle={{
+              backgroundColor: '#FFFFFF',
+              opacity: 1,
+            }}
+          />
+          <TouchableOpacity style={styles.headerButton} onPress={() => setShowSettingsModal(true)}>
+            <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.content}>
@@ -852,6 +938,10 @@ export default function FlashcardScreen({ navigation }) {
         onToggleFlip={toggleFlipPreference}
         showVerseOnFront={showVerseOnFront}
         onToggleVerseOnFront={toggleVerseOnFront}
+        onCreateGroup={handleCreateGroup}
+        onAddToGroup={handleAddToGroup}
+        onRemoveFromGroup={handleRemoveFromGroup}
+        availableGroups={groups}
       />
     </SafeAreaView>
   );

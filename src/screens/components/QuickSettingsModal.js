@@ -10,7 +10,10 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Dimensions,
 } from 'react-native';
+
+const { height: screenHeight } = Dimensions.get('window');
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { Dropdown } from './Dropdown';
@@ -211,7 +214,12 @@ export const QuickSettingsModal = ({
                     onSelect={handleAddToGroup}
                     placeholder="Select Group"
                     maxHeight={150}
+                    style={styles.dropdownContainer}
                     buttonStyle={styles.addToGroupDropdown}
+                    dropdownStyle={{
+                      backgroundColor: theme.colors.cardBackground || '#fff',
+                      zIndex: 9999,
+                    }}
                   />
                 </View>
               )}
@@ -225,8 +233,12 @@ export const QuickSettingsModal = ({
                   {currentCard.groups.map((group, index) => (
                     <View key={index} style={styles.groupChip}>
                       <Text style={[styles.groupChipText, { color: theme.colors.text }]}>{group}</Text>
-                      <TouchableOpacity onPress={() => handleRemoveFromGroup(group)}>
-                        <Ionicons name="close-circle" size={18} color={theme.colors.textSecondary} />
+                      <TouchableOpacity
+                        onPress={() => handleRemoveFromGroup(group)}
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        style={styles.removeButton}
+                      >
+                        <Ionicons name="close-circle" size={20} color={theme.colors.error || '#FF3B30'} />
                       </TouchableOpacity>
                     </View>
                   ))}
@@ -360,7 +372,7 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   scrollView: {
-    maxHeight: '80vh',
+    maxHeight: screenHeight * 0.8,
   },
   scrollContent: {
     flexGrow: 1,
@@ -484,14 +496,22 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
   },
+  removeButton: {
+    padding: 4,
+  },
   addToGroupContainer: {
     marginBottom: 10,
+    zIndex: 1000,
   },
   addToGroupLabel: {
     fontSize: 12,
     fontWeight: '600',
     textTransform: 'uppercase',
     marginBottom: 8,
+  },
+  dropdownContainer: {
+    zIndex: 9999,
+    elevation: 9999,
   },
   addToGroupDropdown: {
     width: '100%',
