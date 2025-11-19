@@ -15,6 +15,7 @@ import { useFlashcards } from '../../context/FlashcardContext';
 import { AnkiCardCounts } from '../components/AnkiCardCounts';
 import { AnkiRatingButtons } from '../components/AnkiRatingButtons';
 import { QuickSettingsModal } from '../components/QuickSettingsModal';
+import { FlashcardListModal } from '../components/FlashcardListModal';
 import { Dropdown } from '../components/Dropdown';
 import { FlashcardCard } from './FlashcardCard';
 import { useFlashcardPreferences } from '../../hooks/useFlashcardPreferences';
@@ -47,6 +48,7 @@ export default function FlashcardScreen({ navigation, route }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showFlashcardList, setShowFlashcardList] = useState(false);
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState(initialGroup);
@@ -367,7 +369,21 @@ export default function FlashcardScreen({ navigation, route }) {
         onCreateGroup={handleCreateGroup}
         onAddToGroup={handleAddToGroup}
         onRemoveFromGroup={handleRemoveFromGroup}
+        onOpenFlashcardList={() => setShowFlashcardList(true)}
         availableGroups={groups}
+        selectedGroup={selectedGroup}
+        onResetDeck={() => {}}
+        onUpdateEnglish={() => {}}
+      />
+
+      <FlashcardListModal
+        visible={showFlashcardList}
+        onClose={() => setShowFlashcardList(false)}
+        flashcards={flashcards}
+        onRemoveCard={handleRemoveCard}
+        onUpdateTranslation={(cardId, newTranslation) => {
+          // TODO: Implement update translation functionality
+        }}
       />
     </SafeAreaView>
   );
