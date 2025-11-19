@@ -28,6 +28,11 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
     }
     wordTapInProgress.current = true;
 
+    // Reset the flag after a brief moment
+    setTimeout(() => {
+      wordTapInProgress.current = false;
+    }, 100);
+
     const translation = findTranslation(word, verseIndex);
     if (!translation) {
       setActiveWord(null);

@@ -32,6 +32,7 @@ import ActivityContainer from '../../components/ActivityContainer';
 import { AnkiRatingButtons } from './components/AnkiRatingButtons';
 import { AnkiCardCounts } from './components/AnkiCardCounts';
 import { QuickSettingsModal } from './components/QuickSettingsModal';
+import { FlashcardListModal } from './components/FlashcardListModal';
 import FlashcardErrorBoundary from './components/FlashcardErrorBoundary';
 
 // Import new hooks and utilities
@@ -161,11 +162,14 @@ function FlashcardScreenInternal({
   const [isProcessingCompletion, setIsProcessingCompletion] = useState(false);
   const [hasAutoCompleted, setHasAutoCompleted] = useState(false);
   const [showQuickSettings, setShowQuickSettings] = useState(false);
+  const [showFlashcardList, setShowFlashcardList] = useState(false);
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [helpStep, setHelpStep] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
+  const [isRestarting, setIsRestarting] = useState(false);
+  const [sessionCompleted, setSessionCompleted] = useState(false); // Track if user completed a session
 
   // Displayed card state (separate from sessionCards for smooth animations)
   const [displayedCard, setDisplayedCard] = useState(null);
@@ -232,6 +236,45 @@ function FlashcardScreenInternal({
       console.error('Error clearing session state:', error);
     }
   };
+
+  // Restart the session with all cards
+  const handleRestartSession = useCallback(async () => {
+    setIsRestarting(true);
+
+    try {
+      // Clear current session
+      await clearSessionState();
+
+      // Clean up current queue manager
+      if (queueManagerRef.current) {
+        queueManagerRef.current.cleanup();
+        queueManagerRef.current = null;
+      }
+
+      // Reset state
+      setSessionCards([]);
+      setSessionInitialized(false);
+      setCurrentIndex(0);
+      setCorrectAnswers(0);
+      setDisplayedCard(null);
+      setSessionCompleted(false); // Reset completion flag
+      resetFlipState();
+      initializationStartedRef.current = false;
+
+      // Clear image cache
+      imagePreloader.clearCache();
+
+      // Re-fetch fresh cards from database
+      await ensureDataLoaded();
+
+      // The useEffect will handle re-initialization
+    } catch (error) {
+      console.error('Error restarting session:', error);
+      Alert.alert('Error', 'Failed to restart session. Please try again.');
+    } finally {
+      setIsRestarting(false);
+    }
+  }, [clearSessionState, resetFlipState, ensureDataLoaded]);
 
   // Activity completion handler
   const handleActivityComplete = useCallback(async (isEmptyContent = false, flashcardData = null) => {
@@ -570,6 +613,7 @@ function FlashcardScreenInternal({
         if (!hasMoreCards) {
           // Session truly complete - no cards left at all
           clearSessionState();
+          setSessionCompleted(true); // Mark session as completed
           setIsProcessingAnswer(false);
           setTimeout(() => {
             handleActivityComplete(false, {
@@ -673,6 +717,37 @@ function FlashcardScreenInternal({
         }
       ]
     );
+  };
+
+  // Handle flashcard list modal actions
+  const handleRemoveCardFromList = async (cardId) => {
+    setSettingsLoading(true);
+
+    try {
+      const result = await removeCardFromStudyDeck(cardId);
+
+      if (result.success) {
+        const cardToRemove = mainDeckCards.find(c => c.id === cardId);
+        Alert.alert('Card Removed', `"${cardToRemove?.word || 'Card'}" has been removed from your study deck.`);
+
+        // Refresh the session to reflect the removal
+        await ensureDataLoaded();
+      } else {
+        Alert.alert('Error', result.error || 'Failed to remove card');
+      }
+    } catch (error) {
+      console.error('Error removing card from list:', error);
+      Alert.alert('Error', 'Something went wrong while removing the card');
+    } finally {
+      setSettingsLoading(false);
+    }
+  };
+
+  const handleUpdateCardTranslation = async (cardId, newTranslation) => {
+    // This would require a new API method in FlashcardContext
+    // For now, we'll just update the local state
+    // TODO: Implement updateFlashcardTranslation in FlashcardContext
+    console.log('Update translation for card', cardId, 'to', newTranslation);
   };
 
   // Navigation setup - RTL-aware header buttons
@@ -816,39 +891,11 @@ function FlashcardScreenInternal({
     );
   }
 
-  // Empty state with auto-completion - only show after data has loaded
-  if (sessionCards.length === 0) {
-    // Simplified: Show loading while auto-completing from daily plan
-    if (isFromDailyPlan && !hasAutoCompleted) {
-      return (
-        <View style={[styles.emptyContainer, { backgroundColor: theme.components.flashcard.container.backgroundColor, paddingTop: insets.top + 20 }]}>
-          <ActivityIndicator size="large" color={theme.colors.primary} />
-        </View>
-      );
-    }
-
+  // Simplified: Show loading while auto-completing from daily plan
+  if (sessionCards.length === 0 && isFromDailyPlan && !hasAutoCompleted) {
     return (
       <View style={[styles.emptyContainer, { backgroundColor: theme.components.flashcard.container.backgroundColor, paddingTop: insets.top + 20 }]}>
-        <Text style={[styles.emptyText, { color: theme.colors.text }]}>
-          No flashcards to review
-        </Text>
-        <Text style={[styles.emptySubtext, { color: theme.colors.textSecondary }]}>
-          Great job! You've reviewed all your cards for now.
-        </Text>
-        <TouchableOpacity
-          style={[styles.backButton, { backgroundColor: theme.colors.primary }]}
-          onPress={() => {
-            if (navigation.canGoBack()) {
-              navigation.goBack();
-            } else {
-              navigation.navigate('Home');
-            }
-          }}
-        >
-          <Text style={[styles.backButtonText, { color: theme.colors.surface }]}>
-            Go Back
-          </Text>
-        </TouchableOpacity>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
@@ -866,9 +913,67 @@ function FlashcardScreenInternal({
       {/* Anki-style card counts */}
       <AnkiCardCounts counts={cardCounts} />
 
-      {/* Super simple card display */}
+      {/* Super simple card display OR completion message */}
       <View style={styles.cardContainer}>
-        {currentCard && (
+        {sessionCards.length === 0 ? (
+          /* Show completion message ONLY if user completed a session */
+          sessionCompleted ? (
+            <View style={styles.completionMessageContainer}>
+              <Text style={[styles.completionText, { color: theme.colors.text }]}>
+                You have finished the flashcards in this deck
+              </Text>
+              {isRestarting ? (
+                <ActivityIndicator size="large" color={theme.colors.primary} style={{ marginVertical: 20 }} />
+              ) : (
+                <View style={styles.completionButtonsContainer}>
+                  <TouchableOpacity
+                    style={[styles.primaryButton, { backgroundColor: theme.colors.primary }]}
+                    onPress={handleRestartSession}
+                  >
+                    <Text style={[styles.primaryButtonText, { color: theme.colors.surface }]}>
+                      Review Again
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.secondaryButton, { borderColor: theme.colors.primary }]}
+                    onPress={() => {
+                      if (navigation.canGoBack()) {
+                        navigation.goBack();
+                      } else {
+                        navigation.navigate('Home');
+                      }
+                    }}
+                  >
+                    <Text style={[styles.secondaryButtonText, { color: theme.colors.primary }]}>
+                      Go Back
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          ) : (
+            /* No cards available initially - just go back */
+            <View style={styles.completionMessageContainer}>
+              <Text style={[styles.emptyText, { color: theme.colors.text }]}>
+                No flashcards available
+              </Text>
+              <TouchableOpacity
+                style={[styles.backButton, { backgroundColor: theme.colors.primary }]}
+                onPress={() => {
+                  if (navigation.canGoBack()) {
+                    navigation.goBack();
+                  } else {
+                    navigation.navigate('Home');
+                  }
+                }}
+              >
+                <Text style={[styles.backButtonText, { color: theme.colors.surface }]}>
+                  Go Back
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )
+        ) : currentCard && (
           <Animated.View
             style={[
               styles.cardWrapper,
@@ -954,11 +1059,13 @@ function FlashcardScreenInternal({
         )}
       </View>
 
-      {/* Anki Rating Buttons */}
-      <AnkiRatingButtons
-        onRatingPress={handleButtonPress}
-        currentCard={currentCard}
-      />
+      {/* Anki Rating Buttons - only show if we have cards */}
+      {sessionCards.length > 0 && currentCard && (
+        <AnkiRatingButtons
+          onRatingPress={handleButtonPress}
+          currentCard={currentCard}
+        />
+      )}
 
       {/* Quick Settings Modal */}
       <QuickSettingsModal
@@ -968,7 +1075,17 @@ function FlashcardScreenInternal({
         userProgress={userProgress}
         onRemoveCard={handleRemoveCard}
         onResetProgress={handleResetCardProgress}
+        onOpenFlashcardList={() => setShowFlashcardList(true)}
         settingsLoading={settingsLoading}
+      />
+
+      {/* Flashcard List Modal */}
+      <FlashcardListModal
+        visible={showFlashcardList}
+        onClose={() => setShowFlashcardList(false)}
+        flashcards={mainDeckCards}
+        onRemoveCard={handleRemoveCardFromList}
+        onUpdateTranslation={handleUpdateCardTranslation}
       />
 
       {/* Help Overlay */}
@@ -1031,6 +1148,58 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  completionMessageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 28,
+  },
+  completionText: {
+    fontSize: 26,
+    fontWeight: '700',
+    marginBottom: 16,
+    textAlign: 'center',
+    letterSpacing: 0.2,
+  },
+  completionSubtext: {
+    fontSize: 17,
+    textAlign: 'center',
+    marginBottom: 40,
+    lineHeight: 24,
+  },
+  completionButtonsContainer: {
+    width: '100%',
+    gap: 12,
+  },
+  primaryButton: {
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 14,
+    minHeight: 44,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.15,
+    shadowRadius: 12,
+    elevation: 6,
+    alignItems: 'center',
+  },
+  primaryButtonText: {
+    fontSize: 17,
+    fontWeight: '700',
+    letterSpacing: 0.2,
+  },
+  secondaryButton: {
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    borderRadius: 14,
+    minHeight: 44,
+    borderWidth: 2,
+    alignItems: 'center',
+  },
+  secondaryButtonText: {
+    fontSize: 17,
+    fontWeight: '600',
+    letterSpacing: 0.2,
   },
   cardWrapper: {
     width: '90%',

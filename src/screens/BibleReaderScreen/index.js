@@ -4,6 +4,7 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
+  Pressable,
   Alert,
   Dimensions,
   InteractionManager,
@@ -19,7 +20,7 @@ import { ChapterSelector } from './ChapterSelector';
 import { SavedWordsPanel } from './SavedWordsPanel';
 import { SettingsModal } from './SettingsModal';
 import { useBibleReader } from '../../hooks/useBibleReader';
-import { loadChapterWithMappingType, getMappingType, setMappingType, MAPPING_TYPES } from '../../utils/bibleLoader';
+import { loadChapterWithMappingType } from '../../utils/bibleLoader';
 
 const { width: screenWidth} = Dimensions.get('window');
 
@@ -40,9 +41,6 @@ export default function BibleReaderScreen({ navigation }) {
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
 
-  // Mapping type state
-  const [mappingType, setMappingTypeState] = useState(MAPPING_TYPES.INTERPRETIVE);
-
   // Use custom hook for word interactions
   const {
     activeWord,
@@ -56,27 +54,18 @@ export default function BibleReaderScreen({ navigation }) {
 
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  // Load mapping type preference on mount
-  useEffect(() => {
-    const loadMappingPreference = async () => {
-      const savedType = await getMappingType();
-      setMappingTypeState(savedType);
-    };
-    loadMappingPreference();
-  }, []);
-
-  // Load chapter data with selected mapping type
+  // Load chapter data
   const loadCurrentChapter = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await loadChapterWithMappingType(currentBook, currentChapter, mappingType);
+      const data = await loadChapterWithMappingType(currentBook, currentChapter);
       setChapter(data);
     } catch (error) {
       console.error('Failed to load chapter:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [currentBook, currentChapter, mappingType]);
+  }, [currentBook, currentChapter]);
 
   useEffect(() => {
     const task = InteractionManager.runAfterInteractions(() => {
@@ -84,26 +73,6 @@ export default function BibleReaderScreen({ navigation }) {
     });
     return () => task.cancel();
   }, [loadCurrentChapter]);
-
-  // Handle mapping type change
-  const handleMappingTypeChange = useCallback(async (newType) => {
-    setMappingTypeState(newType);
-    await setMappingType(newType);
-
-    // Clear active word to avoid showing stale translation
-    setActiveWord(null);
-
-    // Reload chapter immediately with new type (don't wait for state update)
-    setIsLoading(true);
-    try {
-      const data = await loadChapterWithMappingType(currentBook, currentChapter, newType);
-      setChapter(data);
-    } catch (error) {
-      console.error('Failed to load chapter with new mapping type:', error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [currentBook, currentChapter, setActiveWord]);
 
   // Chapter navigation
   const handleChapterSelect = useCallback((bookId, chapterNum) => {
@@ -139,25 +108,43 @@ export default function BibleReaderScreen({ navigation }) {
     return bookObj.chapters.indexOf(currentChapter) < bookObj.chapters.length - 1;
   }, [currentBook, currentChapter]);
 
-  const handleAddToFlashcards = useCallback(() => {
+  const handleAddToFlashcards = useCallback(async () => {
     if (savedWords.length === 0) {
       Alert.alert('No Words', 'Tap on Arabic words to save them first.');
       return;
     }
 
-    const added = addMultipleFlashcards(savedWords);
+    const result = await addMultipleFlashcards(savedWords);
 
-    if (added > 0) {
-      Alert.alert('Success', `Added ${added} words to flashcards!`);
+    if (result.added > 0 || result.updated > 0) {
+      let message = '';
+      if (result.added > 0 && result.updated > 0) {
+        message = `Added ${result.added} new word${result.added === 1 ? '' : 's'} and updated ${result.updated} existing word${result.updated === 1 ? '' : 's'}!`;
+      } else if (result.added > 0) {
+        message = `Added ${result.added} word${result.added === 1 ? '' : 's'} to flashcards!`;
+      } else {
+        message = `Updated ${result.updated} word${result.updated === 1 ? '' : 's'} in flashcards!`;
+      }
+      Alert.alert('Success', message);
       setSavedWords([]);
     } else {
-      Alert.alert('Info', 'All words are already in your flashcards.');
+      Alert.alert('Info', 'All words are already in your flashcards with the same translations.');
     }
     setShowSavedPanel(false);
   }, [savedWords, addMultipleFlashcards, setSavedWords]);
 
-  // Memoized Word component
-  const renderWord = useCallback((word, wordIndex, verseIndex) => {
+  const handleUpdateTranslation = useCallback((timestamp, newTranslation) => {
+    setSavedWords(prevWords =>
+      prevWords.map(word =>
+        word.timestamp === timestamp
+          ? { ...word, translation: newTranslation }
+          : word
+      )
+    );
+  }, [setSavedWords]);
+
+  // Render word component
+  const renderWord = (word, wordIndex, verseIndex) => {
     if (/^\s+$/.test(word) || !word.trim()) {
       return <Text key={wordIndex} style={styles.arabicText}>{word}</Text>;
     }
@@ -168,7 +155,7 @@ export default function BibleReaderScreen({ navigation }) {
 
     return (
       <View key={wordIndex} style={styles.wordWrapper}>
-        <TouchableOpacity
+        <Pressable
           onPress={(event) => handleWordPress(word, verseIndex, event)}
           style={[
             styles.wordTouchable,
@@ -183,19 +170,15 @@ export default function BibleReaderScreen({ navigation }) {
           ]}>
             {word}
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeWord, savedWordsSet, handleWordPress]);
+  };
 
-  // Memoize verse splitting
-  const versesWithWords = useMemo(() => {
-    if (!chapter) return [];
-    return chapter.data.content_arabic.map(text => text.split(/(\s+)/));
-  }, [chapter]);
+  // Render verse component
+  const renderVerse = (verseText, verseIndex) => {
+    const words = verseText.split(/(\s+)/);
 
-  const renderVerse = useCallback((words, verseIndex) => {
     return (
       <View style={styles.verseContainer} key={verseIndex}>
         <View style={styles.paragraphWithNumber}>
@@ -214,8 +197,7 @@ export default function BibleReaderScreen({ navigation }) {
         </View>
       </View>
     );
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderWord, showTranslations, chapter]);
+  };
 
   // Loading state
   if (isLoading || !chapter) {
@@ -271,16 +253,17 @@ export default function BibleReaderScreen({ navigation }) {
         style={styles.content}
         showsVerticalScrollIndicator={false}
         onScrollBeginDrag={() => setActiveWord(null)}
-        onTouchStart={handleGlobalTap}
       >
-        <View style={styles.storyContent}>
-          <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
-          <Text style={styles.storyTitleEnglish}>
-            {getBookName(currentBook)} {currentChapter}
-          </Text>
+        <Pressable onPress={handleGlobalTap}>
+          <View style={styles.storyContent}>
+            <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
+            <Text style={styles.storyTitleEnglish}>
+              {getBookName(currentBook)} {currentChapter}
+            </Text>
 
-          {versesWithWords.map((words, index) => renderVerse(words, index))}
-        </View>
+            {chapter.data.content_arabic.map((verseText, index) => renderVerse(verseText, index))}
+          </View>
+        </Pressable>
       </ScrollView>
 
       {activeWord && <WordTooltip activeWord={activeWord} theme={theme} styles={styles} />}
@@ -331,6 +314,7 @@ export default function BibleReaderScreen({ navigation }) {
         onAddToFlashcards={handleAddToFlashcards}
         onClearAll={() => setSavedWords([])}
         onRemoveWord={(timestamp) => setSavedWords(savedWords.filter(w => w.timestamp !== timestamp))}
+        onUpdateTranslation={handleUpdateTranslation}
         styles={styles}
       />
 
@@ -338,8 +322,6 @@ export default function BibleReaderScreen({ navigation }) {
         visible={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
         styles={styles}
-        mappingType={mappingType}
-        onMappingTypeChange={handleMappingTypeChange}
       />
     </SafeAreaView>
   );

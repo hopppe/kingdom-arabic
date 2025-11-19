@@ -17,7 +17,6 @@ import { AnkiRatingButtons } from '../components/AnkiRatingButtons';
 import { QuickSettingsModal } from '../components/QuickSettingsModal';
 import { Dropdown } from '../components/Dropdown';
 import { FlashcardCard } from './FlashcardCard';
-import { FlashcardEmptyState } from './FlashcardEmptyState';
 import { useFlashcardPreferences } from '../../hooks/useFlashcardPreferences';
 import { useFlashcardAnimations } from '../../hooks/useFlashcardAnimations';
 import { useFlashcardSession } from '../../hooks/useFlashcardSession';
@@ -27,7 +26,7 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 const isSmallScreen = screenHeight < 700;
 const isMediumScreen = screenHeight >= 700 && screenHeight < 800;
 
-export default function FlashcardScreen({ navigation }) {
+export default function FlashcardScreen({ navigation, route }) {
   const { theme } = useTheme();
   const {
     flashcards,
@@ -42,12 +41,15 @@ export default function FlashcardScreen({ navigation }) {
     removeCardFromGroup,
   } = useFlashcards();
 
+  // Get selected group from route params if available (for restart)
+  const initialGroup = route?.params?.selectedGroup || 'All Cards';
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [settingsLoading, setSettingsLoading] = useState(false);
   const [isProcessingAnswer, setIsProcessingAnswer] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState('All Cards');
+  const [selectedGroup, setSelectedGroup] = useState(initialGroup);
 
   // Custom hooks
   const { showEnglishFirst, showVerseOnFront, toggleFlipPreference, toggleVerseOnFront } = useFlashcardPreferences();
@@ -209,6 +211,29 @@ export default function FlashcardScreen({ navigation }) {
     removeCardFromGroup(sessionCards[currentIndex].id, groupName);
   }, [currentIndex, sessionCards, removeCardFromGroup]);
 
+  const handleRestartSession = useCallback(() => {
+    if (!queueManagerRef.current) return;
+
+    // Filter flashcards by selected group
+    let cardsToLoad = flashcards;
+    if (selectedGroup && selectedGroup !== 'All Cards') {
+      cardsToLoad = flashcards.filter(card =>
+        card.groups && card.groups.includes(selectedGroup)
+      );
+    }
+
+    // Reinitialize the queue manager with all cards from the selected group
+    const cards = queueManagerRef.current.initialize(cardsToLoad, userProgress);
+    const queueState = queueManagerRef.current.getQueueState();
+
+    // Reset session state
+    setSessionCards(cards);
+    setCardCounts(queueState.counts);
+    setCurrentIndex(0);
+    setShowAnswer(false);
+    resetAnimations();
+  }, [flashcards, userProgress, selectedGroup, queueManagerRef, setSessionCards, setCardCounts, resetAnimations]);
+
   const styles = getStyles(theme);
 
   // Loading state
@@ -229,47 +254,30 @@ export default function FlashcardScreen({ navigation }) {
     return (
       <SafeAreaView style={styles.container}>
         <Header navigation={navigation} theme={theme} styles={styles} />
-        <FlashcardEmptyState
-          type="no-flashcards"
-          onGoBack={() => navigation.goBack()}
-          styles={styles}
-        />
-      </SafeAreaView>
-    );
-  }
-
-  // No cards due for review
-  if (sessionCards.length === 0) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Header navigation={navigation} theme={theme} styles={styles} />
-        <FlashcardEmptyState
-          type="all-done"
-          onGoBack={() => navigation.goBack()}
-          styles={styles}
-        />
-      </SafeAreaView>
-    );
-  }
-
-  const currentCard = sessionCards[currentIndex];
-  if (!currentCard) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <Header navigation={navigation} theme={theme} styles={styles} />
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={theme.colors.primary} />
+        <View style={styles.emptyContainer}>
+          <Ionicons name="card-outline" size={80} color={theme.colors.text} style={styles.emptyIcon} />
+          <Text style={styles.emptyText}>
+            No flashcards yet.{'\n'}Read Bible chapters and save words to create flashcards.
+          </Text>
+          <TouchableOpacity
+            style={styles.goBackButton}
+            onPress={() => navigation.goBack()}
+          >
+            <Text style={styles.goBackButtonText}>Go to Chapters</Text>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     );
   }
 
-  const currentCardProgress = currentCard.cardProgress || localUserProgress[currentCard.id] || {
+  const currentCard = sessionCards[currentIndex];
+
+  const currentCardProgress = currentCard ? (currentCard.cardProgress || localUserProgress[currentCard.id] || {
     card_state: 'new',
     ease_factor: DEFAULT_EASE_FACTOR,
     interval_days: 0,
     step_index: 0,
-  };
+  }) : null;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -295,25 +303,54 @@ export default function FlashcardScreen({ navigation }) {
 
       <View style={styles.content}>
         <AnkiCardCounts counts={cardCounts} />
-        <FlashcardCard
-          card={currentCard}
-          showAnswer={showAnswer}
-          showEnglishFirst={showEnglishFirst}
-          showVerseOnFront={showVerseOnFront}
-          frontInterpolate={frontInterpolate}
-          backInterpolate={backInterpolate}
-          slideAnimation={slideAnimation}
-          styles={styles}
-          onFlip={handleFlip}
-        />
-        <View style={styles.ratingContainer}>
-          <AnkiRatingButtons
-            onRatingPress={handleRating}
-            currentCard={currentCard}
-            cardProgress={currentCardProgress}
-            disabled={isProcessingAnswer}
-          />
-        </View>
+
+        {!currentCard ? (
+          <View style={styles.completionMessageContainer}>
+            <Text style={[styles.completionText, { color: theme.colors.text }]}>
+              You have finished the flashcards in this deck
+            </Text>
+            <View style={styles.completionButtonsContainer}>
+              <TouchableOpacity
+                style={[styles.primaryButton, { backgroundColor: theme.colors.primary }]}
+                onPress={handleRestartSession}
+              >
+                <Text style={[styles.primaryButtonText, { color: '#fff' }]}>
+                  Review Again
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.secondaryButton, { borderColor: theme.colors.primary }]}
+                onPress={() => navigation.goBack()}
+              >
+                <Text style={[styles.secondaryButtonText, { color: theme.colors.primary }]}>
+                  Go Back
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        ) : (
+          <>
+            <FlashcardCard
+              card={currentCard}
+              showAnswer={showAnswer}
+              showEnglishFirst={showEnglishFirst}
+              showVerseOnFront={showVerseOnFront}
+              frontInterpolate={frontInterpolate}
+              backInterpolate={backInterpolate}
+              slideAnimation={slideAnimation}
+              styles={styles}
+              onFlip={handleFlip}
+            />
+            <View style={styles.ratingContainer}>
+              <AnkiRatingButtons
+                onRatingPress={handleRating}
+                currentCard={currentCard}
+                cardProgress={currentCardProgress}
+                disabled={isProcessingAnswer}
+              />
+            </View>
+          </>
+        )}
       </View>
 
       <QuickSettingsModal
@@ -582,6 +619,53 @@ function getStyles(theme) {
       marginTop: 16,
       fontSize: 16,
       color: theme.colors.textSecondary,
+    },
+    completionMessageContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: 28,
+    },
+    completionText: {
+      fontSize: 26,
+      fontWeight: '700',
+      marginBottom: 40,
+      textAlign: 'center',
+      letterSpacing: 0.2,
+    },
+    completionButtonsContainer: {
+      width: '100%',
+      gap: 12,
+    },
+    primaryButton: {
+      paddingVertical: 16,
+      paddingHorizontal: 24,
+      borderRadius: 14,
+      minHeight: 44,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 6 },
+      shadowOpacity: 0.15,
+      shadowRadius: 12,
+      elevation: 6,
+      alignItems: 'center',
+    },
+    primaryButtonText: {
+      fontSize: 17,
+      fontWeight: '700',
+      letterSpacing: 0.2,
+    },
+    secondaryButton: {
+      paddingVertical: 16,
+      paddingHorizontal: 24,
+      borderRadius: 14,
+      minHeight: 44,
+      borderWidth: 2,
+      alignItems: 'center',
+    },
+    secondaryButtonText: {
+      fontSize: 17,
+      fontWeight: '600',
+      letterSpacing: 0.2,
     },
   });
 }

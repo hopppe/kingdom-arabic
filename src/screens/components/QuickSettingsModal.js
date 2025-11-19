@@ -29,6 +29,7 @@ export const QuickSettingsModal = ({
   onCreateGroup,
   onAddToGroup,
   onRemoveFromGroup,
+  onOpenFlashcardList,
   availableGroups,
   selectedGroup,
   settingsLoading,
@@ -143,39 +144,57 @@ export const QuickSettingsModal = ({
 
           <View style={styles.section}>
             <TouchableOpacity
-              style={[styles.modalButton, { backgroundColor: theme.colors.text }]}
+              style={[styles.compactButton, { borderColor: theme.colors.border }]}
+              onPress={() => {
+                onClose();
+                setTimeout(() => {
+                  if (onOpenFlashcardList) onOpenFlashcardList();
+                }, 300);
+              }}
+            >
+              <Ionicons name="list-outline" size={18} color={theme.colors.text} />
+              <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
+                View All Cards
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.compactButton, { borderColor: theme.colors.border, marginTop: 8 }]}
               onPress={onToggleFlip}
             >
-              <Ionicons name="swap-horizontal" size={20} color={theme.colors.background} />
-              <Text style={[styles.modalButtonText, { color: theme.colors.background }]}>
+              <Ionicons name="swap-horizontal-outline" size={18} color={theme.colors.text} />
+              <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
                 {showEnglishFirst ? 'Show Arabic First' : 'Show English First'}
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
-              style={[styles.modalButton, { backgroundColor: showVerseOnFront ? theme.colors.text : theme.colors.textSecondary, marginTop: 10 }]}
+              style={[styles.compactButton, { borderColor: theme.colors.border, marginTop: 8 }]}
               onPress={onToggleVerseOnFront}
             >
-              <Ionicons name={showVerseOnFront ? 'eye' : 'eye-off'} size={20} color={theme.colors.background} />
-              <Text style={[styles.modalButtonText, { color: theme.colors.background }]}>
+              <Ionicons name={showVerseOnFront ? 'eye-outline' : 'eye-off-outline'} size={18} color={theme.colors.text} />
+              <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
                 {showVerseOnFront ? 'Hide Verse on Front' : 'Show Verse on Front'}
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
-              style={[styles.modalButton, { backgroundColor: theme.colors.primary, marginTop: 10 }]}
+              style={[styles.compactButton, { borderColor: theme.colors.border, marginTop: 8 }]}
               onPress={handleOpenCreateGroup}
             >
-              <Ionicons name="add-circle-outline" size={20} color="#fff" />
-              <Text style={[styles.modalButtonText, { color: '#fff' }]}>
+              <Ionicons name="add-circle-outline" size={18} color={theme.colors.text} />
+              <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
                 Create Group
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
-              style={[styles.modalButton, { backgroundColor: '#FF9500', marginTop: 10 }]}
+              style={[styles.compactButton, { borderColor: '#FF9500', backgroundColor: 'rgba(255, 149, 0, 0.05)', marginTop: 8 }]}
               onPress={onResetDeck}
               disabled={settingsLoading}
             >
-              <Ionicons name="refresh-circle-outline" size={20} color="#fff" />
-              <Text style={[styles.modalButtonText, { color: '#fff' }]}>
+              <Ionicons name="refresh-circle-outline" size={18} color="#FF9500" />
+              <Text style={[styles.compactButtonText, { color: '#FF9500' }]}>
                 Reset Deck ({selectedGroup})
               </Text>
             </TouchableOpacity>
@@ -515,5 +534,19 @@ const styles = StyleSheet.create({
   },
   addToGroupDropdown: {
     width: '100%',
+  },
+  compactButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    gap: 8,
+  },
+  compactButtonText: {
+    fontSize: 15,
+    fontWeight: '500',
   },
 });

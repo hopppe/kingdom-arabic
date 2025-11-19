@@ -17,6 +17,7 @@ export const QuickSettingsModal = ({
   userProgress,
   onRemoveCard,
   onResetProgress,
+  onOpenFlashcardList,
   settingsLoading,
 }) => {
   const { theme } = useTheme();
@@ -25,22 +26,11 @@ export const QuickSettingsModal = ({
   const modalStyles = {
     modalContent: {
       backgroundColor: theme.colors.surface,
-      borderRadius: 20,
-      padding: 20,
+      borderRadius: 16,
+      padding: 16,
       margin: 20,
-      maxWidth: 300,
-      width: '80%',
-    },
-    removeButton: {
-      backgroundColor: theme.components.flashcard.remove.backgroundColor,
-    },
-    addAndStudyButton: {
-      backgroundColor: theme.components.flashcard.add.backgroundColor,
-    },
-    cancelButton: {
-      backgroundColor: 'transparent',
-      borderWidth: 1,
-      borderColor: theme.colors.border,
+      maxWidth: 320,
+      width: '85%',
     },
   };
 
@@ -53,115 +43,98 @@ export const QuickSettingsModal = ({
     >
       <View style={styles.modalOverlay}>
         <View style={modalStyles.modalContent}>
+          {/* Compact Header */}
           <View style={styles.modalHeader}>
-            <View style={[styles.modalIcon, { backgroundColor: theme.colors.primary }]}>
-              <Ionicons name="card" size={30} color="white" />
-            </View>
             <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
-              {t('flashcardScreen.cardActions')}
-            </Text>
-            <Text style={[styles.modalDescription, { color: theme.colors.textSecondary }]}>
               "{currentCard?.word}"
             </Text>
 
-            {/* Card Progress Information */}
-            {currentCard && (
-              <View style={styles.progressInfo}>
-                <View style={styles.progressRow}>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      {t('flashcardScreen.cardState')}
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.primary }]}>
-                      {(() => {
-                        const progress = userProgress[currentCard.id];
-                        const cardState = progress?.card_state || 'new';
-                        switch (cardState) {
-                          case 'new': return t('flashcardScreen.cardStateNew');
-                          case 'learning': return t('flashcardScreen.cardStateLearning');
-                          case 'review': return t('flashcardScreen.cardStateReview');
-                          case 'relearning': return t('flashcardScreen.cardStateRelearning');
-                          default: return t('flashcardScreen.cardStateNew');
-                        }
-                      })()}
-                    </Text>
-                  </View>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      {t('flashcardScreen.easeFactor')}
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.warning }]}>
-                      {(userProgress[currentCard.id]?.ease_factor || 2.50).toFixed(2)}
-                    </Text>
-                  </View>
+            {/* Compact Progress Info - Single Row */}
+            {currentCard && userProgress[currentCard.id] && (
+              <View style={[styles.compactProgressInfo, { backgroundColor: theme.colors.background }]}>
+                <View style={styles.compactProgressItem}>
+                  <Text style={[styles.compactLabel, { color: theme.colors.textSecondary }]}>
+                    {(() => {
+                      const progress = userProgress[currentCard.id];
+                      const cardState = progress?.card_state || 'new';
+                      switch (cardState) {
+                        case 'new': return 'New';
+                        case 'learning': return 'Learning';
+                        case 'review': return 'Review';
+                        case 'relearning': return 'Relearning';
+                        default: return 'New';
+                      }
+                    })()}
+                  </Text>
                 </View>
-                <View style={styles.progressRow}>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      {t('flashcardScreen.reviewsCount')}
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.text }]}>
-                      {userProgress[currentCard.id]?.reviews_count || 0}
-                    </Text>
-                  </View>
-                  <View style={styles.progressItem}>
-                    <Text style={[styles.progressLabel, { color: theme.colors.textSecondary }]}>
-                      {t('flashcardScreen.intervalDays')}
-                    </Text>
-                    <Text style={[styles.progressValue, { color: theme.colors.textSecondary }]}>
-                      {(() => {
-                        const progress = userProgress[currentCard.id];
-                        const intervalDays = progress?.interval_days || 0;
-                        if (intervalDays === 0) return '0d';
-                        return intervalDays < 1 ?
-                          `${Math.round(intervalDays * 24 * 60)}m` :
-                          `${Math.round(intervalDays)}d`;
-                      })()}
-                    </Text>
-                  </View>
+                <View style={styles.compactProgressDivider} />
+                <View style={styles.compactProgressItem}>
+                  <Text style={[styles.compactLabel, { color: theme.colors.textSecondary }]}>
+                    {userProgress[currentCard.id]?.reviews_count || 0} reviews
+                  </Text>
+                </View>
+                <View style={styles.compactProgressDivider} />
+                <View style={styles.compactProgressItem}>
+                  <Text style={[styles.compactLabel, { color: theme.colors.textSecondary }]}>
+                    {(() => {
+                      const progress = userProgress[currentCard.id];
+                      const intervalDays = progress?.interval_days || 0;
+                      if (intervalDays === 0) return '0d';
+                      return intervalDays < 1 ?
+                        `${Math.round(intervalDays * 24 * 60)}m` :
+                        `${Math.round(intervalDays)}d`;
+                    })()} interval
+                  </Text>
                 </View>
               </View>
             )}
 
-            {/* Show "New Card" if no progress */}
+            {/* Compact "New Card" badge */}
             {currentCard && !userProgress[currentCard.id] && (
-              <View style={styles.newCardBadge}>
-                <Text style={[styles.newCardText, { color: theme.colors.primary }]}>
-                  {t('flashcardScreen.newCard')}
+              <View style={[styles.compactProgressInfo, { backgroundColor: theme.colors.background }]}>
+                <Text style={[styles.compactLabel, { color: theme.colors.textSecondary }]}>
+                  New Card
                 </Text>
               </View>
             )}
           </View>
 
+          {/* Simplified Buttons */}
           <View style={styles.modalButtons}>
             <TouchableOpacity
-              style={[styles.modalButton, modalStyles.removeButton]}
-              onPress={onRemoveCard}
-              disabled={settingsLoading}
+              style={[styles.compactButton, { borderColor: theme.colors.border }]}
+              onPress={() => {
+                onClose();
+                setTimeout(() => {
+                  onOpenFlashcardList();
+                }, 300);
+              }}
             >
-              <Ionicons name="trash" size={20} color={theme.components.flashcard.remove.textColor} />
-              <Text style={[styles.modalButtonText, { color: theme.components.flashcard.remove.textColor }]}>
-                {settingsLoading ? t('flashcardScreen.removing') : t('flashcardScreen.removeFromDeck')}
+              <Ionicons name="list-outline" size={18} color={theme.colors.text} />
+              <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
+                View All Cards
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.modalButton, modalStyles.addAndStudyButton]}
+              style={[styles.compactButton, { borderColor: theme.colors.border }]}
               onPress={onResetProgress}
               disabled={settingsLoading}
             >
-              <Ionicons name="refresh" size={20} color={theme.components.flashcard.add.textColor} />
-              <Text style={[styles.modalButtonText, { color: theme.components.flashcard.add.textColor }]}>
-                {settingsLoading ? t('flashcardScreen.resetting') : t('flashcardScreen.resetProgress')}
+              <Ionicons name="refresh-outline" size={18} color={theme.colors.text} />
+              <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
+                {settingsLoading ? 'Resetting...' : 'Reset Progress'}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[styles.modalButton, modalStyles.cancelButton]}
-              onPress={onClose}
+              style={[styles.compactButton, styles.removeButton]}
+              onPress={onRemoveCard}
+              disabled={settingsLoading}
             >
-              <Text style={[styles.cancelButtonText, { color: theme.colors.text }]}>
-                {t('common.cancel')}
+              <Ionicons name="trash-outline" size={18} color="#ef4444" />
+              <Text style={[styles.compactButtonText, { color: '#ef4444' }]}>
+                {settingsLoading ? 'Removing...' : 'Remove Card'}
               </Text>
             </TouchableOpacity>
           </View>
@@ -177,99 +150,59 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 24,
+    padding: 20,
   },
   modalHeader: {
     alignItems: 'center',
-    marginBottom: 20,
-  },
-  modalIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   modalTitle: {
-    fontSize: 22,
-    fontWeight: '700',
-    textAlign: 'center',
-    marginBottom: 8,
-    letterSpacing: 0.2,
-  },
-  modalDescription: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 16,
-    lineHeight: 22,
-    paddingHorizontal: 4,
-  },
-  progressInfo: {
-    width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    borderRadius: 16,
-    padding: 16,
-    marginTop: 12,
-  },
-  progressRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-  },
-  progressItem: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  progressLabel: {
-    fontSize: 12,
-    marginBottom: 2,
-  },
-  progressValue: {
     fontSize: 18,
-    fontWeight: '700',
-    letterSpacing: 0.1,
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: 8,
   },
-  newCardBadge: {
-    backgroundColor: 'rgba(0, 123, 255, 0.1)',
-    borderRadius: 20,
-    paddingHorizontal: 16,
-    paddingVertical: 6,
-    marginTop: 12,
-  },
-  newCardText: {
-    fontSize: 15,
-    fontWeight: '700',
-    letterSpacing: 0.2,
-  },
-  modalButtons: {
-    gap: 10,
-  },
-  modalButton: {
+  compactProgressInfo: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    borderRadius: 14,
-    gap: 10,
-    minHeight: 44,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginTop: 8,
   },
-  modalButtonText: {
-    fontSize: 17,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-    textAlign: 'center',
+  compactProgressItem: {
+    alignItems: 'center',
   },
-  cancelButtonText: {
-    fontSize: 17,
-    fontWeight: '600',
-    letterSpacing: 0.2,
-    textAlign: 'center',
+  compactProgressDivider: {
+    width: 1,
+    height: 12,
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    marginHorizontal: 12,
+  },
+  compactLabel: {
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  modalButtons: {
+    gap: 8,
+  },
+  compactButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    gap: 8,
+  },
+  compactButtonText: {
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  removeButton: {
+    borderColor: '#ef4444',
+    backgroundColor: 'rgba(239, 68, 68, 0.05)',
   },
 });

@@ -141,10 +141,10 @@ export const createStyles = (theme) => StyleSheet.create({
     fontWeight: '500',
   },
   activeWordContainer: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.colors.primary,
   },
   activeWordText: {
-    color: theme.colors.text,
+    color: '#fff',
   },
   savedWordContainer: {
     backgroundColor: '#FFF3CD',
@@ -330,17 +330,31 @@ export const createStyles = (theme) => StyleSheet.create({
   },
   closeButton: {
     padding: 8,
+    minWidth: 44,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   closeButtonText: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
     color: theme.colors.primary,
   },
+  editHint: {
+    fontSize: 13,
+    color: theme.colors.textSecondary,
+    textAlign: 'center',
+    paddingHorizontal: 24,
+    paddingBottom: 8,
+    fontStyle: 'italic',
+  },
   modalActions: {
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingTop: 0,
+    paddingBottom: 12,
     gap: 8,
   },
   addToFlashcardsButton: {
@@ -366,7 +380,9 @@ export const createStyles = (theme) => StyleSheet.create({
     color: '#fff',
   },
   savedWordsList: {
-    padding: 24,
+    paddingHorizontal: 24,
+    paddingTop: 12,
+    paddingBottom: 24,
   },
   wordCount: {
     fontSize: 14,
@@ -396,6 +412,16 @@ export const createStyles = (theme) => StyleSheet.create({
   savedWordEnglish: {
     fontSize: 16,
     color: theme.colors.primary,
+  },
+  translationInput: {
+    fontSize: 16,
+    color: theme.colors.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
+    borderRadius: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    marginTop: 2,
   },
   savedWordReference: {
     fontSize: 12,

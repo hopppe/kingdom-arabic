@@ -199,17 +199,31 @@ export const FlashcardProvider = ({ children }) => {
     }
 
     let addedCount = 0;
+    let updatedCount = 0;
     const newCards = [];
     const newProgress = { ...userProgressRef.current };
+    let updatedCards = [...flashcardsRef.current];
 
     words.forEach(({ word, translation, book, chapter, verse, verseTextArabic, verseTextEnglish }) => {
       const arabic = word;
       const english = translation;
 
-      const existsInCurrent = flashcardsRef.current.some(card => card.arabic === arabic);
+      // Check if card already exists
+      const existingCardIndex = updatedCards.findIndex(card => card.arabic === arabic);
       const existsInNew = newCards.some(card => card.arabic === arabic);
 
-      if (!existsInCurrent && !existsInNew) {
+      if (existingCardIndex !== -1) {
+        // Card exists - update the translation if it's different
+        const existingCard = updatedCards[existingCardIndex];
+        if (existingCard.english !== english) {
+          updatedCards[existingCardIndex] = {
+            ...existingCard,
+            english,
+          };
+          updatedCount++;
+        }
+      } else if (!existsInNew) {
+        // Card doesn't exist - add it
         const cardId = Date.now().toString() + Math.random().toString(36).substring(2, 11) + addedCount;
         const reference = book && chapter && verse
           ? `${getBookName(book)} ${chapter}:${verse}`
@@ -227,15 +241,15 @@ export const FlashcardProvider = ({ children }) => {
       }
     });
 
-    if (newCards.length > 0) {
-      const updatedCards = [...flashcardsRef.current, ...newCards];
-      setFlashcards(updatedCards);
+    if (newCards.length > 0 || updatedCount > 0) {
+      const finalCards = [...updatedCards, ...newCards];
+      setFlashcards(finalCards);
       setUserProgress(newProgress);
-      saveFlashcards(updatedCards);
+      saveFlashcards(finalCards);
       saveProgress(newProgress);
     }
 
-    return addedCount;
+    return { added: addedCount, updated: updatedCount };
   }, [initialized, loadData, saveFlashcards, saveProgress]);
 
   // Remove a flashcard

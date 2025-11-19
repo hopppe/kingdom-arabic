@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Animated,
+  Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -26,18 +27,19 @@ export const Dropdown = ({
 }) => {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const animatedHeight = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(animatedHeight, {
-      toValue: isOpen ? 1 : 0,
-      duration: 200,
-      useNativeDriver: false,
-    }).start();
-  }, [isOpen]);
+  const [buttonLayout, setButtonLayout] = useState(null);
+  const buttonRef = useRef(null);
 
   const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+    if (!isOpen) {
+      // Measure button position before opening
+      buttonRef.current?.measure((x, y, width, height, pageX, pageY) => {
+        setButtonLayout({ x: pageX, y: pageY, width, height });
+        setIsOpen(true);
+      });
+    } else {
+      setIsOpen(false);
+    }
   };
 
   const handleSelect = (item) => {
@@ -52,19 +54,15 @@ export const Dropdown = ({
     ? (typeof selectedItem === 'string' ? selectedItem : selectedItem.label)
     : placeholder;
 
-  const maxDropdownHeight = animatedHeight.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, Math.min(maxHeight, items.length * 48)],
-  });
-
   return (
     <View style={[styles.container, style]}>
       <TouchableOpacity
+        ref={buttonRef}
         style={[
           styles.button,
           {
-            backgroundColor: theme.colors.surface,
-            borderColor: theme.colors.border,
+            backgroundColor: theme.colors.surface || '#FFFFFF',
+            borderColor: theme.colors.border || '#DDDDDD',
           },
           isOpen && styles.buttonOpen,
           buttonStyle,
@@ -92,64 +90,81 @@ export const Dropdown = ({
         />
       </TouchableOpacity>
 
-      {isOpen && (
-        <View
-          style={[
-            styles.dropdown,
-            {
-              backgroundColor: '#FFFFFF',
-              borderColor: theme.colors.border || '#DDDDDD',
-            },
-            dropdownStyle,
-          ]}
-        >
-          <ScrollView
-            style={[styles.scrollView, { backgroundColor: '#FFFFFF' }]}
-            contentContainerStyle={{ backgroundColor: '#FFFFFF' }}
-            showsVerticalScrollIndicator={true}
-            nestedScrollEnabled={true}
-          >
-            {items.map((item, index) => {
-              const value = typeof item === 'string' ? item : item.value;
-              const label = typeof item === 'string' ? item : item.label;
-              const isSelected = value === selectedValue;
-
-              return (
-                <TouchableOpacity
-                  key={index}
-                  style={[
-                    styles.item,
-                    isSelected && { backgroundColor: theme.colors.primary + '20' },
-                    itemStyle,
-                  ]}
-                  onPress={() => handleSelect(value)}
-                  activeOpacity={0.7}
+      <Modal
+        visible={isOpen}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setIsOpen(false)}
+      >
+        <TouchableWithoutFeedback onPress={() => setIsOpen(false)}>
+          <View style={styles.modalOverlay}>
+            <TouchableWithoutFeedback>
+              <View
+                style={[
+                  styles.dropdown,
+                  {
+                    backgroundColor: theme.colors.cardBackground || '#FFFFFF',
+                    borderColor: theme.colors.border || '#DDDDDD',
+                    top: buttonLayout ? buttonLayout.y + buttonLayout.height + 4 : 0,
+                    left: buttonLayout ? buttonLayout.x : 0,
+                    width: buttonLayout ? buttonLayout.width : 200,
+                  },
+                  dropdownStyle,
+                ]}
+              >
+                <ScrollView
+                  style={[styles.scrollView, {
+                    backgroundColor: theme.colors.cardBackground || '#FFFFFF',
+                    maxHeight: maxHeight,
+                  }]}
+                  showsVerticalScrollIndicator={true}
+                  nestedScrollEnabled={true}
                 >
-                  {renderItem ? (
-                    renderItem(item, isSelected)
-                  ) : (
-                    <>
-                      <Text
+                  {items.map((item, index) => {
+                    const value = typeof item === 'string' ? item : item.value;
+                    const label = typeof item === 'string' ? item : item.label;
+                    const isSelected = value === selectedValue;
+
+                    return (
+                      <TouchableOpacity
+                        key={index}
                         style={[
-                          styles.itemText,
-                          { color: theme.colors.text },
-                          textStyle,
+                          styles.item,
+                          { backgroundColor: theme.colors.cardBackground || '#FFFFFF' },
+                          isSelected && { backgroundColor: theme.colors.primary + '20' },
+                          itemStyle,
                         ]}
-                        numberOfLines={1}
+                        onPress={() => handleSelect(value)}
+                        activeOpacity={0.7}
                       >
-                        {label}
-                      </Text>
-                      {isSelected && (
-                        <Ionicons name="checkmark" size={20} color={theme.colors.primary} />
-                      )}
-                    </>
-                  )}
-                </TouchableOpacity>
-              );
-            })}
-          </ScrollView>
-        </View>
-      )}
+                        {renderItem ? (
+                          renderItem(item, isSelected)
+                        ) : (
+                          <>
+                            <Text
+                              style={[
+                                styles.itemText,
+                                { color: theme.colors.text },
+                                textStyle,
+                              ]}
+                              numberOfLines={1}
+                            >
+                              {label}
+                            </Text>
+                            {isSelected && (
+                              <Ionicons name="checkmark" size={20} color={theme.colors.primary} />
+                            )}
+                          </>
+                        )}
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
+              </View>
+            </TouchableWithoutFeedback>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
     </View>
   );
 };
@@ -157,62 +172,59 @@ export const Dropdown = ({
 const styles = StyleSheet.create({
   container: {
     position: 'relative',
-    zIndex: 1000,
   },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
     borderWidth: 1,
-    gap: 4,
+    gap: 6,
+    minHeight: 44,
   },
   buttonOpen: {
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
+    borderColor: '#007AFF',
+    borderWidth: 2,
   },
   icon: {
     marginRight: 4,
   },
   buttonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
     flex: 1,
   },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'transparent',
+  },
   dropdown: {
     position: 'absolute',
-    top: '100%',
-    left: 0,
-    right: 0,
     borderWidth: 1,
-    borderTopWidth: 0,
-    borderBottomLeftRadius: 12,
-    borderBottomRightRadius: 12,
+    borderRadius: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.25,
-    shadowRadius: 12,
-    elevation: 10,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 16,
+    elevation: 20,
     overflow: 'hidden',
-    zIndex: 10000,
   },
   scrollView: {
     flexGrow: 0,
-    backgroundColor: '#FFFFFF',
   },
   item: {
-    backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderBottomWidth: 0.5,
-    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+    borderBottomColor: 'rgba(0, 0, 0, 0.08)',
+    minHeight: 44,
   },
   itemText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '500',
     flex: 1,
   },
