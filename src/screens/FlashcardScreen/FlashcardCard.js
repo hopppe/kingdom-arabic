@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Animated, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Animated, ScrollView, TouchableWithoutFeedback, Platform } from 'react-native';
 import { highlightWordInVerse } from '../../utils/textUtils';
 
 export const FlashcardCard = React.memo(({
@@ -18,7 +18,8 @@ export const FlashcardCard = React.memo(({
         <Animated.View
           style={[
             styles.cardWrapper,
-            { transform: [{ translateX: slideAnimation }] }
+            { transform: [{ translateX: slideAnimation }] },
+            Platform.OS === 'android' && { elevation: 8 }
           ]}
         >
           {/* Front of card */}
@@ -27,6 +28,7 @@ export const FlashcardCard = React.memo(({
               styles.card,
               styles.cardFront,
               { transform: [{ rotateY: frontInterpolate }] },
+              Platform.OS === 'android' && { elevation: 0 }
             ]}
           >
             <View style={styles.cardContent} pointerEvents="box-none">
@@ -76,6 +78,7 @@ export const FlashcardCard = React.memo(({
               styles.card,
               styles.cardBack,
               { transform: [{ rotateY: backInterpolate }] },
+              Platform.OS === 'android' && { elevation: 0 }
             ]}
           >
             <View style={styles.cardContent} pointerEvents="box-none">

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 export const createStyles = (theme) => StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export const createStyles = (theme) => StyleSheet.create({
   },
   headerBar: {
     position: 'absolute',
-    top: 60,
+    top: Platform.OS === 'ios' ? 60 : 25,
     left: 16,
     right: 16,
     zIndex: 1000,
@@ -24,6 +24,7 @@ export const createStyles = (theme) => StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    overflow: 'hidden',
   },
   referenceText: {
     fontSize: 16,
@@ -40,6 +41,7 @@ export const createStyles = (theme) => StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    overflow: 'hidden',
   },
   flashcardsButtonText: {
     fontSize: 14,
@@ -62,6 +64,7 @@ export const createStyles = (theme) => StyleSheet.create({
     minHeight: 36,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   headerButtonActive: {
     backgroundColor: theme.colors.primary,
@@ -77,6 +80,7 @@ export const createStyles = (theme) => StyleSheet.create({
     minHeight: 36,
     alignItems: 'center',
     justifyContent: 'center',
+    overflow: 'hidden',
   },
   wordsCountText: {
     fontSize: 14,

@@ -7,6 +7,7 @@ import {
   Alert,
   Dimensions,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -506,13 +507,16 @@ function getStyles(theme) {
       justifyContent: 'center',
       alignItems: 'center',
       backfaceVisibility: 'hidden',
-      shadowColor: '#000',
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.18,
-      shadowRadius: 16,
-      elevation: 12,
       borderWidth: 0.5,
       borderColor: 'rgba(0, 0, 0, 0.05)',
+      ...(Platform.OS === 'ios' ? {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 8 },
+        shadowOpacity: 0.18,
+        shadowRadius: 16,
+      } : {
+        elevation: 8,
+      }),
     },
     cardFront: {
       backgroundColor: theme.colors.cardBackground,
