@@ -26,23 +26,6 @@ export const SettingsModal = ({ visible, onClose, styles }) => {
                 </View>
               </View>
 
-              <Text style={styles.settingsModalText}>
-                If you enjoy the app you can leave an optional tip!
-              </Text>
-              <TouchableOpacity
-                style={styles.venmoButton}
-                onPress={() => Linking.openURL('venmo://paycharge?txn=pay&recipients=EthanHoppe').catch(() =>
-                  Linking.openURL('https://venmo.com/u/EthanHoppe')
-                )}
-              >
-                <Text style={styles.venmoButtonText}>Tip on Venmo</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.paypalButton}
-                onPress={() => Linking.openURL('https://paypal.me/ethandhoppe')}
-              >
-                <Text style={styles.paypalButtonText}>Tip on PayPal</Text>
-              </TouchableOpacity>
               <View style={styles.feedbackSection}>
                 <Text style={styles.settingsModalText}>Leave feedback or comments:</Text>
                 <TouchableOpacity

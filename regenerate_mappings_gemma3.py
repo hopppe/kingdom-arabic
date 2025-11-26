@@ -120,8 +120,17 @@ def regenerate_chapter_mappings(book, chapter):
 
     # Try to load existing progress
     if os.path.exists(output_file):
-        with open(output_file, 'r', encoding='utf-8') as f:
-            output = json.load(f)
+        try:
+            with open(output_file, 'r', encoding='utf-8') as f:
+                output = json.load(f)
+        except (json.JSONDecodeError, ValueError):
+            # Corrupted file - start fresh
+            print(f"  ⚠️  Corrupted output file, starting fresh...")
+            output = {
+                "book": book,
+                "chapter": int(chapter),
+                "verses": {}
+            }
     else:
         # Create new output structure
         output = {

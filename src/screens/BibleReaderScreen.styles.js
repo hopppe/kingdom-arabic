@@ -510,32 +510,6 @@ export const createStyles = (theme) => StyleSheet.create({
     fontWeight: '600',
     color: '#fff',
   },
-  venmoButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    backgroundColor: '#008CFF',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  venmoButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#fff',
-  },
-  paypalButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 12,
-    backgroundColor: '#003087',
-    alignItems: 'center',
-    marginBottom: 12,
-  },
-  paypalButtonText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#fff',
-  },
   feedbackSection: {
     marginTop: 16,
     marginBottom: 16,

@@ -67,14 +67,14 @@ function FlashcardLandingScreenInternal() {
   const hasLoadedThisSession = useRef(false);
   const [lastLoadTime, setLastLoadTime] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
+
   // Help system state
   const [showHelp, setShowHelp] = useState(false);
   const [helpStep, setHelpStep] = useState(0);
 
   // Pass the setter function to navigation params for header access
   useLayoutEffect(() => {
-    navigation.setOptions({ 
+    navigation.setOptions({
       setShowSettings,
       helpHandler: () => {
         setShowHelp(true);
@@ -158,7 +158,7 @@ function FlashcardLandingScreenInternal() {
             const readyCards = getCardsReadyForReview();
             const autoStartId = route.params?.autoStartId;
             if (readyCards && readyCards.length > 0 && route.params?.autoStart &&
-                autoStartId && autoStartId !== lastAutoStartId.current) {
+              autoStartId && autoStartId !== lastAutoStartId.current) {
               // Mark this autoStart session as processed
               lastAutoStartId.current = autoStartId;
 
@@ -325,7 +325,7 @@ function FlashcardLandingScreenInternal() {
     // Don't show empty state until we're sure there's no data
     const isEmptyAndConfirmed = mainDeckCards.length === 0 && initialLoadComplete && !isInitializing;
     const hasCards = mainDeckCards.length > 0;
-    
+
     return (
       <View
         style={[
@@ -336,10 +336,10 @@ function FlashcardLandingScreenInternal() {
       >
         <View style={styles.cardHeader}>
           <View style={styles.headerLeft}>
-            <Ionicons 
-              name="library" 
-              size={36} 
-              color={hasCards ? theme.colors.primary : (isEmptyAndConfirmed ? theme.colors.disabled : theme.colors.primary)} 
+            <Ionicons
+              name="library"
+              size={36}
+              color={hasCards ? theme.colors.primary : (isEmptyAndConfirmed ? theme.colors.disabled : theme.colors.primary)}
             />
             <View style={styles.headerContent}>
               <RNText style={[
@@ -354,125 +354,125 @@ function FlashcardLandingScreenInternal() {
                 { color: theme.colors.textSecondary },
                 isEmptyAndConfirmed && { color: theme.colors.disabledText }
               ]}>
-                {hasCards 
+                {hasCards
                   ? t('flashcardLanding.personalizedCollection')
-                  : isEmptyAndConfirmed 
+                  : isEmptyAndConfirmed
                     ? t('flashcardLanding.noCardsYet')
                     : t('flashcardLanding.personalizedCollection') // Show positive text while loading
                 }
-            </RNText>
+              </RNText>
+            </View>
           </View>
         </View>
+
+        {/* Learning Progress Indicators - Always show to maintain consistent size */}
+        <View style={styles.progressSection}>
+          <View style={styles.progressRow}>
+            <View style={styles.progressItem}>
+              <View style={[styles.progressNumberContainer, { backgroundColor: '#007AFF20' }]}>
+                <RNText style={[styles.progressNumber, { color: '#007AFF' }]}>
+                  {learningInsights.newCards || 0}
+                </RNText>
+              </View>
+              <RNText style={[styles.progressLabel, { color: '#007AFF' }]}>
+                {t('flashcardLanding.new') || 'New'}
+              </RNText>
+            </View>
+            <View style={styles.progressItem}>
+              <View style={[styles.progressNumberContainer, { backgroundColor: '#FF950020' }]}>
+                <RNText style={[styles.progressNumber, { color: '#FF9500' }]}>
+                  {learningInsights.studyCards || 0}
+                </RNText>
+              </View>
+              <RNText style={[styles.progressLabel, { color: '#FF9500' }]}>
+                {t('flashcard.learning') || 'Learning'}
+              </RNText>
+            </View>
+            <View style={styles.progressItem}>
+              <View style={[styles.progressNumberContainer, { backgroundColor: '#34C75920' }]}>
+                <RNText style={[styles.progressNumber, { color: '#34C759' }]}>
+                  {learningInsights.reviewCards || 0}
+                </RNText>
+              </View>
+              <RNText style={[styles.progressLabel, { color: '#34C759' }]}>
+                {t('flashcardLanding.review') || 'Review'}
+              </RNText>
+            </View>
+            <View style={styles.progressItem}>
+              <View style={[styles.progressNumberContainer, { backgroundColor: '#8E8E9320' }]}>
+                <RNText style={[styles.progressNumber, { color: '#8E8E93' }]}>
+                  {learningInsights.totalCards || 0}
+                </RNText>
+              </View>
+              <RNText style={[styles.progressLabel, { color: '#8E8E93' }]}>
+                {t('flashcardLanding.total') || 'Total'}
+              </RNText>
+            </View>
+          </View>
+        </View>
+
+        {/* Study All Cards Button - Always same size */}
+        {hasCards ? (
+          <TouchableOpacity
+            style={[
+              styles.studyButton,
+              { backgroundColor: theme.colors.primary },
+              loading && { opacity: 0.7 }
+            ]}
+            onPress={handleStudyMainDeck}
+            disabled={loading}
+          >
+            <View style={styles.studyButtonContent}>
+              {loading ? (
+                <ActivityIndicator size="small" color={theme.colors.textOnPrimary} />
+              ) : (
+                <>
+                  {cardsReady > 0 && (
+                    <View style={[styles.readyBadge, { backgroundColor: theme.colors.white }]}>
+                      <RNText style={[styles.readyNumber, { color: theme.colors.primary }]}>
+                        {cardsReady}
+                      </RNText>
+                    </View>
+                  )}
+                  <Ionicons
+                    name="library-outline"
+                    size={24}
+                    color={theme.colors.textOnPrimary}
+                  />
+                </>
+              )}
+              <RNText style={[styles.studyButtonText, { color: theme.colors.textOnPrimary }]}>
+                {loading ? t('common.loading') || 'Loading...' : t('flashcardLanding.studyAllCards')}
+              </RNText>
+            </View>
+          </TouchableOpacity>
+        ) : (
+          // Empty state message - same size as other states
+          <View
+            style={[
+              styles.studyButton,
+              {
+                backgroundColor: 'transparent',
+                shadowColor: 'transparent',
+                shadowOpacity: 0,
+                elevation: 0,
+              }
+            ]}
+          >
+            <View style={styles.studyButtonContent}>
+              <Ionicons
+                name="library-outline"
+                size={24}
+                color={theme.colors.textSecondary}
+                style={{ opacity: 0.5 }}
+              />
+              <RNText style={[styles.studyButtonText, { color: theme.colors.textSecondary, opacity: 0.5, fontSize: 16 }]}>
+                {t('flashcardLanding.noCardsToStudy')}
+              </RNText>
+            </View>
+          </View>
+        )}
       </View>
-      
-      {/* Learning Progress Indicators - Always show to maintain consistent size */}
-      <View style={styles.progressSection}>
-        <View style={styles.progressRow}>
-          <View style={styles.progressItem}>
-            <View style={[styles.progressNumberContainer, { backgroundColor: '#007AFF20' }]}>
-              <RNText style={[styles.progressNumber, { color: '#007AFF' }]}>
-                {learningInsights.newCards || 0}
-              </RNText>
-            </View>
-            <RNText style={[styles.progressLabel, { color: '#007AFF' }]}>
-              {t('flashcardLanding.new') || 'New'}
-            </RNText>
-          </View>
-          <View style={styles.progressItem}>
-            <View style={[styles.progressNumberContainer, { backgroundColor: '#FF950020' }]}>
-              <RNText style={[styles.progressNumber, { color: '#FF9500' }]}>
-                {learningInsights.studyCards || 0}
-              </RNText>
-            </View>
-            <RNText style={[styles.progressLabel, { color: '#FF9500' }]}>
-              {t('flashcard.learning') || 'Learning'}
-            </RNText>
-          </View>
-          <View style={styles.progressItem}>
-            <View style={[styles.progressNumberContainer, { backgroundColor: '#34C75920' }]}>
-              <RNText style={[styles.progressNumber, { color: '#34C759' }]}>
-                {learningInsights.reviewCards || 0}
-              </RNText>
-            </View>
-            <RNText style={[styles.progressLabel, { color: '#34C759' }]}>
-              {t('flashcardLanding.review') || 'Review'}
-            </RNText>
-          </View>
-          <View style={styles.progressItem}>
-            <View style={[styles.progressNumberContainer, { backgroundColor: '#8E8E9320' }]}>
-              <RNText style={[styles.progressNumber, { color: '#8E8E93' }]}>
-                {learningInsights.totalCards || 0}
-              </RNText>
-            </View>
-            <RNText style={[styles.progressLabel, { color: '#8E8E93' }]}>
-              {t('flashcardLanding.total') || 'Total'}
-            </RNText>
-          </View>
-        </View>
-      </View>
-      
-      {/* Study All Cards Button - Always same size */}
-      {hasCards ? (
-        <TouchableOpacity
-          style={[
-            styles.studyButton,
-            { backgroundColor: theme.colors.primary },
-            loading && { opacity: 0.7 }
-          ]}
-          onPress={handleStudyMainDeck}
-          disabled={loading}
-        >
-          <View style={styles.studyButtonContent}>
-            {loading ? (
-              <ActivityIndicator size="small" color={theme.colors.textOnPrimary} />
-            ) : (
-              <>
-                {cardsReady > 0 && (
-                  <View style={[styles.readyBadge, { backgroundColor: theme.colors.white }]}>
-                    <RNText style={[styles.readyNumber, { color: theme.colors.primary }]}>
-                      {cardsReady}
-                    </RNText>
-                  </View>
-                )}
-                <Ionicons
-                  name="library-outline"
-                  size={24}
-                  color={theme.colors.textOnPrimary}
-                />
-              </>
-            )}
-            <RNText style={[styles.studyButtonText, { color: theme.colors.textOnPrimary }]}>
-              {loading ? t('common.loading') || 'Loading...' : t('flashcardLanding.studyAllCards')}
-            </RNText>
-          </View>
-        </TouchableOpacity>
-      ) : (
-        // Empty state message - same size as other states
-        <View
-          style={[
-            styles.studyButton,
-            {
-              backgroundColor: 'transparent',
-              shadowColor: 'transparent',
-              shadowOpacity: 0,
-              elevation: 0,
-            }
-          ]}
-        >
-          <View style={styles.studyButtonContent}>
-            <Ionicons
-              name="library-outline"
-              size={24}
-              color={theme.colors.textSecondary}
-              style={{ opacity: 0.5 }}
-            />
-            <RNText style={[styles.studyButtonText, { color: theme.colors.textSecondary, opacity: 0.5, fontSize: 16 }]}>
-              {t('flashcardLanding.noCardsToStudy')}
-            </RNText>
-          </View>
-        </View>
-      )}
-    </View>
     );
   };
 
@@ -791,7 +791,7 @@ function FlashcardLandingScreenInternal() {
 
   return (
     <ScreenContainer>
-      <ScrollView 
+      <ScrollView
         style={styles.container}
         refreshControl={
           <RefreshControl
@@ -812,7 +812,7 @@ function FlashcardLandingScreenInternal() {
             <Text style={styles.refreshText}>{t('flashcardLanding.updating') || 'Updating...'}</Text>
           </View>
         )}
-        
+
         {/* Main Study Deck with Fun Animation */}
         <Animatable.View
           animation="bounceInDown"
@@ -824,7 +824,7 @@ function FlashcardLandingScreenInternal() {
         </Animatable.View>
 
         {/* Add Custom Flashcard Button */}
-        <TouchableOpacity 
+        <TouchableOpacity
           style={styles.addFlashcardButton}
           onPress={() => setShowAddFlashcardModal(true)}
         >

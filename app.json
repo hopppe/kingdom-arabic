@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "LearnArabic",
+    "name": "Kingdom Arabic",
     "slug": "LearnArabic",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,13 +13,14 @@
       "backgroundColor": "#4a3a5c"
     },
     "ios": {
-      "supportsTablet": true,
+      "supportsTablet": false,
       "bundleIdentifier": "com.ingenuitylabs.kingdomarabic",
-      "buildNumber": "1",
+      "buildNumber": "2",
       "infoPlist": {
         "NSCameraUsageDescription": "This app does not use the camera.",
         "NSPhotoLibraryUsageDescription": "This app does not access photos.",
-        "CFBundleDevelopmentRegion": "en"
+        "CFBundleDevelopmentRegion": "en",
+        "UIRequiresFullScreen": true
       }
     },
     "android": {
@@ -28,13 +29,19 @@
         "backgroundColor": "#4a3a5c"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.settleup.LearnArabic"
+      "package": "com.ingenuitylabs.LearnArabic",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-asset"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "16464cd3-8786-4a65-9df0-b8bcd64a0915"
+      }
+    }
   }
 }
