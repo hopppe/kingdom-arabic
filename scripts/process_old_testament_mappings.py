@@ -23,9 +23,13 @@ import termios
 import tty
 import select
 import time
+import warnings
 from pathlib import Path
 from multiprocessing import Pool, cpu_count
 from functools import partial
+
+# Suppress urllib3 OpenSSL warnings from worker processes
+warnings.filterwarnings('ignore', message='.*urllib3.*OpenSSL.*')
 
 # ============================================================================
 # CONFIGURATION
