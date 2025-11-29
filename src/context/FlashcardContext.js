@@ -9,34 +9,6 @@ const FLASHCARDS_KEY = '@learnarabic_flashcards';
 const PROGRESS_KEY = '@learnarabic_flashcard_progress';
 const GROUPS_KEY = '@learnarabic_flashcard_groups';
 
-// Sample flashcards to start with
-const INITIAL_FLASHCARDS = [
-  {
-    id: '1',
-    arabic: 'كَلِمَة',
-    english: 'Word',
-  },
-  {
-    id: '2',
-    arabic: 'نُور',
-    english: 'Light',
-  },
-  {
-    id: '3',
-    arabic: 'حَيَاة',
-    english: 'Life',
-  },
-  {
-    id: '4',
-    arabic: 'ٱلْحَقّ',
-    english: 'The Truth',
-  },
-  {
-    id: '5',
-    arabic: 'إِيمَان',
-    english: 'Faith',
-  },
-];
 
 // Initial progress for a new card
 const createNewCardProgress = () => ({
@@ -102,11 +74,6 @@ export const FlashcardProvider = ({ children }) => {
         }
       }
 
-      // If no valid cards, use initial ones
-      if (cards.length === 0) {
-        cards = INITIAL_FLASHCARDS;
-        await AsyncStorage.setItem(FLASHCARDS_KEY, JSON.stringify(cards));
-      }
 
       // Load progress
       if (storedProgress) {
@@ -143,13 +110,8 @@ export const FlashcardProvider = ({ children }) => {
       setGroups(groupsList);
     } catch (error) {
       console.error('Error loading flashcard data:', error);
-      // On error, provide initial cards
-      setFlashcards(INITIAL_FLASHCARDS);
-      const initialProgress = {};
-      INITIAL_FLASHCARDS.forEach(card => {
-        initialProgress[card.id] = createNewCardProgress();
-      });
-      setUserProgress(initialProgress);
+      setFlashcards([]);
+      setUserProgress({});
     } finally {
       setLoading(false);
     }

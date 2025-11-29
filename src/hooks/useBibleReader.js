@@ -40,9 +40,14 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
     }
 
     const wordId = `${verseIndex}-${word}`;
-    if (activeWord?.id === wordId) {
+    const existingIndex = savedWords.findIndex(w => w.word === word && w.translation === translation);
+
+    if (existingIndex !== -1) {
+      // Word is already saved - remove it and hide tooltip
+      setSavedWords(savedWords.filter((_, i) => i !== existingIndex));
       setActiveWord(null);
     } else {
+      // Word is new - add it and show tooltip
       const touchX = event?.nativeEvent?.pageX || 0;
       const touchY = event?.nativeEvent?.pageY || 0;
 
@@ -55,19 +60,16 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
         y: touchY
       });
 
-      const exists = savedWords.some(w => w.word === word && w.translation === translation);
-      if (!exists) {
-        setSavedWords([{
-          word,
-          translation,
-          book: currentBook,
-          chapter: currentChapter,
-          verse: verseIndex + 1,
-          verseTextArabic: chapter?.data?.content_arabic?.[verseIndex] || '',
-          verseTextEnglish: chapter?.data?.content_english?.[verseIndex] || '',
-          timestamp: Date.now()
-        }, ...savedWords]);
-      }
+      setSavedWords([{
+        word,
+        translation,
+        book: currentBook,
+        chapter: currentChapter,
+        verse: verseIndex + 1,
+        verseTextArabic: chapter?.data?.content_arabic?.[verseIndex] || '',
+        verseTextEnglish: chapter?.data?.content_english?.[verseIndex] || '',
+        timestamp: Date.now()
+      }, ...savedWords]);
     }
   }, [findTranslation, activeWord, savedWords, currentBook, currentChapter, chapter]);
 

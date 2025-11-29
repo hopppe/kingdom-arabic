@@ -8,6 +8,7 @@ import {
   Dimensions,
   ActivityIndicator,
   Platform,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -258,7 +259,7 @@ export default function FlashcardScreen({ navigation, route }) {
       <SafeAreaView style={styles.container}>
         <Header navigation={navigation} theme={theme} styles={styles} />
         <View style={styles.emptyContainer}>
-          <Ionicons name="card-outline" size={80} color={theme.colors.text} style={styles.emptyIcon} />
+          <Image source={require('../../../assets/empty-flashcards.jpg')} style={styles.emptyImage} />
           <Text style={styles.emptyText}>
             No flashcards yet.{'\n'}Read Bible chapters and save words to create flashcards.
           </Text>
@@ -457,7 +458,11 @@ function getStyles(theme) {
       alignItems: 'center',
       paddingHorizontal: 32,
     },
-    emptyIcon: {
+    emptyImage: {
+      width: 250,
+      height: 180,
+      resizeMode: 'contain',
+      borderRadius: 12,
       marginBottom: 20,
     },
     emptyText: {

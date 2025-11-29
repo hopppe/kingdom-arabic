@@ -251,6 +251,7 @@ export default function BibleReaderScreen({ navigation }) {
 
       <ScrollView
         style={styles.content}
+        contentContainerStyle={{ paddingBottom: 120 }}
         showsVerticalScrollIndicator={false}
         onScrollBeginDrag={() => setActiveWord(null)}
       >
