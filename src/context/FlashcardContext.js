@@ -259,8 +259,9 @@ export const FlashcardProvider = ({ children }) => {
 
   // Update a flashcard's content (e.g., change English translation)
   const updateFlashcard = useCallback((cardId, updates) => {
+    const cardIdStr = String(cardId);
     const updatedCards = flashcardsRef.current.map(card => {
-      if (card.id === cardId) {
+      if (String(card.id) === cardIdStr) {
         return { ...card, ...updates };
       }
       return card;

@@ -39,6 +39,7 @@ export default function FlashcardScreen({ navigation, route }) {
     recordAnswer,
     removeFlashcard,
     resetCardProgress,
+    updateFlashcard,
     createGroup,
     addCardToGroup,
     removeCardFromGroup,
@@ -414,7 +415,7 @@ export default function FlashcardScreen({ navigation, route }) {
         flashcards={flashcards}
         onRemoveCard={handleRemoveCardById}
         onUpdateTranslation={(cardId, newTranslation) => {
-          // TODO: Implement update translation functionality
+          updateFlashcard(cardId, { english: newTranslation });
         }}
       />
     </SafeAreaView>
