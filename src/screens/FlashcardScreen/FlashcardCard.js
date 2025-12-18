@@ -1,6 +1,14 @@
 import React from 'react';
-import { View, Text, Animated, ScrollView, TouchableWithoutFeedback, Platform } from 'react-native';
+import { View, Text, Animated, ScrollView, TouchableWithoutFeedback, TouchableOpacity, Platform, Linking } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { highlightWordInVerse } from '../../utils/textUtils';
+
+// Opens Google Translate with the Arabic word pre-filled
+const openGoogleTranslate = (arabicWord) => {
+  const encodedWord = encodeURIComponent(arabicWord);
+  const url = `https://translate.google.com/?sl=ar&tl=en&text=${encodedWord}&op=translate`;
+  Linking.openURL(url);
+};
 
 export const FlashcardCard = React.memo(({
   card,
@@ -125,6 +133,15 @@ export const FlashcardCard = React.memo(({
                 </>
               )}
             </View>
+            {/* Google Translate button */}
+            <TouchableOpacity
+              style={styles.translateButton}
+              onPress={() => openGoogleTranslate(card.arabic)}
+              pointerEvents="auto"
+            >
+              <Ionicons name="language-outline" size={18} color="rgba(255, 255, 255, 0.9)" />
+              <Text style={styles.translateButtonText}>Translate</Text>
+            </TouchableOpacity>
           </Animated.View>
         </Animated.View>
       </View>

@@ -631,6 +631,23 @@ function getStyles(theme) {
       position: 'absolute',
       top: isSmallScreen ? 16 : 20,
     },
+    translateButton: {
+      position: 'absolute',
+      bottom: isSmallScreen ? 12 : 16,
+      right: isSmallScreen ? 12 : 16,
+      flexDirection: 'row',
+      alignItems: 'center',
+      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+      paddingVertical: 6,
+      paddingHorizontal: 10,
+      borderRadius: 16,
+      gap: 4,
+    },
+    translateButtonText: {
+      fontSize: 12,
+      color: 'rgba(255, 255, 255, 0.9)',
+      fontWeight: '500',
+    },
     ratingContainer: {
       paddingVertical: isSmallScreen ? 12 : 16,
       paddingHorizontal: 4,
