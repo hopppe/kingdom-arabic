@@ -100,8 +100,13 @@ export class LocalQueueManager {
     // Move any due waiting cards back to queue
     this.waitingCards.forEach((waitingCard, cardId) => {
       if (waitingCard.dueTime <= now) {
-        // Card is due - add to TOP of queue (highest priority)
-        this.queue.unshift(waitingCard.card);
+        // Card is due - insert at position 1 (after current card) so it doesn't
+        // interrupt what the user is currently viewing. If queue is empty, add to front.
+        if (this.queue.length > 0) {
+          this.queue.splice(1, 0, waitingCard.card);
+        } else {
+          this.queue.unshift(waitingCard.card);
+        }
         this.waitingCards.delete(cardId);
         updated = true;
       }
