@@ -7,7 +7,7 @@ export const createStyles = (theme) => StyleSheet.create({
   },
   headerBar: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 60 : 25,
+    top: Platform.OS === 'ios' ? 50 : 25,
     left: 16,
     right: 16,
     zIndex: 1000,
@@ -93,7 +93,7 @@ export const createStyles = (theme) => StyleSheet.create({
   },
   storyContent: {
     padding: 24,
-    paddingTop: 60,
+    paddingTop: 50,
   },
   storyTitle: {
     fontSize: 28,
@@ -186,7 +186,7 @@ export const createStyles = (theme) => StyleSheet.create({
     paddingVertical: 16,
     backgroundColor: 'transparent',
     position: 'absolute',
-    bottom: 30,
+    bottom: 8,
     left: 0,
     right: 0,
     justifyContent: 'center',

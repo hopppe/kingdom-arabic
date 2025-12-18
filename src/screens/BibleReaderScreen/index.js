@@ -202,7 +202,7 @@ export default function BibleReaderScreen({ navigation }) {
   // Loading state
   if (isLoading || !chapter) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={['left', 'right']}>
         <Header
           navigation={navigation}
           currentBook={currentBook}
@@ -236,7 +236,7 @@ export default function BibleReaderScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['left', 'right']}>
       <Header
         navigation={navigation}
         currentBook={currentBook}
@@ -251,7 +251,7 @@ export default function BibleReaderScreen({ navigation }) {
 
       <ScrollView
         style={styles.content}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={false}
         onScrollBeginDrag={() => setActiveWord(null)}
       >
