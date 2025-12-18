@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../../context/ThemeContext';
 import { useFlashcards } from '../../context/FlashcardContext';
 import { BOOKS, getBookName, loadChapterData } from '../../data/bibleData';
@@ -24,9 +25,11 @@ import { loadChapterWithMappingType } from '../../utils/bibleLoader';
 
 const { width: screenWidth} = Dimensions.get('window');
 
+const SHOW_FLASHCARD_WORDS_KEY = '@learnarabic_show_flashcard_words';
+
 export default function BibleReaderScreen({ navigation }) {
   const { theme } = useTheme();
-  const { addMultipleFlashcards } = useFlashcards();
+  const { addMultipleFlashcards, flashcards } = useFlashcards();
 
   // Current chapter state
   const [currentBook, setCurrentBook] = useState('MRK');
@@ -40,6 +43,7 @@ export default function BibleReaderScreen({ navigation }) {
   const [showTranslations, setShowTranslations] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
+  const [showFlashcardWords, setShowFlashcardWords] = useState(false);
 
   // Use custom hook for word interactions
   const {
@@ -53,6 +57,34 @@ export default function BibleReaderScreen({ navigation }) {
   } = useBibleReader(chapter, currentBook, currentChapter);
 
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // Load flashcard words setting from AsyncStorage
+  useEffect(() => {
+    AsyncStorage.getItem(SHOW_FLASHCARD_WORDS_KEY).then(value => {
+      if (value !== null) {
+        setShowFlashcardWords(value === 'true');
+      }
+    });
+  }, []);
+
+  // Toggle flashcard words setting
+  const handleToggleFlashcardWords = useCallback((value) => {
+    setShowFlashcardWords(value);
+    AsyncStorage.setItem(SHOW_FLASHCARD_WORDS_KEY, value.toString());
+  }, []);
+
+  // Efficiently compute flashcard words for current chapter (O(1) lookup)
+  const flashcardWordsSet = useMemo(() => {
+    if (!showFlashcardWords || !flashcards.length) {
+      return new Set();
+    }
+    const bookName = getBookName(currentBook);
+    const chapterPrefix = `${bookName} ${currentChapter}:`;
+    const wordsInChapter = flashcards
+      .filter(card => card.reference && card.reference.startsWith(chapterPrefix))
+      .map(card => card.arabic);
+    return new Set(wordsInChapter);
+  }, [showFlashcardWords, flashcards, currentBook, currentChapter]);
 
   // Load chapter data
   const loadCurrentChapter = useCallback(async () => {
@@ -152,6 +184,7 @@ export default function BibleReaderScreen({ navigation }) {
     const wordId = `${verseIndex}-${word}`;
     const isActive = activeWord?.id === wordId;
     const isSaved = savedWordsSet.has(word);
+    const isFlashcard = flashcardWordsSet.has(word);
 
     return (
       <View key={wordIndex} style={styles.wordWrapper}>
@@ -159,14 +192,16 @@ export default function BibleReaderScreen({ navigation }) {
           onPress={(event) => handleWordPress(word, verseIndex, event)}
           style={[
             styles.wordTouchable,
-            isActive && styles.activeWordContainer,
+            isFlashcard && !isSaved && !isActive && styles.flashcardWordContainer,
             isSaved && !isActive && styles.savedWordContainer,
+            isActive && styles.activeWordContainer,
           ]}
         >
           <Text style={[
             styles.arabicText,
-            isActive && styles.activeWordText,
+            isFlashcard && !isSaved && !isActive && styles.flashcardWordText,
             isSaved && !isActive && styles.savedWordText,
+            isActive && styles.activeWordText,
           ]}>
             {word}
           </Text>
@@ -323,6 +358,8 @@ export default function BibleReaderScreen({ navigation }) {
         visible={showSettingsModal}
         onClose={() => setShowSettingsModal(false)}
         styles={styles}
+        showFlashcardWords={showFlashcardWords}
+        onToggleFlashcardWords={handleToggleFlashcardWords}
       />
     </SafeAreaView>
   );

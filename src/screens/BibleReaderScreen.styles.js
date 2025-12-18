@@ -156,6 +156,12 @@ export const createStyles = (theme) => StyleSheet.create({
   savedWordText: {
     color: theme.colors.text,
   },
+  flashcardWordContainer: {
+    backgroundColor: '#D4EDDA',
+  },
+  flashcardWordText: {
+    color: theme.colors.text,
+  },
   tooltipText: {
     fontSize: 18,
     color: theme.colors.text,

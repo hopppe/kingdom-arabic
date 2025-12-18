@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, Linking, StyleSheet } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, Linking, StyleSheet, Switch } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export const SettingsModal = ({ visible, onClose, styles }) => {
+export const SettingsModal = ({ visible, onClose, styles, showFlashcardWords, onToggleFlashcardWords }) => {
   return (
     <Modal
       visible={visible}
@@ -15,6 +15,22 @@ export const SettingsModal = ({ visible, onClose, styles }) => {
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
             <View style={styles.settingsModalContent}>
               <Text style={styles.settingsModalTitle}>Settings</Text>
+
+              {/* Show Flashcard Words Toggle */}
+              <View style={localStyles.settingRow}>
+                <View style={localStyles.settingTextContainer}>
+                  <Text style={localStyles.settingLabel}>Highlight Flashcard Words</Text>
+                  <Text style={localStyles.settingDescription}>
+                    Show words already in your flashcards with a green highlight
+                  </Text>
+                </View>
+                <Switch
+                  value={showFlashcardWords}
+                  onValueChange={onToggleFlashcardWords}
+                  trackColor={{ false: '#E5E5EA', true: '#34C759' }}
+                  thumbColor="#fff"
+                />
+              </View>
 
               {/* AI Translation Disclaimer */}
               <View style={localStyles.section}>
@@ -50,6 +66,30 @@ export const SettingsModal = ({ visible, onClose, styles }) => {
 };
 
 const localStyles = StyleSheet.create({
+  settingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingVertical: 12,
+    marginBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E5EA',
+  },
+  settingTextContainer: {
+    flex: 1,
+    marginRight: 12,
+  },
+  settingLabel: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1A1A1A',
+    marginBottom: 2,
+  },
+  settingDescription: {
+    fontSize: 13,
+    color: '#666',
+    lineHeight: 18,
+  },
   section: {
     marginBottom: 24,
     paddingBottom: 16,
