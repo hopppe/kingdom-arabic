@@ -216,9 +216,12 @@ export const FlashcardProvider = ({ children }) => {
 
   // Remove a flashcard
   const removeFlashcard = useCallback((id) => {
-    const updatedCards = flashcardsRef.current.filter(card => card.id !== id);
+    // Convert id to string to handle both numeric and string IDs consistently
+    const idStr = String(id);
+    const updatedCards = flashcardsRef.current.filter(card => String(card.id) !== idStr);
     const updatedProgress = { ...userProgressRef.current };
     delete updatedProgress[id];
+    delete updatedProgress[idStr]; // Also try string version
 
     setFlashcards(updatedCards);
     setUserProgress(updatedProgress);

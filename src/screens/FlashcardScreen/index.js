@@ -182,6 +182,36 @@ export default function FlashcardScreen({ navigation, route }) {
     );
   }, [currentIndex, sessionCards, removeFlashcard, navigation, resetAnimations, isMountedRef, setSessionCards]);
 
+  // Handler for removing a card by ID (used by FlashcardListModal)
+  const handleRemoveCardById = useCallback((cardId) => {
+    const cardIdStr = String(cardId);
+    const card = flashcards.find(c => String(c.id) === cardIdStr);
+    if (!card) return;
+
+    Alert.alert(
+      'Remove Flashcard',
+      `Remove "${card.arabic}" from your deck? This cannot be undone.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Remove',
+          style: 'destructive',
+          onPress: () => {
+            removeFlashcard(cardId);
+            // Also remove from session if it's there
+            const newSessionCards = sessionCards.filter(c => String(c.id) !== cardIdStr);
+            if (newSessionCards.length !== sessionCards.length) {
+              setSessionCards(newSessionCards);
+              if (currentIndex >= newSessionCards.length && newSessionCards.length > 0) {
+                setCurrentIndex(newSessionCards.length - 1);
+              }
+            }
+          },
+        },
+      ]
+    );
+  }, [flashcards, sessionCards, currentIndex, removeFlashcard, setSessionCards]);
+
   const handleResetProgress = useCallback(() => {
     if (currentIndex >= sessionCards.length) return;
     const card = sessionCards[currentIndex];
@@ -382,7 +412,7 @@ export default function FlashcardScreen({ navigation, route }) {
         visible={showFlashcardList}
         onClose={() => setShowFlashcardList(false)}
         flashcards={flashcards}
-        onRemoveCard={handleRemoveCard}
+        onRemoveCard={handleRemoveCardById}
         onUpdateTranslation={(cardId, newTranslation) => {
           // TODO: Implement update translation functionality
         }}
