@@ -1,6 +1,34 @@
 import React from 'react';
-import { View, Text, Animated, ScrollView, TouchableWithoutFeedback, Platform } from 'react-native';
+import { View, Text, Animated, ScrollView, TouchableWithoutFeedback, TouchableOpacity, Platform, Linking, Alert } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import * as Speech from 'expo-speech';
+import { setAudioModeAsync, AudioPlayer } from 'expo-audio';
 import { highlightWordInVerse } from '../../utils/textUtils';
+
+const openGoogleTranslate = (arabicWord) => {
+  const url = `https://translate.google.com/?sl=ar&tl=en&text=${encodeURIComponent(arabicWord)}`;
+  Linking.openURL(url);
+};
+
+const speakArabic = async (text) => {
+  // Stop any currently playing speech first
+  Speech.stop();
+
+  const voices = await Speech.getAvailableVoicesAsync();
+  const arabicVoice = voices.find(v => v.language?.startsWith('ar'));
+
+  if (!arabicVoice) {
+    Alert.alert('TTS Not Available', 'Your device does not support Arabic text-to-speech.');
+    return;
+  }
+
+  // Configure audio to play even in silent mode (iOS)
+  await setAudioModeAsync({
+    playsInSilentMode: true,
+  });
+
+  Speech.speak(text, { language: 'ar' });
+};
 
 export const FlashcardCard = React.memo(({
   card,
@@ -125,6 +153,52 @@ export const FlashcardCard = React.memo(({
                 </>
               )}
             </View>
+            {/* Speaker button - shows on Arabic side (back when showEnglishFirst) */}
+            {showEnglishFirst && (
+              <TouchableOpacity
+                style={styles.speakerButtonBack}
+                onPress={() => speakArabic(card.arabic)}
+              >
+                <Ionicons name="volume-high-outline" size={20} color="rgba(255, 255, 255, 0.6)" />
+              </TouchableOpacity>
+            )}
+            {/* Translate button - shows on English side (back when !showEnglishFirst) */}
+            {!showEnglishFirst && (
+              <TouchableOpacity
+                style={styles.translateButton}
+                onPress={() => openGoogleTranslate(card.arabic)}
+              >
+                <Ionicons name="language-outline" size={16} color="rgba(255, 255, 255, 0.6)" />
+              </TouchableOpacity>
+            )}
+          </Animated.View>
+
+          {/* Front card buttons - rendered separately for touch handling */}
+          <Animated.View
+            style={[
+              styles.frontButtonContainer,
+              { transform: [{ rotateY: frontInterpolate }] },
+            ]}
+            pointerEvents="box-none"
+          >
+            {/* Speaker button - shows on Arabic side (front when !showEnglishFirst) */}
+            {!showEnglishFirst && (
+              <TouchableOpacity
+                style={styles.speakerButton}
+                onPress={() => speakArabic(card.arabic)}
+              >
+                <Ionicons name="volume-high-outline" size={20} color="rgba(0, 0, 0, 0.5)" />
+              </TouchableOpacity>
+            )}
+            {/* Translate button - shows on English side (front when showEnglishFirst) */}
+            {showEnglishFirst && (
+              <TouchableOpacity
+                style={styles.translateButtonFront}
+                onPress={() => openGoogleTranslate(card.arabic)}
+              >
+                <Ionicons name="language-outline" size={16} color="rgba(0, 0, 0, 0.5)" />
+              </TouchableOpacity>
+            )}
           </Animated.View>
         </Animated.View>
       </View>

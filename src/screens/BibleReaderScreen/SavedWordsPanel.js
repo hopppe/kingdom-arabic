@@ -1,6 +1,12 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, Modal, TouchableOpacity, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, Modal, TouchableOpacity, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, Linking } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { getBookName } from '../../data/bibleData';
+
+const openGoogleTranslate = (arabicWord) => {
+  const url = `https://translate.google.com/?sl=ar&tl=en&text=${encodeURIComponent(arabicWord)}`;
+  Linking.openURL(url);
+};
 
 export const SavedWordsPanel = ({
   visible,
@@ -138,6 +144,7 @@ export const SavedWordsPanel = ({
                                   placeholder="Enter translation"
                                   autoFocus
                                   onSubmitEditing={dismissEdit}
+                                  onBlur={dismissEdit}
                                   blurOnSubmit={true}
                                 />
                               ) : (
@@ -149,6 +156,15 @@ export const SavedWordsPanel = ({
                                 </Text>
                               )}
                             </View>
+                            <TouchableOpacity
+                              style={styles.translateButton}
+                              onPress={(e) => {
+                                e.stopPropagation();
+                                openGoogleTranslate(item.word);
+                              }}
+                            >
+                              <Ionicons name="language-outline" size={18} color="#666" />
+                            </TouchableOpacity>
                             <TouchableOpacity
                               style={styles.removeWordButton}
                               onPress={(e) => {

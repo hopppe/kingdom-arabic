@@ -14,12 +14,16 @@ const isMediumScreen = screenHeight >= 700 && screenHeight < 800;
 
 export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, disabled = false }) => {
   // Calculate timing hints based on card state and progress
+  // IMPORTANT: Always use card's embedded cardProgress as primary source
   const getTimingHint = (rating) => {
-    const cardState = cardProgress?.card_state || 'new';
-    const stepIndex = cardProgress?.step_index || 0;
-    const intervalDays = cardProgress?.interval_days || 0;
-    const easeFactor = cardProgress?.ease_factor || 2.5;
-    const scheduledDaysBeforeLapse = cardProgress?.scheduled_days_before_lapse;
+    // Prefer cardProgress from card object (queue manager always sets this)
+    // Fall back to passed cardProgress prop, then defaults
+    const effectiveProgress = currentCard?.cardProgress || cardProgress || {};
+    const cardState = effectiveProgress.card_state || 'new';
+    const stepIndex = effectiveProgress.step_index ?? 0;  // Use ?? to allow 0 as valid
+    const intervalDays = effectiveProgress.interval_days || 0;
+    const easeFactor = effectiveProgress.ease_factor || 2.5;
+    const scheduledDaysBeforeLapse = effectiveProgress.scheduled_days_before_lapse;
 
     let nextInterval = 0;
 
@@ -37,8 +41,8 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
           nextInterval = (LEARNING_STEPS[0] * 1.5) / (24 * 60);
         }
       } else if (rating === 3) {
-        // Good - first learning step (1m)
-        nextInterval = LEARNING_STEPS[0] / (24 * 60);
+        // Good on new card advances to step 1 (10m), not step 0 (1m)
+        nextInterval = LEARNING_STEPS[Math.min(1, LEARNING_STEPS.length - 1)] / (24 * 60);
       } else if (rating === 4) {
         // Easy graduates immediately
         nextInterval = EASY_INTERVAL;

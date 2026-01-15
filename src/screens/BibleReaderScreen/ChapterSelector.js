@@ -31,7 +31,11 @@ export const ChapterSelector = ({
             <View style={{ width: 60 }} />
           </View>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={{ flex: 1 }}
+            contentContainerStyle={{ paddingBottom: 40 }}
+            showsVerticalScrollIndicator={false}
+          >
             {BOOKS.map((book) => {
               const isExpanded = expandedBook === book.id;
 

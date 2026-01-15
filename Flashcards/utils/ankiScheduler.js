@@ -16,6 +16,9 @@ export const MAX_INTERVAL = 36500; // ~100 years
 // Minimum ease factor
 export const MIN_EASE_FACTOR = 1.30;
 
+// Maximum ease factor (prevent unbounded growth)
+export const MAX_EASE_FACTOR = 3.00;
+
 // Default ease factor for new cards
 export const DEFAULT_EASE_FACTOR = 2.50;
 
@@ -45,9 +48,9 @@ export const LAPSE_NEW_INTERVAL_MULTIPLIER = 0.50;
  * - User sees empty deck if no cards are due (must wait for intervals to pass)
  *
  * INTERVAL PROGRESSION (example):
- * 1. New card → "Good" → Learning (1min) → wait 1min
- * 2. Learning → "Good" → Learning (10min) → wait 10min
- * 3. Learning → "Good" → Review (1 day) → wait 1 day
+ * 1. New card → "Good" → Learning (10min) → wait 10min (seeing card counts as step 0)
+ * 2. Learning (step 1) → "Good" → Review (1 day) → wait 1 day
+ * 3. New card → "Again" → Learning (1min) → wait 1min (stays at step 0)
  * 4. Review (1d) → "Good" → Review (2.5 days) → wait 2.5 days
  * 5. Review (2.5d) → "Good" → Review (6.25 days) → wait 6.25 days
  * 6. Review (6.25d) → "Easy" → Review (18 days = 6.25 * 2.5 * 1.15) → wait 18 days
@@ -99,8 +102,10 @@ export const calculateAnkiSchedule = (currentProgress, rating) => {
       }
     } else if (rating === 3) { // Good
       newCardState = 'learning';
-      newStepIndex = 0;
-      newInterval = parseFloat((LEARNING_STEPS[0] / (24 * 60)).toFixed(6));
+      // Good on new card advances to step 1 (10m), not step 0 (1m)
+      // This matches Anki behavior where seeing the card counts as the first step
+      newStepIndex = 1;
+      newInterval = parseFloat((LEARNING_STEPS[Math.min(1, LEARNING_STEPS.length - 1)] / (24 * 60)).toFixed(6));
     } else if (rating === 4) { // Easy
       newCardState = 'review';
       newInterval = parseFloat(EASY_INTERVAL.toFixed(6));
@@ -160,7 +165,8 @@ export const calculateAnkiSchedule = (currentProgress, rating) => {
       // For review cards, use a gentler multiplier for Easy
       // Instead of ease * 1.3 (which is ~3.25x), use ease * 1.15 (~2.88x)
       newInterval = parseFloat((newInterval * newEaseFactor * 1.15).toFixed(6));
-      newEaseFactor = parseFloat((newEaseFactor + 0.10).toFixed(2));
+      // Increase ease but cap at maximum
+      newEaseFactor = parseFloat(Math.min(MAX_EASE_FACTOR, newEaseFactor + 0.10).toFixed(2));
     }
 
     // Ensure minimum 1 day interval for review cards (only if staying in review state)
@@ -209,25 +215,32 @@ export const calculateAnkiSchedule = (currentProgress, rating) => {
     }
   }
 
+  // Determine if this is a "daily" interval (>= 1 day) BEFORE fuzzing
+  // This prevents fuzzing from pushing a 1-day card below the threshold
+  const isDailyInterval = newInterval >= 1;
+
   // Add fuzzing for intervals >= 1 day (±5% randomization)
-  if (newInterval >= 1) {
+  // IMPORTANT: Ensure fuzzed interval stays >= 1 day to maintain daily scheduling
+  if (isDailyInterval) {
     const fuzzRange = Math.max(0.01, newInterval * 0.05);
     const fuzz = (Math.random() - 0.5) * 2 * fuzzRange;
-    newInterval = parseFloat(Math.max(0.001, newInterval + fuzz).toFixed(6));
+    // Ensure minimum of 1 day after fuzzing (don't let it drop below daily threshold)
+    newInterval = parseFloat(Math.max(1, newInterval + fuzz).toFixed(6));
   }
 
   // Calculate next review time
   const nextReview = new Date(now.getTime() + newInterval * 24 * 60 * 60 * 1000);
 
-  // IMPORTANT: For intervals >= 1 day, set review time to midnight (start of day)
+  // IMPORTANT: For intervals >= 1 day, set review time to LOCAL midnight (start of day)
   // This makes all flashcards due on a specific date become available at the same time
-  // Example: Review card at 3PM Monday with 3-day interval → Due at 12:00AM Thursday
+  // Using LOCAL midnight ensures cards are due at a sensible local time
+  // Example: Review card at 3PM Monday with 3-day interval → Due at 12:00AM Thursday local time
   let nextReviewFormatted;
-  if (newInterval >= 1) {
-    // Get the date in YYYY-MM-DD format
-    const dateStr = nextReview.toISOString().split('T')[0];
-    // Set time to midnight UTC
-    nextReviewFormatted = `${dateStr}T00:00:00.000Z`;
+  if (isDailyInterval) {
+    // Create a date at local midnight for the target day
+    const targetDate = new Date(nextReview);
+    targetDate.setHours(0, 0, 0, 0); // Set to local midnight
+    nextReviewFormatted = targetDate.toISOString();
   } else {
     // For learning intervals (< 1 day), use exact time
     nextReviewFormatted = nextReview.toISOString();

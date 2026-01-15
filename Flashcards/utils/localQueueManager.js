@@ -1,12 +1,15 @@
 // Local Queue Manager - Anki-like behavior with proper queue management
 // CORE PRINCIPLE: Never end session if cards have intervals < 1 day
+// ANKI BEHAVIOR: Never interrupt current card - due cards queue for NEXT position
 
 export class LocalQueueManager {
   constructor() {
     this.queue = [];
     this.waitingCards = new Map(); // Cards with future due times
+    this.readyCards = new Map(); // Cards that became due but haven't been added to queue yet
     this.timerCheckInterval = null;
     this.onQueueUpdate = null; // Callback when queue changes
+    this.onReadyCardsUpdate = null; // Callback when cards become ready (for count updates only)
   }
 
   // Initialize with cards and progress
@@ -14,6 +17,7 @@ export class LocalQueueManager {
     const now = new Date();
     this.queue = [];
     this.waitingCards.clear();
+    this.readyCards.clear();
 
     let missingProgressCount = 0;
 
@@ -73,7 +77,8 @@ export class LocalQueueManager {
       const aState = a.cardProgress?.card_state || 'new';
       const bState = b.cardProgress?.card_state || 'new';
 
-      return (stateOrder[aState] || 3) - (stateOrder[bState] || 3);
+      // Use ?? instead of || because stateOrder['relearning'] is 0, which is falsy
+      return (stateOrder[aState] ?? 3) - (stateOrder[bState] ?? 3);
     });
   }
 
@@ -93,50 +98,64 @@ export class LocalQueueManager {
   }
 
   // Check if any waiting cards should be shown
+  // ANKI BEHAVIOR: Due cards go to "ready" state, not directly to queue
+  // This prevents interrupting the current card
   checkAndUpdateQueue() {
     const now = Date.now();
-    let updated = false;
+    let countsChanged = false;
 
-    // Move any due waiting cards back to queue
+    // Move due waiting cards to READY state (not directly to queue!)
     this.waitingCards.forEach((waitingCard, cardId) => {
       if (waitingCard.dueTime <= now) {
-        // Card is due - add to TOP of queue (highest priority)
-        this.queue.unshift(waitingCard.card);
+        // Card is due - move to ready queue (will be shown after current card)
+        this.readyCards.set(cardId, waitingCard.card);
         this.waitingCards.delete(cardId);
-        updated = true;
+        countsChanged = true;
       }
     });
 
-    // If queue is empty but we have waiting cards, show them anyway!
-    if (this.queue.length === 0 && this.waitingCards.size > 0) {
-      // Get the card that's due soonest
-      let soonestCard = null;
-      let soonestTime = Infinity;
+    // ONLY pull from ready/waiting if queue is completely empty (no current card)
+    if (this.queue.length === 0) {
+      // First, add any ready cards to the queue
+      if (this.readyCards.size > 0) {
+        this.readyCards.forEach((card, cardId) => {
+          this.queue.push(card);
+          this.readyCards.delete(cardId);
+        });
+        this.sortQueue();
+        countsChanged = true;
+      }
+      // If still empty, check waiting cards
+      else if (this.waitingCards.size > 0) {
+        // Get the card that's due soonest
+        let soonestCard = null;
+        let soonestTime = Infinity;
 
-      this.waitingCards.forEach((waitingCard, cardId) => {
-        if (waitingCard.dueTime < soonestTime) {
-          soonestTime = waitingCard.dueTime;
-          soonestCard = { card: waitingCard.card, id: cardId };
+        this.waitingCards.forEach((waitingCard, cardId) => {
+          if (waitingCard.dueTime < soonestTime) {
+            soonestTime = waitingCard.dueTime;
+            soonestCard = { card: waitingCard.card, id: cardId };
+          }
+        });
+
+        if (soonestCard) {
+          // Show this card immediately (don't wait for timer)
+          this.queue.push(soonestCard.card);
+          this.waitingCards.delete(soonestCard.id);
+          countsChanged = true;
         }
-      });
-
-      if (soonestCard) {
-        // Show this card immediately (don't wait for timer)
-        this.queue.push(soonestCard.card);
-        this.waitingCards.delete(soonestCard.id);
-        updated = true;
       }
     }
 
-    if (updated) {
-      this.sortQueue();
-      if (this.onQueueUpdate) {
-        this.onQueueUpdate(this.getQueueState());
-      }
+    // Only trigger callback if counts changed (for UI counter updates)
+    // But NEVER update queue directly while user is viewing a card
+    if (countsChanged && this.onQueueUpdate) {
+      this.onQueueUpdate(this.getQueueState());
     }
   }
 
   // Handle card answer - returns updated queue
+  // ANKI BEHAVIOR: After answering, ready cards are incorporated into queue
   answerCard(cardId, ankiScheduleData) {
     const now = new Date();
     const nextReviewAt = new Date(ankiScheduleData.next_review_at);
@@ -161,7 +180,7 @@ export class LocalQueueManager {
       dueTime: nextReviewAt.getTime()
     };
 
-    // Determine what to do with the card
+    // Determine what to do with the answered card
     const isLearningOrRelearning =
       ankiScheduleData.card_state === 'learning' ||
       ankiScheduleData.card_state === 'relearning';
@@ -173,8 +192,8 @@ export class LocalQueueManager {
       if (dueInMs <= 0) {
         // Due now or overdue - add to END of queue
         this.queue.push(updatedCard);
-      } else if (this.queue.length > 0 || this.waitingCards.size > 0) {
-        // Has future due time AND other cards exist (in queue OR waiting) - move to waiting
+      } else if (this.queue.length > 0 || this.waitingCards.size > 0 || this.readyCards.size > 0) {
+        // Has future due time AND other cards exist - move to waiting
         this.waitingCards.set(cardId, {
           card: updatedCard,
           dueTime: nextReviewAt.getTime()
@@ -186,10 +205,22 @@ export class LocalQueueManager {
     }
     // If card graduated (interval > 1 day), it's removed from session (don't add back)
 
-    // Check if we need to pull in waiting cards (this handles rotating through cards)
+    // NOW incorporate ready cards (cards that became due while user was reviewing)
+    // This is the Anki-correct time to add them - after the user finished answering
+    if (this.readyCards.size > 0) {
+      this.readyCards.forEach((readyCard, readyCardId) => {
+        this.queue.push(readyCard);
+      });
+      this.readyCards.clear();
+    }
+
+    // If queue is still empty, check waiting cards
     if (this.queue.length === 0 && this.waitingCards.size > 0) {
       this.checkAndUpdateQueue();
     }
+
+    // Sort by priority (relearning > learning > review > new)
+    this.sortQueue();
 
     return this.queue;
   }
@@ -213,6 +244,16 @@ export class LocalQueueManager {
       }
     });
 
+    // Count ready cards (due but not yet in queue)
+    this.readyCards.forEach(card => {
+      const state = card.cardProgress?.card_state;
+      if (state === 'learning' || state === 'relearning') {
+        learningCount++;
+      } else if (state === 'review') {
+        reviewCount++;
+      }
+    });
+
     // Count waiting cards (all are learning/relearning)
     this.waitingCards.forEach(item => {
       const state = item.card.cardProgress?.card_state;
@@ -221,17 +262,18 @@ export class LocalQueueManager {
       }
     });
 
-    const hasCardsInSession = this.queue.length > 0 || this.waitingCards.size > 0;
+    const hasCardsInSession = this.queue.length > 0 || this.readyCards.size > 0 || this.waitingCards.size > 0;
 
     return {
       queue: this.queue,
       waitingCount: this.waitingCards.size,
+      readyCount: this.readyCards.size,
       hasCardsInSession,
       counts: {
         new: newCount,
         learning: learningCount,
         review: reviewCount,
-        total: this.queue.length
+        total: this.queue.length + this.readyCards.size
       },
       nextDueIn: this.getNextDueTime()
     };
@@ -270,6 +312,7 @@ export class LocalQueueManager {
     // The timers are only relevant during a session
 
     this.waitingCards.clear();
+    this.readyCards.clear();
     this.queue = [];
   }
 
@@ -293,8 +336,8 @@ export class LocalQueueManager {
 
   // Check if session should continue
   shouldContinueSession() {
-    // Session continues if we have any cards in queue or waiting
-    return this.queue.length > 0 || this.waitingCards.size > 0;
+    // Session continues if we have any cards in queue, ready, or waiting
+    return this.queue.length > 0 || this.readyCards.size > 0 || this.waitingCards.size > 0;
   }
 }
 

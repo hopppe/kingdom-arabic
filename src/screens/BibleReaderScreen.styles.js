@@ -93,7 +93,8 @@ export const createStyles = (theme) => StyleSheet.create({
   },
   storyContent: {
     padding: 24,
-    paddingTop: 60,
+    paddingTop: 70,
+    paddingBottom: 0,
   },
   storyTitle: {
     fontSize: 28,
@@ -156,6 +157,9 @@ export const createStyles = (theme) => StyleSheet.create({
   savedWordText: {
     color: theme.colors.text,
   },
+  flashcardWordContainer: {
+    backgroundColor: '#D4EDDA',
+  },
   tooltipText: {
     fontSize: 18,
     color: theme.colors.text,
@@ -166,10 +170,26 @@ export const createStyles = (theme) => StyleSheet.create({
   verseNumber: {
     fontSize: 14,
     color: theme.colors.textSecondary,
-    marginLeft: 12,
-    marginTop: 5,
     minWidth: 20,
     textAlign: 'left',
+  },
+  verseNumberTouchable: {
+    position: 'relative',
+    marginLeft: 12,
+    marginTop: 5,
+    paddingVertical: 4,
+    paddingHorizontal: 6,
+    borderRadius: 6,
+    minWidth: 28,
+  },
+  bookmarkedVerseText: {
+    color: theme.colors.primary,
+    fontWeight: '600',
+  },
+  bookmarkIcon: {
+    position: 'absolute',
+    right: -2,
+    top: 6,
   },
   englishText: {
     fontSize: 16,
@@ -230,7 +250,7 @@ export const createStyles = (theme) => StyleSheet.create({
     backgroundColor: theme.colors.background,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    maxHeight: '80%',
+    height: '80%',
   },
   selectorHeader: {
     flexDirection: 'row',
@@ -433,6 +453,17 @@ export const createStyles = (theme) => StyleSheet.create({
     fontStyle: 'italic',
     marginTop: 2,
   },
+  translateButton: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 8,
+  },
   removeWordButton: {
     width: 32,
     height: 32,
@@ -483,6 +514,7 @@ export const createStyles = (theme) => StyleSheet.create({
     marginHorizontal: 32,
     maxWidth: 400,
     width: '85%',
+    maxHeight: '80%',
   },
   settingsModalTitle: {
     fontSize: 20,
@@ -496,7 +528,7 @@ export const createStyles = (theme) => StyleSheet.create({
     color: theme.colors.text,
     textAlign: 'center',
     lineHeight: 24,
-    marginBottom: 24,
+    marginBottom: 4,
   },
   settingsModalButton: {
     paddingVertical: 12,
@@ -511,11 +543,7 @@ export const createStyles = (theme) => StyleSheet.create({
     color: '#fff',
   },
   feedbackSection: {
-    marginTop: 16,
     marginBottom: 16,
-    paddingTop: 16,
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
     alignItems: 'center',
   },
   feedbackLabel: {

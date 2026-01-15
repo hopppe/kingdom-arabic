@@ -42,6 +42,7 @@ export default function FlashcardScreen({ navigation, route }) {
     createGroup,
     addCardToGroup,
     removeCardFromGroup,
+    updateFlashcard,
   } = useFlashcards();
 
   // Get selected group from route params if available (for restart)
@@ -215,6 +216,40 @@ export default function FlashcardScreen({ navigation, route }) {
     removeCardFromGroup(sessionCards[currentIndex].id, groupName);
   }, [currentIndex, sessionCards, removeCardFromGroup]);
 
+  // Update English translation for the current card (from QuickSettingsModal)
+  const handleUpdateEnglish = useCallback((newEnglish) => {
+    if (currentIndex >= sessionCards.length) return;
+    const card = sessionCards[currentIndex];
+    updateFlashcard(card.id, { english: newEnglish });
+    // Update the session cards to reflect the change immediately
+    const updatedSessionCards = sessionCards.map((c, i) =>
+      i === currentIndex ? { ...c, english: newEnglish } : c
+    );
+    setSessionCards(updatedSessionCards);
+  }, [currentIndex, sessionCards, updateFlashcard, setSessionCards]);
+
+  // Remove a card by ID (for FlashcardListModal)
+  const handleRemoveCardById = useCallback((cardId) => {
+    removeFlashcard(cardId);
+    // Update session cards to remove the deleted card
+    const newCards = sessionCards.filter(c => c.id !== cardId);
+    setSessionCards(newCards);
+    // Adjust current index if needed
+    if (currentIndex >= newCards.length && newCards.length > 0) {
+      setCurrentIndex(newCards.length - 1);
+    }
+  }, [removeFlashcard, sessionCards, setSessionCards, currentIndex]);
+
+  // Update translation for any card by ID (for FlashcardListModal)
+  const handleUpdateTranslation = useCallback((cardId, newTranslation) => {
+    updateFlashcard(cardId, { english: newTranslation });
+    // Update session cards to reflect the change immediately
+    const updatedSessionCards = sessionCards.map(c =>
+      c.id === cardId ? { ...c, english: newTranslation } : c
+    );
+    setSessionCards(updatedSessionCards);
+  }, [updateFlashcard, sessionCards, setSessionCards]);
+
   const handleRestartSession = useCallback(() => {
     if (!queueManagerRef.current) return;
 
@@ -375,17 +410,15 @@ export default function FlashcardScreen({ navigation, route }) {
         availableGroups={groups}
         selectedGroup={selectedGroup}
         onResetDeck={() => {}}
-        onUpdateEnglish={() => {}}
+        onUpdateEnglish={handleUpdateEnglish}
       />
 
       <FlashcardListModal
         visible={showFlashcardList}
         onClose={() => setShowFlashcardList(false)}
         flashcards={flashcards}
-        onRemoveCard={handleRemoveCard}
-        onUpdateTranslation={(cardId, newTranslation) => {
-          // TODO: Implement update translation functionality
-        }}
+        onRemoveCard={handleRemoveCardById}
+        onUpdateTranslation={handleUpdateTranslation}
       />
     </SafeAreaView>
   );
@@ -630,6 +663,56 @@ function getStyles(theme) {
       fontStyle: 'italic',
       position: 'absolute',
       top: isSmallScreen ? 16 : 20,
+    },
+    translateButton: {
+      position: 'absolute',
+      bottom: 12,
+      right: 12,
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    translateButtonFront: {
+      position: 'absolute',
+      bottom: 12,
+      right: 12,
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    speakerButton: {
+      position: 'absolute',
+      bottom: 12,
+      right: 12,
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    speakerButtonBack: {
+      position: 'absolute',
+      bottom: 12,
+      right: 12,
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    frontButtonContainer: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%',
+      backfaceVisibility: 'hidden',
     },
     ratingContainer: {
       paddingVertical: isSmallScreen ? 12 : 16,

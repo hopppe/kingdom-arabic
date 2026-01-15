@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -39,56 +39,90 @@ export const QuickSettingsModal = ({
   onToggleVerseOnFront,
 }) => {
   const { theme } = useTheme();
-  const [showEditEnglish, setShowEditEnglish] = useState(false);
+  const scrollViewRef = useRef(null);
   const [editedEnglish, setEditedEnglish] = useState('');
-  const [showCreateGroup, setShowCreateGroup] = useState(false);
   const [newGroupName, setNewGroupName] = useState('');
+  const [activeAction, setActiveAction] = useState(null); // 'english', 'group', 'remove', 'reset', or null
+  const [showCreateGroupOnly, setShowCreateGroupOnly] = useState(false); // For general Create Group button
 
   // Reset edit state when modal closes or card changes
   useEffect(() => {
     if (!visible) {
-      setShowEditEnglish(false);
+      setActiveAction(null);
       setEditedEnglish('');
-      setShowCreateGroup(false);
       setNewGroupName('');
+      setShowCreateGroupOnly(false);
     }
   }, [visible]);
+
+  // Auto-scroll to show edit popups when they appear
+  useEffect(() => {
+    if (activeAction || showCreateGroupOnly) {
+      setTimeout(() => {
+        scrollViewRef.current?.scrollToEnd({ animated: true });
+      }, 100);
+    }
+  }, [activeAction, showCreateGroupOnly]);
 
   // Initialize edited text when opening edit mode
   const handleOpenEditEnglish = () => {
     setEditedEnglish(currentCard?.english || '');
-    setShowEditEnglish(true);
+    setActiveAction('english');
   };
 
   const handleSaveEnglish = () => {
     if (editedEnglish.trim() && onUpdateEnglish) {
       onUpdateEnglish(editedEnglish.trim());
     }
-    setShowEditEnglish(false);
+    setActiveAction(null);
   };
 
-  const handleCancelEdit = () => {
-    setShowEditEnglish(false);
+  const handleCancelAction = () => {
+    setActiveAction(null);
     setEditedEnglish('');
+    setNewGroupName('');
   };
 
-  const handleOpenCreateGroup = () => {
+  const handleOpenGroup = () => {
     setNewGroupName('');
-    setShowCreateGroup(true);
+    setActiveAction('group');
   };
 
   const handleSaveGroup = () => {
     if (newGroupName.trim() && onCreateGroup) {
       const success = onCreateGroup(newGroupName.trim());
       if (success) {
-        setShowCreateGroup(false);
+        setActiveAction(null);
         setNewGroupName('');
       }
     }
   };
 
-  const handleCancelCreateGroup = () => {
-    setShowCreateGroup(false);
+  const handleOpenRemove = () => {
+    setActiveAction('remove');
+  };
+
+  const handleOpenReset = () => {
+    setActiveAction('reset');
+  };
+
+  const handleOpenCreateGroupOnly = () => {
+    setNewGroupName('');
+    setShowCreateGroupOnly(true);
+  };
+
+  const handleSaveGroupOnly = () => {
+    if (newGroupName.trim() && onCreateGroup) {
+      const success = onCreateGroup(newGroupName.trim());
+      if (success) {
+        setShowCreateGroupOnly(false);
+        setNewGroupName('');
+      }
+    }
+  };
+
+  const handleCancelCreateGroupOnly = () => {
+    setShowCreateGroupOnly(false);
     setNewGroupName('');
   };
 
@@ -132,8 +166,12 @@ export const QuickSettingsModal = ({
             <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
               <View style={modalStyles.modalContent}>
                 <ScrollView
+                  ref={scrollViewRef}
                   style={styles.scrollView}
-                  contentContainerStyle={styles.scrollContent}
+                  contentContainerStyle={[
+                    styles.scrollContent,
+                    (activeAction || showCreateGroupOnly) && { paddingBottom: 100 }
+                  ]}
                   showsVerticalScrollIndicator={true}
                 >
                   <View style={styles.modalHeader}>
@@ -180,7 +218,7 @@ export const QuickSettingsModal = ({
 
             <TouchableOpacity
               style={[styles.compactButton, { borderColor: theme.colors.border, marginTop: 8 }]}
-              onPress={handleOpenCreateGroup}
+              onPress={handleOpenCreateGroupOnly}
             >
               <Ionicons name="add-circle-outline" size={18} color={theme.colors.text} />
               <Text style={[styles.compactButtonText, { color: theme.colors.text }]}>
@@ -211,126 +249,236 @@ export const QuickSettingsModal = ({
                 {currentCard?.arabic}
               </Text>
 
-              <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: theme.colors.primary, marginBottom: 10 }]}
-                onPress={handleOpenEditEnglish}
-                disabled={settingsLoading}
-              >
-                <Ionicons name="create-outline" size={20} color="#fff" />
-                <Text style={[styles.modalButtonText, { color: '#fff' }]}>
-                  Update English Side
-                </Text>
-              </TouchableOpacity>
+              {/* 2x2 Button Grid or Active Action Panel */}
+              {!activeAction ? (
+                <View style={styles.buttonGrid}>
+                  <TouchableOpacity
+                    style={[styles.gridButton, { backgroundColor: theme.colors.primary }]}
+                    onPress={handleOpenEditEnglish}
+                    disabled={settingsLoading}
+                  >
+                    <Ionicons name="create-outline" size={20} color="#fff" />
+                    <Text style={styles.gridButtonText}>Update English</Text>
+                  </TouchableOpacity>
 
-              {availableGroups && availableGroups.length > 0 && (
-                <View style={styles.addToGroupContainer}>
-                  <Text style={[styles.addToGroupLabel, { color: theme.colors.textSecondary }]}>
-                    Add to Group:
-                  </Text>
-                  <Dropdown
-                    items={availableGroups.filter(group => !currentCard?.groups?.includes(group))}
-                    selectedValue={null}
-                    onSelect={handleAddToGroup}
-                    placeholder="Select Group"
-                    maxHeight={150}
-                    style={styles.dropdownContainer}
-                    buttonStyle={styles.addToGroupDropdown}
-                    dropdownStyle={{
-                      backgroundColor: theme.colors.cardBackground || '#fff',
-                      zIndex: 9999,
-                    }}
-                  />
+                  <TouchableOpacity
+                    style={[styles.gridButton, { backgroundColor: '#5856D6' }]}
+                    onPress={handleOpenGroup}
+                    disabled={settingsLoading}
+                  >
+                    <Ionicons name="folder-outline" size={20} color="#fff" />
+                    <Text style={styles.gridButtonText}>Group</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[styles.gridButton, { backgroundColor: '#FF3B30' }]}
+                    onPress={handleOpenRemove}
+                    disabled={settingsLoading}
+                  >
+                    <Ionicons name="trash-outline" size={20} color="#fff" />
+                    <Text style={styles.gridButtonText}>Remove</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={[styles.gridButton, { backgroundColor: '#FF9500' }]}
+                    onPress={handleOpenReset}
+                    disabled={settingsLoading}
+                  >
+                    <Ionicons name="refresh-outline" size={20} color="#fff" />
+                    <Text style={styles.gridButtonText}>Reset</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : (
+                <View style={[styles.actionPanel, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
+                  {/* Edit English Panel */}
+                  {activeAction === 'english' && (
+                    <>
+                      <Text style={[styles.actionPanelTitle, { color: theme.colors.text }]}>
+                        Edit English Translation
+                      </Text>
+                      <TextInput
+                        style={[styles.editInput, {
+                          color: theme.colors.text,
+                          borderColor: theme.colors.primary,
+                          backgroundColor: theme.colors.cardBackground || '#fff',
+                        }]}
+                        value={editedEnglish}
+                        onChangeText={setEditedEnglish}
+                        placeholder="Enter new translation"
+                        placeholderTextColor={theme.colors.textSecondary}
+                        autoFocus={true}
+                        selectTextOnFocus={true}
+                      />
+                      <View style={styles.actionPanelButtons}>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: theme.colors.textSecondary }]}
+                          onPress={handleCancelAction}
+                        >
+                          <Text style={styles.actionButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: theme.colors.primary }]}
+                          onPress={handleSaveEnglish}
+                        >
+                          <Ionicons name="checkmark" size={16} color="#fff" />
+                          <Text style={styles.actionButtonText}>Save</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </>
+                  )}
+
+                  {/* Group Panel */}
+                  {activeAction === 'group' && (
+                    <>
+                      <Text style={[styles.actionPanelTitle, { color: theme.colors.text }]}>
+                        Manage Groups
+                      </Text>
+
+                      {/* Display current groups */}
+                      {currentCard.groups && currentCard.groups.length > 0 && (
+                        <View style={styles.addToGroupSection}>
+                          <Text style={[styles.addToGroupLabel, { color: theme.colors.textSecondary }]}>
+                            In groups:
+                          </Text>
+                          <View style={styles.groupChipsRow}>
+                            {currentCard.groups.map((group, index) => (
+                              <TouchableOpacity
+                                key={index}
+                                style={styles.groupChipInline}
+                                onPress={() => handleRemoveFromGroup(group)}
+                              >
+                                <Text style={[styles.groupChipText, { color: theme.colors.text }]}>{group}</Text>
+                                <Ionicons name="close" size={14} color={theme.colors.textSecondary} />
+                              </TouchableOpacity>
+                            ))}
+                          </View>
+                        </View>
+                      )}
+
+                      {availableGroups && availableGroups.filter(group => !currentCard?.groups?.includes(group)).length > 0 && (
+                        <View style={styles.addToGroupSection}>
+                          <Text style={[styles.addToGroupLabel, { color: theme.colors.textSecondary }]}>
+                            Add to existing group:
+                          </Text>
+                          <Dropdown
+                            items={availableGroups.filter(group => !currentCard?.groups?.includes(group))}
+                            selectedValue={null}
+                            onSelect={(groupName) => {
+                              handleAddToGroup(groupName);
+                              setActiveAction(null);
+                            }}
+                            placeholder="Select Group"
+                            maxHeight={150}
+                            style={styles.dropdownContainer}
+                            buttonStyle={styles.addToGroupDropdown}
+                            dropdownStyle={{
+                              backgroundColor: theme.colors.cardBackground || '#fff',
+                              zIndex: 9999,
+                            }}
+                          />
+                        </View>
+                      )}
+                      <Text style={[styles.orText, { color: theme.colors.textSecondary }]}>
+                        Or create a new group:
+                      </Text>
+                      <TextInput
+                        style={[styles.editInput, {
+                          color: theme.colors.text,
+                          borderColor: theme.colors.primary,
+                          backgroundColor: theme.colors.cardBackground || '#fff',
+                        }]}
+                        value={newGroupName}
+                        onChangeText={setNewGroupName}
+                        placeholder="Enter group name"
+                        placeholderTextColor={theme.colors.textSecondary}
+                      />
+                      <View style={styles.actionPanelButtons}>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: theme.colors.textSecondary }]}
+                          onPress={handleCancelAction}
+                        >
+                          <Text style={styles.actionButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: '#5856D6' }]}
+                          onPress={handleSaveGroup}
+                          disabled={!newGroupName.trim()}
+                        >
+                          <Ionicons name="add" size={16} color="#fff" />
+                          <Text style={styles.actionButtonText}>Create</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </>
+                  )}
+
+                  {/* Remove Panel */}
+                  {activeAction === 'remove' && (
+                    <>
+                      <Text style={[styles.actionPanelTitle, { color: theme.colors.text }]}>
+                        Remove Flashcard
+                      </Text>
+                      <Text style={[styles.confirmText, { color: theme.colors.textSecondary }]}>
+                        Are you sure you want to remove this flashcard?
+                      </Text>
+                      <View style={styles.actionPanelButtons}>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: theme.colors.textSecondary }]}
+                          onPress={handleCancelAction}
+                        >
+                          <Text style={styles.actionButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: '#FF3B30' }]}
+                          onPress={() => {
+                            onRemoveCard();
+                            setActiveAction(null);
+                          }}
+                        >
+                          <Ionicons name="trash" size={16} color="#fff" />
+                          <Text style={styles.actionButtonText}>Remove</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </>
+                  )}
+
+                  {/* Reset Panel */}
+                  {activeAction === 'reset' && (
+                    <>
+                      <Text style={[styles.actionPanelTitle, { color: theme.colors.text }]}>
+                        Reset Progress
+                      </Text>
+                      <Text style={[styles.confirmText, { color: theme.colors.textSecondary }]}>
+                        Reset this card's progress to start fresh?
+                      </Text>
+                      <View style={styles.actionPanelButtons}>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: theme.colors.textSecondary }]}
+                          onPress={handleCancelAction}
+                        >
+                          <Text style={styles.actionButtonText}>Cancel</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.actionButton, { backgroundColor: '#FF9500' }]}
+                          onPress={() => {
+                            onResetProgress();
+                            setActiveAction(null);
+                          }}
+                        >
+                          <Ionicons name="refresh" size={16} color="#fff" />
+                          <Text style={styles.actionButtonText}>Reset</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </>
+                  )}
                 </View>
               )}
-
-              {/* Display current groups */}
-              {currentCard.groups && currentCard.groups.length > 0 && (
-                <View style={[styles.groupsList, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
-                  <Text style={[styles.groupsListTitle, { color: theme.colors.textSecondary }]}>
-                    In Groups:
-                  </Text>
-                  {currentCard.groups.map((group, index) => (
-                    <View key={index} style={styles.groupChip}>
-                      <Text style={[styles.groupChipText, { color: theme.colors.text }]}>{group}</Text>
-                      <TouchableOpacity
-                        onPress={() => handleRemoveFromGroup(group)}
-                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                        style={styles.removeButton}
-                      >
-                        <Ionicons name="close-circle" size={20} color={theme.colors.error || '#FF3B30'} />
-                      </TouchableOpacity>
-                    </View>
-                  ))}
-                </View>
-              )}
-
-              <View style={styles.cardActions}>
-                <TouchableOpacity
-                  style={[styles.smallButton, { backgroundColor: '#FF3B30' }]}
-                  onPress={onRemoveCard}
-                  disabled={settingsLoading}
-                >
-                  <Ionicons name="trash" size={16} color="white" />
-                  <Text style={[styles.smallButtonText, { color: 'white' }]}>
-                    {settingsLoading ? 'Removing...' : 'Remove'}
-                  </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                  style={[styles.smallButton, { backgroundColor: theme.colors.text }]}
-                  onPress={onResetProgress}
-                  disabled={settingsLoading}
-                >
-                  <Ionicons name="refresh" size={16} color={theme.colors.background} />
-                  <Text style={[styles.smallButtonText, { color: theme.colors.background }]}>
-                    {settingsLoading ? 'Resetting...' : 'Reset'}
-                  </Text>
-                </TouchableOpacity>
-              </View>
             </View>
           )}
 
-          {/* Edit English Popup */}
-          {showEditEnglish && (
-            <View style={[styles.editPopup, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
-              <Text style={[styles.editPopupTitle, { color: theme.colors.text }]}>
-                Edit English Translation
-              </Text>
-              <TextInput
-                style={[styles.editInput, {
-                  color: theme.colors.text,
-                  borderColor: theme.colors.primary,
-                  backgroundColor: theme.colors.cardBackground || '#fff',
-                }]}
-                value={editedEnglish}
-                onChangeText={setEditedEnglish}
-                placeholder="Enter new translation"
-                placeholderTextColor={theme.colors.textSecondary}
-                autoFocus={true}
-                selectTextOnFocus={true}
-              />
-              <View style={styles.editPopupActions}>
-                <TouchableOpacity
-                  style={[styles.smallButton, { backgroundColor: theme.colors.textSecondary }]}
-                  onPress={handleCancelEdit}
-                >
-                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Cancel</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.smallButton, { backgroundColor: theme.colors.primary }]}
-                  onPress={handleSaveEnglish}
-                >
-                  <Ionicons name="checkmark" size={16} color="#fff" />
-                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Save</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          )}
-
-          {/* Create Group Popup */}
-          {showCreateGroup && (
-            <View style={[styles.editPopup, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
-              <Text style={[styles.editPopupTitle, { color: theme.colors.text }]}>
+          {/* Create Group Only Popup (for general Create Group button) */}
+          {showCreateGroupOnly && (
+            <View style={[styles.actionPanel, { backgroundColor: theme.colors.surface || 'rgba(0, 0, 0, 0.05)' }]}>
+              <Text style={[styles.actionPanelTitle, { color: theme.colors.text }]}>
                 Create New Group
               </Text>
               <TextInput
@@ -344,21 +492,21 @@ export const QuickSettingsModal = ({
                 placeholder="Enter group name"
                 placeholderTextColor={theme.colors.textSecondary}
                 autoFocus={true}
-                selectTextOnFocus={true}
               />
-              <View style={styles.editPopupActions}>
+              <View style={styles.actionPanelButtons}>
                 <TouchableOpacity
-                  style={[styles.smallButton, { backgroundColor: theme.colors.textSecondary }]}
-                  onPress={handleCancelCreateGroup}
+                  style={[styles.actionButton, { backgroundColor: theme.colors.textSecondary }]}
+                  onPress={handleCancelCreateGroupOnly}
                 >
-                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Cancel</Text>
+                  <Text style={styles.actionButtonText}>Cancel</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                  style={[styles.smallButton, { backgroundColor: theme.colors.primary }]}
-                  onPress={handleSaveGroup}
+                  style={[styles.actionButton, { backgroundColor: theme.colors.primary }]}
+                  onPress={handleSaveGroupOnly}
+                  disabled={!newGroupName.trim()}
                 >
                   <Ionicons name="checkmark" size={16} color="#fff" />
-                  <Text style={[styles.smallButtonText, { color: '#fff' }]}>Create</Text>
+                  <Text style={styles.actionButtonText}>Create</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -548,5 +696,84 @@ const styles = StyleSheet.create({
   compactButtonText: {
     fontSize: 15,
     fontWeight: '500',
+  },
+  buttonGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  gridButton: {
+    width: '47%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 16,
+    paddingHorizontal: 12,
+    borderRadius: 12,
+    gap: 8,
+  },
+  gridButtonText: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#fff',
+    textAlign: 'center',
+  },
+  actionPanel: {
+    borderRadius: 12,
+    padding: 16,
+  },
+  actionPanelTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
+    textAlign: 'center',
+  },
+  actionPanelButtons: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  actionButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    gap: 6,
+  },
+  actionButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#fff',
+  },
+  confirmText: {
+    fontSize: 14,
+    textAlign: 'center',
+    marginBottom: 16,
+    lineHeight: 20,
+  },
+  addToGroupSection: {
+    marginBottom: 12,
+  },
+  groupChipsRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  groupChipInline: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 16,
+    backgroundColor: 'rgba(0, 0, 0, 0.08)',
+    gap: 6,
+  },
+  orText: {
+    fontSize: 13,
+    textAlign: 'center',
+    marginBottom: 8,
+    marginTop: 4,
   },
 });

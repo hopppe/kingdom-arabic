@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -26,6 +26,13 @@ export const FlashcardListModal = ({
   const [editingCard, setEditingCard] = useState(null);
   const scrollViewRef = useRef(null);
   const cardRefs = useRef({});
+
+  // Reset editing state when modal opens/closes
+  useEffect(() => {
+    if (!visible) {
+      setEditingCard(null);
+    }
+  }, [visible]);
 
   const handleCardPress = (cardId) => {
     const isCurrentlyEditing = editingCard === cardId;
@@ -171,6 +178,7 @@ export const FlashcardListModal = ({
                                     placeholder="Enter translation"
                                     autoFocus
                                     onSubmitEditing={dismissEdit}
+                                    onBlur={dismissEdit}
                                     blurOnSubmit={true}
                                   />
                                 ) : (
