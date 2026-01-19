@@ -16,8 +16,6 @@
       "bundleIdentifier": "com.ingenuitylabs.kingdomarabic",
       "buildNumber": "3",
       "infoPlist": {
-        "NSCameraUsageDescription": "This app does not use the camera.",
-        "NSPhotoLibraryUsageDescription": "This app does not access photos.",
         "CFBundleDevelopmentRegion": "en",
         "UIRequiresFullScreen": true,
         "NSUserNotificationsUsageDescription": "Kingdom Arabic uses notifications to send you daily study reminders to help you stay consistent with your Arabic Bible learning.",
@@ -45,7 +43,18 @@
     },
     "plugins": [
       "expo-asset",
-      "expo-audio",
+      [
+        "expo-av",
+        {
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false
+        }
+      ],
       [
         "expo-notifications",
         {
@@ -54,7 +63,8 @@
           "sounds": []
         }
       ],
-      "@react-native-community/datetimepicker"
+      "@react-native-community/datetimepicker",
+      "expo-font"
     ],
     "extra": {
       "eas": {
