@@ -1,6 +1,6 @@
 /**
  * Anki Scheduler Logic Tests
- * Run with: node Flashcards/utils/ankiScheduler.test.js
+ * Run with: npm test
  */
 
 import {
@@ -13,21 +13,6 @@ import {
   MAX_EASE_FACTOR,
   LAPSE_NEW_INTERVAL_MULTIPLIER,
 } from './ankiScheduler.js';
-
-let passed = 0;
-let failed = 0;
-
-function test(name, fn) {
-  try {
-    fn();
-    console.log(`✓ ${name}`);
-    passed++;
-  } catch (e) {
-    console.log(`✗ ${name}`);
-    console.log(`  Error: ${e.message}`);
-    failed++;
-  }
-}
 
 function assertEqual(actual, expected, message = '') {
   if (actual !== expected) {
@@ -56,12 +41,10 @@ function assertLessThanOrEqual(actual, max, message = '') {
 // Convert days to minutes for easier verification
 const toMinutes = (days) => Math.round(days * 24 * 60);
 
-console.log('\n=== ANKI SCHEDULER TESTS ===\n');
 
 // ==========================================
 // NEW CARD TESTS
 // ==========================================
-console.log('--- New Card Tests ---');
 
 test('New + Again → Learning step 0 (1 min)', () => {
   const result = calculateAnkiSchedule({ card_state: 'new' }, 1);
@@ -95,7 +78,6 @@ test('New + Easy → Review (2 days)', () => {
 // ==========================================
 // LEARNING CARD TESTS (Step 0)
 // ==========================================
-console.log('\n--- Learning Card Tests (Step 0) ---');
 
 test('Learning(0) + Again → Stay at step 0 (1 min)', () => {
   const result = calculateAnkiSchedule({ card_state: 'learning', step_index: 0 }, 1);
@@ -127,7 +109,6 @@ test('Learning(0) + Easy → Graduate to review (2 days)', () => {
 // ==========================================
 // LEARNING CARD TESTS (Step 1 - Final Step)
 // ==========================================
-console.log('\n--- Learning Card Tests (Step 1 - Final) ---');
 
 test('Learning(1) + Again → Reset to step 0 (1 min)', () => {
   const result = calculateAnkiSchedule({ card_state: 'learning', step_index: 1 }, 1);
@@ -159,7 +140,6 @@ test('Learning(1) + Easy → Graduate to review (2 days)', () => {
 // ==========================================
 // REVIEW CARD TESTS
 // ==========================================
-console.log('\n--- Review Card Tests ---');
 
 test('Review + Again → Relearning step 0, ease decreases', () => {
   const result = calculateAnkiSchedule({
@@ -214,7 +194,6 @@ test('Review + Easy → Interval * ease * 1.15, ease increases', () => {
 // ==========================================
 // RELEARNING CARD TESTS
 // ==========================================
-console.log('\n--- Relearning Card Tests ---');
 
 test('Relearning(0) + Good → Advance to step 1 (10 min)', () => {
   const result = calculateAnkiSchedule({
@@ -252,7 +231,6 @@ test('Relearning + Easy → Graduate back to review (70% of prev)', () => {
 // ==========================================
 // EASE FACTOR BOUNDS TESTS
 // ==========================================
-console.log('\n--- Ease Factor Bounds Tests ---');
 
 test('Ease factor has minimum bound', () => {
   const result = calculateAnkiSchedule({
@@ -275,7 +253,6 @@ test('Ease factor has maximum bound', () => {
 // ==========================================
 // FUZZING TESTS
 // ==========================================
-console.log('\n--- Fuzzing Tests ---');
 
 test('Fuzzing does not push 1-day interval below 1 day', () => {
   // Run multiple times to check fuzzing
@@ -321,7 +298,6 @@ test('Learning intervals use exact time (not midnight)', () => {
 // ==========================================
 // FULL PROGRESSION TEST
 // ==========================================
-console.log('\n--- Full Progression Test ---');
 
 test('Complete card lifecycle: New → Learning → Review → Relearning → Review', () => {
   // Start as new card
@@ -362,18 +338,3 @@ test('Complete card lifecycle: New → Learning → Review → Relearning → Re
   assertGreaterThan(progress.interval_days, 0.9);
 });
 
-// ==========================================
-// SUMMARY
-// ==========================================
-console.log('\n=== TEST SUMMARY ===');
-console.log(`Passed: ${passed}`);
-console.log(`Failed: ${failed}`);
-console.log(`Total:  ${passed + failed}`);
-
-if (failed > 0) {
-  console.log('\n❌ Some tests failed!');
-  process.exit(1);
-} else {
-  console.log('\n✅ All tests passed!');
-  process.exit(0);
-}

@@ -1,24 +1,9 @@
 /**
  * Queue Manager Tests - Verifies Anki-correct queue behavior
- * Run with: node Flashcards/utils/localQueueManager.test.js
+ * Run with: npm test
  */
 
 import { LocalQueueManager } from './localQueueManager.js';
-
-let passed = 0;
-let failed = 0;
-
-function test(name, fn) {
-  try {
-    fn();
-    console.log(`✓ ${name}`);
-    passed++;
-  } catch (e) {
-    console.log(`✗ ${name}`);
-    console.log(`  Error: ${e.message}`);
-    failed++;
-  }
-}
 
 function assertEqual(actual, expected, message = '') {
   if (actual !== expected) {
@@ -53,12 +38,10 @@ function createProgress(card) {
   };
 }
 
-console.log('\n=== QUEUE MANAGER TESTS ===\n');
 
 // ==========================================
 // INITIALIZATION TESTS
 // ==========================================
-console.log('--- Initialization Tests ---');
 
 test('Initialize with empty cards', () => {
   const qm = new LocalQueueManager();
@@ -115,7 +98,6 @@ test('Initialize sorts by priority (relearning > learning > review > new)', () =
 // ==========================================
 // NO INTERRUPTION TESTS
 // ==========================================
-console.log('\n--- No Interruption Tests ---');
 
 test('Due card goes to readyCards, not directly to queue', () => {
   const qm = new LocalQueueManager();
@@ -209,7 +191,6 @@ test('Answered card with future due time goes to waiting', () => {
 // ==========================================
 // QUEUE STATE TESTS
 // ==========================================
-console.log('\n--- Queue State Tests ---');
 
 test('getQueueState includes ready cards in counts', () => {
   const qm = new LocalQueueManager();
@@ -278,7 +259,6 @@ test('shouldContinueSession returns true with waiting cards', () => {
 // ==========================================
 // EMPTY QUEUE BEHAVIOR
 // ==========================================
-console.log('\n--- Empty Queue Behavior ---');
 
 test('When queue empty, ready cards are pulled in', () => {
   const qm = new LocalQueueManager();
@@ -316,18 +296,3 @@ test('When queue empty and no ready cards, waiting cards pulled in', () => {
   qm.cleanup();
 });
 
-// ==========================================
-// SUMMARY
-// ==========================================
-console.log('\n=== TEST SUMMARY ===');
-console.log(`Passed: ${passed}`);
-console.log(`Failed: ${failed}`);
-console.log(`Total:  ${passed + failed}`);
-
-if (failed > 0) {
-  console.log('\n❌ Some tests failed!');
-  process.exit(1);
-} else {
-  console.log('\n✅ All tests passed!');
-  process.exit(0);
-}
