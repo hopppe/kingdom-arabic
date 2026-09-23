@@ -52,10 +52,14 @@ LIGHT10_SUFFIXES = ["ها", "ان", "ات", "ون", "ين", "يه", "ية", "ه"
 STEM_EXCEPTIONS = {"الله": "الله", "لله": "الله", "والله": "الله", "بالله": "الله", "فالله": "الله"}
 
 
-def normalize(word: str) -> str:
-    """Surface form with vowels, punctuation and alef variants removed."""
+def normalize(word: str, keep_hamza: bool = False) -> str:
+    """Surface form with vowels, punctuation and (unless keep_hamza) alef variants removed.
+
+    Hamza is kept for stemming so that e.g. كأنه ("as if") and كان ("was") don't
+    collapse onto the same stem.
+    """
     text = DIACRITICS_RE.sub("", word)
-    text = re.sub("[أإآٱ]", "ا", text)
+    text = re.sub("[ٱ]" if keep_hamza else "[أإآٱ]", "ا", text)
     text = text.replace("ى", "ي")
     return NON_ARABIC_LETTER_RE.sub("", text)
 
@@ -127,12 +131,13 @@ def build(connection: sqlite3.Connection) -> dict[str, int]:
     stats = {"verses": 0, "glosses": 0, "verses_without_glosses": 0}
     form_ids: dict[str, int] = {}
 
-    def form_id_for(norm: str) -> int:
+    def form_id_for(word: str) -> int:
+        norm = normalize(word)
         if norm not in form_ids:
             form_ids[norm] = len(form_ids) + 1
             cursor.execute(
                 "INSERT INTO forms VALUES (?, ?, ?)",
-                (form_ids[norm], norm, light_stem(norm) if norm else ""),
+                (form_ids[norm], norm, light_stem(normalize(word, keep_hamza=True)) if norm else ""),
             )
         return form_ids[norm]
 
@@ -171,7 +176,7 @@ def build(connection: sqlite3.Connection) -> dict[str, int]:
                         continue
                     cursor.execute(
                         "INSERT INTO glosses VALUES (?, ?, ?, ?, ?, ?, ?)",
-                        (book_id, chapter, verse, idx, word, gloss, form_id_for(normalize(word))),
+                        (book_id, chapter, verse, idx, word, gloss, form_id_for(word)),
                     )
                     stats["glosses"] += 1
 

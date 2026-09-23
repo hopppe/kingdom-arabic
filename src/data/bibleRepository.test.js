@@ -5,6 +5,7 @@ import {
   getVerse,
   searchVerses,
   MIN_RELATED_STEM_LENGTH,
+  mergeGlossCounts,
 } from './bibleRepository';
 
 // Minimal stand-in for expo-sqlite's SQLiteDatabase: routes queries by SQL prefix.
@@ -108,5 +109,26 @@ describe('getRelatedForms', () => {
     ]);
     const related = await getRelatedForms(db, 1, 10);
     expect(related[0].params).toEqual(['عالم', 1, 10]);
+    expect(related[0].sample).toBe('عَالِمٌ');
+  });
+});
+
+describe('mergeGlossCounts', () => {
+  it('merges glosses differing by case, apostrophe style and punctuation', () => {
+    const merged = mergeGlossCounts([
+      { gloss: 'word', count: 5 },
+      { gloss: 'word:', count: 2 },
+      { gloss: 'Word', count: 1 },
+      { gloss: 'Abraham’s', count: 3 },
+      { gloss: "Abraham's", count: 1 },
+    ]);
+    expect(merged).toEqual([
+      { gloss: 'word', count: 8 },
+      { gloss: "Abraham's", count: 4 },
+    ]);
+  });
+
+  it('drops empty glosses and respects the limit', () => {
+    expect(mergeGlossCounts([{ gloss: ':', count: 1 }, { gloss: 'a', count: 1 }, { gloss: 'b', count: 1 }], 1)).toHaveLength(1);
   });
 });

@@ -55,16 +55,20 @@ export default function BibleReaderScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasLoadedPosition, setHasLoadedPosition] = useState(false);
 
+  // Scroll offset to restore once the saved chapter has loaded (app relaunch).
+  const restoreOffsetRef = useRef(0);
+
   // Load saved reading position on mount
   useEffect(() => {
     const loadReadingPosition = async () => {
       try {
         const saved = await AsyncStorage.getItem(READING_POSITION_KEY);
         if (saved) {
-          const { book, chapter: savedChapter } = JSON.parse(saved);
+          const { book, chapter: savedChapter, offsetY } = JSON.parse(saved);
           if (book && savedChapter) {
             setCurrentBook(book);
             setCurrentChapter(savedChapter);
+            restoreOffsetRef.current = Number(offsetY) > 0 ? Number(offsetY) : 0;
           }
         }
       } catch (error) {
@@ -83,7 +87,8 @@ export default function BibleReaderScreen({ navigation }) {
       try {
         await AsyncStorage.setItem(
           READING_POSITION_KEY,
-          JSON.stringify({ book: currentBook, chapter: currentChapter })
+          // Keep a not-yet-restored offset from the last session; new chapters start at the top.
+          JSON.stringify({ book: currentBook, chapter: currentChapter, offsetY: restoreOffsetRef.current })
         );
       } catch (error) {
         console.error('Failed to save reading position:', error);
@@ -167,6 +172,14 @@ export default function BibleReaderScreen({ navigation }) {
   const userScrolledRef = useRef(false);
   useEffect(() => {
     userScrolledRef.current = false;
+  }, [currentBook, currentChapter]);
+
+  // Remember where in the chapter the reader stopped, so relaunching returns there.
+  const saveScrollOffset = useCallback(() => {
+    AsyncStorage.setItem(
+      READING_POSITION_KEY,
+      JSON.stringify({ book: currentBook, chapter: currentChapter, offsetY: Math.round(scrollPositionRef.current) })
+    ).catch((error) => console.error('Failed to save reading position:', error));
   }, [currentBook, currentChapter]);
 
   const handleScroll = useCallback((event) => {
@@ -429,6 +442,17 @@ export default function BibleReaderScreen({ navigation }) {
     setActiveWord(null);
   }, [setActiveWord]);
 
+  // Restore the saved scroll offset after the relaunched chapter renders.
+  useEffect(() => {
+    if (!chapter || restoreOffsetRef.current <= 0) return undefined;
+    const offsetY = restoreOffsetRef.current;
+    restoreOffsetRef.current = 0;
+    const timer = setTimeout(() => {
+      scrollViewRef.current?.scrollTo({ y: offsetY, animated: false });
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [chapter]);
+
   // Scroll to target verse after chapter loads
   useEffect(() => {
     if (targetVerse && chapter && scrollViewRef.current) {
@@ -585,6 +609,8 @@ export default function BibleReaderScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
         scrollEventThrottle={16}
+        onScrollEndDrag={saveScrollOffset}
+        onMomentumScrollEnd={saveScrollOffset}
         onScrollBeginDrag={() => {
           userScrolledRef.current = true;
           setActiveWord(null);

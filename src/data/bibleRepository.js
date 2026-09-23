@@ -143,6 +143,39 @@ const toSearchResult = (row) => {
   return { ...toVerseRow(row), bookName: getBookName(book) };
 };
 
+const GLOSS_EDGE_PUNCTUATION_RE = /^[\s.,;:!?"“”()«»]+|[\s.,;:!?"“”()«»]+$/g;
+const ARABIC_PUNCTUATION_RE = /[.,،؛:؟!«»"]/g;
+const MAX_MEANINGS = 8;
+
+export const cleanGloss = (gloss) => gloss.replace(/[‘’]/g, "'").replace(GLOSS_EDGE_PUNCTUATION_RE, '');
+
+/**
+ * Merge gloss counts that differ only by case, curly vs straight apostrophes or
+ * stray punctuation ("word:" / "Word"), keeping the most common spelling.
+ */
+export function mergeGlossCounts(rows, limit = MAX_MEANINGS) {
+  const merged = new Map();
+  rows.forEach(({ gloss, count }) => {
+    const text = cleanGloss(gloss || '');
+    if (!text) return;
+    const key = text.toLowerCase();
+    const existing = merged.get(key);
+    if (!existing) {
+      merged.set(key, { gloss: text, count, best: count });
+    } else {
+      merged.set(key, {
+        gloss: count > existing.best ? text : existing.gloss,
+        count: existing.count + count,
+        best: Math.max(existing.best, count),
+      });
+    }
+  });
+  return [...merged.values()]
+    .sort((a, b) => b.count - a.count)
+    .slice(0, limit)
+    .map(({ gloss, count }) => ({ gloss, count }));
+}
+
 /**
  * Every place this exact word form (ignoring vowels) appears, plus the glosses it
  * was given, most frequent first.
@@ -159,13 +192,13 @@ export async function getWordOccurrences(db, formId, limit = 100) {
       [formId, limit]
     ),
     db.getAllAsync(
-      'SELECT en AS gloss, COUNT(*) AS count FROM glosses WHERE form_id = ? GROUP BY lower(en) ORDER BY count DESC LIMIT 8',
+      'SELECT en AS gloss, COUNT(*) AS count FROM glosses WHERE form_id = ? GROUP BY en ORDER BY count DESC LIMIT 50',
       [formId]
     ),
   ]);
   return {
     totalCount: countRow?.total || 0,
-    glosses: glossRows,
+    glosses: mergeGlossCounts(glossRows),
     occurrences: rows.map((row) => ({ ...toVerseRow(row), word: row.word, gloss: row.gloss })),
   };
 }
@@ -191,7 +224,11 @@ export async function getRelatedForms(db, formId, limit = 30) {
       LIMIT ?`,
     [form.stem, formId, limit]
   );
-  return rows;
+  return rows.map((row) => ({
+    ...row,
+    sample: (row.sample || '').replace(ARABIC_PUNCTUATION_RE, ''),
+    gloss: cleanGloss(row.gloss || ''),
+  }));
 }
 
 // Test hook.
