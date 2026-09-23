@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -40,7 +40,9 @@ export default function FlashcardScreen({ navigation, route }) {
     recordAnswer,
     removeFlashcard,
     resetCardProgress,
+    resetCardsProgress,
     createGroup,
+    deleteGroup,
     addCardToGroup,
     removeCardFromGroup,
     updateFlashcard,
@@ -274,6 +276,60 @@ export default function FlashcardScreen({ navigation, route }) {
     resetAnimations();
   }, [flashcards, userProgress, selectedGroup, queueManagerRef, setSessionCards, setCardCounts, resetAnimations]);
 
+  const cardsInSelectedGroup = useCallback(
+    () => (selectedGroup === 'All Cards' ? flashcards : flashcards.filter((card) => card.groups?.includes(selectedGroup))),
+    [flashcards, selectedGroup]
+  );
+
+  // After a deck reset, rebuild the session once the new progress is in state.
+  const restartAfterResetRef = useRef(false);
+  useEffect(() => {
+    if (!restartAfterResetRef.current) return;
+    restartAfterResetRef.current = false;
+    handleRestartSession();
+  }, [userProgress, handleRestartSession]);
+
+  const handleResetDeck = useCallback(() => {
+    const cards = cardsInSelectedGroup();
+    if (cards.length === 0) return;
+    Alert.alert(
+      'Reset deck?',
+      `All ${cards.length} card${cards.length === 1 ? '' : 's'} in "${selectedGroup}" will go back to new. Your cards are kept.`,
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Reset',
+          style: 'destructive',
+          onPress: () => {
+            restartAfterResetRef.current = true;
+            resetCardsProgress(cards.map((card) => card.id));
+            setShowSettingsModal(false);
+          },
+        },
+      ]
+    );
+  }, [cardsInSelectedGroup, selectedGroup, resetCardsProgress]);
+
+  const handleDeleteGroup = useCallback(() => {
+    if (selectedGroup === 'All Cards') return;
+    Alert.alert(
+      `Delete group "${selectedGroup}"?`,
+      'The cards stay in your deck; only the group is removed.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Delete',
+          style: 'destructive',
+          onPress: () => {
+            deleteGroup(selectedGroup);
+            setSelectedGroup('All Cards');
+            setShowSettingsModal(false);
+          },
+        },
+      ]
+    );
+  }, [selectedGroup, deleteGroup]);
+
   const styles = getStyles(theme);
 
   // Loading state
@@ -404,7 +460,8 @@ export default function FlashcardScreen({ navigation, route }) {
         onOpenFlashcardList={() => setShowFlashcardList(true)}
         availableGroups={groups}
         selectedGroup={selectedGroup}
-        onResetDeck={() => {}}
+        onResetDeck={handleResetDeck}
+        onDeleteGroup={handleDeleteGroup}
         onUpdateEnglish={handleUpdateEnglish}
       />
 

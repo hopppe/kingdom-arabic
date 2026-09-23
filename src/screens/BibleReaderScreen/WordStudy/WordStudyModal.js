@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../../context/ThemeContext';
 import { formatReference } from '../../../data/bibleData';
+import { stripPunctuation } from '../../../hooks/useBibleReader';
 import { useWordStudy } from './useWordStudy';
 import HighlightedVerse from './HighlightedVerse';
 import { createWordStudyStyles } from './WordStudyModal.styles';
@@ -23,7 +24,7 @@ export default function WordStudyModal({ visible, word, onClose, onSelectVerse }
 
   useEffect(() => {
     if (visible && word) {
-      setStack([{ formId: word.formId, ar: word.ar, gloss: word.en }]);
+      setStack([{ formId: word.formId, ar: stripPunctuation(word.ar), gloss: word.en }]);
       setTab(TABS.OCCURRENCES);
     }
   }, [visible, word]);

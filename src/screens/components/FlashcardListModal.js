@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -168,8 +169,13 @@ export const FlashcardListModal = ({
                                 style={styles.removeButton}
                                 onPress={(e) => {
                                   e.stopPropagation();
-                                  onRemoveCard(card.id);
+                                  Alert.alert('Delete flashcard?', `Remove "${card.arabic}" and its progress?`, [
+                                    { text: 'Cancel', style: 'cancel' },
+                                    { text: 'Delete', style: 'destructive', onPress: () => onRemoveCard(card.id) },
+                                  ]);
                                 }}
+                                accessibilityRole="button"
+                                accessibilityLabel={`Delete ${card.arabic}`}
                               >
                                 <Text style={styles.removeButtonText}>×</Text>
                               </TouchableOpacity>

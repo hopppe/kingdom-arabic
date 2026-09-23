@@ -401,7 +401,10 @@ export default function BibleReaderScreen({ navigation }) {
       'Practice it any time in the Memorize tab.',
       [
         { text: 'Later', style: 'cancel' },
-        { text: 'Practice now', onPress: () => navigation.navigate(ROUTES.MEMORIZE) },
+        {
+          text: 'Practice now',
+          onPress: () => navigation.navigate(ROUTES.MEMORIZE, { practiceVerseId: `${book}-${chapterNum}-${verse}` }),
+        },
       ]
     );
   }, [verseActions, addMemoryVerse, navigation]);

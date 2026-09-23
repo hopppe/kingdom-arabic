@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useRef } from 'react';
 
-const PUNCTUATION_RE = /[.,،؛:؟!«»"]/g;
+const PUNCTUATION_RE = /[.,،؛:؟!«»"()[\]]/g;
 
 // Words are displayed with attached punctuation; saved words and flashcards store them bare.
 export const stripPunctuation = (word) => word.replace(PUNCTUATION_RE, '').trim();

@@ -260,6 +260,16 @@ export const FlashcardProvider = ({ children }) => {
     saveProgress(updatedProgress);
   }, [saveProgress]);
 
+  // Reset several cards to "new" in one save (e.g. resetting a whole deck)
+  const resetCardsProgress = useCallback((cardIds) => {
+    const updatedProgress = { ...userProgressRef.current };
+    cardIds.forEach((cardId) => {
+      updatedProgress[cardId] = createNewCardProgress();
+    });
+    setUserProgress(updatedProgress);
+    saveProgress(updatedProgress);
+  }, [saveProgress]);
+
   // Update a flashcard's content (e.g., change English translation)
   const updateFlashcard = useCallback((cardId, updates) => {
     const updatedCards = flashcardsRef.current.map(card => {
@@ -358,6 +368,7 @@ export const FlashcardProvider = ({ children }) => {
     removeFlashcard,
     recordAnswer,
     resetCardProgress,
+    resetCardsProgress,
     updateFlashcard,
     createGroup,
     deleteGroup,

@@ -20,6 +20,36 @@ const STORAGE_KEYS = {
 
 const DEFAULT_TIME = { hour: 9, minute: 0 };
 
+const REMINDER_CONTENT = {
+  title: 'Time to learn Arabic!',
+  body: 'Continue your journey through the Arabic Bible.',
+};
+
+/**
+ * If the reminder is enabled but not scheduled, reschedule it when permission is
+ * already granted (no prompt at launch); otherwise turn the setting off so the
+ * user re-enables it and gets the permission prompt. Returns the effective state.
+ */
+async function ensureReminderScheduled(time) {
+  try {
+    const scheduled = await Notifications.getAllScheduledNotificationsAsync();
+    if (scheduled.length > 0) return true;
+    const { status } = await Notifications.getPermissionsAsync();
+    if (status === 'granted') {
+      await Notifications.scheduleNotificationAsync({
+        content: REMINDER_CONTENT,
+        trigger: { type: Notifications.SchedulableTriggerInputTypes.DAILY, hour: time.hour, minute: time.minute },
+      });
+      return true;
+    }
+    await AsyncStorage.setItem(STORAGE_KEYS.ENABLED, JSON.stringify(false));
+    return false;
+  } catch (error) {
+    console.error('Error checking the scheduled reminder:', error);
+    return false;
+  }
+}
+
 export function useNotificationPreferences() {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [reminderTime, setReminderTime] = useState(DEFAULT_TIME);
@@ -34,11 +64,16 @@ export function useNotificationPreferences() {
           AsyncStorage.getItem(STORAGE_KEYS.REMINDER_TIME),
         ]);
 
-        if (enabled !== null) {
-          setNotificationsEnabled(JSON.parse(enabled));
-        }
-        if (time !== null) {
-          setReminderTime(JSON.parse(time));
+        const storedTime = time !== null ? JSON.parse(time) : DEFAULT_TIME;
+        const storedEnabled = enabled !== null && JSON.parse(enabled) === true;
+        setReminderTime(storedTime);
+        // Stored settings can say "on" without anything being scheduled (e.g. after
+        // restoring a backup on a new phone), so make the two agree.
+        if (storedEnabled) {
+          setNotificationsEnabled(await ensureReminderScheduled(storedTime));
+        } else {
+          setNotificationsEnabled(false);
+          await Notifications.cancelAllScheduledNotificationsAsync();
         }
       } catch (error) {
         console.error('Error loading notification preferences:', error);
@@ -57,10 +92,7 @@ export function useNotificationPreferences() {
 
       // Schedule new daily notification
       await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "Time to learn Arabic!",
-          body: "Continue your journey through the Arabic Bible.",
-        },
+        content: REMINDER_CONTENT,
         trigger: {
           type: Notifications.SchedulableTriggerInputTypes.DAILY,
           hour: hour,

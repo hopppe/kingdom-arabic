@@ -144,7 +144,7 @@ const toSearchResult = (row) => {
 };
 
 const GLOSS_EDGE_PUNCTUATION_RE = /^[\s.,;:!?"“”()«»]+|[\s.,;:!?"“”()«»]+$/g;
-const ARABIC_PUNCTUATION_RE = /[.,،؛:؟!«»"]/g;
+const ARABIC_PUNCTUATION_RE = /[.,،؛:؟!«»"()[\]]/g;
 const MAX_MEANINGS = 8;
 
 export const cleanGloss = (gloss) => gloss.replace(/[‘’]/g, "'").replace(GLOSS_EDGE_PUNCTUATION_RE, '');

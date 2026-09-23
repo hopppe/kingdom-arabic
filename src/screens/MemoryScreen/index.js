@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text, BackHandler } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -11,7 +11,7 @@ import { PracticeSession } from './PracticeSession';
 
 // Views: 'home' | 'add' | 'practice'. Practice covers both a single verse
 // (tapped from a list) and a due-review queue (several verses in sequence).
-export default function MemoryScreen() {
+export default function MemoryScreen({ navigation, route }) {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const { verses, loaded, stats, addVerse, removeVerse } = useMemoryVerses();
@@ -49,6 +49,17 @@ export default function MemoryScreen() {
     setQueue(null);
     setView('home');
   };
+
+  // Opened from the reader's "Practice now": jump straight into that verse once it's loaded.
+  const practiceVerseId = route?.params?.practiceVerseId;
+  useEffect(() => {
+    if (!practiceVerseId) return;
+    const verse = verses.find((v) => v.id === practiceVerseId);
+    if (!verse) return;
+    navigation.setParams({ practiceVerseId: undefined });
+    setQueue({ ids: [verse.id], index: 0 });
+    setView('practice');
+  }, [practiceVerseId, verses, navigation]);
 
   // Android back closes Add Verse / practice instead of leaving the tab.
   useFocusEffect(

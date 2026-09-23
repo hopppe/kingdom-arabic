@@ -22,6 +22,7 @@ export const QuickSettingsModal = ({
   onRemoveCard,
   onResetProgress,
   onResetDeck,
+  onDeleteGroup,
   onUpdateEnglish,
   onCreateGroup,
   onAddToGroup,
@@ -153,6 +154,7 @@ export const QuickSettingsModal = ({
               <View style={styles.modalContent}>
                 <ScrollView
                   ref={scrollViewRef}
+                  keyboardShouldPersistTaps="handled"
                   style={styles.scrollView}
                   contentContainerStyle={[
                     styles.scrollContent,
@@ -222,6 +224,20 @@ export const QuickSettingsModal = ({
                 Reset Deck ({selectedGroup})
               </Text>
             </TouchableOpacity>
+
+            {selectedGroup && selectedGroup !== 'All Cards' && (
+              <TouchableOpacity
+                style={[styles.compactButton, { marginTop: 8 }]}
+                onPress={onDeleteGroup}
+                disabled={settingsLoading}
+                accessibilityRole="button"
+              >
+                <Ionicons name="trash-outline" size={18} color={theme.colors.error} />
+                <Text style={[styles.compactButtonText, { color: theme.colors.error }]}>
+                  Delete Group ({selectedGroup})
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
 
           {/* Flashcard Section */}

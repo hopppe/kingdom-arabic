@@ -66,7 +66,11 @@ export const SettingsModal = ({
             <View style={styles.settingsModalContent}>
               <Text style={styles.settingsModalTitle}>Settings</Text>
 
-              <ScrollView style={localStyles.scrollContent} showsVerticalScrollIndicator={false}>
+              <ScrollView
+                style={localStyles.scrollContent}
+                contentContainerStyle={localStyles.scrollInner}
+                showsVerticalScrollIndicator={false}
+              >
               {/* Appearance Section */}
               <AppearanceSection />
 
@@ -232,6 +236,10 @@ export const SettingsModal = ({
 };
 
 const createStyles = (theme) => StyleSheet.create({
+  // Room below the last item so the time picker's Done button isn't under Close.
+  scrollInner: {
+    paddingBottom: 56,
+  },
   scrollContent: {
     flexGrow: 1,
     flexShrink: 1,
