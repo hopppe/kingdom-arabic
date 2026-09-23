@@ -12,7 +12,9 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { searchVerses, getPreviewText } from '../../utils/verseSearch';
+import { getPreviewText } from '../../utils/verseSearch';
+import { searchVerses } from '../../data/bibleRepository';
+import { useBibleDb } from '../../context/BibleDbContext';
 
 export const SearchModal = ({
   visible,
@@ -23,6 +25,8 @@ export const SearchModal = ({
   const [results, setResults] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
   const inputRef = useRef(null);
+  const db = useBibleDb();
+  const latestQueryRef = useRef('');
 
   // Focus input when modal opens
   useEffect(() => {
@@ -40,13 +44,19 @@ export const SearchModal = ({
     }
   }, [visible]);
 
-  // Search immediately on text change (data is pre-loaded)
-  const handleSearch = useCallback((text) => {
+  // Search on every keystroke; ignore results that arrive after a newer query.
+  const handleSearch = useCallback(async (text) => {
     setQuery(text);
-    const { results: searchResults, totalCount: count } = searchVerses(text, 25);
-    setResults(searchResults);
-    setTotalCount(count);
-  }, []);
+    latestQueryRef.current = text;
+    try {
+      const { results: searchResults, totalCount: count } = await searchVerses(db, text, 25);
+      if (latestQueryRef.current !== text) return;
+      setResults(searchResults);
+      setTotalCount(count);
+    } catch (error) {
+      console.error('Verse search failed:', error);
+    }
+  }, [db]);
 
   const handleResultPress = useCallback((item) => {
     onSelectResult(item.book, item.chapter, item.verse);

@@ -1,51 +1,5 @@
-// Verse search utility for searching English Bible text
-// Uses pre-built search index from searchData.js (no runtime loading)
-
-import { searchIndex } from '../data/searchData';
-
-// Search verses - supports multiple words (all must be in verse)
-// If query ends with space, do word-boundary match for exact words
-// Returns { results: [...], totalCount: number }
-export function searchVerses(query, limit = 15) {
-  if (!query || !query.trim()) {
-    return { results: [], totalCount: 0 };
-  }
-
-  const trimmed = query.trimStart();
-  const isWordBoundary = trimmed.endsWith(' ');
-  const searchTerm = trimmed.trim().toLowerCase();
-
-  if (!searchTerm) {
-    return { results: [], totalCount: 0 };
-  }
-
-  // Split into words for multi-word search
-  const words = searchTerm.split(/\s+/).filter(w => w.length > 0);
-
-  let matches;
-
-  if (isWordBoundary) {
-    // Word boundary match - all words must be complete words
-    const wordRegexes = words.map(w => new RegExp(`\\b${escapeRegex(w)}\\b`, 'i'));
-    matches = searchIndex.filter(v => wordRegexes.every(regex => regex.test(v.en)));
-  } else {
-    // Substring match - all words must appear somewhere in the verse
-    matches = searchIndex.filter(v => {
-      const lowerText = v.en.toLowerCase();
-      return words.every(word => lowerText.includes(word));
-    });
-  }
-
-  return {
-    results: matches.slice(0, limit),
-    totalCount: matches.length,
-  };
-}
-
-// Escape special regex characters
-function escapeRegex(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
+// Helpers for displaying English verse search results.
+// The search itself runs in SQLite: see searchVerses in src/data/bibleRepository.js.
 
 // Truncate text for preview, preserving the match context
 export function getPreviewText(text, query, maxLength = 80) {

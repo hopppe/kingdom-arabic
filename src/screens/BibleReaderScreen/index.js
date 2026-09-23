@@ -17,7 +17,9 @@ import * as Speech from 'expo-speech';
 import { setAudioModeAsync } from 'expo-audio';
 import { useTheme } from '../../context/ThemeContext';
 import { useFlashcards } from '../../context/FlashcardContext';
-import { BOOKS, getBookName, loadChapterData } from '../../data/bibleData';
+import { BOOKS, getBookName } from '../../data/bibleData';
+import { getChapter } from '../../data/bibleRepository';
+import { useBibleDb } from '../../context/BibleDbContext';
 import { createStyles } from '../BibleReaderScreen.styles';
 import { ChapterSelector } from './ChapterSelector';
 import { SavedWordsPanel } from './SavedWordsPanel';
@@ -28,12 +30,12 @@ import { HelpModal } from './HelpModal';
 import { SearchModal } from './SearchModal';
 import { useBibleReader } from '../../hooks/useBibleReader';
 import { useBookmarks } from '../../hooks/useBookmarks';
-import { loadChapterWithMappingType } from '../../utils/bibleLoader';
 
 const { width: screenWidth} = Dimensions.get('window');
 
 export default function BibleReaderScreen({ navigation }) {
   const { theme } = useTheme();
+  const db = useBibleDb();
   const { addMultipleFlashcards, flashcards } = useFlashcards();
 
   // Storage key for reading position
@@ -249,14 +251,14 @@ export default function BibleReaderScreen({ navigation }) {
   const loadCurrentChapter = useCallback(async () => {
     setIsLoading(true);
     try {
-      const data = await loadChapterWithMappingType(currentBook, currentChapter);
+      const data = await getChapter(db, currentBook, currentChapter);
       setChapter(data);
     } catch (error) {
       console.error('Failed to load chapter:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [currentBook, currentChapter]);
+  }, [db, currentBook, currentChapter]);
 
   useEffect(() => {
     if (!hasLoadedPosition) return; // Wait until we've loaded the saved position
@@ -681,13 +683,6 @@ const Header = ({
     </TouchableOpacity>
 
     <View style={styles.headerRightButtons}>
-      <TouchableOpacity
-        style={styles.flashcardsButton}
-        onPress={() => navigation.navigate('Flashcards')}
-      >
-        <Ionicons name="albums-outline" size={18} color={theme.colors.text} />
-        <Text style={styles.flashcardsButtonText}>Flashcards</Text>
-      </TouchableOpacity>
 
       <TouchableOpacity
         style={[styles.translationButton, showTranslations && styles.headerButtonActive]}

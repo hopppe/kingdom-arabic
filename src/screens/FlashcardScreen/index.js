@@ -13,6 +13,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
+import { ROUTES } from '../../navigation/routes';
 import { useFlashcards } from '../../context/FlashcardContext';
 import { AnkiCardCounts } from '../components/AnkiCardCounts';
 import { AnkiRatingButtons } from '../components/AnkiRatingButtons';
@@ -138,7 +139,7 @@ export default function FlashcardScreen({ navigation, route }) {
           Alert.alert(
             'Session Complete!',
             'Great job! You\'ve finished all cards for now.',
-            [{ text: 'OK', onPress: () => navigation.goBack() }]
+            [{ text: 'OK', onPress: () => navigation.navigate(ROUTES.BIBLE) }]
           );
         }
       }
@@ -167,7 +168,7 @@ export default function FlashcardScreen({ navigation, route }) {
 
               if (newCards.length === 0) {
                 setShowSettingsModal(false);
-                navigation.goBack();
+                navigation.navigate(ROUTES.BIBLE);
               } else if (currentIndex >= newCards.length) {
                 setCurrentIndex(Math.max(0, newCards.length - 1));
               }
@@ -300,7 +301,7 @@ export default function FlashcardScreen({ navigation, route }) {
           </Text>
           <TouchableOpacity
             style={styles.goBackButton}
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate(ROUTES.BIBLE)}
           >
             <Text style={styles.goBackButtonText}>Go to Chapters</Text>
           </TouchableOpacity>
@@ -321,7 +322,7 @@ export default function FlashcardScreen({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.bibleButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.bibleButton} onPress={() => navigation.navigate(ROUTES.BIBLE)}>
           <Ionicons name="book-outline" size={18} color={theme.colors.text} />
           <Text style={styles.bibleButtonText}>Bible</Text>
         </TouchableOpacity>
@@ -359,7 +360,7 @@ export default function FlashcardScreen({ navigation, route }) {
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.secondaryButton, { borderColor: theme.colors.primary }]}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate(ROUTES.BIBLE)}
               >
                 <Text style={[styles.secondaryButtonText, { color: theme.colors.primary }]}>
                   Go Back
@@ -427,7 +428,7 @@ export default function FlashcardScreen({ navigation, route }) {
 // Simple header component
 const Header = ({ navigation, theme, styles }) => (
   <View style={styles.header}>
-    <TouchableOpacity style={styles.bibleButton} onPress={() => navigation.goBack()}>
+    <TouchableOpacity style={styles.bibleButton} onPress={() => navigation.navigate(ROUTES.BIBLE)}>
       <Ionicons name="book-outline" size={18} color={theme.colors.text} />
       <Text style={styles.bibleButtonText}>Bible</Text>
     </TouchableOpacity>
