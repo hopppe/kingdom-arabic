@@ -478,11 +478,11 @@ export default function BibleReaderScreen({ navigation }) {
     }
   }, [targetVerse, chapter]);
 
-  // Render word component
+  // Each word is a tappable span inside one Text per verse. Nested Text is far
+  // cheaper than a View + Pressable per word (a chapter has ~1,000 words) and
+  // lets Arabic wrap and justify like normal running text.
   const renderWord = (word, wordIndex, verseIndex) => {
-    if (/^\s+$/.test(word) || !word.trim()) {
-      return <Text key={wordIndex} style={styles.arabicText}>{word}</Text>;
-    }
+    if (!word.trim()) return word;
 
     const wordId = `${verseIndex}-${wordIndex}`;
     const isActive = activeWord?.id === wordId;
@@ -491,27 +491,20 @@ export default function BibleReaderScreen({ navigation }) {
     const isInFlashcards = flashcardWordsSet.has(bareWord);
 
     return (
-      <View key={wordIndex} style={styles.wordWrapper}>
-        <Pressable
-          onPress={(event) => handleWordPress(word, verseIndex, event, wordIndex)}
-          onLongPress={() => openWordStudy(word, verseIndex)}
-          delayLongPress={350}
-          style={[
-            styles.wordTouchable,
-            isInFlashcards && !isActive && !isSaved && styles.flashcardWordContainer,
-            isSaved && !isActive && styles.savedWordContainer,
-            isActive && styles.activeWordContainer,
-          ]}
-        >
-          <Text style={[
-            styles.arabicText,
-            isActive && styles.activeWordText,
-            isSaved && !isActive && styles.savedWordText,
-          ]}>
-            {word}
-          </Text>
-        </Pressable>
-      </View>
+      <Text
+        key={wordIndex}
+        onPress={(event) => handleWordPress(word, verseIndex, event, wordIndex)}
+        onLongPress={() => openWordStudy(word, verseIndex)}
+        suppressHighlighting
+        style={[
+          isInFlashcards && !isActive && !isSaved && styles.flashcardWordContainer,
+          isSaved && !isActive && styles.savedWordContainer,
+          isActive && styles.activeWordContainer,
+          isActive && styles.activeWordText,
+        ]}
+      >
+        {word}
+      </Text>
     );
   };
 
@@ -529,9 +522,9 @@ export default function BibleReaderScreen({ navigation }) {
       >
         <View style={styles.paragraphWithNumber}>
           <View style={styles.paragraph}>
-            <View style={styles.arabicContainer}>
+            <Text style={styles.arabicVerse}>
               {words.map((word, wordIndex) => renderWord(word, wordIndex, verseIndex))}
-            </View>
+            </Text>
 
             {showTranslations && chapter && (
               <Text style={styles.englishText}>

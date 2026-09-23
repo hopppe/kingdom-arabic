@@ -81,7 +81,9 @@ async function ensureBibleDb() {
     if (copied.size !== BIBLE_DB_BYTES) {
       throw new Error(`Bible database is ${copied.size} bytes, expected ${BIBLE_DB_BYTES}`);
     }
-    await copied.move(partial);
+    // Copy rather than move: Android counts a file toward "cache" based on where it
+    // was created, and the Bible must not show up as clearable cache.
+    await copied.copy(partial);
   }
   // deleteDatabaseAsync also drops the -wal/-shm files, which must not outlive the old copy.
   if (target.exists) await deleteDatabaseAsync(BIBLE_DB_NAME);

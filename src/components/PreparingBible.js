@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
+import { StatusBar } from 'expo-status-bar';
 import { useTheme } from '../context/ThemeContext';
 
 // Shown on first launch while the bundled Bible database is installed, so the
@@ -15,6 +16,7 @@ export function PreparingBible() {
 
   return (
     <View style={styles.container} accessibilityLiveRegion="polite">
+      <StatusBar style={theme.isDark ? 'light' : 'dark'} />
       <ActivityIndicator size="large" color={theme.colors.textSecondary} />
       <Text style={styles.title}>Preparing the Bible…</Text>
       <Text style={styles.body}>This only happens the first time you open the app.</Text>

@@ -120,28 +120,14 @@ export const createStyles = (theme) => StyleSheet.create({
   paragraph: {
     flex: 1,
   },
-  arabicContainer: {
-    flexDirection: 'row-reverse',
-    flexWrap: 'wrap',
-    alignItems: 'baseline',
-    overflow: 'visible',
-    // The theme's Arabic line height already provides generous vertical
-    // spacing between wrapped lines, so only a small gap is needed here.
-    rowGap: 4,
-  },
-  wordWrapper: {
-    position: 'relative',
-    overflow: 'visible',
-    alignSelf: 'flex-start',
-  },
-  wordTouchable: {
-    borderRadius: 6,
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-  },
   arabicText: {
     ...theme.arabic.body,
     color: theme.colors.text,
+  },
+  arabicVerse: {
+    ...theme.arabic.body,
+    color: theme.colors.text,
+    textAlign: 'right',
   },
   activeWordContainer: {
     backgroundColor: theme.colors.primary,
