@@ -63,7 +63,14 @@
       ],
       "expo-sqlite",
       "expo-sharing",
-      "expo-sqlite"
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "enableSceneSupport": true
+          }
+        }
+      ]
     ],
     "extra": {
       "eas": {
