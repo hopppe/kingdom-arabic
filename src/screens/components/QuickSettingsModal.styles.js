@@ -146,7 +146,7 @@ export const createStyles = (theme) => StyleSheet.create({
     textAlign: 'center',
   },
   gridButtonEnglish: {
-    backgroundColor: theme.colors.primary,
+    backgroundColor: theme.colors.info,
   },
   gridButtonGroup: {
     backgroundColor: theme.colors.purple,

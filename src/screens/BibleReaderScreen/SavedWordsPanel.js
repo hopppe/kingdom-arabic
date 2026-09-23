@@ -84,9 +84,9 @@ export const SavedWordsPanel = ({
         style={{ flex: 1 }}
         keyboardVerticalOffset={0}
       >
-        <TouchableWithoutFeedback onPress={handleOverlayPress}>
+        <TouchableWithoutFeedback accessible={false} onPress={handleOverlayPress}>
           <View style={styles.modalOverlay}>
-            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
               <View style={styles.modalContent}>
               <View style={styles.modalHeader}>
                 <Text style={styles.modalTitle}>Saved Words</Text>

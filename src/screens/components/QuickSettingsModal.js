@@ -147,9 +147,9 @@ export const QuickSettingsModal = ({
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <TouchableWithoutFeedback onPress={onClose}>
+        <TouchableWithoutFeedback accessible={false} onPress={onClose}>
           <View style={styles.modalOverlay}>
-            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
               <View style={styles.modalContent}>
                 <ScrollView
                   ref={scrollViewRef}

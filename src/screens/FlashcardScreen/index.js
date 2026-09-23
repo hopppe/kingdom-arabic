@@ -491,18 +491,18 @@ function getStyles(theme) {
       fontSize: 16,
       fontWeight: '600',
     },
+    // The card fills whatever space is left between the counters and the rating
+    // buttons (the tab bar takes some), capped so it doesn't get too tall.
     cardContainer: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      maxHeight: isSmallScreen ? screenHeight * 0.5 : isMediumScreen ? screenHeight * 0.55 : screenHeight * 0.6,
+      paddingVertical: 8,
     },
     cardWrapper: {
       width: screenWidth - 40,
-      height: isSmallScreen ? Math.min(screenHeight * 0.5, 350) :
-             isMediumScreen ? Math.min(screenHeight * 0.55, 420) :
-             Math.min(screenHeight * 0.6, 480),
-      maxHeight: screenHeight * 0.65,
+      height: '100%',
+      maxHeight: isSmallScreen ? 350 : isMediumScreen ? 420 : 480,
     },
     card: {
       position: 'absolute',

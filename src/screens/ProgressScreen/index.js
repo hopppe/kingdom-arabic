@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeContext';
 import { useActivity } from '../../context/ActivityContext';
@@ -68,7 +68,9 @@ export default function ProgressScreen() {
       <FlashcardStatsCard buckets={flashcardBuckets} />
       <MemoryVerseCard />
       <ReadingProgressCard />
-      <BackupSection />
+      <View style={styles.backup}>
+        <BackupSection />
+      </View>
     </ScrollView>
   );
 }
@@ -82,5 +84,8 @@ const createStyles = (theme, topInset) =>
     content: {
       paddingTop: topInset + theme.spacing.md,
       paddingBottom: theme.spacing.xl,
+    },
+    backup: {
+      marginHorizontal: theme.spacing.md,
     },
   });

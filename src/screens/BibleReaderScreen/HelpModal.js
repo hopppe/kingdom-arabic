@@ -13,7 +13,8 @@ export const HelpModal = ({ visible, onClose }) => {
       items: [
         'Tap a word → see translation',
         'Tap verse number → play audio',
-        'Press and hold verse number → bookmark',
+        'Press and hold verse number → bookmark, memorize or listen',
+        'Press and hold a word (or tap its meaning) → word study',
       ],
     },
     {

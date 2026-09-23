@@ -60,9 +60,9 @@ export const SettingsModal = ({
       transparent={true}
       onRequestClose={onClose}
     >
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback accessible={false} onPress={onClose}>
         <View style={styles.settingsModalOverlay}>
-          <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+          <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
             <View style={styles.settingsModalContent}>
               <Text style={styles.settingsModalTitle}>Settings</Text>
 

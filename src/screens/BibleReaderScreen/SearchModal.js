@@ -96,9 +96,9 @@ export const SearchModal = ({
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={localStyles.keyboardView}
       >
-        <TouchableWithoutFeedback onPress={onClose}>
+        <TouchableWithoutFeedback accessible={false} onPress={onClose}>
           <View style={localStyles.overlay}>
-            <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
+            <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
               <View style={localStyles.content}>
                 {/* Header */}
                 <View style={localStyles.header}>

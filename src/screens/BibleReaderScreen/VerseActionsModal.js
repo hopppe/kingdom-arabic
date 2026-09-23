@@ -43,9 +43,9 @@ export const VerseActionsModal = ({
 
   return (
     <Modal visible={visible} animationType="fade" transparent onRequestClose={onClose}>
-      <TouchableWithoutFeedback onPress={onClose}>
+      <TouchableWithoutFeedback accessible={false} onPress={onClose}>
         <View style={styles.overlay}>
-          <TouchableWithoutFeedback onPress={(event) => event.stopPropagation()}>
+          <TouchableWithoutFeedback accessible={false} onPress={(event) => event.stopPropagation()}>
             <View style={styles.sheet}>
               <Text style={styles.reference}>{formatReference(verse.book, verse.chapter, verse.verse)}</Text>
               {verse.verseTextArabic ? (

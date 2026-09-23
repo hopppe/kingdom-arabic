@@ -89,9 +89,9 @@ export const Dropdown = ({
         animationType="fade"
         onRequestClose={() => setIsOpen(false)}
       >
-        <TouchableWithoutFeedback onPress={() => setIsOpen(false)}>
+        <TouchableWithoutFeedback accessible={false} onPress={() => setIsOpen(false)}>
           <View style={styles.modalOverlay}>
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback accessible={false}>
               <View
                 style={[
                   styles.dropdown,

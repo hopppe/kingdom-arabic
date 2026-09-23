@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Pressable,
   Alert,
-  InteractionManager,
   ActivityIndicator,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -30,7 +29,7 @@ import WordStudyModal from './WordStudy/WordStudyModal';
 import { AllBookmarksModal } from './AllBookmarksModal';
 import { HelpModal } from './HelpModal';
 import { SearchModal } from './SearchModal';
-import { useBibleReader } from '../../hooks/useBibleReader';
+import { useBibleReader, stripPunctuation } from '../../hooks/useBibleReader';
 import { useBookmarks } from '../../hooks/useBookmarks';
 import { useMemoryVerses } from '../../context/MemoryVerseContext';
 import { useReadingProgress } from '../../context/ReadingProgressContext';
@@ -239,7 +238,7 @@ export default function BibleReaderScreen({ navigation }) {
 
   // Set of Arabic words already in flashcards
   const flashcardWordsSet = useMemo(() => {
-    return new Set(flashcards.map(card => card.arabic));
+    return new Set(flashcards.map(card => stripPunctuation(card.arabic)));
   }, [flashcards]);
 
   // Load chapter data. Only the most recent request may update state, so
@@ -262,10 +261,11 @@ export default function BibleReaderScreen({ navigation }) {
 
   useEffect(() => {
     if (!hasLoadedPosition) return; // Wait until we've loaded the saved position
-    const task = InteractionManager.runAfterInteractions(() => {
+    // Defer one frame so the chapter change paints before the load starts.
+    const frame = requestAnimationFrame(() => {
       loadCurrentChapter();
     });
-    return () => task.cancel();
+    return () => cancelAnimationFrame(frame);
   }, [loadCurrentChapter, hasLoadedPosition]);
 
   // Chapter navigation
@@ -322,6 +322,7 @@ export default function BibleReaderScreen({ navigation }) {
       }
       Alert.alert('Success', message);
       setSavedWords([]);
+      setActiveWord(null);
     } else {
       Alert.alert('Info', 'All words are already in your flashcards with the same translations.');
     }
@@ -449,15 +450,16 @@ export default function BibleReaderScreen({ navigation }) {
       return <Text key={wordIndex} style={styles.arabicText}>{word}</Text>;
     }
 
-    const wordId = `${verseIndex}-${word}`;
+    const wordId = `${verseIndex}-${wordIndex}`;
     const isActive = activeWord?.id === wordId;
-    const isSaved = savedWordsSet.has(word);
-    const isInFlashcards = flashcardWordsSet.has(word);
+    const bareWord = stripPunctuation(word);
+    const isSaved = savedWordsSet.has(bareWord);
+    const isInFlashcards = flashcardWordsSet.has(bareWord);
 
     return (
       <View key={wordIndex} style={styles.wordWrapper}>
         <Pressable
-          onPress={(event) => handleWordPress(word, verseIndex, event)}
+          onPress={(event) => handleWordPress(word, verseIndex, event, wordIndex)}
           onLongPress={() => openWordStudy(word, verseIndex)}
           delayLongPress={350}
           style={[

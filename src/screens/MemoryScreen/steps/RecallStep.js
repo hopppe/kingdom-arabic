@@ -8,10 +8,10 @@ import { firstLetterCueTokens } from '../../../utils/memory/firstLetters';
 import { RATINGS } from '../../../utils/memory/scheduler';
 
 const RATING_CONFIG = [
-  { rating: RATINGS.AGAIN, label: 'Again', colorKey: 'incorrect' },
+  { rating: RATINGS.AGAIN, label: 'Again', colorKey: 'error' },
   { rating: RATINGS.HARD, label: 'Hard', colorKey: 'warning' },
-  { rating: RATINGS.GOOD, label: 'Good', colorKey: 'info' },
-  { rating: RATINGS.EASY, label: 'Easy', colorKey: 'correct' },
+  { rating: RATINGS.GOOD, label: 'Good', colorKey: 'success' },
+  { rating: RATINGS.EASY, label: 'Easy', colorKey: 'info' },
 ];
 
 export function RecallStep({ reference, englishVerse, tokens, onHint, onGrade, isReview }) {
@@ -94,5 +94,5 @@ const createStyles = (theme) =>
     gradePrompt: { fontSize: theme.typography.fontSize.sm, color: theme.colors.textSecondary, marginBottom: theme.spacing.sm },
     ratingRow: { flexDirection: 'row', gap: 8, marginBottom: theme.spacing.md },
     ratingButton: { flex: 1, borderRadius: theme.borderRadius.md, paddingVertical: 14, alignItems: 'center' },
-    ratingButtonText: { color: '#FFFFFF', fontWeight: theme.typography.fontWeight.semibold, fontSize: theme.typography.fontSize.sm },
+    ratingButtonText: { color: theme.colors.white, fontWeight: theme.typography.fontWeight.semibold, fontSize: theme.typography.fontSize.sm },
   });

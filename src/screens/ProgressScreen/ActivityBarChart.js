@@ -55,7 +55,7 @@ export default function ActivityBarChart({ last14Days, totals7, totals30, retent
         </View>
         <StatRow label="Cards reviewed" a={totals7.cardReviews} b={totals30.cardReviews} styles={styles} />
         <StatRow label="Retention" a={formatRetention(retention7)} b={formatRetention(retention30)} styles={styles} />
-        <StatRow label="Verses practiced" a={totals7.versePractice} b={totals30.versePractice} styles={styles} />
+        <StatRow label="Memory practice steps" a={totals7.versePractice} b={totals30.versePractice} styles={styles} />
         <StatRow label="Chapters read" a={totals7.chaptersRead} b={totals30.chaptersRead} styles={styles} />
       </View>
     </DashboardCard>

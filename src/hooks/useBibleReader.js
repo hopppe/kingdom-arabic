@@ -2,6 +2,9 @@ import { useState, useCallback, useMemo, useRef } from 'react';
 
 const PUNCTUATION_RE = /[.,،؛:؟!«»"]/g;
 
+// Words are displayed with attached punctuation; saved words and flashcards store them bare.
+export const stripPunctuation = (word) => word.replace(PUNCTUATION_RE, '').trim();
+
 export function useBibleReader(chapter, currentBook, currentChapter) {
   const [activeWord, setActiveWord] = useState(null);
   const [savedWords, setSavedWords] = useState([]);
@@ -29,7 +32,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
     [findGlossEntry]
   );
 
-  const handleWordPress = useCallback((word, verseIndex, event) => {
+  const handleWordPress = useCallback((rawWord, verseIndex, event, wordIndex = 0) => {
     if (event) {
       event.stopPropagation();
     }
@@ -40,14 +43,15 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
       wordTapInProgress.current = false;
     }, 100);
 
-    const entry = findGlossEntry(word, verseIndex);
+    const entry = findGlossEntry(rawWord, verseIndex);
     const translation = entry?.en;
+    const word = stripPunctuation(rawWord);
     if (!translation) {
       setActiveWord(null);
       return;
     }
 
-    const wordId = `${verseIndex}-${word}`;
+    const wordId = `${verseIndex}-${wordIndex}`;
     const existingIndex = savedWords.findIndex(w => w.word === word && w.translation === translation);
 
     if (existingIndex !== -1) {
@@ -74,7 +78,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
         translation,
         book: currentBook,
         chapter: currentChapter,
-        verse: verseIndex + 1,
+        verse: chapter?.data?.verse_numbers?.[verseIndex] ?? verseIndex + 1,
         verseTextArabic: chapter?.data?.content_arabic?.[verseIndex] || '',
         verseTextEnglish: chapter?.data?.content_english?.[verseIndex] || '',
         timestamp: Date.now()
