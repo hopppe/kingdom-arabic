@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, ScrollView, StyleSheet, Switch, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { getBookName } from '../../data/bibleData';
 import { useNotificationPreferences } from '../../hooks/useNotificationPreferences';
+import { useTheme } from '../../context/ThemeContext';
+import { AppearanceSection } from './AppearanceSection';
 
 export const SettingsModal = ({
   visible,
@@ -16,6 +18,8 @@ export const SettingsModal = ({
   onShowHelp,
   onShowSearch,
 }) => {
+  const { theme } = useTheme();
+  const localStyles = useMemo(() => createStyles(theme), [theme]);
   const recentBookmarks = bookmarks.slice(0, 3);
   const [showTimePicker, setShowTimePicker] = useState(false);
 
@@ -63,13 +67,16 @@ export const SettingsModal = ({
               <Text style={styles.settingsModalTitle}>Settings</Text>
 
               <ScrollView style={localStyles.scrollContent} showsVerticalScrollIndicator={false}>
+              {/* Appearance Section */}
+              <AppearanceSection />
+
               {/* Bookmarks Section */}
               <View style={localStyles.section}>
                 <TouchableOpacity style={localStyles.sectionHeader} onPress={onShowAllBookmarks}>
-                  <Ionicons name="bookmark" size={18} color="#007AFF" />
+                  <Ionicons name="bookmark" size={18} color={theme.colors.info} />
                   <Text style={localStyles.sectionTitle}>Bookmarks</Text>
                   <Text style={localStyles.bookmarkCount}>({bookmarks.length})</Text>
-                  <Ionicons name="chevron-forward" size={18} color="#999" />
+                  <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
                 </TouchableOpacity>
 
                 {recentBookmarks.length > 0 ? (
@@ -93,7 +100,7 @@ export const SettingsModal = ({
                             </Text>
                           )}
                         </View>
-                        <Ionicons name="chevron-forward" size={18} color="#999" />
+                        <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
                       </TouchableOpacity>
                     ))}
                   </>
@@ -112,9 +119,9 @@ export const SettingsModal = ({
                   onShowSearch();
                 }}
               >
-                <Ionicons name="search" size={20} color="#007AFF" />
+                <Ionicons name="search" size={20} color={theme.colors.info} />
                 <Text style={localStyles.searchButtonText}>Search Bible</Text>
-                <Ionicons name="chevron-forward" size={18} color="#999" />
+                <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
               </TouchableOpacity>
 
               {/* Reminders Section */}
@@ -129,8 +136,8 @@ export const SettingsModal = ({
                       }
                       toggleNotifications();
                     }}
-                    trackColor={{ false: '#E0E0E0', true: '#007AFF' }}
-                    thumbColor={Platform.OS === 'android' ? '#FFFFFF' : undefined}
+                    trackColor={{ false: theme.colors.disabled, true: theme.colors.info }}
+                    thumbColor={Platform.OS === 'android' ? theme.colors.white : undefined}
                   />
                 </View>
 
@@ -144,7 +151,7 @@ export const SettingsModal = ({
                       <Text style={localStyles.timeText}>
                         {formatTime(reminderTime.hour, reminderTime.minute)}
                       </Text>
-                      <Ionicons name="chevron-forward" size={18} color="#999" />
+                      <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
                     </View>
                   </TouchableOpacity>
                 )}
@@ -185,15 +192,15 @@ export const SettingsModal = ({
                   onShowHelp();
                 }}
               >
-                <Ionicons name="help-circle-outline" size={20} color="#007AFF" />
+                <Ionicons name="help-circle-outline" size={20} color={theme.colors.info} />
                 <Text style={localStyles.helpButtonText}>How to use this app</Text>
-                <Ionicons name="chevron-forward" size={18} color="#999" />
+                <Ionicons name="chevron-forward" size={18} color={theme.colors.textTertiary} />
               </TouchableOpacity>
 
               {/* AI Translation Disclaimer */}
               <View style={localStyles.disclaimerSection}>
                 <View style={localStyles.disclaimerBox}>
-                  <Ionicons name="information-circle" size={20} color="#007AFF" />
+                  <Ionicons name="information-circle" size={20} color={theme.colors.info} />
                   <Text style={localStyles.disclaimerText}>
                     Translation keys are made with AI and could be inaccurate.
                   </Text>
@@ -224,7 +231,7 @@ export const SettingsModal = ({
   );
 };
 
-const localStyles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     flexShrink: 1,
@@ -243,11 +250,11 @@ const localStyles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: '600',
-    color: '#1A1A1A',
+    color: theme.colors.text,
   },
   bookmarkCount: {
     fontSize: 14,
-    color: '#999',
+    color: theme.colors.textTertiary,
     marginRight: 4,
   },
   bookmarkItem: {
@@ -256,7 +263,7 @@ const localStyles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 8,
     borderRadius: 8,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
     marginBottom: 8,
   },
   bookmarkInfo: {
@@ -265,12 +272,12 @@ const localStyles = StyleSheet.create({
   bookmarkReference: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#007AFF',
+    color: theme.colors.info,
     marginBottom: 2,
   },
   bookmarkPreview: {
     fontSize: 12,
-    color: '#666',
+    color: theme.colors.textTertiary,
     lineHeight: 16,
   },
   showAllButton: {
@@ -283,12 +290,12 @@ const localStyles = StyleSheet.create({
   showAllText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#007AFF',
+    color: theme.colors.info,
     marginRight: 4,
   },
   emptyText: {
     fontSize: 13,
-    color: '#999',
+    color: theme.colors.textTertiary,
     textAlign: 'center',
     fontStyle: 'italic',
     paddingVertical: 8,
@@ -299,7 +306,7 @@ const localStyles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 8,
     borderRadius: 8,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
     marginBottom: 8,
     gap: 10,
   },
@@ -310,7 +317,7 @@ const localStyles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     fontWeight: '500',
-    color: '#1A1A1A',
+    color: theme.colors.text,
   },
   helpButton: {
     flexDirection: 'row',
@@ -318,7 +325,7 @@ const localStyles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 8,
     borderRadius: 8,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
     marginTop: 0,
     marginBottom: 16,
     gap: 10,
@@ -327,7 +334,7 @@ const localStyles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     fontWeight: '500',
-    color: '#1A1A1A',
+    color: theme.colors.text,
   },
   disclaimerSection: {
     marginBottom: 16,
@@ -336,16 +343,16 @@ const localStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 10,
-    backgroundColor: '#F0F8FF',
+    backgroundColor: theme.colors.surface,
     padding: 12,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#B3D9FF',
+    borderColor: theme.colors.border,
   },
   disclaimerText: {
     flex: 1,
     fontSize: 13,
-    color: '#1A1A1A',
+    color: theme.colors.text,
     lineHeight: 18,
   },
   reminderRow: {
@@ -355,12 +362,12 @@ const localStyles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 8,
     borderRadius: 8,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
   },
   reminderLabel: {
     fontSize: 15,
     fontWeight: '500',
-    color: '#1A1A1A',
+    color: theme.colors.text,
   },
   timePickerButton: {
     flexDirection: 'row',
@@ -369,7 +376,7 @@ const localStyles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 8,
     borderRadius: 8,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
     marginTop: 8,
   },
   timeDisplay: {
@@ -379,11 +386,11 @@ const localStyles = StyleSheet.create({
   },
   timeText: {
     fontSize: 15,
-    color: '#007AFF',
+    color: theme.colors.info,
     fontWeight: '500',
   },
   iosPickerContainer: {
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
     borderRadius: 8,
     marginBottom: 8,
     overflow: 'hidden',
@@ -395,11 +402,11 @@ const localStyles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: theme.colors.border,
   },
   doneButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#007AFF',
+    color: theme.colors.info,
   },
 });

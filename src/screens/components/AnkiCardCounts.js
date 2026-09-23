@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useTheme } from '../../context/ThemeContext';
 
 /**
  * Anki-style card counts display for study session
@@ -7,6 +8,8 @@ import { View, Text, StyleSheet } from 'react-native';
  * Receives counts object from LocalQueueManager
  */
 export const AnkiCardCounts = ({ counts }) => {
+  const { theme } = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const { new: newCount = 0, learning: learningCount = 0, review: reviewCount = 0 } = counts || {};
 
   return (
@@ -33,7 +36,7 @@ export const AnkiCardCounts = ({ counts }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -54,23 +57,23 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   newCount: {
-    color: '#007AFF', // Blue for new cards
+    color: theme.colors.info,
   },
   learningCount: {
-    color: '#FF9500', // Orange for learning cards
+    color: theme.colors.warning,
   },
   reviewCount: {
-    color: '#34C759', // Green for review cards
+    color: theme.colors.success,
   },
   label: {
     fontSize: 12,
-    color: '#666',
+    color: theme.colors.textTertiary,
     fontWeight: '600',
   },
   separator: {
     width: 1,
     height: 40,
-    backgroundColor: '#ddd',
+    backgroundColor: theme.colors.border,
     marginHorizontal: 16,
   },
 });

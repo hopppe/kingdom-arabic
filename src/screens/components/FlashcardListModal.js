@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -23,6 +23,7 @@ export const FlashcardListModal = ({
   onUpdateTranslation,
 }) => {
   const { theme } = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const [editingCard, setEditingCard] = useState(null);
   const scrollViewRef = useRef(null);
   const cardRefs = useRef({});
@@ -74,36 +75,6 @@ export const FlashcardListModal = ({
     }
   };
 
-  const modalStyles = {
-    modalContent: {
-      backgroundColor: theme.colors.cardBackground || theme.colors.surface || '#fff',
-    },
-    modalTitle: {
-      color: theme.colors.text,
-    },
-    closeButton: {
-      backgroundColor: theme.colors.error || '#FF3B30',
-    },
-    wordCount: {
-      color: theme.colors.textSecondary,
-    },
-    cardItem: {
-      backgroundColor: theme.colors.background || '#f5f5f5',
-      borderColor: theme.colors.border || '#ddd',
-    },
-    arabicText: {
-      color: theme.colors.text,
-    },
-    translationInput: {
-      color: theme.colors.text,
-      backgroundColor: theme.colors.background,
-      borderColor: theme.colors.primary,
-    },
-    englishText: {
-      color: theme.colors.textSecondary,
-    },
-  };
-
   return (
     <Modal
       visible={visible}
@@ -121,16 +92,16 @@ export const FlashcardListModal = ({
         <TouchableWithoutFeedback onPress={handleOverlayPress}>
           <View style={styles.modalOverlay}>
             <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
-              <View style={[styles.modalContent, modalStyles.modalContent]}>
+              <View style={styles.modalContent}>
                 <View style={styles.modalHeader}>
-                  <Text style={[styles.modalTitle, modalStyles.modalTitle]}>
+                  <Text style={styles.modalTitle}>
                     All Flashcards
                   </Text>
                   <TouchableOpacity
-                    style={[styles.closeButton, modalStyles.closeButton]}
+                    style={styles.closeButton}
                     onPress={onClose}
                   >
-                    <Ionicons name="close" size={24} color="white" />
+                    <Ionicons name="close" size={24} color={theme.colors.white} />
                   </TouchableOpacity>
                 </View>
 
@@ -146,7 +117,7 @@ export const FlashcardListModal = ({
                   showsVerticalScrollIndicator={false}
                   keyboardShouldPersistTaps="handled"
                 >
-                  <Text style={[styles.wordCount, modalStyles.wordCount]}>
+                  <Text style={styles.wordCount}>
                     {flashcards ? flashcards.length : 0} {flashcards?.length === 1 ? 'card' : 'cards'} total
                   </Text>
                   {flashcards && flashcards.length > 0 ? (
@@ -162,32 +133,33 @@ export const FlashcardListModal = ({
                             collapsable={false}
                           >
                             <TouchableOpacity
-                              style={[styles.cardItem, modalStyles.cardItem]}
+                              style={styles.cardItem}
                               onPress={() => handleCardPress(card.id)}
                               activeOpacity={0.7}
                             >
                               <View style={styles.cardContent}>
-                                <Text style={[styles.arabicText, modalStyles.arabicText]}>
+                                <Text style={styles.arabicText}>
                                   {card.arabic}
                                 </Text>
                                 {isEditing ? (
                                   <TextInput
-                                    style={[styles.translationInput, modalStyles.translationInput]}
+                                    style={styles.translationInput}
                                     value={card.english}
                                     onChangeText={(text) => onUpdateTranslation(card.id, text)}
                                     placeholder="Enter translation"
+                                    placeholderTextColor={theme.colors.textSecondary}
                                     autoFocus
                                     onSubmitEditing={dismissEdit}
                                     onBlur={dismissEdit}
                                     blurOnSubmit={true}
                                   />
                                 ) : (
-                                  <Text style={[styles.englishText, modalStyles.englishText]}>
+                                  <Text style={styles.englishText}>
                                     {card.english}
                                   </Text>
                                 )}
                                 {card.reference && (
-                                  <Text style={[styles.definition, modalStyles.englishText]}>
+                                  <Text style={styles.definition}>
                                     {card.reference}
                                   </Text>
                                 )}
@@ -208,7 +180,7 @@ export const FlashcardListModal = ({
                     </>
                   ) : (
                     <View style={styles.emptyContainer}>
-                      <Text style={[styles.emptyText, modalStyles.modalTitle]}>
+                      <Text style={styles.emptyText}>
                         No flashcards yet
                       </Text>
                     </View>
@@ -223,10 +195,10 @@ export const FlashcardListModal = ({
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: theme.colors.overlay,
     justifyContent: 'flex-end',
   },
   modalContent: {
@@ -236,6 +208,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingHorizontal: 20,
     paddingBottom: 40,
+    backgroundColor: theme.colors.cardBackground,
   },
   modalHeader: {
     flexDirection: 'row',
@@ -247,6 +220,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: '700',
     letterSpacing: 0.2,
+    color: theme.colors.text,
   },
   closeButton: {
     width: 36,
@@ -254,10 +228,11 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: theme.colors.error,
   },
   editHint: {
     fontSize: 14,
-    color: '#888',
+    color: theme.colors.textTertiary,
     marginBottom: 12,
     textAlign: 'center',
   },
@@ -270,6 +245,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginBottom: 12,
     textAlign: 'center',
+    color: theme.colors.textSecondary,
   },
   cardItem: {
     flexDirection: 'row',
@@ -280,17 +256,19 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     borderRadius: 12,
     borderWidth: 1,
+    backgroundColor: theme.colors.background,
+    borderColor: theme.colors.border,
   },
   cardContent: {
     flex: 1,
     marginRight: 12,
   },
   arabicText: {
-    fontSize: 22,
+    ...theme.arabic.small,
     fontWeight: '700',
     marginBottom: 4,
     textAlign: 'right',
-    writingDirection: 'rtl',
+    color: theme.colors.text,
   },
   translationInput: {
     fontSize: 16,
@@ -300,29 +278,34 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 2,
     marginTop: 4,
+    color: theme.colors.text,
+    backgroundColor: theme.colors.background,
+    borderColor: theme.colors.primary,
   },
   englishText: {
     fontSize: 16,
     fontWeight: '600',
     marginTop: 2,
+    color: theme.colors.textSecondary,
   },
   definition: {
     fontSize: 14,
     marginTop: 4,
     fontStyle: 'italic',
+    color: theme.colors.textSecondary,
   },
   removeButton: {
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#800020',
+    backgroundColor: theme.colors.burgundy,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 8,
   },
   removeButtonText: {
     fontSize: 20,
-    color: 'white',
+    color: theme.colors.white,
     fontWeight: 'bold',
   },
   emptyContainer: {
@@ -332,5 +315,6 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 18,
     fontWeight: '600',
+    color: theme.colors.text,
   },
 });

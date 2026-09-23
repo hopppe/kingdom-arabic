@@ -97,12 +97,10 @@ export const createStyles = (theme) => StyleSheet.create({
     paddingBottom: 0,
   },
   storyTitle: {
-    fontSize: 28,
-    fontWeight: '700',
+    ...theme.arabic.large,
     color: theme.colors.text,
     textAlign: 'center',
     marginBottom: 8,
-    writingDirection: 'rtl',
   },
   storyTitleEnglish: {
     fontSize: 18,
@@ -127,7 +125,9 @@ export const createStyles = (theme) => StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'baseline',
     overflow: 'visible',
-    rowGap: 12,
+    // The theme's Arabic line height already provides generous vertical
+    // spacing between wrapped lines, so only a small gap is needed here.
+    rowGap: 4,
   },
   wordWrapper: {
     position: 'relative',
@@ -140,25 +140,23 @@ export const createStyles = (theme) => StyleSheet.create({
     paddingVertical: 2,
   },
   arabicText: {
-    fontSize: 22,
-    lineHeight: 28,
+    ...theme.arabic.body,
     color: theme.colors.text,
-    fontWeight: '500',
   },
   activeWordContainer: {
     backgroundColor: theme.colors.primary,
   },
   activeWordText: {
-    color: '#fff',
+    color: theme.colors.textOnPrimary,
   },
   savedWordContainer: {
-    backgroundColor: '#FFF3CD',
+    backgroundColor: theme.colors.savedWordBackground,
   },
   savedWordText: {
     color: theme.colors.text,
   },
   flashcardWordContainer: {
-    backgroundColor: '#D4EDDA',
+    backgroundColor: theme.colors.flashcardWordBackground,
   },
   tooltipText: {
     fontSize: 18,
@@ -243,7 +241,7 @@ export const createStyles = (theme) => StyleSheet.create({
   // Chapter selector modal styles
   selectorOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: theme.colors.overlay,
     justifyContent: 'flex-end',
   },
   selectorContent: {
@@ -327,12 +325,12 @@ export const createStyles = (theme) => StyleSheet.create({
     color: theme.colors.text,
   },
   chapterNumberCurrent: {
-    color: '#fff',
+    color: theme.colors.textOnPrimary,
   },
   // Saved words modal styles
   modalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: theme.colors.overlay,
     justifyContent: 'flex-end',
   },
   modalContent: {
@@ -390,18 +388,18 @@ export const createStyles = (theme) => StyleSheet.create({
   addToFlashcardsButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff',
+    color: theme.colors.textOnPrimary,
   },
   clearAllButton: {
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 12,
-    backgroundColor: '#800020',
+    backgroundColor: theme.colors.burgundy,
   },
   clearAllButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff',
+    color: theme.colors.white,
   },
   savedWordsList: {
     paddingHorizontal: 24,
@@ -428,7 +426,7 @@ export const createStyles = (theme) => StyleSheet.create({
     flex: 1,
   },
   savedWordArabic: {
-    fontSize: 18,
+    ...theme.arabic.small,
     fontWeight: 'bold',
     color: theme.colors.text,
     marginBottom: 4,
@@ -468,7 +466,7 @@ export const createStyles = (theme) => StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: '#800020',
+    backgroundColor: theme.colors.burgundy,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 8,
@@ -476,7 +474,7 @@ export const createStyles = (theme) => StyleSheet.create({
   removeWordText: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: theme.colors.white,
     lineHeight: 20,
     textAlign: 'center',
   },
@@ -503,7 +501,7 @@ export const createStyles = (theme) => StyleSheet.create({
   },
   settingsModalOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: theme.colors.overlay,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -540,7 +538,7 @@ export const createStyles = (theme) => StyleSheet.create({
   settingsModalButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#fff',
+    color: theme.colors.textOnPrimary,
   },
   feedbackSection: {
     marginBottom: 16,

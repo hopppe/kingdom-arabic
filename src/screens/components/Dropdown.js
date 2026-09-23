@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useMemo, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -26,6 +26,7 @@ export const Dropdown = ({
   icon,
 }) => {
   const { theme } = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const [isOpen, setIsOpen] = useState(false);
   const [buttonLayout, setButtonLayout] = useState(null);
   const buttonRef = useRef(null);
@@ -60,10 +61,6 @@ export const Dropdown = ({
         ref={buttonRef}
         style={[
           styles.button,
-          {
-            backgroundColor: theme.colors.surface || '#FFFFFF',
-            borderColor: theme.colors.border || '#DDDDDD',
-          },
           isOpen && styles.buttonOpen,
           buttonStyle,
         ]}
@@ -74,11 +71,7 @@ export const Dropdown = ({
           <Ionicons name={icon} size={18} color={theme.colors.text} style={styles.icon} />
         )}
         <Text
-          style={[
-            styles.buttonText,
-            { color: theme.colors.text },
-            textStyle,
-          ]}
+          style={[styles.buttonText, textStyle]}
           numberOfLines={1}
         >
           {displayText}
@@ -103,8 +96,6 @@ export const Dropdown = ({
                 style={[
                   styles.dropdown,
                   {
-                    backgroundColor: theme.colors.cardBackground || '#FFFFFF',
-                    borderColor: theme.colors.border || '#DDDDDD',
                     top: buttonLayout ? buttonLayout.y + buttonLayout.height + 4 : 0,
                     left: buttonLayout ? buttonLayout.x : 0,
                     width: buttonLayout ? buttonLayout.width : 200,
@@ -113,10 +104,7 @@ export const Dropdown = ({
                 ]}
               >
                 <ScrollView
-                  style={[styles.scrollView, {
-                    backgroundColor: theme.colors.cardBackground || '#FFFFFF',
-                    maxHeight: maxHeight,
-                  }]}
+                  style={[styles.scrollView, { maxHeight }]}
                   showsVerticalScrollIndicator={true}
                   nestedScrollEnabled={true}
                 >
@@ -130,8 +118,7 @@ export const Dropdown = ({
                         key={index}
                         style={[
                           styles.item,
-                          { backgroundColor: theme.colors.cardBackground || '#FFFFFF' },
-                          isSelected && { backgroundColor: theme.colors.primary + '20' },
+                          isSelected && styles.itemSelected,
                           itemStyle,
                         ]}
                         onPress={() => handleSelect(value)}
@@ -142,17 +129,13 @@ export const Dropdown = ({
                         ) : (
                           <>
                             <Text
-                              style={[
-                                styles.itemText,
-                                { color: theme.colors.text },
-                                textStyle,
-                              ]}
+                              style={[styles.itemText, textStyle]}
                               numberOfLines={1}
                             >
                               {label}
                             </Text>
                             {isSelected && (
-                              <Ionicons name="checkmark" size={20} color={theme.colors.primary} />
+                              <Ionicons name="checkmark" size={20} color={theme.colors.info} />
                             )}
                           </>
                         )}
@@ -169,7 +152,7 @@ export const Dropdown = ({
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
   container: {
     position: 'relative',
   },
@@ -182,9 +165,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: 6,
     minHeight: 44,
+    backgroundColor: theme.colors.surface,
+    borderColor: theme.colors.border,
   },
   buttonOpen: {
-    borderColor: '#007AFF',
+    borderColor: theme.colors.info,
     borderWidth: 2,
   },
   icon: {
@@ -194,6 +179,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '600',
     flex: 1,
+    color: theme.colors.text,
   },
   modalOverlay: {
     flex: 1,
@@ -203,15 +189,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     borderWidth: 1,
     borderRadius: 12,
-    shadowColor: '#000',
+    shadowColor: theme.colors.black,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.3,
     shadowRadius: 16,
     elevation: 20,
     overflow: 'hidden',
+    backgroundColor: theme.colors.cardBackground,
+    borderColor: theme.colors.border,
   },
   scrollView: {
     flexGrow: 0,
+    backgroundColor: theme.colors.cardBackground,
   },
   item: {
     flexDirection: 'row',
@@ -220,12 +209,17 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderBottomWidth: 0.5,
-    borderBottomColor: 'rgba(0, 0, 0, 0.08)',
+    borderBottomColor: theme.colors.borderLight,
     minHeight: 44,
+    backgroundColor: theme.colors.cardBackground,
+  },
+  itemSelected: {
+    backgroundColor: theme.colors.selection,
   },
   itemText: {
     fontSize: 15,
     fontWeight: '500',
     flex: 1,
+    color: theme.colors.text,
   },
 });

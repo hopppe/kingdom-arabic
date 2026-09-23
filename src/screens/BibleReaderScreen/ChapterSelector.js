@@ -1,7 +1,15 @@
-import React from 'react';
-import { View, Text, Modal, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useMemo } from 'react';
+import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { BOOKS } from '../../data/bibleData';
+import { useTheme } from '../../context/ThemeContext';
+import { useReadingProgress } from '../../context/ReadingProgressContext';
+
+const BookProgressBar = ({ fraction, progressStyles }) => (
+  <View style={progressStyles.track}>
+    <View style={[progressStyles.fill, { width: `${Math.round(fraction * 100)}%` }]} />
+  </View>
+);
 
 export const ChapterSelector = ({
   visible,
@@ -14,6 +22,10 @@ export const ChapterSelector = ({
   theme,
   styles,
 }) => {
+  const { theme: fullTheme } = useTheme();
+  const { getBookProgress, isChapterRead } = useReadingProgress();
+  const progressStyles = useMemo(() => createProgressStyles(fullTheme), [fullTheme]);
+
   return (
     <Modal
       visible={visible}
@@ -38,6 +50,7 @@ export const ChapterSelector = ({
           >
             {BOOKS.map((book) => {
               const isExpanded = expandedBook === book.id;
+              const progress = getBookProgress(book.id);
 
               return (
                 <View key={book.id}>
@@ -45,9 +58,19 @@ export const ChapterSelector = ({
                     style={[styles.bookRow, isExpanded && styles.bookRowExpanded]}
                     onPress={() => setExpandedBook(isExpanded ? null : book.id)}
                   >
-                    <Text style={[styles.bookName, isExpanded && styles.bookNameExpanded]}>
-                      {book.name}
-                    </Text>
+                    <View style={progressStyles.bookInfo}>
+                      <Text style={[styles.bookName, isExpanded && styles.bookNameExpanded]}>
+                        {book.name}
+                      </Text>
+                      {progress.total > 0 && (
+                        <View style={progressStyles.progressRow}>
+                          <BookProgressBar fraction={progress.fraction} progressStyles={progressStyles} />
+                          <Text style={progressStyles.progressLabel}>
+                            {progress.read}/{progress.total}
+                          </Text>
+                        </View>
+                      )}
+                    </View>
                     <Ionicons
                       name={isExpanded ? 'chevron-up' : 'chevron-down'}
                       size={24}
@@ -59,11 +82,13 @@ export const ChapterSelector = ({
                     <View style={styles.chapterGrid}>
                       {book.chapters.map((chapterNum) => {
                         const isCurrent = book.id === currentBook && chapterNum === currentChapter;
+                        const read = isChapterRead(book.id, chapterNum);
                         return (
                           <View key={chapterNum} style={styles.chapterButton}>
                             <TouchableOpacity
                               style={[
                                 styles.chapterButtonInner,
+                                read && progressStyles.chapterButtonRead,
                                 isCurrent && styles.chapterButtonCurrent,
                               ]}
                               onPress={() => onChapterSelect(book.id, chapterNum)}
@@ -74,6 +99,14 @@ export const ChapterSelector = ({
                               ]}>
                                 {chapterNum}
                               </Text>
+                              {read && !isCurrent && (
+                                <Ionicons
+                                  name="checkmark"
+                                  size={10}
+                                  color={fullTheme.colors.success}
+                                  style={progressStyles.checkmark}
+                                />
+                              )}
                             </TouchableOpacity>
                           </View>
                         );
@@ -89,3 +122,44 @@ export const ChapterSelector = ({
     </Modal>
   );
 };
+
+const createProgressStyles = (theme) =>
+  StyleSheet.create({
+    bookInfo: {
+      flex: 1,
+      marginRight: theme.spacing.sm,
+    },
+    progressRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 4,
+    },
+    track: {
+      flex: 1,
+      height: 3,
+      borderRadius: 2,
+      backgroundColor: theme.colors.borderLight,
+      overflow: 'hidden',
+      marginRight: theme.spacing.xs,
+    },
+    fill: {
+      height: '100%',
+      borderRadius: 2,
+      backgroundColor: theme.colors.success,
+    },
+    progressLabel: {
+      fontSize: theme.typography.fontSize.xs,
+      color: theme.colors.textSecondary,
+      minWidth: 34,
+      textAlign: 'right',
+    },
+    chapterButtonRead: {
+      borderWidth: 1,
+      borderColor: theme.colors.success,
+    },
+    checkmark: {
+      position: 'absolute',
+      top: 2,
+      right: 2,
+    },
+  });

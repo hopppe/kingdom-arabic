@@ -53,6 +53,19 @@ export const lightColors = {
   tabBarBorder: '#E5E5EA',
   tabActive: '#000000',
   tabInactive: '#8E8E93',
+
+  // Translucent panels/buttons layered on top of a `primary`-colored surface
+  // (e.g. the flashcard back face). `primary` is dark in light mode, so these
+  // lighten; they flip in the dark palette to keep contrast on light `primary`.
+  textOnPrimarySecondary: 'rgba(255, 255, 255, 0.8)',
+  surfaceOnPrimary: 'rgba(255, 255, 255, 0.15)',
+  buttonOnPrimary: 'rgba(255, 255, 255, 0.15)',
+  // Subtle panels/buttons layered on top of an ordinary surface/card.
+  surfaceOverlay: 'rgba(0, 0, 0, 0.05)',
+  buttonOverlay: 'rgba(0, 0, 0, 0.1)',
+  // Secondary white text on a saturated accent button (error/warning/success/info),
+  // which is bright in both palettes, so this stays constant across themes.
+  onAccentTextSecondary: 'rgba(255, 255, 255, 0.85)',
 };
 
 export const darkColors = {
@@ -106,4 +119,13 @@ export const darkColors = {
   tabBarBorder: '#2C2C2E',
   tabActive: '#FFFFFF',
   tabInactive: '#8E8E93',
+
+  // `primary` is light in dark mode, so these overlays flip to dark tints
+  // to keep contrast on top of it.
+  textOnPrimarySecondary: 'rgba(0, 0, 0, 0.6)',
+  surfaceOnPrimary: 'rgba(0, 0, 0, 0.12)',
+  buttonOnPrimary: 'rgba(0, 0, 0, 0.12)',
+  surfaceOverlay: 'rgba(255, 255, 255, 0.08)',
+  buttonOverlay: 'rgba(255, 255, 255, 0.12)',
+  onAccentTextSecondary: 'rgba(255, 255, 255, 0.85)',
 };

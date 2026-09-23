@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { View, Text, Modal, TouchableOpacity, ScrollView, TextInput, TouchableWithoutFeedback, Keyboard, KeyboardAvoidingView, Platform, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getBookName } from '../../data/bibleData';
+import { useTheme } from '../../context/ThemeContext';
 
 const openGoogleTranslate = (arabicWord) => {
   const url = `https://translate.google.com/?sl=ar&tl=en&text=${encodeURIComponent(arabicWord)}`;
@@ -18,6 +19,7 @@ export const SavedWordsPanel = ({
   onUpdateTranslation,
   styles,
 }) => {
+  const { theme } = useTheme();
   const [editingWord, setEditingWord] = useState(null);
   const scrollViewRef = useRef(null);
   const wordRefs = useRef({});
@@ -163,7 +165,7 @@ export const SavedWordsPanel = ({
                                 openGoogleTranslate(item.word);
                               }}
                             >
-                              <Ionicons name="language-outline" size={18} color="#666" />
+                              <Ionicons name="language-outline" size={18} color={theme.colors.textTertiary} />
                             </TouchableOpacity>
                             <TouchableOpacity
                               style={styles.removeWordButton}

@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState, useCallback, use
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../Flashcards/utils/ankiScheduler';
 import { getBookName } from '../data/bibleData';
+import { useActivity } from './ActivityContext';
+import { ACTIVITY_TYPES } from '../utils/activityStats';
 
 const FlashcardContext = createContext({});
 
@@ -24,6 +26,7 @@ const createNewCardProgress = () => ({
 });
 
 export const FlashcardProvider = ({ children }) => {
+  const { logActivity } = useActivity();
   const [flashcards, setFlashcards] = useState([]);
   const [userProgress, setUserProgress] = useState({});
   const [groups, setGroups] = useState([]);
@@ -241,7 +244,10 @@ export const FlashcardProvider = ({ children }) => {
 
     setUserProgress(updatedProgress);
     saveProgress(updatedProgress);
-  }, [saveProgress]);
+
+    logActivity(ACTIVITY_TYPES.CARD_REVIEW);
+    if (rating > 1) logActivity(ACTIVITY_TYPES.CARD_CORRECT);
+  }, [saveProgress, logActivity]);
 
   // Reset progress for a specific card
   const resetCardProgress = useCallback((cardId) => {

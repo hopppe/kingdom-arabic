@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Speech from 'expo-speech';
 import { setAudioModeAsync, AudioPlayer } from 'expo-audio';
 import { highlightWordInVerse } from '../../utils/textUtils';
+import { useTheme } from '../../context/ThemeContext';
 
 const openGoogleTranslate = (arabicWord) => {
   const url = `https://translate.google.com/?sl=ar&tl=en&text=${encodeURIComponent(arabicWord)}`;
@@ -40,6 +41,7 @@ export const FlashcardCard = React.memo(({
   styles,
   onFlip,
 }) => {
+  const { theme } = useTheme();
   return (
     <TouchableWithoutFeedback onPress={onFlip}>
       <View style={styles.cardContainer}>
@@ -159,7 +161,7 @@ export const FlashcardCard = React.memo(({
                 style={styles.speakerButtonBack}
                 onPress={() => speakArabic(card.arabic)}
               >
-                <Ionicons name="volume-high-outline" size={20} color="rgba(255, 255, 255, 0.6)" />
+                <Ionicons name="volume-high-outline" size={20} color={theme.colors.textOnPrimarySecondary} />
               </TouchableOpacity>
             )}
             {/* Translate button - shows on English side (back when !showEnglishFirst) */}
@@ -168,7 +170,7 @@ export const FlashcardCard = React.memo(({
                 style={styles.translateButton}
                 onPress={() => openGoogleTranslate(card.arabic)}
               >
-                <Ionicons name="language-outline" size={16} color="rgba(255, 255, 255, 0.6)" />
+                <Ionicons name="language-outline" size={16} color={theme.colors.textOnPrimarySecondary} />
               </TouchableOpacity>
             )}
           </Animated.View>
@@ -187,7 +189,7 @@ export const FlashcardCard = React.memo(({
                 style={styles.speakerButton}
                 onPress={() => speakArabic(card.arabic)}
               >
-                <Ionicons name="volume-high-outline" size={20} color="rgba(0, 0, 0, 0.5)" />
+                <Ionicons name="volume-high-outline" size={20} color={theme.colors.textSecondary} />
               </TouchableOpacity>
             )}
             {/* Translate button - shows on English side (front when showEnglishFirst) */}
@@ -196,7 +198,7 @@ export const FlashcardCard = React.memo(({
                 style={styles.translateButtonFront}
                 onPress={() => openGoogleTranslate(card.arabic)}
               >
-                <Ionicons name="language-outline" size={16} color="rgba(0, 0, 0, 0.5)" />
+                <Ionicons name="language-outline" size={16} color={theme.colors.textSecondary} />
               </TouchableOpacity>
             )}
           </Animated.View>

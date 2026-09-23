@@ -67,9 +67,10 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <ThemeProvider>
-        <BibleDbProvider onError={setDbError}>
-          <AppDataBoundary>
+      {/* Restoring a backup remounts everything inside the boundary so it re-reads storage. */}
+      <AppDataBoundary>
+        <ThemeProvider>
+          <BibleDbProvider onError={setDbError}>
             <ActivityProvider>
               <FlashcardProvider>
                 <MemoryVerseProvider>
@@ -79,9 +80,9 @@ export default function App() {
                 </MemoryVerseProvider>
               </FlashcardProvider>
             </ActivityProvider>
-          </AppDataBoundary>
-        </BibleDbProvider>
-      </ThemeProvider>
+          </BibleDbProvider>
+        </ThemeProvider>
+      </AppDataBoundary>
     </SafeAreaProvider>
   );
 }

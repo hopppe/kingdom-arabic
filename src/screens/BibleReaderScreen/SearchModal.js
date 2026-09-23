@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import {
   View,
   Text,
@@ -15,12 +15,15 @@ import { Ionicons } from '@expo/vector-icons';
 import { getPreviewText } from '../../utils/verseSearch';
 import { searchVerses } from '../../data/bibleRepository';
 import { useBibleDb } from '../../context/BibleDbContext';
+import { useTheme } from '../../context/ThemeContext';
 
 export const SearchModal = ({
   visible,
   onClose,
   onSelectResult,
 }) => {
+  const { theme } = useTheme();
+  const localStyles = useMemo(() => createStyles(theme), [theme]);
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -101,18 +104,18 @@ export const SearchModal = ({
                 <View style={localStyles.header}>
                   <Text style={localStyles.title}>Search Bible</Text>
                   <TouchableOpacity onPress={onClose} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
-                    <Ionicons name="close" size={24} color="#666" />
+                    <Ionicons name="close" size={24} color={theme.colors.textSecondary} />
                   </TouchableOpacity>
                 </View>
 
                 {/* Search Input */}
                 <View style={localStyles.searchContainer}>
-                  <Ionicons name="search" size={20} color="#999" style={localStyles.searchIcon} />
+                  <Ionicons name="search" size={20} color={theme.colors.textSecondary} style={localStyles.searchIcon} />
                   <TextInput
                     ref={inputRef}
                     style={localStyles.searchInput}
                     placeholder="Search English text..."
-                    placeholderTextColor="#999"
+                    placeholderTextColor={theme.colors.textSecondary}
                     value={query}
                     onChangeText={handleSearch}
                     autoCapitalize="none"
@@ -124,7 +127,7 @@ export const SearchModal = ({
                       onPress={() => handleSearch('')}
                       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                     >
-                      <Ionicons name="close-circle" size={20} color="#999" />
+                      <Ionicons name="close-circle" size={20} color={theme.colors.textSecondary} />
                     </TouchableOpacity>
                   )}
                 </View>
@@ -173,17 +176,17 @@ export const SearchModal = ({
   );
 };
 
-const localStyles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
   keyboardView: {
     flex: 1,
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: theme.colors.overlay,
     justifyContent: 'flex-end',
   },
   content: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.background,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     paddingTop: 16,
@@ -201,12 +204,12 @@ const localStyles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#1A1A1A',
+    color: theme.colors.text,
   },
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#F5F5F5',
+    backgroundColor: theme.colors.backgroundSecondary,
     borderRadius: 10,
     paddingHorizontal: 12,
     marginBottom: 12,
@@ -218,11 +221,11 @@ const localStyles = StyleSheet.create({
     flex: 1,
     paddingVertical: 12,
     fontSize: 16,
-    color: '#1A1A1A',
+    color: theme.colors.text,
   },
   hintText: {
     fontSize: 12,
-    color: '#999',
+    color: theme.colors.textSecondary,
     textAlign: 'center',
     marginBottom: 8,
   },
@@ -233,19 +236,19 @@ const localStyles = StyleSheet.create({
   resultItem: {
     paddingVertical: 12,
     paddingHorizontal: 12,
-    backgroundColor: '#F8F8F8',
+    backgroundColor: theme.colors.surface,
     borderRadius: 8,
     marginBottom: 8,
   },
   resultReference: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#007AFF',
+    color: theme.colors.info,
     marginBottom: 4,
   },
   resultPreview: {
     fontSize: 13,
-    color: '#444',
+    color: theme.colors.textSecondary,
     lineHeight: 18,
   },
   emptyContainer: {
@@ -254,7 +257,7 @@ const localStyles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 14,
-    color: '#999',
+    color: theme.colors.textSecondary,
   },
   moreContainer: {
     paddingVertical: 8,
@@ -262,7 +265,7 @@ const localStyles = StyleSheet.create({
   },
   moreText: {
     fontSize: 13,
-    color: '#999',
+    color: theme.colors.textSecondary,
     fontStyle: 'italic',
   },
 });

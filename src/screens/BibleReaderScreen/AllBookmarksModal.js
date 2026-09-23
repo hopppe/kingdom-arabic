@@ -51,7 +51,7 @@ export const AllBookmarksModal = ({
       onRequestClose={onClose}
     >
       <TouchableWithoutFeedback onPress={onClose}>
-        <View style={styles.overlay}>
+        <View style={[styles.overlay, { backgroundColor: theme.colors.overlay }]}>
           <TouchableWithoutFeedback onPress={(e) => e.stopPropagation()}>
             <View style={[styles.content, { backgroundColor: theme.colors.background }]}>
               <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
@@ -104,7 +104,7 @@ export const AllBookmarksModal = ({
                         style={styles.deleteButton}
                         onPress={() => handleDelete(bookmark)}
                       >
-                        <Ionicons name="trash-outline" size={20} color="#800020" />
+                        <Ionicons name="trash-outline" size={20} color={theme.colors.burgundy} />
                       </TouchableOpacity>
                     </TouchableOpacity>
                   ))}
@@ -121,7 +121,6 @@ export const AllBookmarksModal = ({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'flex-end',
   },
   content: {

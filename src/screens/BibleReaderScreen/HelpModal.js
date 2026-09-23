@@ -33,7 +33,7 @@ export const HelpModal = ({ visible, onClose }) => {
       transparent={true}
       onRequestClose={onClose}
     >
-      <View style={styles.overlay}>
+      <View style={[styles.overlay, { backgroundColor: theme.colors.overlay }]}>
         <TouchableOpacity style={styles.overlayTouchable} activeOpacity={1} onPress={onClose} />
         <View style={[styles.content, { backgroundColor: theme.colors.background }]}>
           <View style={styles.header}>
@@ -74,7 +74,7 @@ export const HelpModal = ({ visible, onClose }) => {
             style={[styles.gotItButton, { backgroundColor: theme.colors.primary }]}
             onPress={onClose}
           >
-            <Text style={styles.gotItButtonText}>Got it!</Text>
+            <Text style={[styles.gotItButtonText, { color: theme.colors.textOnPrimary }]}>Got it!</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -85,7 +85,6 @@ export const HelpModal = ({ visible, onClose }) => {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -154,7 +153,6 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   gotItButtonText: {
-    color: '#fff',
     fontSize: 16,
     fontWeight: '600',
   },

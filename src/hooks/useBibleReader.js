@@ -1,26 +1,33 @@
 import { useState, useCallback, useMemo, useRef } from 'react';
 
+const PUNCTUATION_RE = /[.,،؛:؟!«»"]/g;
+
 export function useBibleReader(chapter, currentBook, currentChapter) {
   const [activeWord, setActiveWord] = useState(null);
   const [savedWords, setSavedWords] = useState([]);
   const wordTapInProgress = useRef(false);
   const dismissTimeoutRef = useRef(null);
 
-  // Memoize the translation lookup function
-  const findTranslation = useCallback((word, verseIndex) => {
-    if (!chapter) return null;
-    const cleanWord = word.trim().replace(/[.,،؛:؟!«»"]/g, '');
-    const verseKey = `verse_${verseIndex + 1}`;
-    const verseVocab = chapter.vocab[verseKey] || {};
+  // Find the gloss entry ({ ar, en, formId }) for a tapped word in a verse.
+  const findGlossEntry = useCallback((word, verseIndex) => {
+    const entries = chapter?.glosses?.[`verse_${verseIndex + 1}`] || [];
+    if (entries.length === 0) return null;
+    const trimmed = word.trim();
+    const cleanWord = trimmed.replace(PUNCTUATION_RE, '');
 
-    if (verseVocab[cleanWord]) return verseVocab[cleanWord];
-    if (verseVocab[word.trim()]) return verseVocab[word.trim()];
-
-    for (const [arabic, english] of Object.entries(verseVocab)) {
-      if (arabic.includes(cleanWord)) return english;
-    }
-    return null;
+    return (
+      entries.find((entry) => entry.ar === trimmed) ||
+      entries.find((entry) => entry.ar === cleanWord) ||
+      entries.find((entry) => entry.ar.replace(PUNCTUATION_RE, '') === cleanWord) ||
+      (cleanWord ? entries.find((entry) => entry.ar.includes(cleanWord)) : null) ||
+      null
+    );
   }, [chapter]);
+
+  const findTranslation = useCallback(
+    (word, verseIndex) => findGlossEntry(word, verseIndex)?.en || null,
+    [findGlossEntry]
+  );
 
   const handleWordPress = useCallback((word, verseIndex, event) => {
     if (event) {
@@ -33,7 +40,8 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
       wordTapInProgress.current = false;
     }, 100);
 
-    const translation = findTranslation(word, verseIndex);
+    const entry = findGlossEntry(word, verseIndex);
+    const translation = entry?.en;
     if (!translation) {
       setActiveWord(null);
       return;
@@ -55,6 +63,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
         id: wordId,
         word,
         translation,
+        formId: entry.formId,
         verseIndex,
         x: touchX,
         y: touchY
@@ -71,7 +80,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
         timestamp: Date.now()
       }, ...savedWords]);
     }
-  }, [findTranslation, activeWord, savedWords, currentBook, currentChapter, chapter]);
+  }, [findGlossEntry, savedWords, currentBook, currentChapter, chapter]);
 
   const handleGlobalTap = useCallback(() => {
     if (dismissTimeoutRef.current) {
@@ -103,5 +112,6 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
     handleWordPress,
     handleGlobalTap,
     findTranslation,
+    findGlossEntry,
   };
 }

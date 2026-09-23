@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   View,
   Text,
@@ -7,12 +7,16 @@ import {
   Dimensions,
 } from 'react-native';
 import { LEARNING_STEPS, GRADUATING_INTERVAL, EASY_INTERVAL, LAPSE_NEW_INTERVAL_MULTIPLIER } from '../../../Flashcards/utils/ankiScheduler';
+import { useTheme } from '../../context/ThemeContext';
 
 const { height: screenHeight } = Dimensions.get('window');
 const isSmallScreen = screenHeight < 700;
 const isMediumScreen = screenHeight >= 700 && screenHeight < 800;
 
 export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, disabled = false }) => {
+  const { theme } = useTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   // Calculate timing hints based on card state and progress
   // IMPORTANT: Always use card's embedded cardProgress as primary source
   const getTimingHint = (rating) => {
@@ -151,7 +155,7 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
   return (
     <View style={[styles.ankiButtonContainer, isDisabled && styles.disabledContainer]}>
       <TouchableOpacity
-        style={[styles.ankiButton, { backgroundColor: '#FF3B30' }, isDisabled && styles.disabledButton]}
+        style={[styles.ankiButton, styles.againButton, isDisabled && styles.disabledButton]}
         onPress={() => onRatingPress(1)}
         disabled={isDisabled}
       >
@@ -160,7 +164,7 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.ankiButton, { backgroundColor: '#FF9500' }, isDisabled && styles.disabledButton]}
+        style={[styles.ankiButton, styles.hardButton, isDisabled && styles.disabledButton]}
         onPress={() => onRatingPress(2)}
         disabled={isDisabled}
       >
@@ -169,7 +173,7 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.ankiButton, { backgroundColor: '#34C759' }, isDisabled && styles.disabledButton]}
+        style={[styles.ankiButton, styles.goodButton, isDisabled && styles.disabledButton]}
         onPress={() => onRatingPress(3)}
         disabled={isDisabled}
       >
@@ -178,7 +182,7 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={[styles.ankiButton, { backgroundColor: '#007AFF' }, isDisabled && styles.disabledButton]}
+        style={[styles.ankiButton, styles.easyButton, isDisabled && styles.disabledButton]}
         onPress={() => onRatingPress(4)}
         disabled={isDisabled}
       >
@@ -189,7 +193,7 @@ export const AnkiRatingButtons = ({ onRatingPress, currentCard, cardProgress, di
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (theme) => StyleSheet.create({
   ankiButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -212,23 +216,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: isSmallScreen ? 52 : isMediumScreen ? 56 : 60,
     minWidth: 65,
-    shadowColor: '#000',
+    shadowColor: theme.colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     shadowRadius: 8,
     elevation: 4,
+  },
+  againButton: {
+    backgroundColor: theme.colors.error,
+  },
+  hardButton: {
+    backgroundColor: theme.colors.warning,
+  },
+  goodButton: {
+    backgroundColor: theme.colors.success,
+  },
+  easyButton: {
+    backgroundColor: theme.colors.info,
   },
   ankiButtonText: {
     fontSize: isSmallScreen ? 11 : isMediumScreen ? 12 : 13,
     fontWeight: '700',
     letterSpacing: 0.1,
     textAlign: 'center',
-    color: 'white',
+    color: theme.colors.white,
   },
   ankiButtonSubtext: {
     fontSize: isSmallScreen ? 9 : isMediumScreen ? 10 : 11,
     fontWeight: '500',
-    color: 'rgba(255, 255, 255, 0.85)',
+    color: theme.colors.onAccentTextSecondary,
     marginTop: 2,
     textAlign: 'center',
   },

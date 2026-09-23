@@ -280,7 +280,7 @@ export default function FlashcardScreen({ navigation, route }) {
   if (!sessionInitialized) {
     return (
       <SafeAreaView style={styles.container}>
-        <Header navigation={navigation} theme={theme} styles={styles} />
+        <Header styles={styles} />
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={theme.colors.primary} />
           <Text style={styles.loadingText}>Loading flashcards...</Text>
@@ -293,7 +293,7 @@ export default function FlashcardScreen({ navigation, route }) {
   if (flashcards.length === 0) {
     return (
       <SafeAreaView style={styles.container}>
-        <Header navigation={navigation} theme={theme} styles={styles} />
+        <Header styles={styles} />
         <View style={styles.emptyContainer}>
           <Image source={require('../../../assets/empty-flashcards.jpg')} style={styles.emptyImage} />
           <Text style={styles.emptyText}>
@@ -322,23 +322,17 @@ export default function FlashcardScreen({ navigation, route }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.bibleButton} onPress={() => navigation.navigate(ROUTES.BIBLE)}>
-          <Ionicons name="book-outline" size={18} color={theme.colors.text} />
-          <Text style={styles.bibleButtonText}>Bible</Text>
+        <Dropdown
+          items={['All Cards', ...groups]}
+          selectedValue={selectedGroup}
+          onSelect={setSelectedGroup}
+          maxHeight={250}
+          style={styles.groupDropdown}
+          dropdownStyle={{ backgroundColor: theme.colors.surfaceElevated, opacity: 1 }}
+        />
+        <TouchableOpacity style={styles.headerButton} onPress={() => setShowSettingsModal(true)}>
+          <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
         </TouchableOpacity>
-        <View style={styles.headerRight}>
-          <Dropdown
-            items={['All Cards', ...groups]}
-            selectedValue={selectedGroup}
-            onSelect={setSelectedGroup}
-            maxHeight={250}
-            style={styles.groupDropdown}
-            dropdownStyle={{ backgroundColor: '#FFFFFF', opacity: 1 }}
-          />
-          <TouchableOpacity style={styles.headerButton} onPress={() => setShowSettingsModal(true)}>
-            <Ionicons name="settings-outline" size={24} color={theme.colors.text} />
-          </TouchableOpacity>
-        </View>
       </View>
 
       <View style={styles.content}>
@@ -354,7 +348,7 @@ export default function FlashcardScreen({ navigation, route }) {
                 style={[styles.primaryButton, { backgroundColor: theme.colors.primary }]}
                 onPress={handleRestartSession}
               >
-                <Text style={[styles.primaryButtonText, { color: '#fff' }]}>
+                <Text style={[styles.primaryButtonText, { color: theme.colors.textOnPrimary }]}>
                   Review Again
                 </Text>
               </TouchableOpacity>
@@ -425,16 +419,9 @@ export default function FlashcardScreen({ navigation, route }) {
   );
 }
 
-// Simple header component
-const Header = ({ navigation, theme, styles }) => (
-  <View style={styles.header}>
-    <TouchableOpacity style={styles.bibleButton} onPress={() => navigation.navigate(ROUTES.BIBLE)}>
-      <Ionicons name="book-outline" size={18} color={theme.colors.text} />
-      <Text style={styles.bibleButtonText}>Bible</Text>
-    </TouchableOpacity>
-    <View style={styles.headerButton} />
-  </View>
-);
+// Spacer header used on the loading/empty states, matching the main header's
+// height now that the redundant Bible button (superseded by the tab bar) is gone.
+const Header = ({ styles }) => <View style={styles.header} />;
 
 // Styles
 function getStyles(theme) {
@@ -454,27 +441,6 @@ function getStyles(theme) {
     headerButton: {
       padding: 8,
       borderRadius: 8,
-    },
-    bibleButton: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingVertical: 8,
-      paddingHorizontal: 12,
-      borderRadius: 20,
-      backgroundColor: theme.colors.surface,
-      borderWidth: 1,
-      borderColor: theme.colors.border,
-    },
-    bibleButtonText: {
-      fontSize: 14,
-      fontWeight: '600',
-      color: theme.colors.text,
-      marginLeft: 4,
-    },
-    headerRight: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 12,
     },
     groupDropdown: {
       minWidth: 160,
@@ -514,14 +480,14 @@ function getStyles(theme) {
       paddingVertical: 14,
       paddingHorizontal: 28,
       borderRadius: 12,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 4 },
       shadowOpacity: 0.15,
       shadowRadius: 8,
       elevation: 4,
     },
     goBackButtonText: {
-      color: '#fff',
+      color: theme.colors.textOnPrimary,
       fontSize: 16,
       fontWeight: '600',
     },
@@ -547,9 +513,9 @@ function getStyles(theme) {
       alignItems: 'center',
       backfaceVisibility: 'hidden',
       borderWidth: 0.5,
-      borderColor: 'rgba(0, 0, 0, 0.05)',
+      borderColor: theme.colors.border,
       ...(Platform.OS === 'ios' ? {
-        shadowColor: '#000',
+        shadowColor: theme.colors.black,
         shadowOffset: { width: 0, height: 8 },
         shadowOpacity: 0.18,
         shadowRadius: 16,
@@ -569,24 +535,24 @@ function getStyles(theme) {
       alignItems: 'center',
       padding: isSmallScreen ? 20 : 24,
     },
+    // Arabic front/back faces use the theme's "large" Arabic style so the
+    // chosen font/size and its generous line height (vowel marks) apply.
     arabicText: {
-      fontSize: isSmallScreen ? 42 : isMediumScreen ? 48 : 54,
-      fontWeight: 'bold',
+      ...theme.arabic.large,
       color: theme.colors.text,
       textAlign: 'center',
       marginBottom: 16,
     },
     arabicTextBack: {
-      fontSize: isSmallScreen ? 36 : isMediumScreen ? 42 : 48,
-      fontWeight: 'bold',
-      color: '#fff',
+      ...theme.arabic.large,
+      color: theme.colors.textOnPrimary,
       textAlign: 'center',
       marginBottom: 16,
     },
     englishText: {
       fontSize: isSmallScreen ? 28 : isMediumScreen ? 32 : 36,
       fontWeight: '700',
-      color: '#fff',
+      color: theme.colors.textOnPrimary,
       textAlign: 'center',
     },
     englishTextFront: {
@@ -599,7 +565,7 @@ function getStyles(theme) {
     referenceText: {
       fontSize: isSmallScreen ? 14 : 16,
       fontWeight: '500',
-      color: 'rgba(255, 255, 255, 0.8)',
+      color: theme.colors.textOnPrimarySecondary,
       textAlign: 'center',
       marginTop: 12,
       fontStyle: 'italic',
@@ -615,7 +581,7 @@ function getStyles(theme) {
     verseTextContainer: {
       marginTop: 16,
       padding: 12,
-      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      backgroundColor: theme.colors.surfaceOnPrimary,
       borderRadius: 12,
       maxHeight: isSmallScreen ? 160 : 200,
     },
@@ -623,16 +589,14 @@ function getStyles(theme) {
       flexGrow: 0,
     },
     verseTextArabic: {
-      fontSize: isSmallScreen ? 14 : 16,
-      color: '#fff',
+      ...theme.arabic.small,
+      color: theme.colors.textOnPrimary,
       textAlign: 'right',
-      writingDirection: 'rtl',
       marginBottom: 8,
-      lineHeight: isSmallScreen ? 22 : 26,
     },
     verseTextEnglish: {
       fontSize: isSmallScreen ? 12 : 14,
-      color: 'rgba(255, 255, 255, 0.8)',
+      color: theme.colors.textOnPrimarySecondary,
       textAlign: 'left',
       fontStyle: 'italic',
       lineHeight: isSmallScreen ? 18 : 22,
@@ -640,16 +604,14 @@ function getStyles(theme) {
     verseTextContainerFront: {
       marginTop: 12,
       padding: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0.05)',
+      backgroundColor: theme.colors.surfaceOverlay,
       borderRadius: 10,
       maxHeight: isSmallScreen ? 140 : 160,
     },
     verseTextArabicFront: {
-      fontSize: isSmallScreen ? 14 : 16,
+      ...theme.arabic.small,
       color: theme.colors.text,
       textAlign: 'right',
-      writingDirection: 'rtl',
-      lineHeight: isSmallScreen ? 22 : 26,
     },
     verseTextEnglishFront: {
       fontSize: isSmallScreen ? 12 : 14,
@@ -672,7 +634,7 @@ function getStyles(theme) {
       width: 32,
       height: 32,
       borderRadius: 16,
-      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      backgroundColor: theme.colors.buttonOnPrimary,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -683,7 +645,7 @@ function getStyles(theme) {
       width: 32,
       height: 32,
       borderRadius: 16,
-      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      backgroundColor: theme.colors.buttonOverlay,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -694,7 +656,7 @@ function getStyles(theme) {
       width: 32,
       height: 32,
       borderRadius: 16,
-      backgroundColor: 'rgba(0, 0, 0, 0.1)',
+      backgroundColor: theme.colors.buttonOverlay,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -705,7 +667,7 @@ function getStyles(theme) {
       width: 32,
       height: 32,
       borderRadius: 16,
-      backgroundColor: 'rgba(255, 255, 255, 0.15)',
+      backgroundColor: theme.colors.buttonOnPrimary,
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -751,7 +713,7 @@ function getStyles(theme) {
       paddingHorizontal: 24,
       borderRadius: 14,
       minHeight: 44,
-      shadowColor: '#000',
+      shadowColor: theme.colors.black,
       shadowOffset: { width: 0, height: 6 },
       shadowOpacity: 0.15,
       shadowRadius: 12,

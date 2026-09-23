@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Pressable,
   Alert,
-  Dimensions,
   InteractionManager,
   ActivityIndicator,
 } from 'react-native';
@@ -24,19 +23,28 @@ import { createStyles } from '../BibleReaderScreen.styles';
 import { ChapterSelector } from './ChapterSelector';
 import { SavedWordsPanel } from './SavedWordsPanel';
 import { SettingsModal } from './SettingsModal';
-import { BookmarkConfirmModal } from './BookmarkConfirmModal';
+import { VerseActionsModal } from './VerseActionsModal';
+import { ReaderHeader } from './ReaderHeader';
+import { WordTooltip } from './WordTooltip';
+import WordStudyModal from './WordStudy/WordStudyModal';
 import { AllBookmarksModal } from './AllBookmarksModal';
 import { HelpModal } from './HelpModal';
 import { SearchModal } from './SearchModal';
 import { useBibleReader } from '../../hooks/useBibleReader';
 import { useBookmarks } from '../../hooks/useBookmarks';
+import { useMemoryVerses } from '../../context/MemoryVerseContext';
+import { useReadingProgress } from '../../context/ReadingProgressContext';
+import { ROUTES } from '../../navigation/routes';
 
-const { width: screenWidth} = Dimensions.get('window');
+// How close (px) to the bottom of a chapter counts as having read it.
+const END_OF_CHAPTER_THRESHOLD = 150;
 
 export default function BibleReaderScreen({ navigation }) {
   const { theme } = useTheme();
   const db = useBibleDb();
   const { addMultipleFlashcards, flashcards } = useFlashcards();
+  const { addVerse: addMemoryVerse, hasVerse: isMemoryVerse } = useMemoryVerses();
+  const { markChapterRead } = useReadingProgress();
 
   // Storage key for reading position
   const READING_POSITION_KEY = '@learnarabic_reading_position';
@@ -91,11 +99,11 @@ export default function BibleReaderScreen({ navigation }) {
   const [showTranslations, setShowTranslations] = useState(false);
   const [showSavedPanel, setShowSavedPanel] = useState(false);
   const [showSettingsModal, setShowSettingsModal] = useState(false);
-  const [showBookmarkConfirm, setShowBookmarkConfirm] = useState(false);
+  const [verseActions, setVerseActions] = useState(null);
+  const [wordStudy, setWordStudy] = useState(null);
   const [showAllBookmarks, setShowAllBookmarks] = useState(false);
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const [pendingBookmark, setPendingBookmark] = useState(null);
   const [hasSeenHelp, setHasSeenHelp] = useState(true); // Start true to prevent flash
   const [targetVerse, setTargetVerse] = useState(null); // For scroll-to-verse after search
 
@@ -152,8 +160,13 @@ export default function BibleReaderScreen({ navigation }) {
 
   // Track scroll position and find top visible verse
   const handleScroll = useCallback((event) => {
-    scrollPositionRef.current = event.nativeEvent.contentOffset.y;
-  }, []);
+    const { contentOffset, layoutMeasurement, contentSize } = event.nativeEvent;
+    scrollPositionRef.current = contentOffset.y;
+    const reachedEnd = contentOffset.y + layoutMeasurement.height >= contentSize.height - END_OF_CHAPTER_THRESHOLD;
+    if (reachedEnd && contentOffset.y > 0 && chapter) {
+      markChapterRead(currentBook, currentChapter);
+    }
+  }, [chapter, currentBook, currentChapter, markChapterRead]);
 
   // Find which verse is currently at the top of the viewport
   const findTopVisibleVerse = useCallback(() => {
@@ -238,6 +251,7 @@ export default function BibleReaderScreen({ navigation }) {
     savedWordsSet,
     handleWordPress,
     handleGlobalTap,
+    findGlossEntry,
   } = useBibleReader(chapter, currentBook, currentChapter);
 
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -285,10 +299,11 @@ export default function BibleReaderScreen({ navigation }) {
     const newIndex = currentIndex + direction;
 
     if (newIndex >= 0 && newIndex < bookObj.chapters.length) {
+      if (direction > 0) markChapterRead(currentBook, currentChapter);
       setCurrentChapter(bookObj.chapters[newIndex]);
       setActiveWord(null);
     }
-  }, [currentBook, currentChapter, setActiveWord]);
+  }, [currentBook, currentChapter, setActiveWord, markChapterRead]);
 
   const canNavigatePrev = useCallback(() => {
     const bookObj = BOOKS.find(b => b.id === currentBook);
@@ -342,33 +357,64 @@ export default function BibleReaderScreen({ navigation }) {
     speakVerse(verseIndex);
   }, [speakVerse]);
 
-  // Handle verse number long press for bookmark menu
+  // Long-pressing a verse number opens the verse actions sheet.
   const handleVerseNumberLongPress = useCallback((verseIndex) => {
-    const verse = verseIndex + 1;
-    const verseTextArabic = chapter?.data?.content_arabic?.[verseIndex] || '';
-    const verseTextEnglish = chapter?.data?.content_english?.[verseIndex] || '';
-
-    const alreadyBookmarked = isBookmarked(currentBook, currentChapter, verse);
-
-    setPendingBookmark({
+    const verse = chapter?.data?.verse_numbers?.[verseIndex] ?? verseIndex + 1;
+    setVerseActions({
       book: currentBook,
       chapter: currentChapter,
       verse,
-      verseTextArabic,
-      verseTextEnglish,
-      alreadyBookmarked,
+      verseIndex,
+      verseTextArabic: chapter?.data?.content_arabic?.[verseIndex] || '',
+      verseTextEnglish: chapter?.data?.content_english?.[verseIndex] || '',
     });
-    setShowBookmarkConfirm(true);
-  }, [chapter, currentBook, currentChapter, isBookmarked]);
+  }, [chapter, currentBook, currentChapter]);
 
-  // Confirm adding bookmark
-  const handleConfirmBookmark = useCallback(async () => {
-    if (pendingBookmark) {
-      await addBookmark(pendingBookmark);
+  const closeVerseActions = useCallback(() => setVerseActions(null), []);
+
+  const handleBookmarkVerse = useCallback(async () => {
+    if (verseActions) {
+      const { verseIndex, ...bookmark } = verseActions;
+      await addBookmark(bookmark);
     }
-    setShowBookmarkConfirm(false);
-    setPendingBookmark(null);
-  }, [pendingBookmark, addBookmark]);
+    setVerseActions(null);
+  }, [verseActions, addBookmark]);
+
+  const handleMemorizeVerse = useCallback(async () => {
+    if (!verseActions) return;
+    const { book, chapter: chapterNum, verse } = verseActions;
+    setVerseActions(null);
+    const result = await addMemoryVerse({ book, chapter: chapterNum, verse });
+    if (result.error) {
+      Alert.alert('Could not add verse', result.error);
+      return;
+    }
+    Alert.alert(
+      result.alreadyExists ? 'Already memorizing' : 'Added to memory verses',
+      'Practice it any time in the Memorize tab.',
+      [
+        { text: 'Later', style: 'cancel' },
+        { text: 'Practice now', onPress: () => navigation.navigate(ROUTES.MEMORIZE) },
+      ]
+    );
+  }, [verseActions, addMemoryVerse, navigation]);
+
+  const handleListenVerse = useCallback(() => {
+    if (verseActions) speakVerse(verseActions.verseIndex);
+    setVerseActions(null);
+  }, [verseActions, speakVerse]);
+
+  // Long-pressing a word (or tapping its tooltip) opens word study.
+  const openWordStudy = useCallback((word, verseIndex) => {
+    const entry = findGlossEntry(word, verseIndex);
+    if (!entry) return;
+    setActiveWord(null);
+    setWordStudy(entry);
+  }, [findGlossEntry, setActiveWord]);
+
+  const openActiveWordStudy = useCallback(() => {
+    if (activeWord) openWordStudy(activeWord.word, activeWord.verseIndex);
+  }, [activeWord, openWordStudy]);
 
   // Navigate to bookmark
   const handleSelectBookmark = useCallback((bookmark) => {
@@ -426,6 +472,8 @@ export default function BibleReaderScreen({ navigation }) {
       <View key={wordIndex} style={styles.wordWrapper}>
         <Pressable
           onPress={(event) => handleWordPress(word, verseIndex, event)}
+          onLongPress={() => openWordStudy(word, verseIndex)}
+          delayLongPress={350}
           style={[
             styles.wordTouchable,
             isInFlashcards && !isActive && !isSaved && styles.flashcardWordContainer,
@@ -448,7 +496,7 @@ export default function BibleReaderScreen({ navigation }) {
   // Render verse component
   const renderVerse = (verseText, verseIndex) => {
     const words = verseText.split(/(\s+)/);
-    const verseNum = verseIndex + 1;
+    const verseNum = chapter?.data?.verse_numbers?.[verseIndex] ?? verseIndex + 1;
     const verseIsBookmarked = isBookmarked(currentBook, currentChapter, verseNum);
 
     return (
@@ -491,8 +539,7 @@ export default function BibleReaderScreen({ navigation }) {
   if (isLoading || !chapter) {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-        <Header
-          navigation={navigation}
+        <ReaderHeader
           currentBook={currentBook}
           currentChapter={currentChapter}
           showTranslations={showTranslations}
@@ -525,8 +572,7 @@ export default function BibleReaderScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      <Header
-        navigation={navigation}
+      <ReaderHeader
         currentBook={currentBook}
         currentChapter={currentChapter}
         showTranslations={showTranslations}
@@ -558,7 +604,9 @@ export default function BibleReaderScreen({ navigation }) {
         </Pressable>
       </ScrollView>
 
-      {activeWord && <WordTooltip activeWord={activeWord} theme={theme} styles={styles} />}
+      {activeWord && (
+        <WordTooltip activeWord={activeWord} theme={theme} styles={styles} onPress={openActiveWordStudy} />
+      )}
 
       <View style={styles.bottomButtonRow}>
         <TouchableOpacity
@@ -624,17 +672,22 @@ export default function BibleReaderScreen({ navigation }) {
         onShowSearch={() => setShowSearchModal(true)}
       />
 
-      <BookmarkConfirmModal
-        visible={showBookmarkConfirm}
-        onClose={() => {
-          setShowBookmarkConfirm(false);
-          setPendingBookmark(null);
-        }}
-        onConfirm={handleConfirmBookmark}
-        book={pendingBookmark?.book || ''}
-        chapter={pendingBookmark?.chapter || 1}
-        verse={pendingBookmark?.verse || 1}
-        alreadyBookmarked={pendingBookmark?.alreadyBookmarked || false}
+      <VerseActionsModal
+        visible={Boolean(verseActions)}
+        onClose={closeVerseActions}
+        verse={verseActions}
+        isBookmarked={verseActions ? isBookmarked(verseActions.book, verseActions.chapter, verseActions.verse) : false}
+        isMemorizing={verseActions ? isMemoryVerse(verseActions.book, verseActions.chapter, verseActions.verse) : false}
+        onBookmark={handleBookmarkVerse}
+        onMemorize={handleMemorizeVerse}
+        onListen={handleListenVerse}
+      />
+
+      <WordStudyModal
+        visible={Boolean(wordStudy)}
+        word={wordStudy}
+        onClose={() => setWordStudy(null)}
+        onSelectVerse={handleSearchResult}
       />
 
       <AllBookmarksModal
@@ -658,82 +711,3 @@ export default function BibleReaderScreen({ navigation }) {
     </SafeAreaView>
   );
 }
-
-// Header component
-const Header = ({
-  navigation,
-  currentBook,
-  currentChapter,
-  showTranslations,
-  onToggleTranslations,
-  setShowChapterSelector,
-  setShowSettingsModal,
-  theme,
-  styles,
-}) => (
-  <View style={styles.headerBar}>
-    <TouchableOpacity
-      style={styles.referenceButton}
-      onPress={() => setShowChapterSelector(true)}
-    >
-      <Text style={styles.referenceText}>
-        {getBookName(currentBook)} {currentChapter}
-      </Text>
-      <Ionicons name="chevron-down" size={16} color={theme.colors.text} />
-    </TouchableOpacity>
-
-    <View style={styles.headerRightButtons}>
-
-      <TouchableOpacity
-        style={[styles.translationButton, showTranslations && styles.headerButtonActive]}
-        onPress={onToggleTranslations}
-      >
-        <Ionicons
-          name={showTranslations ? "eye-off" : "eye"}
-          size={20}
-          color={showTranslations ? '#fff' : theme.colors.text}
-        />
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.translationButton}
-        onPress={() => setShowSettingsModal(true)}
-      >
-        <Ionicons name="settings-outline" size={20} color={theme.colors.text} />
-      </TouchableOpacity>
-    </View>
-  </View>
-);
-
-// Word tooltip component
-const WordTooltip = ({ activeWord, theme, styles }) => {
-  const estimatedWidth = Math.min(
-    Math.max(activeWord.translation.length * 10 + 24, 80),
-    screenWidth - 40
-  );
-  const tooltipLeft = Math.max(20, Math.min(activeWord.x - estimatedWidth / 2, screenWidth - estimatedWidth - 20));
-
-  return (
-    <View
-      style={{
-        position: 'absolute',
-        left: tooltipLeft,
-        top: activeWord.y - 60,
-        backgroundColor: theme.colors.surface,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5,
-        zIndex: 9999,
-        maxWidth: screenWidth - 40,
-      }}
-      pointerEvents="none"
-    >
-      <Text style={styles.tooltipText}>{activeWord.translation}</Text>
-    </View>
-  );
-};
