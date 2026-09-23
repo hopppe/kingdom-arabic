@@ -13,6 +13,19 @@ import {
   parseBackup,
 } from '../../utils/backup';
 
+// Backup files handed to the share sheet stay in the cache (the receiving app
+// may still be reading one); clear earlier ones before writing a new one.
+function deleteOldBackupFiles() {
+  try {
+    Paths.cache
+      .list()
+      .filter((entry) => entry instanceof File && /^kingdom-arabic-backup-.*\.json$/.test(entry.name))
+      .forEach((entry) => entry.delete());
+  } catch (error) {
+    console.warn('Could not clean up old backup files:', error);
+  }
+}
+
 /**
  * Export all study data to a JSON file (shared via the OS share sheet, so it can go
  * to Files/iCloud Drive, Google Drive, email, etc.) and restore it again.
@@ -40,6 +53,7 @@ export function useBackup() {
       const now = new Date();
       const payload = buildBackupPayload(entries, now);
 
+      deleteOldBackupFiles();
       const file = new File(Paths.cache, backupFileName(now));
       if (file.exists) file.delete();
       file.create();

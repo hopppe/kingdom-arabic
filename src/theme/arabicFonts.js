@@ -2,6 +2,8 @@
 // so that vowel marks above and below the letters (harakat, shadda, tanween) are
 // never clipped by the neighbouring line.
 
+import { Platform } from 'react-native';
+
 export const ARABIC_FONTS = {
   scheherazade: {
     label: 'Scheherazade New',
@@ -14,6 +16,8 @@ export const ARABIC_FONTS = {
     label: 'Amiri',
     description: 'Classic Naskh used in printed Bibles.',
     fontFamily: 'Amiri_400Regular',
+    // Android clips Amiri's glyphs and detaches its vowel marks.
+    platforms: ['ios'],
     lineHeightMultiplier: 2.1,
     sizeAdjust: 1.05,
   },
@@ -34,6 +38,15 @@ export const ARABIC_FONTS = {
 };
 
 export const DEFAULT_ARABIC_FONT = 'scheherazade';
+
+export const isArabicFontAvailable = (key, os = Platform.OS) => {
+  const font = ARABIC_FONTS[key];
+  return Boolean(font) && (!font.platforms || font.platforms.includes(os));
+};
+
+/** [key, font] pairs the user can pick on this platform. */
+export const getAvailableArabicFonts = (os = Platform.OS) =>
+  Object.entries(ARABIC_FONTS).filter(([key]) => isArabicFontAvailable(key, os));
 
 export const ARABIC_TEXT_SIZES = {
   small: { label: 'Small', fontSize: 20 },

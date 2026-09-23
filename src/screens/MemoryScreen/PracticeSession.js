@@ -2,7 +2,7 @@
 // progression for one verse. Reads/writes step position through
 // MemoryVerseContext so leaving and returning resumes where the user left off.
 import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useBibleDb } from '../../context/BibleDbContext';
@@ -155,7 +155,14 @@ export function PracticeSession({ verse, onExit, onGraded, queueLabel }) {
         {!!queueLabel && <Text style={styles.queueLabel}>{queueLabel}</Text>}
       </View>
       <StepIndicator currentStep={step} />
-      {renderStep()}
+      {step === STEP.LEARN ? (
+        renderStep()
+      ) : (
+        // Long verses can be taller than the screen; keep Continue/Reveal reachable.
+        <ScrollView contentContainerStyle={styles.stepScroll} keyboardShouldPersistTaps="handled">
+          {renderStep()}
+        </ScrollView>
+      )}
     </View>
   );
 }
@@ -167,4 +174,5 @@ const createStyles = (theme) =>
     closeButton: { padding: 4 },
     queueLabel: { fontSize: theme.typography.fontSize.sm, color: theme.colors.textSecondary },
     loading: { marginTop: theme.spacing.xl },
+    stepScroll: { flexGrow: 1, paddingBottom: theme.spacing.xl },
   });

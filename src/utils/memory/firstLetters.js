@@ -33,7 +33,8 @@ export function firstLetterCue(raw, placeholder = DEFAULT_PLACEHOLDER) {
     cueEnd += 1;
   }
 
-  const hiddenCount = end - cueEnd;
+  // One placeholder per hidden letter; vowel marks don't get their own.
+  const hiddenCount = chars.slice(cueEnd, end).filter((char) => !HARAKAT_REGEX.test(char)).length;
   const hidden = hiddenCount > 0 ? placeholder.repeat(hiddenCount) : '';
 
   return `${prefix}${cue}${hidden}${suffix}`;

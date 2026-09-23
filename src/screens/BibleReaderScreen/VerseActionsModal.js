@@ -94,7 +94,7 @@ const createStyles = (theme) =>
       maxWidth: 360,
       borderRadius: 16,
       padding: 20,
-      backgroundColor: theme.colors.background,
+      backgroundColor: theme.colors.surfaceElevated,
     },
     reference: { fontSize: 17, fontWeight: '600', color: theme.colors.text, textAlign: 'center' },
     preview: { color: theme.colors.textSecondary, textAlign: 'center', marginTop: 6, marginBottom: 12 },

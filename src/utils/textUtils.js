@@ -1,39 +1,48 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-// Helper to highlight word in verse text
-export const highlightWordInVerse = (verseText, word, textStyle) => {
-  if (!verseText || !word) return <Text style={textStyle}>{verseText}</Text>;
+const PUNCTUATION_RE = /[.,،؛:;؟?!«»"“”'‘’()]/g;
+const normalizeToken = (token) => token.replace(PUNCTUATION_RE, '').toLowerCase();
 
-  // Try exact match first
-  let parts = verseText.split(word);
-  let matchedWord = word;
+/**
+ * Find the first run of whole words in `text` equal to `phrase` (ignoring
+ * punctuation and case). Returns { start, end } indexes into the array from
+ * `text.split(/(\s+)/)`, or null. Substrings inside longer words never match.
+ */
+export function findWholeWordMatch(text, phrase) {
+  if (!text || !phrase) return null;
+  const target = phrase.split(/\s+/).map(normalizeToken).filter(Boolean);
+  if (target.length === 0) return null;
 
-  // If no exact match, try case-insensitive
-  if (parts.length === 1) {
-    const regex = new RegExp(`(${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    const matches = verseText.match(regex);
-    if (matches && matches.length > 0) {
-      matchedWord = matches[0];
-      parts = verseText.split(matchedWord);
+  const parts = text.split(/(\s+)/);
+  const wordPositions = parts
+    .map((part, index) => ({ part, index }))
+    .filter(({ part }) => part.trim() !== '');
+
+  for (let i = 0; i + target.length <= wordPositions.length; i += 1) {
+    const candidate = wordPositions.slice(i, i + target.length);
+    if (candidate.every(({ part }, k) => normalizeToken(part) === target[k])) {
+      return { start: candidate[0].index, end: candidate[candidate.length - 1].index };
     }
   }
+  return null;
+}
 
-  // Still no match, return plain text
-  if (parts.length === 1) {
-    return <Text style={textStyle}>{verseText}</Text>;
-  }
+/**
+ * Render a verse with the flashcard's word highlighted. The highlight only
+ * changes the background: custom Arabic fonts ship one weight, and a nested
+ * bold span would break letter joining.
+ */
+export const highlightWordInVerse = (verseText, word, textStyle, highlightStyle) => {
+  const match = findWholeWordMatch(verseText, word);
+  if (!match) return <Text style={textStyle}>{verseText}</Text>;
 
+  const parts = verseText.split(/(\s+)/);
   return (
     <Text style={textStyle}>
-      {parts.map((part, index) => (
-        <React.Fragment key={index}>
-          {part}
-          {index < parts.length - 1 && (
-            <Text style={{ fontWeight: 'bold', backgroundColor: 'rgba(255, 255, 0, 0.3)' }}>{matchedWord}</Text>
-          )}
-        </React.Fragment>
-      ))}
+      {parts.slice(0, match.start).join('')}
+      <Text style={highlightStyle}>{parts.slice(match.start, match.end + 1).join('')}</Text>
+      {parts.slice(match.end + 1).join('')}
     </Text>
   );
 };

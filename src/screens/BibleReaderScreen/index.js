@@ -162,11 +162,18 @@ export default function BibleReaderScreen({ navigation }) {
   const topVisibleVerseRef = useRef(0);
 
   // Track scroll position and find top visible verse
+  // Only the reader's own scrolling counts toward "read" — not jumps to a
+  // verse from search or word study.
+  const userScrolledRef = useRef(false);
+  useEffect(() => {
+    userScrolledRef.current = false;
+  }, [currentBook, currentChapter]);
+
   const handleScroll = useCallback((event) => {
     const { contentOffset, layoutMeasurement, contentSize } = event.nativeEvent;
     scrollPositionRef.current = contentOffset.y;
     const reachedEnd = contentOffset.y + layoutMeasurement.height >= contentSize.height - END_OF_CHAPTER_THRESHOLD;
-    if (reachedEnd && contentOffset.y > 0 && chapter) {
+    if (reachedEnd && userScrolledRef.current && chapter) {
       markChapterRead(currentBook, currentChapter);
     }
   }, [chapter, currentBook, currentChapter, markChapterRead]);
@@ -578,7 +585,10 @@ export default function BibleReaderScreen({ navigation }) {
         showsVerticalScrollIndicator={false}
         onScroll={handleScroll}
         scrollEventThrottle={16}
-        onScrollBeginDrag={() => setActiveWord(null)}
+        onScrollBeginDrag={() => {
+          userScrolledRef.current = true;
+          setActiveWord(null);
+        }}
       >
         <Pressable onPress={handleGlobalTap}>
           <View style={styles.storyContent}>

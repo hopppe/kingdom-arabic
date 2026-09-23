@@ -12,6 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getPreviewText } from '../../utils/verseSearch';
 import { searchVerses } from '../../data/bibleRepository';
 import { useBibleDb } from '../../context/BibleDbContext';
@@ -24,6 +25,7 @@ export const SearchModal = ({
 }) => {
   const { theme } = useTheme();
   const localStyles = useMemo(() => createStyles(theme), [theme]);
+  const { bottom: bottomInset } = useSafeAreaInsets();
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -99,7 +101,7 @@ export const SearchModal = ({
         <TouchableWithoutFeedback accessible={false} onPress={onClose}>
           <View style={localStyles.overlay}>
             <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
-              <View style={localStyles.content}>
+              <View style={[localStyles.content, { paddingBottom: bottomInset }]}>
                 {/* Header */}
                 <View style={localStyles.header}>
                   <Text style={localStyles.title}>Search Bible</Text>
@@ -186,7 +188,7 @@ const createStyles = (theme) => StyleSheet.create({
     justifyContent: 'flex-end',
   },
   content: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surfaceElevated,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     paddingTop: 16,

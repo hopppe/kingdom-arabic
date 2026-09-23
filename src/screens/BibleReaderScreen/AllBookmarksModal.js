@@ -53,7 +53,7 @@ export const AllBookmarksModal = ({
       <TouchableWithoutFeedback accessible={false} onPress={onClose}>
         <View style={[styles.overlay, { backgroundColor: theme.colors.overlay }]}>
           <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
-            <View style={[styles.content, { backgroundColor: theme.colors.background }]}>
+            <View style={[styles.content, { backgroundColor: theme.colors.surfaceElevated }]}>
               <View style={[styles.header, { borderBottomColor: theme.colors.border }]}>
                 <Text style={[styles.title, { color: theme.colors.text }]}>
                   All Bookmarks

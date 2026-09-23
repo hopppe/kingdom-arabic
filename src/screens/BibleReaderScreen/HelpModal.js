@@ -36,7 +36,7 @@ export const HelpModal = ({ visible, onClose }) => {
     >
       <View style={[styles.overlay, { backgroundColor: theme.colors.overlay }]}>
         <TouchableOpacity style={styles.overlayTouchable} activeOpacity={1} onPress={onClose} />
-        <View style={[styles.content, { backgroundColor: theme.colors.background }]}>
+        <View style={[styles.content, { backgroundColor: theme.colors.surfaceElevated }]}>
           <View style={styles.header}>
             <Text style={[styles.title, { color: theme.colors.text }]}>
               How to Use This App

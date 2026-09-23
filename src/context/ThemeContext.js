@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { lightColors, darkColors } from '../theme/palettes';
 import {
   ARABIC_FONTS,
+  isArabicFontAvailable,
   ARABIC_TEXT_SIZES,
   DEFAULT_ARABIC_FONT,
   DEFAULT_ARABIC_TEXT_SIZE,
@@ -28,7 +29,7 @@ const DEFAULT_PREFS = {
 
 const sanitizePrefs = (stored) => ({
   colorScheme: COLOR_SCHEMES[stored?.colorScheme] ? stored.colorScheme : DEFAULT_PREFS.colorScheme,
-  arabicFont: ARABIC_FONTS[stored?.arabicFont] ? stored.arabicFont : DEFAULT_PREFS.arabicFont,
+  arabicFont: isArabicFontAvailable(stored?.arabicFont) ? stored.arabicFont : DEFAULT_PREFS.arabicFont,
   arabicTextSize: ARABIC_TEXT_SIZES[stored?.arabicTextSize] ? stored.arabicTextSize : DEFAULT_PREFS.arabicTextSize,
 });
 

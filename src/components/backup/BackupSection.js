@@ -1,8 +1,13 @@
 import React, { useCallback, useMemo } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useBackup } from './useBackup';
+
+const SAVE_DESTINATIONS = Platform.select({
+  ios: 'Files, iCloud Drive, Google Drive or email',
+  default: 'Google Drive, your Downloads folder or email',
+});
 
 const formatDate = (iso) => {
   if (!iso) return null;
@@ -60,10 +65,10 @@ export default function BackupSection() {
     <View style={styles.card}>
       <Text style={styles.title}>Your data</Text>
       <Text style={styles.body}>
-        Everything is stored only on this device. Save a backup file to Files, iCloud Drive, Google Drive or email so
-        you can restore your flashcards, memory verses and progress on a new phone.
+        Everything is stored only on this device. Save a backup file to {SAVE_DESTINATIONS} so you can restore your
+        flashcards, memory verses and progress on a new phone.
       </Text>
-      <Text style={styles.meta}>{lastBackupText ? `Last backup: ${lastBackupText}` : 'No backup yet'}</Text>
+      <Text style={styles.meta}>{lastBackupText ? `Last backup file created: ${lastBackupText}` : 'No backup yet'}</Text>
 
       <TouchableOpacity style={styles.primaryButton} onPress={handleExport} disabled={busy} accessibilityRole="button">
         {busy ? (

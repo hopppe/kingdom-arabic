@@ -42,6 +42,7 @@ export const FlashcardCard = React.memo(({
   onFlip,
 }) => {
   const { theme } = useTheme();
+  const highlightStyle = { backgroundColor: theme.colors.searchHighlight };
   return (
     <TouchableWithoutFeedback onPress={onFlip}>
       <View style={styles.cardContainer}>
@@ -77,7 +78,7 @@ export const FlashcardCard = React.memo(({
                         nestedScrollEnabled={true}
                         scrollEnabled={true}
                       >
-                        {highlightWordInVerse(card.verseTextEnglish, card.english, styles.verseTextEnglishFront)}
+                        {highlightWordInVerse(card.verseTextEnglish, card.english, styles.verseTextEnglishFront, highlightStyle)}
                       </ScrollView>
                     </View>
                   )}
@@ -93,7 +94,7 @@ export const FlashcardCard = React.memo(({
                         nestedScrollEnabled={true}
                         scrollEnabled={true}
                       >
-                        {highlightWordInVerse(card.verseTextArabic, card.arabic, styles.verseTextArabicFront)}
+                        {highlightWordInVerse(card.verseTextArabic, card.arabic, styles.verseTextArabicFront, highlightStyle)}
                       </ScrollView>
                     </View>
                   )}
@@ -123,9 +124,9 @@ export const FlashcardCard = React.memo(({
                         nestedScrollEnabled={true}
                         scrollEnabled={true}
                       >
-                        {highlightWordInVerse(card.verseTextArabic, card.arabic, styles.verseTextArabic)}
+                        {highlightWordInVerse(card.verseTextArabic, card.arabic, styles.verseTextArabic, highlightStyle)}
                         {card.verseTextEnglish && (
-                          highlightWordInVerse(card.verseTextEnglish, card.english, styles.verseTextEnglish)
+                          highlightWordInVerse(card.verseTextEnglish, card.english, styles.verseTextEnglish, highlightStyle)
                         )}
                       </ScrollView>
                     </View>
@@ -145,9 +146,9 @@ export const FlashcardCard = React.memo(({
                         nestedScrollEnabled={true}
                         scrollEnabled={true}
                       >
-                        {highlightWordInVerse(card.verseTextArabic, card.arabic, styles.verseTextArabic)}
+                        {highlightWordInVerse(card.verseTextArabic, card.arabic, styles.verseTextArabic, highlightStyle)}
                         {card.verseTextEnglish && (
-                          highlightWordInVerse(card.verseTextEnglish, card.english, styles.verseTextEnglish)
+                          highlightWordInVerse(card.verseTextEnglish, card.english, styles.verseTextEnglish, highlightStyle)
                         )}
                       </ScrollView>
                     </View>

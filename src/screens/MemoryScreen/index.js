@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { View, StyleSheet, ActivityIndicator, Text, BackHandler } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTheme } from '../../context/ThemeContext';
 import { useMemoryVerses } from '../../context/MemoryVerseContext';
@@ -48,6 +49,19 @@ export default function MemoryScreen() {
     setQueue(null);
     setView('home');
   };
+
+  // Android back closes Add Verse / practice instead of leaving the tab.
+  useFocusEffect(
+    useCallback(() => {
+      if (view === 'home') return undefined;
+      const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+        setQueue(null);
+        setView('home');
+        return true;
+      });
+      return () => subscription.remove();
+    }, [view])
+  );
 
   const handleAddStarter = async (starter) => {
     const result = await addVerse(starter);

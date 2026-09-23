@@ -22,7 +22,7 @@ export default function MemoryVerseCard() {
         <View style={styles.row}>
           <Stat value={stats.total} label="Total" styles={styles} />
           <Stat value={stats.learning} label="Learning" styles={styles} color={theme.colors.warning} />
-          <Stat value={stats.reviewing} label="Reviewing" styles={styles} color={theme.colors.info} />
+          <Stat value={stats.reviewing} label="Memorized" styles={styles} color={theme.colors.info} />
           <Stat value={stats.mastered} label="Mastered" styles={styles} color={theme.colors.success} />
         </View>
         <View style={styles.footer}>

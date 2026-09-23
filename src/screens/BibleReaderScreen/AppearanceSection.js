@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, COLOR_SCHEMES } from '../../context/ThemeContext';
-import { ARABIC_FONTS, ARABIC_TEXT_SIZES, buildArabicTextStyle } from '../../theme/arabicFonts';
+import { ARABIC_TEXT_SIZES, buildArabicTextStyle, getAvailableArabicFonts } from '../../theme/arabicFonts';
 
 // Vowelled sample used to preview each Arabic font ("In the beginning was the Word").
 const FONT_SAMPLE = 'فِي الْبَدْءِ كَانَ الْكَلِمَةُ';
@@ -47,7 +47,7 @@ export const AppearanceSection = () => {
       {/* Arabic font */}
       <Text style={styles.groupLabel}>Arabic Font</Text>
       <View style={styles.optionGroup}>
-        {Object.entries(ARABIC_FONTS).map(([key, font]) => {
+        {getAvailableArabicFonts().map(([key, font]) => {
           const sampleStyle = buildArabicTextStyle(key, prefs.arabicTextSize);
           return (
             <OptionRow

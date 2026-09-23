@@ -245,7 +245,7 @@ export const createStyles = (theme) => StyleSheet.create({
     justifyContent: 'flex-end',
   },
   selectorContent: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surfaceElevated,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     height: '80%',
@@ -334,7 +334,7 @@ export const createStyles = (theme) => StyleSheet.create({
     justifyContent: 'flex-end',
   },
   modalContent: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surfaceElevated,
     borderTopLeftRadius: 16,
     borderTopRightRadius: 16,
     maxHeight: '70%',
@@ -506,7 +506,7 @@ export const createStyles = (theme) => StyleSheet.create({
     alignItems: 'center',
   },
   settingsModalContent: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: theme.colors.surfaceElevated,
     borderRadius: 16,
     padding: 24,
     marginHorizontal: 32,

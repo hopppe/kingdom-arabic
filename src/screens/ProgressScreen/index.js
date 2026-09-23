@@ -47,31 +47,31 @@ export default function ProgressScreen() {
   if (!activityLoaded) return null;
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={styles.content}
-      showsVerticalScrollIndicator={false}
-    >
-      <StreakCard
-        currentStreak={stats.currentStreak}
-        longestStreak={stats.longestStreak}
-        last7Days={stats.last7Days}
-        last35Days={stats.last35Days}
-      />
-      <ActivityBarChart
-        last14Days={stats.last14Days}
-        totals7={stats.totals7}
-        totals30={stats.totals30}
-        retention7={stats.retention7}
-        retention30={stats.retention30}
-      />
-      <FlashcardStatsCard buckets={flashcardBuckets} />
-      <MemoryVerseCard />
-      <ReadingProgressCard />
-      <View style={styles.backup}>
-        <BackupSection />
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        <StreakCard
+          currentStreak={stats.currentStreak}
+          longestStreak={stats.longestStreak}
+          last7Days={stats.last7Days}
+          last35Days={stats.last35Days}
+        />
+        <ActivityBarChart
+          last14Days={stats.last14Days}
+          totals7={stats.totals7}
+          totals30={stats.totals30}
+          retention7={stats.retention7}
+          retention30={stats.retention30}
+        />
+        <FlashcardStatsCard buckets={flashcardBuckets} />
+        <MemoryVerseCard />
+        <ReadingProgressCard />
+        <View style={styles.backup}>
+          <BackupSection />
+        </View>
+      </ScrollView>
+      {/* Solid strip behind the status bar so cards don't scroll under the clock. */}
+      <View style={styles.statusBarBackdrop} />
+    </View>
   );
 }
 
@@ -87,5 +87,13 @@ const createStyles = (theme, topInset) =>
     },
     backup: {
       marginHorizontal: theme.spacing.md,
+    },
+    statusBarBackdrop: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      height: topInset,
+      backgroundColor: theme.colors.background,
     },
   });

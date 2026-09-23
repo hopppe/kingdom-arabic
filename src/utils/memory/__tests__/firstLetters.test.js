@@ -6,7 +6,7 @@ describe('firstLetterCue', () => {
   });
 
   it('keeps the first letter\'s own harakat', () => {
-    expect(firstLetterCue('بِدَايَةُ')).toBe('بِ———————');
+    expect(firstLetterCue('بِدَايَةُ')).toBe('بِ————');
   });
 
   it('keeps trailing punctuation attached', () => {
