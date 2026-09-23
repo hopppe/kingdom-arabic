@@ -76,6 +76,21 @@ describe('scheduleReview', () => {
     expect(new Date(lapsed.dueAt).getTime()).toBe(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime());
   });
 
+  it('after a lapse, Good restarts the staircase at 1 day then 3 days', () => {
+    let schedule = createInitialSchedule();
+    [RATINGS.GOOD, RATINGS.GOOD, RATINGS.GOOD].forEach((rating) => {
+      schedule = scheduleReview(schedule, rating, now);
+    });
+    schedule = scheduleReview(schedule, RATINGS.AGAIN, now);
+    expect(schedule.reviewCount).toBe(0);
+    expect(schedule.lapses).toBe(1);
+
+    schedule = scheduleReview(schedule, RATINGS.GOOD, now);
+    expect(schedule.intervalDays).toBe(1);
+    schedule = scheduleReview(schedule, RATINGS.GOOD, now);
+    expect(schedule.intervalDays).toBe(3);
+  });
+
   it('marks mastered once interval reaches MASTERED_INTERVAL_DAYS', () => {
     let schedule = createInitialSchedule();
     // Drive enough Good reviews to cross the mastery threshold.

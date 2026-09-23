@@ -136,20 +136,24 @@ export default function BibleReaderScreen({ navigation }) {
     // Stop any currently playing speech
     Speech.stop();
 
-    // Configure audio to play even in silent mode
-    await setAudioModeAsync({
-      playsInSilentMode: true,
-    });
+    try {
+      // Configure audio to play even in silent mode
+      await setAudioModeAsync({
+        playsInSilentMode: true,
+      });
 
-    const voices = await Speech.getAvailableVoicesAsync();
-    const arabicVoice = voices.find(v => v.language?.startsWith('ar'));
+      const voices = await Speech.getAvailableVoicesAsync();
+      const arabicVoice = voices.find(v => v.language?.startsWith('ar'));
 
-    if (!arabicVoice) {
-      Alert.alert('TTS Not Available', 'Your device does not support Arabic text-to-speech.');
-      return;
+      if (!arabicVoice) {
+        Alert.alert('TTS Not Available', 'Your device does not support Arabic text-to-speech.');
+        return;
+      }
+
+      Speech.speak(verseText, { language: 'ar' });
+    } catch (error) {
+      console.error('Failed to speak verse:', error);
     }
-
-    Speech.speak(verseText, { language: 'ar' });
   }, [chapter]);
 
   // Ref for scrolling to verse
@@ -167,29 +171,6 @@ export default function BibleReaderScreen({ navigation }) {
       markChapterRead(currentBook, currentChapter);
     }
   }, [chapter, currentBook, currentChapter, markChapterRead]);
-
-  // Find which verse is currently at the top of the viewport
-  const findTopVisibleVerse = useCallback(() => {
-    const scrollY = scrollPositionRef.current;
-    let topVerse = 0;
-
-    // Find the verse closest to current scroll position
-    Object.entries(verseRefs.current).forEach(([index, ref]) => {
-      if (ref) {
-        ref.measureLayout(
-          scrollViewRef.current,
-          (x, y) => {
-            if (y <= scrollY + 50) { // 50px buffer for header area
-              topVerse = Math.max(topVerse, parseInt(index, 10));
-            }
-          },
-          () => {}
-        );
-      }
-    });
-
-    return topVerse;
-  }, []);
 
   // Toggle translations while keeping the same verse visible
   const handleToggleTranslations = useCallback(() => {
@@ -261,16 +242,21 @@ export default function BibleReaderScreen({ navigation }) {
     return new Set(flashcards.map(card => card.arabic));
   }, [flashcards]);
 
-  // Load chapter data
+  // Load chapter data. Only the most recent request may update state, so
+  // quickly flipping chapters can't leave an older chapter on screen.
+  const latestLoadRef = useRef(null);
   const loadCurrentChapter = useCallback(async () => {
+    const requestKey = `${currentBook}:${currentChapter}`;
+    latestLoadRef.current = requestKey;
     setIsLoading(true);
     try {
       const data = await getChapter(db, currentBook, currentChapter);
+      if (latestLoadRef.current !== requestKey) return;
       setChapter(data);
     } catch (error) {
       console.error('Failed to load chapter:', error);
     } finally {
-      setIsLoading(false);
+      if (latestLoadRef.current === requestKey) setIsLoading(false);
     }
   }, [db, currentBook, currentChapter]);
 

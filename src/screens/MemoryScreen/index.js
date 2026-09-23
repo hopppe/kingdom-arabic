@@ -76,6 +76,7 @@ export default function MemoryScreen() {
     return (
       <SafeAreaView style={styles.container} edges={['top']}>
         <PracticeSession
+          key={activeVerse.id}
           verse={activeVerse}
           onExit={exitPractice}
           onGraded={handleGraded}

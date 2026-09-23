@@ -59,7 +59,8 @@ export function scheduleReview(schedule, rating, now = new Date()) {
       status: STATUS.LEARNING,
       intervalDays: 0,
       easeFactor: ease,
-      reviewCount,
+      // Relearn from the start of the staircase (1 day -> 3 days -> ...).
+      reviewCount: 0,
       lapses: lapses + 1,
       dueAt: localMidnight(now).toISOString(),
     };

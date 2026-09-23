@@ -100,14 +100,22 @@ export function useBackup() {
         return { ok: true };
       } catch (error) {
         console.error('Backup restore failed:', error);
-        if (snapshot) {
-          // Put the previous data back so a failed restore doesn't lose anything.
-          await AsyncStorage.multiRemove(entries.map(([key]) => key)).catch(() => {});
-          await AsyncStorage.multiSet(snapshot).catch((rollbackError) =>
-            console.error('Rolling back failed restore also failed:', rollbackError)
-          );
-          reloadAllData();
+        if (!snapshot) {
+          return { ok: false, error: 'Restoring failed before anything was changed. Please try again.' };
         }
+        // Put the previous data back so a failed restore doesn't lose anything.
+        try {
+          await AsyncStorage.multiRemove(entries.map(([key]) => key));
+          await AsyncStorage.multiSet(snapshot);
+        } catch (rollbackError) {
+          console.error('Rolling back failed restore also failed:', rollbackError);
+          reloadAllData();
+          return {
+            ok: false,
+            error: 'Restoring failed and your previous data could not be fully put back. Please restore from a backup file again.',
+          };
+        }
+        reloadAllData();
         return { ok: false, error: 'Restoring failed, so your existing data was kept. Please try again.' };
       } finally {
         setBusy(false);

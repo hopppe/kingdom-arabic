@@ -30,7 +30,10 @@ export function PracticeSession({ verse, onExit, onGraded, queueLabel }) {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const db = useBibleDb();
   const { updateStep, recordHint, recordBuildError, recordReview, logPracticeStep } = useMemoryVerses();
-  const { speak } = useVerseSpeech();
+  const { speak, stop } = useVerseSpeech();
+
+  // Don't let audio keep playing after leaving this verse.
+  useEffect(() => stop, [stop]);
 
   const [chapterData, setChapterData] = useState(null);
 
