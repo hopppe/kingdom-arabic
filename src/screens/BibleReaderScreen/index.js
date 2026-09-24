@@ -109,7 +109,9 @@ export default function BibleReaderScreen({ navigation }) {
   const [showHelpModal, setShowHelpModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
   const [hasSeenHelp, setHasSeenHelp] = useState(true); // Start true to prevent flash
-  const [targetVerse, setTargetVerse] = useState(null); // For scroll-to-verse after search
+  // { book, chapter, verse } to scroll to once that chapter has loaded (search, word study).
+  const [targetVerse, setTargetVerse] = useState(null);
+  const [loadedChapterKey, setLoadedChapterKey] = useState(null);
 
   // Bookmarks hook
   const { bookmarks, addBookmark, removeBookmark, isBookmarked } = useBookmarks();
@@ -272,6 +274,7 @@ export default function BibleReaderScreen({ navigation }) {
       const data = await getChapter(db, currentBook, currentChapter);
       if (latestLoadRef.current !== requestKey) return;
       setChapter(data);
+      setLoadedChapterKey(requestKey);
     } catch (error) {
       console.error('Failed to load chapter:', error);
     } finally {
@@ -441,7 +444,7 @@ export default function BibleReaderScreen({ navigation }) {
   const handleSearchResult = useCallback((book, chapter, verse) => {
     setCurrentBook(book);
     setCurrentChapter(chapter);
-    setTargetVerse(verse);
+    setTargetVerse({ book, chapter, verse });
     setActiveWord(null);
   }, [setActiveWord]);
 
@@ -458,31 +461,37 @@ export default function BibleReaderScreen({ navigation }) {
 
   // Scroll to target verse after chapter loads
   useEffect(() => {
-    if (targetVerse && chapter && scrollViewRef.current) {
-      // Wait for layout to complete
-      const timer = setTimeout(() => {
-        const verseIndex = targetVerse - 1;
-        const verseRef = verseRefs.current[verseIndex];
-        if (verseRef) {
-          verseRef.measureLayout(
-            scrollViewRef.current,
-            (x, y) => {
-              scrollViewRef.current?.scrollTo({ y: Math.max(0, y - 100), animated: true });
-            },
-            () => {} // Error callback
-          );
-        }
-        setTargetVerse(null);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [targetVerse, chapter]);
+    if (!targetVerse || !chapter || isLoading || !scrollViewRef.current) return undefined;
+    // Wait until the target's own chapter is on screen; the old one may still be showing.
+    if (loadedChapterKey !== `${targetVerse.book}:${targetVerse.chapter}`) return undefined;
+    // Wait for layout to complete
+    const timer = setTimeout(() => {
+      const verseIndex = chapter.data.verse_numbers?.indexOf(targetVerse.verse) ?? targetVerse.verse - 1;
+      const verseRef = verseRefs.current[verseIndex];
+      if (verseRef) {
+        verseRef.measureLayout(
+          scrollViewRef.current,
+          (x, y) => {
+            scrollViewRef.current?.scrollTo({ y: Math.max(0, y - 100), animated: true });
+          },
+          () => {} // Error callback
+        );
+      }
+      setTargetVerse(null);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [targetVerse, chapter, isLoading, loadedChapterKey]);
 
   // Each word is a tappable span inside one Text per verse. Nested Text is far
   // cheaper than a View + Pressable per word (a chapter has ~1,000 words) and
   // lets Arabic wrap and justify like normal running text.
-  const renderWord = (word, wordIndex, verseIndex) => {
-    if (!word.trim()) return word;
+  //
+  // The space after a word lives inside that word's span (unhighlighted). On
+  // Android, a bare space owned by the verse would win taps near a word's edge
+  // and swallow them.
+  const renderWord = (token, wordIndex, verseIndex) => {
+    const word = token.trimEnd();
+    const gap = token.slice(word.length);
 
     const wordId = `${verseIndex}-${wordIndex}`;
     const isActive = activeWord?.id === wordId;
@@ -496,21 +505,26 @@ export default function BibleReaderScreen({ navigation }) {
         onPress={(event) => handleWordPress(word, verseIndex, event, wordIndex)}
         onLongPress={() => openWordStudy(word, verseIndex)}
         suppressHighlighting
-        style={[
-          isInFlashcards && !isActive && !isSaved && styles.flashcardWordContainer,
-          isSaved && !isActive && styles.savedWordContainer,
-          isActive && styles.activeWordContainer,
-          isActive && styles.activeWordText,
-        ]}
       >
-        {word}
+        <Text
+          style={[
+            isInFlashcards && !isActive && !isSaved && styles.flashcardWordContainer,
+            isSaved && !isActive && styles.savedWordContainer,
+            isActive && styles.activeWordContainer,
+            isActive && styles.activeWordText,
+          ]}
+        >
+          {word}
+        </Text>
+        {gap}
       </Text>
     );
   };
 
   // Render verse component
   const renderVerse = (verseText, verseIndex) => {
-    const words = verseText.split(/(\s+)/);
+    // Each token is a word plus the whitespace after it (see renderWord).
+    const words = verseText.match(/\S+\s*/g) || [];
     const verseNum = chapter?.data?.verse_numbers?.[verseIndex] ?? verseIndex + 1;
     const verseIsBookmarked = isBookmarked(currentBook, currentChapter, verseNum);
 
