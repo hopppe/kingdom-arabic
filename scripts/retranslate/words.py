@@ -44,8 +44,12 @@ def split_verse(arabic: str) -> list[Word]:
 
 
 def clean_gloss(text: str) -> str:
-    """Normalize a model answer: trim, drop wrapping quotes/periods, collapse spaces."""
-    gloss = " ".join(text.split())
+    """Normalize a model answer: drop parenthetical asides and "/" alternatives,
+    wrapping quotes and trailing periods; collapse spaces."""
+    gloss = re.sub(r"\s*[(\[][^)\]]*[)\]]", "", text)
+    if "/" in gloss:
+        gloss = gloss.split("/", 1)[0]
+    gloss = " ".join(gloss.split())
     gloss = gloss.strip(" \"'“”‘’`")
     gloss = gloss.rstrip(".;,")
     return gloss.strip()
@@ -61,6 +65,6 @@ def gloss_problem(gloss: str, max_words: int = 8) -> str | None:
         return f"longer than {max_words} words"
     if "\n" in gloss:
         return "multiple lines"
-    if any(char in gloss for char in "()[]/"):
-        return "parenthetical or alternatives"
+    if any(char in gloss for char in "()[]"):
+        return "unbalanced parenthesis"
     return None

@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from prompts import check_prompt, verse_context, word_prompt  # noqa: E402
 from verse_gloss import gloss_verse  # noqa: E402
+from overlap import find_overlaps  # noqa: E402
 from words import clean_gloss, gloss_problem, split_verse  # noqa: E402
 
 JOHN_1_1 = "فِي الْبَدْءِ كَانَ الْكَلِمَةُ، وَالْكَلِمَةُ كَانَ عِنْدَ اللهِ. وَكَانَ الْكَلِمَةُ اللهُ."
@@ -56,8 +57,9 @@ def test_clean_gloss_and_problems() -> None:
     assert gloss_problem("") == "empty"
     assert gloss_problem("كلمة") == "contains Arabic"
     assert gloss_problem("one two three four five six seven eight nine") == "longer than 8 words"
-    assert gloss_problem("he (himself)") == "parenthetical or alternatives"
-    assert gloss_problem("Bore/Fathered") == "parenthetical or alternatives"
+    assert clean_gloss("let (the waters) be gathered") == "let be gathered"
+    assert clean_gloss("Bore/Fathered") == "Bore"
+    assert gloss_problem("he (himself") == "unbalanced parenthesis"
     assert gloss_problem("and his word") is None
 
 
@@ -87,7 +89,7 @@ def test_gloss_verse_glosses_every_word_in_order() -> None:
 
 def test_gloss_verse_retries_bad_answers_then_falls_back() -> None:
     words = split_verse(JOHN_1_1)
-    model = FakeModel({1: ["", "في", "in"], 2: ["", "", ""]}, fixes=[])
+    model = FakeModel({1: ["", "في", "in"], 2: ["", "", ""]}, fixes=[])  # 1:1 has no overlaps
     result = gloss_verse(JOHN_1_1, JOHN_1_1_EN, model, previous={words[1].start: "the beginning"})
     assert result.mappings[0]["en"] == "in"
     assert result.mappings[1]["en"] == "the beginning"
@@ -123,3 +125,28 @@ def test_failed_check_keeps_word_glosses() -> None:
     result = gloss_verse(JOHN_1_1, JOHN_1_1_EN, model)
     assert [m["en"] for m in result.mappings] == [f"g{i + 1}" for i in range(len(words))]
     assert result.events == [{"type": "check_failed", "error": "invalid JSON from model"}]
+
+
+def test_find_overlaps_flags_a_gloss_that_swallows_its_neighbour() -> None:
+    assert find_overlaps(["and God saw", "God", "the light"]) == [(0, 1, frozenset({"god"}))]
+    assert find_overlaps(["according to", "according to its kinds"]) == [(1, 0, frozenset({"according"}))]
+    assert find_overlaps(["in", "the beginning"]) == []
+    assert find_overlaps(["holy", "holy"]) == []
+    assert find_overlaps(["you accompany me", "for you"]) == []  # only function words shared
+
+
+def test_overlapping_gloss_is_reasked_once_and_fixed() -> None:
+    verse = "وَرَأَى اللهُ النُّورَ"
+    model = FakeModel({1: ["and God saw", "and saw"], 2: ["God"], 3: ["the light"]})
+    result = gloss_verse(verse, "God saw the light.", model, check=False)
+    assert [m["en"] for m in result.mappings] == ["and saw", "God", "the light"]
+    assert result.events[0]["type"] == "overlap_fix"
+    assert "already glossed" in model.prompts[-1]
+
+
+def test_overlap_fix_is_dropped_if_it_still_repeats_the_neighbour() -> None:
+    verse = "وَرَأَى اللهُ النُّورَ"
+    model = FakeModel({1: ["and God saw", "God saw"], 2: ["God"], 3: ["the light"]})
+    result = gloss_verse(verse, "God saw the light.", model, check=False)
+    assert result.mappings[0]["en"] == "and God saw"
+    assert result.events[0]["type"] == "overlap_kept"

@@ -2,7 +2,7 @@
 # Pause, resume or check the word-by-word re-translation (gemma4 via llama-server).
 #
 #   scripts/retranslate/control.sh pause          stop it and unload the model (frees ~8 GB)
-#   scripts/retranslate/control.sh resume [HOURS] continue where it left off (default budget 24h)
+#   scripts/retranslate/control.sh resume [HOURS] continue where it left off (default: no time limit)
 #   scripts/retranslate/control.sh status         running or paused, progress, memory
 #
 # Progress is saved after every verse, so pausing loses at most one verse.
@@ -63,9 +63,9 @@ resume() {
   fi
   rm -f "$PAUSE_FLAG"
   launchctl bootout "$DOMAIN/$LABEL" 2>/dev/null || true
-  write_plist "${1:-24}"
+  write_plist "${1:-0}"
   launchctl bootstrap "$DOMAIN" "$PLIST"
-  echo "Resumed with a ${1:-24}h budget; it continues from the last saved verse."
+  echo "Resumed; it continues from the last saved verse and runs until the Bible is done."
 }
 
 status() {
@@ -83,7 +83,7 @@ status() {
 
 case "${1:-status}" in
   pause) pause ;;
-  resume) resume "${2:-24}" ;;
+  resume) resume "${2:-0}" ;;
   status) status ;;
   *) echo "usage: $0 pause | resume [HOURS] | status"; exit 1 ;;
 esac

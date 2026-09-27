@@ -5,7 +5,7 @@
 set -u
 REPO="/Volumes/ssd-mac-storage/Cursor_Code/kingdomarabic"
 PY=/opt/homebrew/bin/python3
-MAX_HOURS="${1:-24}"
+MAX_HOURS="${1:-0}"  # 0 = no limit, run until the Bible is done
 LABEL="${2:-}"
 LOG="$REPO/logs/retranslate_$(date +%Y%m%d_%H%M).log"
 mkdir -p "$REPO/logs"
@@ -13,7 +13,7 @@ exec >>"$LOG" 2>&1
 
 fail() { echo "PREFLIGHT FAIL: $*"; exit 1; }
 
-echo "=== start $(date) budget=${MAX_HOURS}h job=${LABEL:-manual} ==="
+echo "=== start $(date) budget=${MAX_HOURS}h (0 = no limit) job=${LABEL:-manual} ==="
 echo "memory: $(memory_pressure | tail -1) | swap $(sysctl -n vm.swapusage)"
 
 [ -f "$REPO/logs/.retranslate-paused" ] && fail "paused (scripts/retranslate/control.sh resume)"

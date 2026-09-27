@@ -7,7 +7,8 @@ The model is injected (anything with `text(prompt, max_tokens, temperature)` and
 from dataclasses import dataclass, field
 from typing import Protocol
 
-from prompts import CHECK_SCHEMA, check_prompt, verse_context, word_prompt
+from overlap import content_words, find_overlaps
+from prompts import CHECK_SCHEMA, check_prompt, overlap_prompt, verse_context, word_prompt
 from words import Word, clean_gloss, gloss_problem, split_verse
 
 
@@ -37,6 +38,26 @@ def _gloss_word(model: Model, context: str, word: Word, fallback: str) -> tuple[
         if problem is None:
             return gloss, None
     return fallback, {"type": "fallback", "word": word.raw, "problem": problem, "kept": fallback}
+
+
+def _fix_overlaps(model: Model, context: str, words: list[Word], glosses: list[str]) -> tuple[list[str], list[dict]]:
+    """Re-ask only words whose gloss repeats a neighbour's meaning; keep the fix if it no longer does."""
+    fixed = list(glosses)
+    events = []
+    for index, neighbour, repeated in find_overlaps(glosses):
+        prompt = overlap_prompt(context, words[index], words[neighbour], glosses[neighbour])
+        gloss = clean_gloss(model.text(prompt, WORD_TOKENS, 0.0))
+        resolved = gloss_problem(gloss) is None and not (repeated <= content_words(gloss))
+        events.append({
+            "type": "overlap_fix" if resolved else "overlap_kept",
+            "word": words[index].raw,
+            "neighbour": words[neighbour].raw,
+            "before": glosses[index],
+            "after": gloss if resolved else glosses[index],
+        })
+        if resolved:
+            fixed[index] = gloss
+    return fixed, events
 
 
 def _apply_check(model: Model, context: str, words: list[Word], glosses: list[str]) -> tuple[list[str], list[dict]]:
@@ -79,6 +100,9 @@ def gloss_verse(
         glosses.append(gloss)
         if event:
             events.append(event)
+
+    glosses, overlap_events = _fix_overlaps(model, context, words, glosses)
+    events.extend(overlap_events)
 
     if check:
         glosses, check_events = _apply_check(model, context, words, glosses)
