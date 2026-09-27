@@ -1,9 +1,9 @@
 """Prompts for glossing one word at a time and for checking a whole verse.
 
-Every word of a verse shares the same prompt prefix (instructions, the verse,
-its English translation and the numbered word list), and only the last line
-names the target word. Ollama reuses the cached prefix, so the model does not
-re-read the whole verse for every word.
+Every prompt starts with the same instructions, and every word of a verse
+shares the same prefix (instructions, the verse, its English translation and
+the numbered word list); only the last line names the target word. llama-server
+reuses the cached prefix, so the model does not re-read the verse for each word.
 """
 
 from words import Word
@@ -19,7 +19,7 @@ Rules:
 3. Verbs: include the subject when the verb form carries it (قَالَ = "he said", قُلْتُ = "I said", يَقُولُونَ = "they say").
 4. Names of people and places: spell them the way the English translation does.
 5. Small words still get a gloss (e.g. أَنَّ = "that", إِلَى = "to", مِنْ = "from", عَلَى = "on").
-6. Keep it short: 1 to 5 English words. No explanations, no Arabic, no transliteration."""
+6. Keep it short: 1 to 5 English words. No explanations, no parentheses, no alternatives with "/", no Arabic, no transliteration."""
 
 
 def verse_context(arabic: str, english: str, words: list[Word]) -> str:
@@ -34,14 +34,7 @@ def verse_context(arabic: str, english: str, words: list[Word]) -> str:
 
 def word_prompt(context: str, word: Word) -> str:
     """Context prefix (identical for every word of the verse) + the target word."""
-    return f'{context}\nGloss word {word.index + 1}: "{word.bare}"\nAnswer as JSON: {{"gloss": "..."}}'
-
-
-WORD_SCHEMA = {
-    "type": "object",
-    "properties": {"gloss": {"type": "string"}},
-    "required": ["gloss"],
-}
+    return f'{context}\nGloss word {word.index + 1}: "{word.bare}"\nAnswer with only the English gloss on one line.'
 
 
 def check_prompt(context: str, words: list[Word], glosses: list[str]) -> str:

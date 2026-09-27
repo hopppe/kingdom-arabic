@@ -61,4 +61,6 @@ def gloss_problem(gloss: str, max_words: int = 8) -> str | None:
         return f"longer than {max_words} words"
     if "\n" in gloss:
         return "multiple lines"
+    if any(char in gloss for char in "()[]/"):
+        return "parenthetical or alternatives"
     return None
