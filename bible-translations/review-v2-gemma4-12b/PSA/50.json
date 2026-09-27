@@ -1,0 +1,94 @@
+{
+ "book": "PSA",
+ "chapter": "50",
+ "model": "gemma4:12b",
+ "verses": {
+  "10": {
+   "ar": "لأَنَّ جَمِيعَ حَيَوَانَاتِ الْغَابَةِ مِلْكِي، وَكَذَلِكَ الْبَهَائِمَ الْمُنْتَشِرَةَ عَلَى أُلُوفِ الْجِبَالِ.",
+   "en": "for every animal of the forest is mine,\n    and the cattle on a thousand hills.",
+   "corrections": [
+    {
+     "index": 10,
+     "ar": "الْجِبَالِ.",
+     "current": "Hills",
+     "proposed": "the mountains",
+     "reason": "inconsistent",
+     "corpus_majority": "the mountains"
+    }
+   ]
+  },
+  "11": {
+   "ar": "أَنَا عَالِمٌ بِجَمِيعِ طُيُورِ الْجِبَالِ، وَكُلُّ مَخْلُوقَاتِ الْبَرَارِي هِيَ لِي.",
+   "en": "I know every bird in the mountains,\n    and the insects in the fields are mine.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "بِجَمِيعِ",
+     "current": "Every",
+     "proposed": "with all",
+     "reason": "inconsistent",
+     "corpus_majority": "with all"
+    }
+   ]
+  },
+  "13": {
+   "ar": "هَلْ آكُلُ لَحْمَ الثِّيرَانِ، أَوْ أَشْرَبُ دَمَ التُّيُوسِ؟",
+   "en": "Do I eat the flesh of bulls\n    or drink the blood of goats?",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "آكُلُ",
+     "current": "Eat",
+     "proposed": "I eat",
+     "reason": "inconsistent",
+     "corpus_majority": "i eat"
+    },
+    {
+     "index": 5,
+     "ar": "أَشْرَبُ",
+     "current": "Drink",
+     "proposed": "I drink",
+     "reason": "inconsistent",
+     "corpus_majority": "i drink"
+    }
+   ]
+  },
+  "17": {
+   "ar": "وَأَنْتَ تَمْقُتُ التَّأْدِيبَ وَلَا تَكْتَرِثُ لِكَلامِي؟",
+   "en": "You hate my instruction\n    and cast my words behind you.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "التَّأْدِيبَ",
+     "current": "Instruction",
+     "proposed": "discipline",
+     "reason": "inconsistent",
+     "corpus_majority": "discipline"
+    }
+   ]
+  },
+  "23": {
+   "ar": "أَمَّا مَنْ يُقَدِّمُ لِي ذَبِيحَةَ حَمْدٍ فَهُوَ يُمَجِّدُنِي، وَمَنْ يُقَوِّمُ طَرِيقَهُ أُرِيهِ خَلاصَ اللهِ».",
+   "en": "Those who sacrifice thank offerings honor me,\n    and to the blameless I will show my salvation.”",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "فَهُوَ",
+     "current": "Then/So",
+     "proposed": "Then",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 10,
+     "ar": "طَرِيقَهُ",
+     "current": "Their way/Path",
+     "proposed": "his way",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:their"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,58 @@
+{
+ "book": "PSA",
+ "chapter": "104",
+ "model": "gemma4:12b",
+ "verses": {
+  "11": {
+   "ar": "تَسْقِي جَمِيعَ حَيَوَانَاتِ الْبَرِّيَّةِ، وَتَرْوِي مِنْهَا حَمِيرُ الْوَحْشِ عَطَشَهَا.",
+   "en": "They give water to all the beasts of the field;\n    the wild donkeys quench their thirst.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "الْبَرِّيَّةِ،",
+     "current": "field",
+     "proposed": "the wilderness",
+     "reason": "inconsistent",
+     "corpus_majority": "the wilderness"
+    }
+   ]
+  },
+  "23": {
+   "ar": "أَمَّا الإِنْسَانُ فَيَخْرُجُ إِلَى عَمَلِهِ وَشُغْلِهِ حَتَّى الْمَسَاءِ.",
+   "en": "Then people go out to their work,\n    to their labor until evening.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "عَمَلِهِ",
+     "current": "Their work",
+     "proposed": "his work",
+     "reason": "inconsistent",
+     "corpus_majority": "his work",
+     "warning": "dropped_pronoun:their"
+    },
+    {
+     "index": 5,
+     "ar": "وَشُغْلِهِ",
+     "current": "Their labor/occupation",
+     "proposed": "and his labor",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "25": {
+   "ar": "هَذَا الْبَحْرُ الْكَبِيرُ الْوَاسِعُ، الَّذِي يَعِجُّ بِمَخْلُوقَاتٍ لَا تُحْصَى مِنْ حَيَوَانَاتٍ مَائِيَّةٍ صَغِيرَةٍ وَكَبِيرَةٍ",
+   "en": "There is the sea, vast and spacious,\n    teeming with creatures beyond number—\n    living things both large and small.",
+   "corrections": [
+    {
+     "index": 0,
+     "ar": "هَذَا",
+     "current": "There is",
+     "proposed": "this",
+     "reason": "inconsistent",
+     "corpus_majority": "this"
+    }
+   ]
+  }
+ }
+}

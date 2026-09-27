@@ -1,0 +1,45 @@
+{
+ "book": "DEU",
+ "chapter": "20",
+ "model": "gemma4:12b",
+ "verses": {
+  "6": {
+   "ar": "هَلْ بَيْنَكُمْ مَنْ غَرَسَ كَرْماً وَلَمْ يَجْنِ أَوَّلَ ثِمَارِهِ بَعْدُ؟ فَلْيَرْجِعْ إِلَى بَيْتِهِ لِئَلّا يُقْتَلَ فِي الْمَعْرَكَةِ فَيَجْنِيَ أَوَّلَ ثِمَارِ كَرْمِهِ رَجُلٌ آخَرُ.",
+   "en": "Has anyone planted a vineyard and not begun to enjoy it? Let him go home, or he may die in battle and someone else enjoy it.",
+   "corrections": [
+    {
+     "index": 12,
+     "ar": "بَيْتِهِ",
+     "current": "Lest",
+     "proposed": "his house",
+     "reason": "inconsistent",
+     "corpus_majority": "his house"
+    },
+    {
+     "index": 13,
+     "ar": "لِئَلّا",
+     "current": "He be killed",
+     "proposed": "lest",
+     "reason": "inconsistent",
+     "corpus_majority": "lest",
+     "warning": "dropped_pronoun:he"
+    }
+   ]
+  },
+  "18": {
+   "ar": "لِكَيْ لَا يُعَلِّمُوكُمْ رَجَاسَاتِهِمِ الَّتِي مَارَسُوهَا فِي عِبَادَةِ آلِهَتِهِمْ، فَتَغْوُوا وَرَاءَهُمْ وَتُخْطِئُوا إِلَى الرَّبِّ إِلَهِكُمْ.",
+   "en": "Otherwise, they will teach you to follow all the detestable things they do in worshiping their gods, and you will sin against the Lord your God.",
+   "corrections": [
+    {
+     "index": 10,
+     "ar": "وَرَاءَهُمْ",
+     "current": "after them",
+     "proposed": "follow",
+     "reason": "inconsistent",
+     "corpus_majority": "behind them",
+     "warning": "dropped_pronoun:them"
+    }
+   ]
+  }
+ }
+}

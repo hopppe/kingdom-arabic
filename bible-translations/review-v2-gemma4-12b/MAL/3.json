@@ -1,0 +1,76 @@
+{
+ "book": "MAL",
+ "chapter": "3",
+ "model": "gemma4:12b",
+ "verses": {
+  "8": {
+   "ar": "أَيَسْلُبُ الإِنْسَانُ اللهَ؟ لَقَدْ سَلَبْتُمُونِي! وَتَسْأَلُونَ: بِمَاذَا سَلَبْنَاكَ؟ فِي الْعُشُورِ وَالْقَرَابِينِ.",
+   "en": "“Will a mere mortal rob God? Yet you rob me.\n“But you ask, ‘How are we robbing you?’\n“In tithes and offerings.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "لَقَدْ",
+     "current": "Yet",
+     "proposed": "indeed",
+     "reason": "inconsistent",
+     "corpus_majority": "indeed"
+    }
+   ]
+  },
+  "9": {
+   "ar": "أَنْتُمْ، بَلِ الأُمَّةُ كُلُّهَا، تَحْتَ اللَّعْنَةِ لأَنَّكُمْ سَلَبْتُمُونِي.",
+   "en": "You are under a curse—your whole nation—because you are robbing me.",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "بَلِ",
+     "current": "Rather/Indeed",
+     "proposed": "Rather",
+     "reason": "unresolved_slash",
+     "corpus_majority": "but"
+    },
+    {
+     "index": 5,
+     "ar": "اللَّعْنَةِ",
+     "current": "A curse",
+     "proposed": "the curse",
+     "reason": "inconsistent",
+     "corpus_majority": "the curse"
+    }
+   ]
+  },
+  "17": {
+   "ar": "«سَيَكُونُونَ لِي»، يَقُولُ الرَّبُّ الْقَدِيرُ، «فِي الْيَوْمِ الَّذِي أَصْنَعُ فِيهِ نَفَائِسِي، وَأُحَافِظُ عَلَيْهِمْ كَمَا يُحَافِظُ الْوَالِدُ عَلَى ابْنِهِ الَّذِي يَخْدُمُهُ.",
+   "en": "“On the day when I act,” says the Lord Almighty, “they will be my treasured possession. I will spare them, just as a father has compassion and spares his son who serves him.",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "الَّذِي",
+     "current": "him",
+     "proposed": "who",
+     "reason": "inconsistent",
+     "corpus_majority": "who",
+     "warning": "dropped_pronoun:him"
+    },
+    {
+     "index": 17,
+     "ar": "ابْنِهِ",
+     "current": "who serves him",
+     "proposed": "his son",
+     "reason": "inconsistent",
+     "corpus_majority": "his son",
+     "warning": "dropped_pronoun:him"
+    },
+    {
+     "index": 18,
+     "ar": "الَّذِي",
+     "current": "him",
+     "proposed": "who",
+     "reason": "inconsistent",
+     "corpus_majority": "who",
+     "warning": "dropped_pronoun:him"
+    }
+   ]
+  }
+ }
+}

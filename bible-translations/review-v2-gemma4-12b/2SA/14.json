@@ -1,0 +1,213 @@
+{
+ "book": "2SA",
+ "chapter": "14",
+ "model": "gemma4:12b",
+ "verses": {
+  "2": {
+   "ar": "فَاسْتَدْعَى يُوآبُ مِنْ تَقُوعَ امْرَأَةً حَكِيمَةً وَقَالَ لَهَا: «تَظَاهَرِي بِالْحُزْنِ، وَارْتَدِي ثِيَابَ الْحِدَادِ، وَلا تَتَطَيَّبِي، وَتَصَرَّفِي كَامْرَأَةٍ قَضَتْ أَيَّاماً طَوِيلَةً غَارِقَةً فِي أَحْزَانِهَا عَلَى فَقِيدٍ.",
+   "en": "So Joab sent someone to Tekoa and had a wise woman brought from there. He said to her, “Pretend you are in mourning. Dress in mourning clothes, and don’t use any cosmetic lotions. Act like a woman who has spent many days grieving for the dead.",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "يُوآبُ",
+     "current": "Jephthah",
+     "proposed": "joab",
+     "reason": "inconsistent",
+     "corpus_majority": "joab"
+    }
+   ]
+  },
+  "10": {
+   "ar": "فَقَالَ الْمَلِكُ: «إِذَا اعْتَرَضَ عَلَيْكِ أَحَدٌ فَأَحْضِرِيهِ إِلَيَّ فَلا يَعُودَ يُسِيءُ إِلَيْكِ».",
+   "en": "The king replied, “If anyone says anything to you, bring them to me, and they will not bother you again.”",
+   "corrections": [
+    {
+     "index": 9,
+     "ar": "يَعُودَ",
+     "current": "returns",
+     "proposed": "again",
+     "reason": "inconsistent",
+     "corpus_majority": "return"
+    }
+   ]
+  },
+  "13": {
+   "ar": "قَالَتِ الْمَرْأَةُ: «إذَنْ، لِمَاذَا ارْتَكَبْتَ هَذَا الأَمْرَ فِي حَقِّ شَعْبِ اللهِ؟ أَلا يَدِينُ المَلِكُ نَفْسَهُ عِنْدَمَا يُصْدِرُ مِثْلَ هَذَا الْحُكْمِ لأَنَّهُ لَمْ يَرُدَّ ابْنَهُ مِنْ مَنْفَاهُ؟",
+   "en": "The woman said, “Why then have you devised a thing like this against the people of God? When the king says this, does he not convict himself, for the king has not brought back his banished son?",
+   "corrections": [
+    {
+     "index": 12,
+     "ar": "يَدِينُ",
+     "current": "Judge",
+     "proposed": "convict himself",
+     "reason": "inconsistent",
+     "corpus_majority": "judges"
+    },
+    {
+     "index": 22,
+     "ar": "يَرُدَّ",
+     "current": "restore",
+     "proposed": "bring back",
+     "reason": "inconsistent",
+     "corpus_majority": "return"
+    }
+   ]
+  },
+  "16": {
+   "ar": "لأَنَّ الْمَلِكَ قَدْ يُوَافِقُ عَلَى إِنْقَاذِ جَارِيَتِهِ مِنْ يَدِ الرَّجُلِ الَّذِي يُحَاوِلُ أَنْ يَقْضِيَ عَلَيَّ وَعَلَى ابْنِي وَيَسْتَوْلِيَ عَلَى الْمِيرَاثِ الَّذِي وَهَبَنَا إِيَّاهُ اللهُ.",
+   "en": "Perhaps the king will agree to deliver his servant from the hand of the man who is trying to cut off both me and my son from God’s inheritance.’",
+   "corrections": [
+    {
+     "index": 13,
+     "ar": "يَقْضِيَ",
+     "current": "eliminate/destroy",
+     "proposed": "cut off",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 17,
+     "ar": "وَيَسْتَوْلِيَ",
+     "current": "and seizes/takes over",
+     "proposed": "and seizes",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "17": {
+   "ar": "وَقَالَتْ جَارِيَتُكَ: لِتَحْمِلْ كَلِمَةُ سَيِّدِي الْمَلِكِ عَزَاءً لِنَفْسِي، لأَنَّ سَيِّدِي الْمَلِكَ هُوَ كَمَلاكِ اللهِ فِي التَّمْيِيزِ بَيْنَ الْخَيْرِ وَالشَّرِّ، وَالرَّبُّ إِلَهُكَ يَكُونُ مَعَكَ».",
+   "en": "“And now your servant says, ‘May the word of my lord the king secure my inheritance, for my lord the king is like an angel of God in discerning good and evil. May the Lord your God be with you.’”",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "لِنَفْسِي،",
+     "current": "To my soul",
+     "proposed": "for myself",
+     "reason": "inconsistent",
+     "corpus_majority": "for myself",
+     "warning": "dropped_pronoun:my"
+    }
+   ]
+  },
+  "19": {
+   "ar": "فَسَأَلَهَا: «هَلْ لِيُوآبَ يَدٌ فِي كُلِّ هَذَا الأَمْرِ؟» فَأَجَابَتْ: «لِتَحْيَ نَفْسُكَ يَا سَيِّدِي الْمَلِكَ! إِنَّ أَحَداً لَا يَقْدِرُ أَنْ يُرَاوِغَ فِي أَمْرِ سَيِّدِي الْمَلِكِ. نَعَمْ إِنَّ عَبْدَكَ يُوآبَ هُوَ أَوْصَانِي وَلَقَّنَنِي كُلَّ مَا نَطَقْتُ بِهِ.",
+   "en": "The king asked, “Isn’t the hand of Joab with you in all this?”\nThe woman answered, “As surely as you live, my lord the king, no one can turn to the right or to the left from anything my lord the king says. Yes, it was your servant Joab who instructed me to do this and who put all these words into the mouth of your servant.",
+   "corrections": [
+    {
+     "index": 15,
+     "ar": "أَحَداً",
+     "current": "Can",
+     "proposed": "anyone",
+     "reason": "inconsistent",
+     "corpus_majority": "anyone"
+    },
+    {
+     "index": 21,
+     "ar": "أَمْرِ",
+     "current": "matter",
+     "proposed": "command",
+     "reason": "inconsistent",
+     "corpus_majority": "command"
+    }
+   ]
+  },
+  "22": {
+   "ar": "فَانْحَنَى يُوآبُ بِوَجْهِهِ إِلَى الأَرْضِ وَسَجَدَ وَبَارَكَ الْمَلِكَ قَائِلاً: «الْيَوْمَ عَلِمَ عَبْدُكَ أَنِّي قَدْ حَظِيتُ بِرِضَاكَ يَا سَيِّدِي الْمَلِكَ، إِذِ اسْتَجَابَ الْمَلِكُ لِطَلَبِ عَبْدِهِ».",
+   "en": "Joab fell with his face to the ground to pay him honor, and he blessed the king. Joab said, “Today your servant knows that he has found favor in your eyes, my lord the king, because the king has granted his servant’s request.”",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "يُوآبُ",
+     "current": "Jehoahaz",
+     "proposed": "Joab",
+     "reason": "inconsistent",
+     "corpus_majority": "joab"
+    }
+   ]
+  },
+  "24": {
+   "ar": "فَقَالَ الْمَلِكُ: «لِيَنْصَرِفْ إِلَى بَيْتِهِ ولا يَرَ وَجْهِي». فَمَضَى أَبْشَالُومُ إِلَى بَيْتِهِ وَلَمْ يَمْثُلْ فِي حَضْرَةِ الْمَلِكِ.",
+   "en": "But the king said, “He must go to his own house; he must not see my face.” So Absalom went to his own house and did not see the face of the king.",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "ولا",
+     "current": "nor",
+     "proposed": "and",
+     "reason": "inconsistent",
+     "corpus_majority": "and"
+    }
+   ]
+  },
+  "30": {
+   "ar": "عِنْدَئِذٍ قَالَ أَبْشَالُومُ لِرِجَالِهِ: «لِيُوآبَ حَقْلُ شَعِيرٍ مُجاوِرٍ لِحَقْلِي، فَاذْهَبُوا وَأَحْرِقُوهُ». فَقَامَ رِجَالُ أَبْشَالُومَ بِإِحْرَاقِ الْحَقْلِ بِالنَّارِ.",
+   "en": "Then he said to his servants, “Look, Joab’s field is next to mine, and he has barley there. Go and set it on fire.” So Absalom’s servants set the field on fire.",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "شَعِيرٍ",
+     "current": "Of barley",
+     "proposed": "barley",
+     "reason": "inconsistent",
+     "corpus_majority": "barley"
+    }
+   ]
+  },
+  "32": {
+   "ar": "فَأَجَابَ أَبْشَالُومُ: «أَرْسَلْتُ طَالِباً إِلَيْكَ أَنْ تَأْتِيَ إِلَى هُنَا لأُوْفِدَكَ إِلَى الْمَلِكِ لِتَسْأَلَهُ لِمَاذَا اسْتَدْعَانِي مِنْ جَشُورَ خَيْرٌ لِي لَوْ بَقِيتُ هُنَاكَ. إِنِّي أَوَدُّ أَنْ أَمْثُلَ فِي حَضْرَةِ الْمَلِكِ، فَإِنْ كُنْتُ مُذْنِباً فَلْيَقْتُلْنِي».",
+   "en": "Absalom said to Joab, “Look, I sent word to you and said, ‘Come here so I can send you to the king to ask, “Why have I come from Geshur? It would be better for me if I were still there!”’ Now then, I want to see the king’s face, and if I am guilty of anything, let him put me to death.”",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "طَالِباً",
+     "current": "A messenger",
+     "proposed": "seeking",
+     "reason": "inconsistent",
+     "corpus_majority": "seeking"
+    },
+    {
+     "index": 8,
+     "ar": "هُنَا",
+     "current": "So I may send you",
+     "proposed": "here",
+     "reason": "inconsistent",
+     "corpus_majority": "here",
+     "warning": "dropped_pronoun:i,you"
+    },
+    {
+     "index": 13,
+     "ar": "لِمَاذَا",
+     "current": "From",
+     "proposed": "why",
+     "reason": "inconsistent",
+     "corpus_majority": "why"
+    },
+    {
+     "index": 15,
+     "ar": "مِنْ",
+     "current": "Better",
+     "proposed": "from",
+     "reason": "inconsistent",
+     "corpus_majority": "from"
+    },
+    {
+     "index": 17,
+     "ar": "خَيْرٌ",
+     "current": "If",
+     "proposed": "better",
+     "reason": "inconsistent",
+     "corpus_majority": "better"
+    },
+    {
+     "index": 19,
+     "ar": "لَوْ",
+     "current": "Were",
+     "proposed": "if",
+     "reason": "inconsistent",
+     "corpus_majority": "if"
+    }
+   ]
+  }
+ }
+}

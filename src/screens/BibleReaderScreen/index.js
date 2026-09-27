@@ -7,6 +7,7 @@ import {
   Pressable,
   Alert,
   ActivityIndicator,
+  useWindowDimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -34,6 +35,9 @@ import { useBookmarks } from '../../hooks/useBookmarks';
 import { useMemoryVerses } from '../../context/MemoryVerseContext';
 import { useReadingProgress } from '../../context/ReadingProgressContext';
 import { ROUTES } from '../../navigation/routes';
+import { getReaderLayout } from '../../utils/layout';
+import { IS_TABLET } from '../../navigation/device';
+import GlassSurface from '../../components/glass/GlassSurface';
 
 // How close (px) to the bottom of a chapter counts as having read it.
 const END_OF_CHAPTER_THRESHOLD = 150;
@@ -258,6 +262,10 @@ export default function BibleReaderScreen({ navigation }) {
 
   const styles = useMemo(() => createStyles(theme), [theme]);
 
+  // Tablets show English beside Arabic instead of beneath it.
+  const { width: windowWidth } = useWindowDimensions();
+  const readerLayout = getReaderLayout(windowWidth, showTranslations);
+
   // Set of Arabic words already in flashcards
   const flashcardWordsSet = useMemo(() => {
     return new Set(flashcards.map(card => stripPunctuation(card.arabic)));
@@ -379,6 +387,16 @@ export default function BibleReaderScreen({ navigation }) {
       verseTextEnglish: chapter?.data?.content_english?.[verseIndex] || '',
     });
   }, [chapter, currentBook, currentChapter]);
+
+  // Phones have no tab bar: the header opens the study screens instead.
+  const openFlashcards = useMemo(
+    () => (IS_TABLET ? undefined : () => navigation.navigate(ROUTES.FLASHCARDS)),
+    [navigation]
+  );
+  const openMemorize = useMemo(
+    () => (IS_TABLET ? undefined : () => navigation.navigate(ROUTES.MEMORIZE)),
+    [navigation]
+  );
 
   const closeVerseActions = useCallback(() => setVerseActions(null), []);
 
@@ -527,6 +545,8 @@ export default function BibleReaderScreen({ navigation }) {
     const words = verseText.match(/\S+\s*/g) || [];
     const verseNum = chapter?.data?.verse_numbers?.[verseIndex] ?? verseIndex + 1;
     const verseIsBookmarked = isBookmarked(currentBook, currentChapter, verseNum);
+    const arabicWords = words.map((word, wordIndex) => renderWord(word, wordIndex, verseIndex));
+    const englishText = chapter?.data?.content_english?.[verseIndex] ?? '';
 
     return (
       <View
@@ -535,17 +555,19 @@ export default function BibleReaderScreen({ navigation }) {
         ref={(ref) => { verseRefs.current[verseIndex] = ref; }}
       >
         <View style={styles.paragraphWithNumber}>
-          <View style={styles.paragraph}>
-            <Text style={styles.arabicVerse}>
-              {words.map((word, wordIndex) => renderWord(word, wordIndex, verseIndex))}
-            </Text>
-
-            {showTranslations && chapter && (
-              <Text style={styles.englishText}>
-                {chapter.data.content_english[verseIndex]}
+          {readerLayout.sideBySide ? (
+            <View style={[styles.paragraph, styles.sideBySideRow]}>
+              <Text style={[styles.englishText, styles.englishSideBySide, styles.sideBySideColumn]}>
+                {englishText}
               </Text>
-            )}
-          </View>
+              <Text style={[styles.arabicVerse, styles.sideBySideColumn]}>{arabicWords}</Text>
+            </View>
+          ) : (
+            <View style={styles.paragraph}>
+              <Text style={styles.arabicVerse}>{arabicWords}</Text>
+              {showTranslations && <Text style={styles.englishText}>{englishText}</Text>}
+            </View>
+          )}
           <TouchableOpacity
             onPress={() => handleVerseNumberTap(verseIndex)}
             onLongPress={() => handleVerseNumberLongPress(verseIndex)}
@@ -575,6 +597,8 @@ export default function BibleReaderScreen({ navigation }) {
           onToggleTranslations={handleToggleTranslations}
           setShowChapterSelector={setShowChapterSelector}
           setShowSettingsModal={setShowSettingsModal}
+          onOpenFlashcards={openFlashcards}
+          onOpenMemorize={openMemorize}
           theme={theme}
           styles={styles}
         />
@@ -608,6 +632,8 @@ export default function BibleReaderScreen({ navigation }) {
         onToggleTranslations={handleToggleTranslations}
         setShowChapterSelector={setShowChapterSelector}
         setShowSettingsModal={setShowSettingsModal}
+        onOpenFlashcards={openFlashcards}
+        onOpenMemorize={openMemorize}
         theme={theme}
         styles={styles}
       />
@@ -627,7 +653,7 @@ export default function BibleReaderScreen({ navigation }) {
         }}
       >
         <Pressable onPress={handleGlobalTap}>
-          <View style={styles.storyContent}>
+          <View style={[styles.storyContent, { maxWidth: readerLayout.maxWidth }]}>
             <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
             <Text style={styles.storyTitleEnglish}>
               {getBookName(currentBook)} {currentChapter}
@@ -643,30 +669,37 @@ export default function BibleReaderScreen({ navigation }) {
       )}
 
       <View style={styles.bottomButtonRow}>
-        <TouchableOpacity
-          style={[styles.navButton, !canNavigatePrev() && { opacity: 0.3 }]}
-          onPress={() => navigateChapter(-1)}
-          disabled={!canNavigatePrev()}
-        >
-          <Ionicons name="chevron-back" size={24} color={theme.colors.text} />
-        </TouchableOpacity>
+        <GlassSurface style={[styles.navButton, !canNavigatePrev() && { opacity: 0.3 }]} interactive>
+          <Pressable
+            style={styles.navButtonPressable}
+            onPress={() => navigateChapter(-1)}
+            disabled={!canNavigatePrev()}
+            accessibilityRole="button"
+            accessibilityLabel="Previous chapter"
+          >
+            <Ionicons name="chevron-back" size={24} color={theme.colors.text} />
+          </Pressable>
+        </GlassSurface>
 
-        <TouchableOpacity
-          style={styles.learnedWordsButton}
-          onPress={() => setShowSavedPanel(true)}
-        >
-          <Text style={styles.learnedWordsButtonText}>
-            View Saved Words ({savedWords.length})
-          </Text>
-        </TouchableOpacity>
+        <GlassSurface style={styles.learnedWordsButton} interactive>
+          <Pressable style={styles.learnedWordsPressable} onPress={() => setShowSavedPanel(true)} accessibilityRole="button">
+            <Text style={styles.learnedWordsButtonText}>
+              Saved Words ({savedWords.length})
+            </Text>
+          </Pressable>
+        </GlassSurface>
 
-        <TouchableOpacity
-          style={[styles.navButton, !canNavigateNext() && { opacity: 0.3 }]}
-          onPress={() => navigateChapter(1)}
-          disabled={!canNavigateNext()}
-        >
-          <Ionicons name="chevron-forward" size={24} color={theme.colors.text} />
-        </TouchableOpacity>
+        <GlassSurface style={[styles.navButton, !canNavigateNext() && { opacity: 0.3 }]} interactive>
+          <Pressable
+            style={styles.navButtonPressable}
+            onPress={() => navigateChapter(1)}
+            disabled={!canNavigateNext()}
+            accessibilityRole="button"
+            accessibilityLabel="Next chapter"
+          >
+            <Ionicons name="chevron-forward" size={24} color={theme.colors.text} />
+          </Pressable>
+        </GlassSurface>
       </View>
 
       <ChapterSelector
@@ -704,6 +737,9 @@ export default function BibleReaderScreen({ navigation }) {
         onSelectBookmark={handleSelectBookmark}
         onShowHelp={() => setShowHelpModal(true)}
         onShowSearch={() => setShowSearchModal(true)}
+        showProgress={!IS_TABLET}
+        onOpenFlashcards={openFlashcards}
+        onOpenMemorize={openMemorize}
       />
 
       <VerseActionsModal

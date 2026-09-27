@@ -1,6 +1,7 @@
 import React from 'react';
-import { Text, TouchableOpacity, useWindowDimensions } from 'react-native';
+import { Text, Pressable, useWindowDimensions } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import GlassSurface from '../../components/glass/GlassSurface';
 
 const EDGE_MARGIN = 20;
 
@@ -14,29 +15,32 @@ export const WordTooltip = ({ activeWord, theme, styles, onPress }) => {
   );
 
   return (
-    <TouchableOpacity
-      onPress={onPress}
-      activeOpacity={0.8}
-      accessibilityRole="button"
-      accessibilityLabel={`${activeWord.translation}. Open word study`}
+    <GlassSurface
+      interactive
       style={{
         position: 'absolute',
         left: tooltipLeft,
         top: activeWord.y - 60,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 4,
-        backgroundColor: theme.colors.surfaceElevated,
-        paddingHorizontal: 12,
-        paddingVertical: 6,
-        borderRadius: 8,
-        ...theme.shadows.lg,
+        borderRadius: 18,
         zIndex: 9999,
         maxWidth: screenWidth - EDGE_MARGIN * 2,
       }}
     >
-      <Text style={styles.tooltipText}>{activeWord.translation}</Text>
-      <Ionicons name="chevron-forward" size={14} color={theme.colors.textSecondary} />
-    </TouchableOpacity>
+      <Pressable
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={`${activeWord.translation}. Open word study`}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 4,
+          paddingHorizontal: 14,
+          paddingVertical: 8,
+        }}
+      >
+        <Text style={styles.tooltipText}>{activeWord.translation}</Text>
+        <Ionicons name="chevron-forward" size={14} color={theme.colors.textSecondary} />
+      </Pressable>
+    </GlassSurface>
   );
 };

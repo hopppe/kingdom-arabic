@@ -1,7 +1,10 @@
 import React, { useMemo } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import DashboardCard from './DashboardCard';
+import SegmentedBar from './SegmentedBar';
+import StatTile from './StatTile';
+import DuePill from './DuePill';
 
 const BUCKETS = [
   { key: 'new', label: 'New', colorKey: 'info' },
@@ -10,25 +13,21 @@ const BUCKETS = [
   { key: 'mature', label: 'Mature', colorKey: 'success' },
 ];
 
-/** props: buckets ({new, learning, young, mature, dueToday}) */
-export default function FlashcardStatsCard({ buckets }) {
+/** props: buckets ({new, learning, young, mature, dueToday}), onPress */
+export default function FlashcardStatsCard({ buckets, onPress }) {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const segments = BUCKETS.map(({ key, colorKey }) => ({ key, value: buckets[key], color: theme.colors[colorKey] }));
 
   return (
-    <DashboardCard title="Flashcards">
+    <DashboardCard title="Flashcards" icon="albums" iconColor={theme.colors.purple} onPress={onPress}>
+      <SegmentedBar segments={segments} />
       <View style={styles.row}>
         {BUCKETS.map(({ key, label, colorKey }) => (
-          <View key={key} style={styles.bucket}>
-            <Text style={[styles.bucketValue, { color: theme.colors[colorKey] }]}>{buckets[key]}</Text>
-            <Text style={styles.bucketLabel}>{label}</Text>
-          </View>
+          <StatTile key={key} value={buckets[key]} label={label} color={theme.colors[colorKey]} />
         ))}
       </View>
-      <View style={styles.dueRow}>
-        <Text style={styles.dueLabel}>Due today</Text>
-        <Text style={styles.dueValue}>{buckets.dueToday}</Text>
-      </View>
+      <DuePill count={buckets.dueToday} />
     </DashboardCard>
   );
 }
@@ -37,37 +36,6 @@ const createStyles = (theme) =>
   StyleSheet.create({
     row: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
-    },
-    bucket: {
-      alignItems: 'center',
-      flex: 1,
-    },
-    bucketValue: {
-      fontSize: theme.typography.fontSize.xxl,
-      fontWeight: theme.typography.fontWeight.bold,
-    },
-    bucketLabel: {
-      fontSize: theme.typography.fontSize.xs,
-      color: theme.colors.textSecondary,
-      marginTop: 2,
-    },
-    dueRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginTop: theme.spacing.md,
-      paddingTop: theme.spacing.sm,
-      borderTopWidth: StyleSheet.hairlineWidth,
-      borderTopColor: theme.colors.borderLight,
-    },
-    dueLabel: {
-      fontSize: theme.typography.fontSize.md,
-      color: theme.colors.text,
-    },
-    dueValue: {
-      fontSize: theme.typography.fontSize.lg,
-      fontWeight: theme.typography.fontWeight.semibold,
-      color: theme.colors.text,
+      gap: 8,
     },
   });

@@ -1,0 +1,76 @@
+{
+ "book": "PSA",
+ "chapter": "87",
+ "model": "gemma4:12b",
+ "verses": {
+  "4": {
+   "ar": "أَذْكُرُ مِصْرَ وَبَابِلَ بَيْنَ الَّذِينَ يَعْرِفُونَنِي، وَكَذَلِكَ فَلَسْطِينَ وَصُورَ مَعَ الْحَبَشَةِ، فَيَقُولُونَ: هَذَا وُلِدَ فِي صِهْيَوْنَ.",
+   "en": "“I will record Rahab and Babylon\n    among those who acknowledge me—\nPhilistia too, and Tyre, along with Cush—\n    and will say, ‘This one was born in Zion.’”",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "مِصْرَ",
+     "current": "Rahab",
+     "proposed": "Egypt",
+     "reason": "inconsistent",
+     "corpus_majority": "egypt"
+    },
+    {
+     "index": 6,
+     "ar": "وَكَذَلِكَ",
+     "current": "me",
+     "proposed": "and likewise",
+     "reason": "inconsistent",
+     "corpus_majority": "and likewise"
+    },
+    {
+     "index": 9,
+     "ar": "مَعَ",
+     "current": "and Tyre",
+     "proposed": "with",
+     "reason": "inconsistent",
+     "corpus_majority": "with"
+    },
+    {
+     "index": 12,
+     "ar": "هَذَا",
+     "current": "they say",
+     "proposed": "this",
+     "reason": "inconsistent",
+     "corpus_majority": "this",
+     "warning": "dropped_pronoun:they"
+    },
+    {
+     "index": 13,
+     "ar": "وُلِدَ",
+     "current": "this one",
+     "proposed": "was born",
+     "reason": "inconsistent",
+     "corpus_majority": "was born"
+    },
+    {
+     "index": 15,
+     "ar": "صِهْيَوْنَ.",
+     "current": "in Zion",
+     "proposed": "Zion",
+     "reason": "inconsistent",
+     "corpus_majority": "zion"
+    }
+   ]
+  },
+  "5": {
+   "ar": "حَقّاً عَنْ صِهْيَوْنَ يَقُولُونَ: «هَذَا الإِنْسَانُ وَهَذَا الإِنْسَانُ وُلِدَ فِيهَا، وَالْعَلِيُّ يُثَبِّتُهَا».",
+   "en": "Indeed, of Zion it will be said,\n    “This one and that one were born in her,\n    and the Most High himself will establish her.”",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "وَهَذَا",
+     "current": "And",
+     "proposed": "and this",
+     "reason": "inconsistent",
+     "corpus_majority": "and this"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,59 @@
+{
+ "book": "JOB",
+ "chapter": "29",
+ "model": "gemma4:12b",
+ "verses": {
+  "12": {
+   "ar": "لأَنِّي أَنْقَذْتُ الْبَائِسَ الْمُسْتَغِيثَ، وَأَجَرْتُ الْيَتِيمَ طَالِبَ الْعَوْنِ،",
+   "en": "because I rescued the poor who cried for help,\n    and the fatherless who had none to assist them.",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "طَالِبَ",
+     "current": "who had none to assist them",
+     "proposed": "seeking help",
+     "reason": "phrase_not_word",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:them"
+    }
+   ]
+  },
+  "23": {
+   "ar": "يَتَرَقَّبُونَنِي كَالْغَيْثِ، وَيَفْتَحُونَ أَفْوَاهَهُمْ كَمَنْ يَنْهَلُ مِنْ مَطَرِ الرَّبِيعِ",
+   "en": "They waited for me as for showers\n    and drank in my words as the spring rain.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "أَفْوَاهَهُمْ",
+     "current": "my words",
+     "proposed": "their mouths",
+     "reason": "inconsistent",
+     "corpus_majority": "their mouths",
+     "warning": "dropped_pronoun:my"
+    }
+   ]
+  },
+  "24": {
+   "ar": "إِنِ ابْتَسَمْتُ لَهُمْ لَا يُصَدِّقُونَ، وَنُورُ وَجْهِي لَمْ يَطْرَحُوهُ عَنْهُمْ بَعِيداً.",
+   "en": "When I smiled at them, they scarcely believed it;\n    the light of my face was precious to them.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "لَهُمْ",
+     "current": "At them",
+     "proposed": "to them",
+     "reason": "inconsistent",
+     "corpus_majority": "to them"
+    },
+    {
+     "index": 6,
+     "ar": "وَجْهِي",
+     "current": "Of my face",
+     "proposed": "my face",
+     "reason": "inconsistent",
+     "corpus_majority": "my face"
+    }
+   ]
+  }
+ }
+}

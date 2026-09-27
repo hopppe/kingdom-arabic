@@ -1,0 +1,58 @@
+{
+ "book": "PSA",
+ "chapter": "143",
+ "model": "gemma4:12b",
+ "verses": {
+  "4": {
+   "ar": "غُشِيَ عَلَى رُوحِي فِي دَاخِلِي، وَتَحَيَّرَ قَلْبِي فِي أَعْمَاقِي.",
+   "en": "So my spirit grows faint within me;\n    my heart within me is dismayed.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "رُوحِي",
+     "current": "Spirit",
+     "proposed": "my spirit",
+     "reason": "inconsistent",
+     "corpus_majority": "my spirit"
+    },
+    {
+     "index": 6,
+     "ar": "قَلْبِي",
+     "current": "Heart",
+     "proposed": "my heart",
+     "reason": "inconsistent",
+     "corpus_majority": "my heart"
+    }
+   ]
+  },
+  "7": {
+   "ar": "أَجِبْنِي مُسْرِعاً يَا رَبُّ. وَهَنَتْ رُوحِي فَلَا تَحْجُبْ وَجْهَكَ عَنِّي، لِئَلّا أَصِيرَ كالْمُنْحَدِرِينَ إِلَى الْقَبْرِ.",
+   "en": "Answer me quickly, Lord;\n    my spirit fails.\nDo not hide your face from me\n    or I will be like those who go down to the pit.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "وَهَنَتْ",
+     "current": "My strength fails",
+     "proposed": "fails",
+     "reason": "inconsistent",
+     "corpus_majority": "weakened",
+     "warning": "dropped_pronoun:my"
+    }
+   ]
+  },
+  "9": {
+   "ar": "أَنْقِذْنِي مِنْ أَعْدَائِي يَا رَبُّ، لأَنَّنِي بِكَ اسْتَعَذْتُ.",
+   "en": "Rescue me from my enemies, Lord,\n    for I hide myself in you.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "أَعْدَائِي",
+     "current": "enemies",
+     "proposed": "my enemies",
+     "reason": "inconsistent",
+     "corpus_majority": "my enemies"
+    }
+   ]
+  }
+ }
+}

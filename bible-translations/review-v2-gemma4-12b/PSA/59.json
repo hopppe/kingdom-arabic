@@ -1,0 +1,78 @@
+{
+ "book": "PSA",
+ "chapter": "59",
+ "model": "gemma4:12b",
+ "verses": {
+  "3": {
+   "ar": "قَدْ نَصَبُوا كَمِيناً لِنَفْسِي. اجْتَمَعَ عَلَيَّ أَقْوِيَاءُ، لَا بِسَبَبِ مَعْصِيَتِي وَلَا مِنْ جَرَّاءِ خَطِيئَتِي يَا رَبُّ.",
+   "en": "See how they lie in wait for me!\n    Fierce men conspire against me\n    for no offense or sin of mine, Lord.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "لِنَفْسِي.",
+     "current": "For my soul/self",
+     "proposed": "for me",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:my"
+    },
+    {
+     "index": 4,
+     "ar": "اجْتَمَعَ",
+     "current": "They have gathered",
+     "proposed": "conspire",
+     "reason": "inconsistent",
+     "corpus_majority": "gathered",
+     "warning": "dropped_pronoun:they"
+    },
+    {
+     "index": 6,
+     "ar": "أَقْوِيَاءُ،",
+     "current": "Strong men/Powerful ones",
+     "proposed": "Fierce men",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "4": {
+   "ar": "يُسْرِعُونَ مُتَأَهِّبِينَ لِلإِيقَاعِ بِي، مِنْ غَيْرِ أَنْ أَقْتَرِفَ إِثْماً. فَانْهَضْ لإِغَاثَتِي وَانْظُرْ إِلَى مَا يَجْرِي.",
+   "en": "I have done no wrong, yet they are ready to attack me.\n    Arise to help me; look on my plight!",
+   "corrections": [
+    {
+     "index": 8,
+     "ar": "إِثْماً.",
+     "current": "Arise/Stand up",
+     "proposed": "a sin",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 9,
+     "ar": "فَانْهَضْ",
+     "current": "For my help/rescue",
+     "proposed": "Arise",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:my"
+    },
+    {
+     "index": 12,
+     "ar": "إِلَى",
+     "current": "What",
+     "proposed": "to",
+     "reason": "inconsistent",
+     "corpus_majority": "to"
+    },
+    {
+     "index": 13,
+     "ar": "مَا",
+     "current": "Happens/Occurs",
+     "proposed": "what",
+     "reason": "unresolved_slash",
+     "corpus_majority": "what"
+    }
+   ]
+  }
+ }
+}

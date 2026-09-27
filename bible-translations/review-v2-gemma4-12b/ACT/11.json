@@ -1,0 +1,168 @@
+{
+ "book": "ACT",
+ "chapter": "11",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "وَسَمِعَ الرُّسُلُ وَالإِخْوَةُ فِي الْيَهُودِيَّةِ أَنَّ غَيْرَ الْيَهُودِ أَيْضاً قَبِلُوا كَلِمَةَ اللهِ،",
+   "en": "The apostles and the believers throughout Judea heard that the Gentiles also had received the word of God.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "الْيَهُودِيَّةِ",
+     "current": "Judaism",
+     "proposed": "Judea",
+     "reason": "inconsistent",
+     "corpus_majority": "judea"
+    },
+    {
+     "index": 7,
+     "ar": "الْيَهُودِ",
+     "current": "non-Jews",
+     "proposed": "the Jews",
+     "reason": "inconsistent",
+     "corpus_majority": "the jews"
+    }
+   ]
+  },
+  "2": {
+   "ar": "فَمَا إِنْ عَادَ بُطْرُسُ إِلَى أُورُشَلِيمَ حَتَّى جَادَلَهُ دُعَاةُ الْخِتَانِ، وَعَارَضُوهُ قَائِلِينَ:",
+   "en": "So when Peter went up to Jerusalem, the circumcised believers criticized him",
+   "corrections": [
+    {
+     "index": 9,
+     "ar": "الْخِتَانِ،",
+     "current": "Of circumcision",
+     "proposed": "the circumcision",
+     "reason": "inconsistent",
+     "corpus_majority": "circumcision"
+    }
+   ]
+  },
+  "5": {
+   "ar": "«كُنْتُ أُصَلِّي فِي مَدِينَةِ يَافَا، فَوَقَعَتْ عَلَيَّ غَيْبُوبَةٌ، فَرَأَيْتُ فِي رُؤْيَا وِعَاءً يُشْبِهُ قِطْعَةً كَبِيرَةً مِنَ الْقُمَاشِ مَرْبُوطَةً بِأَطْرَافِهَا الأَرْبَعَةِ، وَقَدْ تَدَلَّى إِلَيَّ مِنَ السَّمَاءِ.",
+   "en": "“I was in the city of Joppa praying, and in a trance I saw a vision. I saw something like a large sheet being let down from heaven by its four corners, and it came down to where I was.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "يَافَا،",
+     "current": "of",
+     "proposed": "joppa",
+     "reason": "inconsistent",
+     "corpus_majority": "joppa"
+    }
+   ]
+  },
+  "14": {
+   "ar": "وَهُوَ يُكَلِّمُكَ كَلاماً بِهِ تَخْلُصُ أَنْتَ وَأَهْلُ بَيْتِكَ جَمِيعاً.",
+   "en": "He will bring you a message through which you and all your household will be saved.’",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "كَلاماً",
+     "current": "Speech",
+     "proposed": "message",
+     "reason": "inconsistent",
+     "corpus_majority": "words"
+    },
+    {
+     "index": 7,
+     "ar": "بَيْتِكَ",
+     "current": "House",
+     "proposed": "your house",
+     "reason": "inconsistent",
+     "corpus_majority": "your house"
+    }
+   ]
+  },
+  "17": {
+   "ar": "فَإِنْ كَانَ اللهُ قَدْ سَاوَاهُمْ بِنَا فَأَعْطَاهُمُ الْهِبَةَ الَّتِي أَعْطَانَا إِيَّاهَا، إِذْ آمَنَّا بِالرَّبِّ يَسُوعَ الْمَسِيحِ، فَمَنْ أَكُونُ أَنَا حَتَّى أُعِيقَ اللهَ؟»",
+   "en": "So if God gave them the same gift he gave us who believed in the Lord Jesus Christ, who was I to think that I could stand in God’s way?”",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "سَاوَاهُمْ",
+     "current": "Made/Equaled/Granted",
+     "proposed": "gave them the same",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 5,
+     "ar": "بِنَا",
+     "current": "With/Like",
+     "proposed": "as us",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 6,
+     "ar": "فَأَعْطَاهُمُ",
+     "current": "Then/And He Gave",
+     "proposed": "then gave them",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:he"
+    },
+    {
+     "index": 11,
+     "ar": "إِذْ",
+     "current": "When/Since",
+     "proposed": "since",
+     "reason": "unresolved_slash",
+     "corpus_majority": "when"
+    },
+    {
+     "index": 16,
+     "ar": "فَمَنْ",
+     "current": "Then/Who",
+     "proposed": "then who",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "18": {
+   "ar": "فَلَمَّا سَمِعَ الْمُعَارِضُونَ هَذَا، سَكَتُوا، وَمَجَّدُوا اللهَ قَائِلِينَ: «إِذَنْ، قَدْ أَنْعَمَ اللهُ أَيْضاً عَلَى غَيْرِ الْيَهُودِ بِالتَّوْبَةِ لِنَوَالِ الْحَيَاةِ».",
+   "en": "When they heard this, they had no further objections and praised God, saying, “So then, even to Gentiles God has granted repentance that leads to life.”",
+   "corrections": [
+    {
+     "index": 17,
+     "ar": "لِنَوَالِ",
+     "current": "For the Grant",
+     "proposed": "to attain",
+     "reason": "inconsistent",
+     "corpus_majority": "to attain"
+    }
+   ]
+  },
+  "19": {
+   "ar": "أَمَّا الْمُؤْمِنُونَ الَّذِينَ تَشَتَّتُوا بِسَبَبِ الاضْطِهَادِ الَّذِي وَقَعَ عَلَيْهِمْ بَعْدَ مَوْتِ اسْتِفَانُوسَ، فَمَرُّوا بِفِينِيقِيَةَ وَقُبْرُصَ وَأَنْطَاكِيَةَ، وَهُمْ لَا يُبَشِّرُونَ بِالْكَلِمَةِ إِلّا الْيَهُودَ.",
+   "en": "Now those who had been scattered by the persecution that broke out when Stephen was killed traveled as far as Phoenicia, Cyprus and Antioch, spreading the word only among Jews.",
+   "corrections": [
+    {
+     "index": 10,
+     "ar": "مَوْتِ",
+     "current": "The death of",
+     "proposed": "death",
+     "reason": "inconsistent",
+     "corpus_majority": "death"
+    }
+   ]
+  },
+  "28": {
+   "ar": "وَبَيْنَهُمْ نَبِيٌّ اسْمُهُ أَغَابُوسُ، تَنَبَّأَ بِوَحْيٍ مِنَ الرُّوحِ أَنَّ مَجَاعَةً عَظِيمَةً سَتَحْدُثُ فِي الْبِلادِ كُلِّهَا. وَقَدْ وَقَعَتْ هذِهِ الْمَجَاعَةُ فِعْلاً فِي عَهْدِ الْقَيْصَرِ كُلُودِيُوسَ.",
+   "en": "One of them, named Agabus, stood up and through the Spirit predicted that a severe famine would spread over the entire Roman world. (This happened during the reign of Claudius.)",
+   "corrections": [
+    {
+     "index": 19,
+     "ar": "فِعْلاً",
+     "current": "Actually",
+     "proposed": "indeed",
+     "reason": "inconsistent",
+     "corpus_majority": "indeed"
+    }
+   ]
+  }
+ }
+}

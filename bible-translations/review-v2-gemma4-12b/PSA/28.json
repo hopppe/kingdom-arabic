@@ -1,0 +1,44 @@
+{
+ "book": "PSA",
+ "chapter": "28",
+ "model": "gemma4:12b",
+ "verses": {
+  "4": {
+   "ar": "جَازِهِمْ وَفْقاً لِفِعْلِهِمْ وَشَرِّ أَعْمَالِهِمْ. أَعْطِهِمْ مَا يَسْتَحِقُّ صَنِيعُ أَيْدِيهِمْ، وَرُدَّ عَلَيْهِمْ جَزَاءَهُمْ.",
+   "en": "Repay them for their deeds\n    and for their evil work;\nrepay them for what their hands have done\n    and bring back on them what they deserve.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "أَعْمَالِهِمْ.",
+     "current": "works",
+     "proposed": "their works",
+     "reason": "inconsistent",
+     "corpus_majority": "their deeds"
+    },
+    {
+     "index": 7,
+     "ar": "يَسْتَحِقُّ",
+     "current": "they deserve",
+     "proposed": "deserves",
+     "reason": "inconsistent",
+     "corpus_majority": "deserves",
+     "warning": "dropped_pronoun:they"
+    }
+   ]
+  },
+  "8": {
+   "ar": "الرَّبُّ قُوَّةُ شَعْبِهِ، وَهُوَ حِصْنُ خَلاصِ مَسِيحِهِ.",
+   "en": "The Lord is the strength of his people,\n    a fortress of salvation for his anointed one.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "شَعْبِهِ،",
+     "current": "people",
+     "proposed": "his people",
+     "reason": "inconsistent",
+     "corpus_majority": "his people"
+    }
+   ]
+  }
+ }
+}

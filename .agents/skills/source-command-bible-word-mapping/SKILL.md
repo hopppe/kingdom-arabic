@@ -1,0 +1,209 @@
+---
+name: "source-command-bible-word-mapping"
+description: "Migrated source command `bible-word-mapping`"
+---
+
+# source-command-bible-word-mapping
+
+Use this skill when the user asks to run the migrated source command `bible-word-mapping`.
+
+## Command Template
+
+# Bible Word Mapping Agent
+
+Create vocabulary mappings for a single Bible chapter using local JSON files.
+
+## Usage
+
+```
+/bible-word-mapping <BOOK> <CHAPTER>
+```
+
+Example:
+```
+/bible-word-mapping MRK 6
+```
+
+## Task Instructions
+
+When this command is invoked, perform the following:
+
+1. **Read the chapter file directly**:
+   ```
+   bible-translations/unified/<BOOK>/<CHAPTER>.json
+   ```
+   Each file contains verse objects: `{ "1": { "en": "...", "ar": "..." }, "2": { ... } }`
+
+2. **For each verse, create word/phrase mappings** following these rules:
+   - Work LEFT-TO-RIGHT through the Arabic string
+   - **Group by semantic meaning** - phrases that belong together stay together
+   - Track character positions as you go
+   - Ensure complete coverage (no Arabic words left unmapped)
+
+3. **Create the book folder if it doesn't exist**:
+   ```bash
+   mkdir -p bible-translations/mappings/<BOOK>
+   ```
+
+4. **Save the output** using the Write tool to:
+   `bible-translations/mappings/<BOOK>/<CHAPTER>.json`
+
+5. **Report completion** with verse count and sample mappings.
+
+## Critical Mapping Rules
+
+**IMPORTANT**: You're mapping between TWO EXISTING BIBLE TRANSLATIONS, not creating literal word translations. The Arabic and English Bibles are independent translations of the same source text.
+
+### CRITICAL WARNING: DO NOT DO SEQUENTIAL WORD-FOR-WORD PAIRING
+
+**THE #1 MISTAKE**: Mapping Arabic word 1 → English word 1, Arabic word 2 → English word 2 in sequence WITHOUT understanding what each Arabic word means.
+
+**BAD EXAMPLE (Galatians 6:14 - WRONG):**
+- أَمَّا → "May" ❌ (أَمَّا means "as for", not "May")
+- فَحَاشَا → "never" ❌ (means "far be it/God forbid")
+- لِي → "boast" ❌ (means "for me", not "boast")
+- أَفْتَخِرَ → "in" ❌ (means "I boast", not "in")
+- إِلّا → "the cross" ❌ (means "except", not "the cross")
+
+This is CATASTROPHICALLY WRONG. The algorithm just paired words in order without understanding Arabic.
+
+**GOOD EXAMPLE (John 3:16 - CORRECT):**
+- لأَنَّهُ → "For" ✅ (actually means "because/for")
+- هكَذَا → "so" ✅ (actually means "thus/so")
+- أَحَبَّ → "loved" ✅ (actually means "loved")
+- اللهُ → "God" ✅ (actually means "God")
+
+This works because each Arabic word genuinely means its English counterpart.
+
+**YOU MUST:**
+1. Understand what each Arabic word/phrase ACTUALLY means
+2. Find its semantic equivalent in the English text
+3. Match based on MEANING, not position in sentence
+4. Verify: "Does this Arabic word really mean this English word?"
+
+### Core Principle: Match Corresponding Content
+
+Map Arabic segments to their **corresponding English segments** in the translations, even if:
+- The literal meaning differs (فِي = "in" literally, but map to "of" if English says "of")
+- Word order differs between translations
+- One translation has words the other doesn't
+
+**Goal**: When a learner taps an Arabic word, they see what it corresponds to in the English translation.
+
+### Phrase Grouping - FOR LEARNER CLARITY
+
+Group words when it helps the learner understand:
+
+| Group These | Why? |
+|-------------|------|
+| بُحَيْرَةِ الْجَلِيلِ → "Sea of Galilee" | Proper noun, meaningless if split |
+| ابْنِ اللهِ → "Son of God" | Compound concept |
+| لَا أَحَدَ → "no one" | Single word is meaningless |
+| يُوحَنَّا الْمَعْمَدَانِ → "John the Baptist" | Name + title |
+
+BUT you CAN split if both parts are clear:
+- فِي → "in", الْبَيْتِ → "the house" (both understandable)
+- وَقَالَ → "and said" (clear as is)
+
+### Unhelpful Mappings to Avoid
+
+These single-word mappings don't help learners:
+- ❌ لَا → "no" (what does "no" mean alone?)
+- ❌ أَنْ → "to" (which "to"?)
+- ❌ مَا → "what" (vague)
+
+Instead, group with adjacent words:
+- ✅ لَا أَحَدَ → "no one"
+- ✅ أَنْ يَعْمَلَ → "to do"
+- ✅ مَا تَعْمَلُ → "what you are doing"
+
+### Attached Prefixes - INCLUDE IN WORD
+
+These are attached and should NOT be split off:
+- الـ (the) - attached to noun: الْبَيْتِ = "the house"
+- وَ (and) - attached: وَقَالَ = "and said"
+- فَ (then/so) - attached: فَذَهَبَ = "then he went"
+
+### Common Issues to Check
+
+1. **DON'T leave words unmapped**:
+   - Every Arabic word/phrase must have a mapping
+   - Check that positions cover entire verse (except spaces/punctuation)
+
+2. **DON'T create unhelpful single-word mappings**:
+   - If tapping a word shows something meaningless, group it better
+   - Ask: "Does this help a learner?"
+
+3. **DO match the English translation exactly**:
+   - If English says "of the council", map فِي to "of" (even though فِي = "in")
+   - Follow the actual translation, not literal meanings
+
+## Output Format
+
+```json
+{
+  "book": "<BOOK>",
+  "chapter": <CHAPTER>,
+  "verses": {
+    "1": {
+      "ar": "Arabic text...",
+      "en": "English text...",
+      "mappings": [
+        { "ar": "word", "en": "translation", "start": 0, "end": 4 }
+      ]
+    }
+  }
+}
+```
+
+## Anchor Words (instant matches)
+
+- يَسُوعُ/يَسُوعَ → "Jesus"
+- اللهِ/اللهُ → "God"
+- الرَّبِّ/الرَّبُّ → "the Lord"
+- الْمَسِيحِ/الْمَسِيحُ → "Christ/Messiah"
+- يُوحَنَّا → "John"
+- مُوسَى → "Moses"
+
+## Quality Checklist
+
+Before saving, verify:
+- [ ] All Arabic text is covered (no unmapped words)
+- [ ] Positions are sequential (no overlaps)
+- [ ] Mappings match the English translation text (not literal meanings)
+- [ ] Phrases grouped for learner clarity (proper nouns, compound concepts together)
+- [ ] No unhelpful single-word mappings (لَا alone, أَنْ alone, etc.)
+- [ ] **SEMANTIC VERIFICATION**: Each Arabic word actually means its mapped English
+
+### MANDATORY SEMANTIC VERIFICATION
+
+After creating mappings, **SPOT CHECK at least 3-5 verses** to verify you didn't do sequential pairing:
+
+**Common Arabic words that MUST map correctly:**
+- يَسُوعَ/يَسُوعُ → MUST contain "Jesus" (never "Christ", "Lord", "him")
+- الْمَسِيحِ/الْمَسِيحُ → MUST contain "Christ" or "Messiah" (never "Jesus", "our", "Lord")
+- اللهِ/اللهُ/اللهَ → MUST contain "God" (never "Lord", "him", anything else)
+- أَنَّ/إِنَّ → means "that/indeed" (never a noun like "Jesus" or "God")
+- لأَنَّ → means "because/for" (never a noun)
+- فِي → means "in/at/among" (can be "of" if translation uses it, but NEVER a random word)
+- مِنْ → means "from/of" (similar flexibility as فِي)
+- إِلَى → means "to/toward/until"
+- وَ → means "and"
+- لَا → means "not/no"
+- أَفْتَخِرَ → means "I boast" (never "in" or preposition)
+- إِلّا → means "except/unless" (never "the cross" or any noun)
+
+**RED FLAGS - If you see these, you did sequential pairing WRONG:**
+- أَنَّ/إِنَّ mapped to a proper noun → WRONG
+- Function word (فِي، مِنْ، إِلَى) mapped to a noun → WRONG
+- Verb mapped to a preposition → WRONG
+- يَسُوعَ not mapped to "Jesus" → WRONG (check for drift)
+
+## Validation
+
+After creating mappings, recommend user run:
+```bash
+python3 scripts/validate_mappings.py <BOOK> <CHAPTER>
+```
+
+See `.Codex/skills/bible-word-mapper.md` for full technical instructions.

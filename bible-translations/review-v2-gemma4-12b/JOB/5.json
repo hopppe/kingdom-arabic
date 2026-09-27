@@ -1,0 +1,72 @@
+{
+ "book": "JOB",
+ "chapter": "5",
+ "model": "gemma4:12b",
+ "verses": {
+  "3": {
+   "ar": "لَقَدْ شَاهَدْتُ الْغَبِيَّ يَتَأَصَّلُ، ثُمَّ لَمْ أَلْبَثْ أَنْ لَعَنْتُ مَسْكَنَهُ.",
+   "en": "I myself have seen a fool taking root,\n    but suddenly his house was cursed.",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "لَمْ",
+     "current": "I did not linger",
+     "proposed": "not",
+     "reason": "inconsistent",
+     "corpus_majority": "not",
+     "warning": "dropped_pronoun:i"
+    }
+   ]
+  },
+  "7": {
+   "ar": "وَمَعَ ذَلِكَ فَإِنَّ الإِنْسَانَ مَوْلُودٌ لِمُعَانَاةِ الْمَتَاعِبِ، كَمَا وُلِدَتِ الْجَوَارِحُ لِتُحَلِّقَ بِأَجْنِحَتِهَا.",
+   "en": "Yet man is born to trouble\n    as surely as sparks fly upward.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "مَوْلُودٌ",
+     "current": "Is born",
+     "proposed": "born",
+     "reason": "inconsistent",
+     "corpus_majority": "born"
+    }
+   ]
+  },
+  "10": {
+   "ar": "يُهْطِلُ الْغَيْثَ عَلَى وَجْهِ الأَرْضِ، وَيُرْسِلُ الْمِيَاهَ إِلَى الْحُقُولِ.",
+   "en": "He provides rain for the earth;\n    he sends water on the countryside.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "وَجْهِ",
+     "current": "Surface/Face",
+     "proposed": "the face of",
+     "reason": "unresolved_slash",
+     "corpus_majority": "face"
+    },
+    {
+     "index": 8,
+     "ar": "الْحُقُولِ.",
+     "current": "Fields",
+     "proposed": "the fields",
+     "reason": "inconsistent",
+     "corpus_majority": "the fields"
+    }
+   ]
+  },
+  "18": {
+   "ar": "لأَنَّ اللهَ يَجْرَحُ وَيَعْصِبُ، يَسْحَقُ وَيَدَاهُ تُبْرِئَانِ.",
+   "en": "For he wounds, but he also binds up;\n    he injures, but his hands also heal.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "يَسْحَقُ",
+     "current": "he crushes",
+     "proposed": "he injures",
+     "reason": "inconsistent",
+     "corpus_majority": "crushes"
+    }
+   ]
+  }
+ }
+}

@@ -8,6 +8,7 @@ import { BOOKS, formatReference } from '../../data/bibleData';
 import { getVerse, getVerseNumbers } from '../../data/bibleRepository';
 import { Dropdown } from '../components/Dropdown';
 import { STARTER_VERSES } from './starters';
+import { CONTENT_MAX_WIDTH } from '../../utils/layout';
 
 const BOOK_ITEMS = BOOKS.map((book) => ({ value: book.id, label: book.name }));
 
@@ -168,7 +169,7 @@ const createStyles = (theme) =>
     headerButton: { minWidth: 60 },
     headerButtonText: { color: theme.colors.info, fontSize: theme.typography.fontSize.md },
     title: { fontSize: theme.typography.fontSize.lg, fontWeight: theme.typography.fontWeight.semibold, color: theme.colors.text },
-    content: { padding: theme.spacing.md, paddingBottom: theme.spacing.xxl },
+    content: { width: '100%', maxWidth: CONTENT_MAX_WIDTH, alignSelf: 'center', padding: theme.spacing.md, paddingBottom: theme.spacing.xxl },
     pickerRow: { flexDirection: 'row', gap: 8, marginBottom: theme.spacing.md },
     pickerFlex2: { flex: 2 },
     pickerFlex1: { flex: 1 },

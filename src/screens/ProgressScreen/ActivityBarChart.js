@@ -1,11 +1,13 @@
-// Simple stacked bar chart (no chart library): card reviews + verse reviews
-// per day over the last 14 days, with a small legend and 7/30-day stat rows.
+// Stacked bar chart (no chart library): card + verse reviews per day over the
+// last 14 days, then 7-day stat tiles with the 30-day figure underneath.
 import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import DashboardCard from './DashboardCard';
+import StatTile from './StatTile';
 
-const CHART_HEIGHT = 90;
+const CHART_HEIGHT = 96;
+const MIN_BAR_HEIGHT = 4;
 
 const formatRetention = (retention) => (retention === null ? '—' : `${Math.round(retention * 100)}%`);
 
@@ -19,56 +21,55 @@ export default function ActivityBarChart({ last14Days, totals7, totals30, retent
     [last14Days]
   );
 
+  const hasActivity = last14Days.some((day) => (day.cardReviews || 0) + (day.verseReviews || 0) > 0);
+  const barHeight = (count) => (count > 0 ? Math.max((count / maxTotal) * CHART_HEIGHT, MIN_BAR_HEIGHT) : 0);
+
   return (
-    <DashboardCard title="Study activity">
+    <DashboardCard title="Study activity" icon="pulse" iconColor={theme.colors.info}>
       <View style={styles.chartRow}>
         {last14Days.map((day) => {
-          const cardHeight = (Math.max(day.cardReviews || 0, 0) / maxTotal) * CHART_HEIGHT;
-          const verseHeight = (Math.max(day.verseReviews || 0, 0) / maxTotal) * CHART_HEIGHT;
+          const cardHeight = barHeight(Math.max(day.cardReviews || 0, 0));
+          const verseHeight = barHeight(Math.max(day.verseReviews || 0, 0));
           return (
             <View key={day.key} style={styles.barColumn}>
               <View style={styles.barTrack}>
-                {verseHeight > 0 && <View style={[styles.verseBar, { height: verseHeight }]} />}
-                {cardHeight > 0 && <View style={[styles.cardBar, { height: cardHeight }]} />}
+                {!verseHeight && !cardHeight && <View style={[styles.bar, styles.emptyBar]} />}
+                {verseHeight > 0 && <View style={[styles.bar, styles.verseBar, { height: verseHeight }]} />}
+                {cardHeight > 0 && <View style={[styles.bar, styles.cardBar, { height: cardHeight }]} />}
               </View>
             </View>
           );
         })}
+        {!hasActivity && (
+          <Text style={styles.emptyText}>Review flashcards or verses to see your activity here.</Text>
+        )}
       </View>
 
-      <View style={styles.legendRow}>
-        <View style={styles.legendItem}>
+      <View style={styles.axisRow}>
+        <Text style={styles.axisText}>2 weeks ago</Text>
+        <View style={styles.legendRow}>
           <View style={[styles.legendSwatch, { backgroundColor: theme.colors.info }]} />
-          <Text style={styles.legendText}>Cards</Text>
-        </View>
-        <View style={styles.legendItem}>
+          <Text style={styles.axisText}>Cards</Text>
           <View style={[styles.legendSwatch, { backgroundColor: theme.colors.purple }]} />
-          <Text style={styles.legendText}>Verses</Text>
+          <Text style={styles.axisText}>Verses</Text>
         </View>
+        <Text style={styles.axisText}>Today</Text>
       </View>
 
-      <View style={styles.table}>
-        <View style={styles.tableHeaderRow}>
-          <Text style={[styles.tableCell, styles.tableMetricCell]} />
-          <Text style={[styles.tableCell, styles.tableHeaderText]}>7d</Text>
-          <Text style={[styles.tableCell, styles.tableHeaderText]}>30d</Text>
+      <Text style={styles.periodLabel}>Last 7 days</Text>
+      <View style={styles.tileGrid}>
+        <View style={styles.tileRow}>
+          <StatTile value={totals7.cardReviews} label="Cards reviewed" detail={`${totals30.cardReviews} in 30 days`} />
+          <StatTile value={formatRetention(retention7)} label="Retention" detail={`${formatRetention(retention30)} in 30 days`} />
         </View>
-        <StatRow label="Cards reviewed" a={totals7.cardReviews} b={totals30.cardReviews} styles={styles} />
-        <StatRow label="Retention" a={formatRetention(retention7)} b={formatRetention(retention30)} styles={styles} />
-        <StatRow label="Memory practice steps" a={totals7.versePractice} b={totals30.versePractice} styles={styles} />
-        <StatRow label="Chapters read" a={totals7.chaptersRead} b={totals30.chaptersRead} styles={styles} />
+        <View style={styles.tileRow}>
+          <StatTile value={totals7.versePractice} label="Memory steps" detail={`${totals30.versePractice} in 30 days`} />
+          <StatTile value={totals7.chaptersRead} label="Chapters read" detail={`${totals30.chaptersRead} in 30 days`} />
+        </View>
       </View>
     </DashboardCard>
   );
 }
-
-const StatRow = ({ label, a, b, styles }) => (
-  <View style={styles.tableRow}>
-    <Text style={[styles.tableCell, styles.tableMetricCell, styles.tableMetricText]}>{label}</Text>
-    <Text style={[styles.tableCell, styles.tableValueText]}>{a}</Text>
-    <Text style={[styles.tableCell, styles.tableValueText]}>{b}</Text>
-  </View>
-);
 
 const createStyles = (theme) =>
   StyleSheet.create({
@@ -76,84 +77,80 @@ const createStyles = (theme) =>
       flexDirection: 'row',
       alignItems: 'flex-end',
       height: CHART_HEIGHT,
-      marginBottom: theme.spacing.sm,
+      paddingBottom: 1,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.border,
     },
     barColumn: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-end',
-      height: CHART_HEIGHT,
-      paddingHorizontal: 1,
+      height: '100%',
     },
     barTrack: {
-      width: '70%',
+      width: '62%',
       justifyContent: 'flex-end',
-      alignItems: 'center',
+      gap: 2,
+    },
+    bar: {
+      width: '100%',
+      borderRadius: 4,
     },
     cardBar: {
-      width: '100%',
       backgroundColor: theme.colors.info,
-      borderTopLeftRadius: 3,
-      borderTopRightRadius: 3,
+    },
+    emptyBar: {
+      height: MIN_BAR_HEIGHT,
+      backgroundColor: theme.colors.borderLight,
+    },
+    emptyText: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: CHART_HEIGHT / 2 - 18,
+      textAlign: 'center',
+      fontSize: 13,
+      color: theme.colors.textSecondary,
+      paddingHorizontal: 24,
     },
     verseBar: {
-      width: '100%',
       backgroundColor: theme.colors.purple,
-      borderTopLeftRadius: 3,
-      borderTopRightRadius: 3,
-      marginBottom: 2,
+    },
+    axisRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: 6,
+      marginBottom: 18,
+    },
+    axisText: {
+      fontSize: 11,
+      color: theme.colors.textSecondary,
     },
     legendRow: {
       flexDirection: 'row',
-      justifyContent: 'center',
-      marginBottom: theme.spacing.md,
-    },
-    legendItem: {
-      flexDirection: 'row',
       alignItems: 'center',
-      marginHorizontal: theme.spacing.sm,
+      gap: 4,
     },
     legendSwatch: {
-      width: 10,
-      height: 10,
-      borderRadius: 2,
-      marginRight: 4,
+      width: 8,
+      height: 8,
+      borderRadius: 4,
+      marginLeft: 6,
     },
-    legendText: {
-      fontSize: theme.typography.fontSize.xs,
+    periodLabel: {
+      fontSize: 12,
+      fontWeight: theme.typography.fontWeight.semibold,
       color: theme.colors.textSecondary,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      marginBottom: 8,
     },
-    table: {
-      marginTop: theme.spacing.xs,
+    tileGrid: {
+      gap: 14,
     },
-    tableHeaderRow: {
+    tileRow: {
       flexDirection: 'row',
-      marginBottom: 4,
-    },
-    tableRow: {
-      flexDirection: 'row',
-      paddingVertical: 6,
-      borderTopWidth: StyleSheet.hairlineWidth,
-      borderTopColor: theme.colors.borderLight,
-    },
-    tableCell: {
-      flex: 1,
-      textAlign: 'right',
-      fontSize: theme.typography.fontSize.sm,
-    },
-    tableMetricCell: {
-      flex: 2,
-      textAlign: 'left',
-    },
-    tableHeaderText: {
-      color: theme.colors.textSecondary,
-      fontWeight: theme.typography.fontWeight.medium,
-    },
-    tableMetricText: {
-      color: theme.colors.text,
-    },
-    tableValueText: {
-      color: theme.colors.text,
-      fontWeight: theme.typography.fontWeight.medium,
+      gap: 14,
     },
   });

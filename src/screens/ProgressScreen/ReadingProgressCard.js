@@ -20,7 +20,7 @@ export default function ReadingProgressCard() {
   const [expandedBook, setExpandedBook] = useState(null);
 
   return (
-    <DashboardCard title="Reading progress">
+    <DashboardCard title="Reading progress" icon="book" iconColor={theme.colors.success}>
       <View style={styles.overallRow}>
         <Text style={styles.overallPercent}>{Math.round(overall.fraction * 100)}%</Text>
         <Text style={styles.overallDetail}>
@@ -134,7 +134,7 @@ const createStyles = (theme) =>
       marginBottom: theme.spacing.xs,
     },
     overallPercent: {
-      fontSize: theme.typography.fontSize.xxl,
+      fontSize: 34,
       fontWeight: theme.typography.fontWeight.bold,
       color: theme.colors.text,
       marginRight: theme.spacing.sm,
@@ -145,9 +145,9 @@ const createStyles = (theme) =>
       flexShrink: 1,
     },
     track: {
-      height: 6,
+      height: 10,
       width: '100%',
-      borderRadius: 3,
+      borderRadius: 5,
       backgroundColor: theme.colors.borderLight,
       overflow: 'hidden',
     },
@@ -157,15 +157,15 @@ const createStyles = (theme) =>
     },
     fill: {
       height: '100%',
-      borderRadius: 3,
+      borderRadius: 5,
     },
     testamentRow: {
       flexDirection: 'row',
-      marginTop: theme.spacing.md,
+      gap: 16,
+      marginTop: 18,
     },
     testamentBlock: {
       flex: 1,
-      marginRight: theme.spacing.sm,
     },
     testamentHeader: {
       flexDirection: 'row',
@@ -231,7 +231,7 @@ const createStyles = (theme) =>
       width: 36,
       height: 36,
       margin: 3,
-      borderRadius: 8,
+      borderRadius: 18,
       backgroundColor: theme.colors.surface,
       alignItems: 'center',
       justifyContent: 'center',

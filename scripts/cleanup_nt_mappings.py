@@ -25,7 +25,7 @@ from pathlib import Path
 # ============================================================================
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "gemma3:12b"
+MODEL = "gemma4:12b"
 
 NT_BOOKS = [
     "MAT", "MRK", "LUK", "JHN", "ACT", "ROM", "1CO", "2CO",
@@ -136,7 +136,7 @@ Reply with ONLY the English translation (1-3 words), nothing else:"""
         response = requests.post(OLLAMA_URL, json={
             "model": MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": False, "think": False,
             "options": {
                 "temperature": 0,
                 "num_predict": 50

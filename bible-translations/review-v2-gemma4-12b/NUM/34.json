@@ -1,0 +1,71 @@
+{
+ "book": "NUM",
+ "chapter": "34",
+ "model": "gemma4:12b",
+ "verses": {
+  "8": {
+   "ar": "وَمِنْ جَبَلِ هُورٍ إِلَى مَدْخَلِ حَمَاةَ، ثُمَّ تَتَّجِهُ نَحْوَ صَدَدَ،",
+   "en": "and from Mount Hor to Lebo Hamath. Then the boundary will go to Zedad,",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "حَمَاةَ،",
+     "current": "Hama",
+     "proposed": "hamath",
+     "reason": "inconsistent",
+     "corpus_majority": "hamath"
+    }
+   ]
+  },
+  "12": {
+   "ar": "ثُمَّ تَتَّجِهُ نَحْوَ نَهْرِ الأُرْدُنِّ، حَتَّى تَنْتَهِيَ عِنْدَ الْبَحْرِ المَيِّتِ. هَذِهِ هِيَ أَرْضُكُمُ الَّتِي تَشْتَمِلُ عَلَيْهَا حُدُودُكُمْ مِنْ جِهَاتِهَا الأَرْبَعِ».",
+   "en": "Then the boundary will go down along the Jordan and end at the Dead Sea.\n“‘This will be your land, with its boundaries on every side.’”",
+   "corrections": [
+    {
+     "index": 8,
+     "ar": "الْبَحْرِ",
+     "current": "The",
+     "proposed": "the sea",
+     "reason": "bare_article",
+     "corpus_majority": "the sea"
+    }
+   ]
+  },
+  "20": {
+   "ar": "شَمُوئِيلُ بْنُ عَمِّيهُودَ عَنْ سِبْطِ شِمْعُونَ.",
+   "en": "Shemuel son of Ammihud,\nfrom the tribe of Simeon;",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "شِمْعُونَ.",
+     "current": "Simon",
+     "proposed": "Simeon",
+     "reason": "inconsistent",
+     "corpus_majority": "simeon"
+    }
+   ]
+  },
+  "22": {
+   "ar": "الرَّئِيسُ بُقِّي بْنُ يُجْلِي عَنْ سِبْطِ دَانٍ.",
+   "en": "Bukki son of Jogli,\nthe leader from the tribe of Dan;",
+   "corrections": [
+    {
+     "index": 0,
+     "ar": "الرَّئِيسُ",
+     "current": "leader",
+     "proposed": "the leader",
+     "reason": "inconsistent",
+     "corpus_majority": "the prince"
+    },
+    {
+     "index": 5,
+     "ar": "سِبْطِ",
+     "current": "branch/offshoot",
+     "proposed": "tribe",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  }
+ }
+}

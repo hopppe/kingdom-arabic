@@ -11,6 +11,7 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { pushedScreenEdges } from '../../navigation/device';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { ROUTES } from '../../navigation/routes';
@@ -25,8 +26,10 @@ import { useFlashcardPreferences } from '../../hooks/useFlashcardPreferences';
 import { useFlashcardAnimations } from '../../hooks/useFlashcardAnimations';
 import { useFlashcardSession } from '../../hooks/useFlashcardSession';
 import { calculateAnkiSchedule, DEFAULT_EASE_FACTOR } from '../../../Flashcards/utils/ankiScheduler';
+import { CONTENT_MAX_WIDTH } from '../../utils/layout';
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+const { height: screenHeight } = Dimensions.get('window');
+const SCREEN_EDGES = pushedScreenEdges('left', 'right', 'bottom');
 const isSmallScreen = screenHeight < 700;
 const isMediumScreen = screenHeight >= 700 && screenHeight < 800;
 
@@ -335,7 +338,7 @@ export default function FlashcardScreen({ navigation, route }) {
   // Loading state
   if (!sessionInitialized) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
         <Header styles={styles} />
         <View style={styles.loadingContainer}>
           <ActivityIndicator size="large" color={theme.colors.primary} />
@@ -348,7 +351,7 @@ export default function FlashcardScreen({ navigation, route }) {
   // No flashcards at all
   if (flashcards.length === 0) {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
         <Header styles={styles} />
         <View style={styles.emptyContainer}>
           <Image source={require('../../../assets/empty-flashcards.jpg')} style={styles.emptyImage} />
@@ -376,7 +379,7 @@ export default function FlashcardScreen({ navigation, route }) {
   }) : null;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
       <View style={styles.header}>
         <Dropdown
           items={['All Cards', ...groups]}
@@ -507,6 +510,9 @@ function getStyles(theme) {
     },
     content: {
       flex: 1,
+      width: '100%',
+      maxWidth: CONTENT_MAX_WIDTH,
+      alignSelf: 'center',
       paddingHorizontal: 20,
     },
     emptyContainer: {
@@ -557,7 +563,7 @@ function getStyles(theme) {
       paddingVertical: 8,
     },
     cardWrapper: {
-      width: screenWidth - 40,
+      width: '100%',
       height: '100%',
       maxHeight: isSmallScreen ? 350 : isMediumScreen ? 420 : 480,
     },

@@ -1,0 +1,52 @@
+{
+ "book": "ISA",
+ "chapter": "51",
+ "model": "gemma4:12b",
+ "verses": {
+  "2": {
+   "ar": "انْظُرُوا إِلَى إِبْرَاهِيمَ أَبِيكُمْ وَإِلَى سَارَةَ الَّتِي أَنْجَبَتْكُمْ، فَقَدْ دَعَوْتُهُ حِينَ كَانَ فَرْداً وَاحِداً وَبَارَكْتُهُ وَأَكْثَرْتُهُ.",
+   "en": "look to Abraham, your father,\n    and to Sarah, who gave you birth.\nWhen I called him he was only one man,\n    and I blessed him and made him many.",
+   "corrections": [
+    {
+     "index": 13,
+     "ar": "وَاحِداً",
+     "current": "Alone",
+     "proposed": "one",
+     "reason": "inconsistent",
+     "corpus_majority": "one"
+    }
+   ]
+  },
+  "16": {
+   "ar": "قَدْ وَضَعْتُ كَلامِي فِي فَمِكَ، وَوَارَيْتُكَ فِي ظِلِّ يَدِي، لأُقِرَّ السَّمَاوَاتِ فِي مَوْضِعِهَا وَأُرْسِي قَوَاعِدَ الأَرْضِ، وَأَقُولَ لِصِهْيَوْنَ: أَنْتِ شَعْبِي.",
+   "en": "I have put my words in your mouth\n    and covered you with the shadow of my hand—\nI who set the heavens in place,\n    who laid the foundations of the earth,\n    and who say to Zion, ‘You are my people.’”",
+   "corrections": [
+    {
+     "index": 12,
+     "ar": "مَوْضِعِهَا",
+     "current": "And to lay",
+     "proposed": "its place",
+     "reason": "inconsistent",
+     "corpus_majority": "its place"
+    },
+    {
+     "index": 14,
+     "ar": "قَوَاعِدَ",
+     "current": "Of the earth",
+     "proposed": "bases",
+     "reason": "inconsistent",
+     "corpus_majority": "bases"
+    },
+    {
+     "index": 18,
+     "ar": "أَنْتِ",
+     "current": "My people",
+     "proposed": "you",
+     "reason": "inconsistent",
+     "corpus_majority": "you",
+     "warning": "dropped_pronoun:my"
+    }
+   ]
+  }
+ }
+}

@@ -1,8 +1,9 @@
 import React, { useCallback, useMemo } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useBackup } from './useBackup';
+import GlassSurface from '../glass/GlassSurface';
 
 const SAVE_DESTINATIONS = Platform.select({
   ios: 'Files, iCloud Drive, Google Drive or email',
@@ -62,7 +63,7 @@ export default function BackupSection() {
   const lastBackupText = formatDate(lastBackupAt);
 
   return (
-    <View style={styles.card}>
+    <GlassSurface style={styles.card}>
       <Text style={styles.title}>Your data</Text>
       <Text style={styles.body}>
         Everything is stored only on this device. Save a backup file to {SAVE_DESTINATIONS} so you can restore your
@@ -85,18 +86,15 @@ export default function BackupSection() {
         <Ionicons name="download-outline" size={18} color={theme.colors.text} />
         <Text style={styles.secondaryButtonText}>Restore from backup</Text>
       </TouchableOpacity>
-    </View>
+    </GlassSurface>
   );
 }
 
 const createStyles = (theme) =>
   StyleSheet.create({
     card: {
-      backgroundColor: theme.colors.surface,
-      borderRadius: theme.borderRadius.md,
-      padding: theme.spacing.md,
-      borderWidth: StyleSheet.hairlineWidth,
-      borderColor: theme.colors.border,
+      borderRadius: 26,
+      padding: 18,
     },
     title: { fontSize: 17, fontWeight: '600', color: theme.colors.text, marginBottom: 6 },
     body: { fontSize: 14, lineHeight: 20, color: theme.colors.textSecondary },
@@ -107,7 +105,7 @@ const createStyles = (theme) =>
       justifyContent: 'center',
       gap: 8,
       backgroundColor: theme.colors.primary,
-      borderRadius: theme.borderRadius.sm,
+      borderRadius: 22,
       paddingVertical: 12,
       minHeight: 44,
     },
@@ -117,7 +115,7 @@ const createStyles = (theme) =>
       alignItems: 'center',
       justifyContent: 'center',
       gap: 8,
-      borderRadius: theme.borderRadius.sm,
+      borderRadius: 22,
       borderWidth: 1,
       borderColor: theme.colors.border,
       paddingVertical: 12,

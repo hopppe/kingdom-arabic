@@ -15,16 +15,28 @@ export const createStyles = (theme) => StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  // Liquid Glass capsules for the floating header controls.
+  glassCapsule: {
+    borderRadius: 22,
+    minHeight: 44,
+    justifyContent: 'center',
+  },
+  glassButtonGroup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 2,
+  },
+  glassIconButton: {
+    width: 40,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   referenceButton: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 20,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    overflow: 'hidden',
+    minHeight: 44,
+    paddingHorizontal: 16,
   },
   referenceText: {
     fontSize: 16,
@@ -92,6 +104,8 @@ export const createStyles = (theme) => StyleSheet.create({
     flex: 1,
   },
   storyContent: {
+    width: '100%',
+    alignSelf: 'center',
     padding: 24,
     paddingTop: 70,
     paddingBottom: 0,
@@ -184,6 +198,22 @@ export const createStyles = (theme) => StyleSheet.create({
     marginBottom: 8,
     fontStyle: 'italic',
   },
+  // Tablet layout: English on the left, Arabic on the right, in one row per verse.
+  sideBySideRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 32,
+  },
+  sideBySideColumn: {
+    flex: 1,
+  },
+  englishSideBySide: {
+    fontSize: 17,
+    lineHeight: 27,
+    // Arabic lines are taller (harakat); nudge English down so first lines align.
+    marginTop: 6,
+    marginBottom: 0,
+  },
   bottomButtonRow: {
     flexDirection: 'row',
     paddingHorizontal: 24,
@@ -200,21 +230,21 @@ export const createStyles = (theme) => StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+  },
+  navButtonPressable: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
   learnedWordsButton: {
     flex: 1,
-    maxWidth: 200,
-    paddingVertical: 14,
-    paddingHorizontal: 8,
-    borderRadius: 16,
-    backgroundColor: theme.colors.surface,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+    maxWidth: 220,
+    borderRadius: 25,
+  },
+  learnedWordsPressable: {
+    flex: 1,
+    minHeight: 50,
+    paddingHorizontal: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },

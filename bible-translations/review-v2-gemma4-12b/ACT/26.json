@@ -1,0 +1,86 @@
+{
+ "book": "ACT",
+ "chapter": "26",
+ "model": "gemma4:12b",
+ "verses": {
+  "15": {
+   "ar": "فَسَأَلْتُ: مَنْ أَنْتَ يَا سَيِّدُ؟ فَأَجَابَ: أَنَا يَسُوعُ الَّذِي أَنْتَ تَضْطَهِدُهُ.",
+   "en": "“Then I asked, ‘Who are you, Lord?’\n“ ‘I am Jesus, whom you are persecuting,’ the Lord replied.",
+   "corrections": [
+    {
+     "index": 0,
+     "ar": "فَسَأَلْتُ:",
+     "current": "Then I asked",
+     "proposed": "I asked",
+     "reason": "inconsistent",
+     "corpus_majority": "i asked"
+    }
+   ]
+  },
+  "18": {
+   "ar": "لِتَفْتَحَ عُيُونَهُمْ كَيْ يَرْجِعُوا مِنَ الظَّلامِ إِلَى النُّورِ، وَمِنْ سَيْطَرَةِ الشَّيْطَانِ إِلَى اللهِ، فَيَنَالُوا غُفْرَانَ الْخَطَايَا وَنَصِيباً بَيْنَ الَّذِينَ تَقَدَّسُوا بِالإِيمَانِ بِي.",
+   "en": "to open their eyes and turn them from darkness to light, and from the power of Satan to God, so that they may receive forgiveness of sins and a place among those who are sanctified by faith in me.’",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "يَرْجِعُوا",
+     "current": "they may turn",
+     "proposed": "return",
+     "reason": "inconsistent",
+     "corpus_majority": "return",
+     "warning": "dropped_pronoun:they"
+    },
+    {
+     "index": 16,
+     "ar": "وَنَصِيباً",
+     "current": "a place/portion",
+     "proposed": "a portion",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "21": {
+   "ar": "وَبِسَبَبِ تَبْشِيرِي قَبَضَ الْيَهُودُ عَلَيَّ فِي الْهَيْكَلِ وَحَاوَلُوا أَنْ يَقْتُلُونِي،",
+   "en": "That is why some Jews seized me in the temple courts and tried to kill me.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "قَبَضَ",
+     "current": "arrested",
+     "proposed": "seized",
+     "reason": "inconsistent",
+     "corpus_majority": "seized"
+    }
+   ]
+  },
+  "24": {
+   "ar": "وَمَا إِنْ وَصَلَ بُولُسُ فِي دِفَاعِهِ إِلَى هَذَا الْحَدِّ، حَتَّى قَاطَعَهُ فَسْتُوسُ قَائِلاً بِصَوْتٍ عَالٍ: «جُنِنْتَ يَا بُولُسُ! إِنَّ تَبَحُّرَكَ فِي الْعِلْمِ أَصَابَكَ بِالْجُنُونِ!»",
+   "en": "At this point Festus interrupted Paul’s defense. “You are out of your mind, Paul!” he shouted. “Your great learning is driving you insane.”",
+   "corrections": [
+    {
+     "index": 11,
+     "ar": "فَسْتُوسُ",
+     "current": "Phygelus",
+     "proposed": "Festus",
+     "reason": "inconsistent",
+     "corpus_majority": "festus"
+    }
+   ]
+  },
+  "31": {
+   "ar": "وَتَرَكُوا الْقَاعَةَ، وَهُمْ يَقُولُونَ بَعْضُهُمْ لِبَعْضٍ: «لَمْ يَرْتَكِبْ هَذَا الرَّجُلُ مَا يَسْتَحِقُّ الْمَوْتَ أَوِ السَّجْنَ».",
+   "en": "After they left the room, they began saying to one another, “This man is not doing anything that deserves death or imprisonment.”",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "لِبَعْضٍ:",
+     "current": "to others",
+     "proposed": "to each other",
+     "reason": "inconsistent",
+     "corpus_majority": "to each other"
+    }
+   ]
+  }
+ }
+}

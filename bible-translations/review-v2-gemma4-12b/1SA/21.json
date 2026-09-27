@@ -1,0 +1,111 @@
+{
+ "book": "1SA",
+ "chapter": "21",
+ "model": "gemma4:12b",
+ "verses": {
+  "4": {
+   "ar": "فَأَجَابَ الْكَاهِنُ: «لَيْسَ عِنْدِي خُبْزٌ عَادِيٌّ، وَإِنَّمَا خُبْزٌ مُقَدَّسٌ، يُمْكِنُ لِرِجَالِكَ أَنْ يَأْكُلُوا مِنْهُ شَرِيطَةَ أَنْ يَكُونُوا قَدْ حَفِظُوا أَنْفُسَهُمْ طَاهِرِينَ وَلاسِيَّمَا مِنَ النِّسَاءِ».",
+   "en": "But the priest answered David, “I don’t have any ordinary bread on hand; however, there is some consecrated bread here—provided the men have kept themselves from women.”",
+   "corrections": [
+    {
+     "index": 10,
+     "ar": "لِرِجَالِكَ",
+     "current": "For your men",
+     "proposed": "to your men",
+     "reason": "inconsistent",
+     "corpus_majority": "to your men"
+    }
+   ]
+  },
+  "5": {
+   "ar": "فَقَالَ دَاوُدُ لِلْكَاهِنِ: «إِنَّ النِّسَاءَ قَدْ مُنِعْنَ عَنَّا مُنْذُ أَمْسِ وَمَا قَبْلُ، كَمَا هِي الْعَادَةُ عِنْدَ خُرُوجِي فِي مُهِمَّةٍ، أَمَّا أَمْتِعَتُهُمْ فَهِيَ دَائِماً طَاهِرَةٌ، حَتَّى فِي أَثْنَاءِ تَنْفِيذِ الْمُهِمَّاتِ الْعَادِيَّةِ. فَكَمْ بِالْحَرِيِّ إِنْ كَانَتِ الْمُهِمَّةُ مُقَدَّسَةً؟»",
+   "en": "David replied, “Indeed women have been kept from us, as usual whenever I set out. The men’s bodies are holy even on missions that are not holy. How much more so today!”",
+   "corrections": [
+    {
+     "index": 11,
+     "ar": "قَبْلُ،",
+     "current": "As",
+     "proposed": "before",
+     "reason": "inconsistent",
+     "corpus_majority": "before"
+    },
+    {
+     "index": 12,
+     "ar": "كَمَا",
+     "current": "It is",
+     "proposed": "as",
+     "reason": "inconsistent",
+     "corpus_majority": "as",
+     "warning": "dropped_pronoun:it"
+    },
+    {
+     "index": 15,
+     "ar": "عِنْدَ",
+     "current": "My departure",
+     "proposed": "at",
+     "reason": "inconsistent",
+     "corpus_majority": "at",
+     "warning": "dropped_pronoun:my"
+    },
+    {
+     "index": 19,
+     "ar": "أَمَّا",
+     "current": "Their",
+     "proposed": "as for",
+     "reason": "inconsistent",
+     "corpus_majority": "as for"
+    }
+   ]
+  },
+  "6": {
+   "ar": "فَأَعْطَاهُ الْكَاهِنُ الْخُبْزَ الْمُقَدَّسَ إِذْ لَمْ يَكُنْ لَدَيْهِ سِوَى خُبْزِ الْوُجُوهِ الْمَرْفُوعِ مِنْ أَمَامِ الرَّبِّ لِكَي يُسْتَبْدَلَ بِخُبْزٍ سَاخِنٍ فِي الْيَوْمِ الَّذِي يُرْفَعُ فِيهِ.",
+   "en": "So the priest gave him the consecrated bread, since there was no bread there except the bread of the Presence that had been removed from before the Lord and replaced by hot bread on the day it was taken away.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "الْمُقَدَّسَ",
+     "current": "the holy",
+     "proposed": "the consecrated",
+     "reason": "inconsistent",
+     "corpus_majority": "holy"
+    }
+   ]
+  },
+  "7": {
+   "ar": "وَكَانَ هُنَاكَ رَجُلٌ مِنْ خَدَمِ شَاوُلَ مُعْتَكِفاً فِي ذَلِكَ الْيَوْمِ أَمَامَ الرَّبِّ، يُدْعَى دُوَاغَ الأَدُومِيَّ، رَئِيسَ رُعَاةِ شَاوُلَ.",
+   "en": "Now one of Saul’s servants was there that day, detained before the Lord; he was Doeg the Edomite, Saul’s chief shepherd.",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "مُعْتَكِفاً",
+     "current": "retiring/secluding",
+     "proposed": "detained",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 17,
+     "ar": "شَاوُلَ.",
+     "current": "of Saul",
+     "proposed": "Saul",
+     "reason": "inconsistent",
+     "corpus_majority": "saul"
+    }
+   ]
+  },
+  "10": {
+   "ar": "فِي ذَلِكَ الْيَوْمِ هَرَبَ دَاوُدُ مِنْ أَمَامِ شَاوُلَ وَلَجَأَ إِلَى أَخِيشَ مَلِكِ جَتَّ.",
+   "en": "That day David fled from Saul and went to Achish king of Gath.",
+   "corrections": [
+    {
+     "index": 12,
+     "ar": "جَتَّ.",
+     "current": "of",
+     "proposed": "gath",
+     "reason": "inconsistent",
+     "corpus_majority": "gath"
+    }
+   ]
+  }
+ }
+}

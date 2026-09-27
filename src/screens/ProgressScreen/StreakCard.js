@@ -2,45 +2,64 @@ import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
+import { fromDateKey } from '../../utils/activityStats';
 import DashboardCard from './DashboardCard';
 
-const WEEKS = 5;
-const DAYS = WEEKS * 7;
+const DAY_LETTERS = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+
+const isActive = (day) =>
+  (day.cardReviews || 0) + (day.verseReviews || 0) + (day.versePractice || 0) + (day.chaptersRead || 0) > 0;
+
+// Rows of 7 days (percentage widths with flexWrap round badly and wrap at 6).
+const toWeeks = (days) =>
+  Array.from({ length: Math.ceil(days.length / 7) }, (_, i) => days.slice(i * 7, i * 7 + 7));
 
 /** props: currentStreak, longestStreak, last7Days ([{key, ...counts}]), last35Days */
 export default function StreakCard({ currentStreak, longestStreak, last7Days, last35Days }) {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-
-  const isActive = (day) =>
-    (day.cardReviews || 0) + (day.verseReviews || 0) + (day.versePractice || 0) + (day.chaptersRead || 0) > 0;
+  const flame = theme.colors.warning;
 
   return (
     <DashboardCard>
-      <View style={styles.headerRow}>
-        <View style={styles.streakBlock}>
-          <View style={styles.streakValueRow}>
-            <Ionicons name="flame" size={28} color={theme.colors.warning} />
-            <Text style={styles.streakValue}>{currentStreak}</Text>
-          </View>
-          <Text style={styles.streakLabel}>day streak</Text>
+      <View style={styles.hero}>
+        <View style={[styles.flameBadge, { backgroundColor: `${flame}22` }]}>
+          <Ionicons name="flame" size={34} color={flame} />
         </View>
-        <View style={styles.streakBlock}>
-          <Text style={styles.longestValue}>{longestStreak}</Text>
-          <Text style={styles.streakLabel}>longest streak</Text>
+        <View style={styles.heroText}>
+          <Text style={styles.streakValue}>
+            {currentStreak}
+            <Text style={styles.streakUnit}> {currentStreak === 1 ? 'day' : 'days'}</Text>
+          </Text>
+          <Text style={styles.streakLabel}>Current streak</Text>
+        </View>
+        <View style={styles.bestPill}>
+          <Ionicons name="trophy" size={13} color={theme.colors.textSecondary} />
+          <Text style={styles.bestText}>Best {longestStreak}</Text>
         </View>
       </View>
 
-      <View style={styles.dotsRow}>
-        {last7Days.map((day) => (
-          <View key={day.key} style={[styles.dot, isActive(day) && styles.dotActive]} />
-        ))}
+      <View style={styles.weekRow}>
+        {last7Days.map((day) => {
+          const active = isActive(day);
+          return (
+            <View key={day.key} style={styles.weekDay}>
+              <View style={[styles.weekDot, active && { backgroundColor: flame }]}>
+                {active ? <Ionicons name="checkmark" size={14} color={theme.colors.white} /> : null}
+              </View>
+              <Text style={styles.weekLetter}>{DAY_LETTERS[fromDateKey(day.key).getDay()]}</Text>
+            </View>
+          );
+        })}
       </View>
 
+      <Text style={styles.heatmapLabel}>Last 5 weeks</Text>
       <View style={styles.heatmap}>
-        {last35Days.map((day) => (
-          <View key={day.key} style={styles.cell}>
-            <View style={[styles.cellFill, isActive(day) && styles.cellFillActive]} />
+        {toWeeks(last35Days).map((week) => (
+          <View key={week[0].key} style={styles.heatmapRow}>
+            {week.map((day) => (
+              <View key={day.key} style={[styles.cell, isActive(day) && { backgroundColor: flame }]} />
+            ))}
           </View>
         ))}
       </View>
@@ -50,67 +69,89 @@ export default function StreakCard({ currentStreak, longestStreak, last7Days, la
 
 const createStyles = (theme) =>
   StyleSheet.create({
-    headerRow: {
+    hero: {
       flexDirection: 'row',
-      marginBottom: theme.spacing.md,
+      alignItems: 'center',
+      marginBottom: 18,
     },
-    streakBlock: {
+    flameBadge: {
+      width: 58,
+      height: 58,
+      borderRadius: 29,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: 14,
+    },
+    heroText: {
       flex: 1,
-      alignItems: 'center',
-    },
-    streakValueRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
     },
     streakValue: {
-      fontSize: theme.typography.fontSize.header,
+      fontSize: 34,
       fontWeight: theme.typography.fontWeight.bold,
       color: theme.colors.text,
-      marginLeft: theme.spacing.xs,
+      fontVariant: ['tabular-nums'],
     },
-    longestValue: {
-      fontSize: theme.typography.fontSize.header,
-      fontWeight: theme.typography.fontWeight.bold,
-      color: theme.colors.text,
+    streakUnit: {
+      fontSize: 17,
+      fontWeight: theme.typography.fontWeight.semibold,
+      color: theme.colors.textSecondary,
     },
     streakLabel: {
-      fontSize: theme.typography.fontSize.xs,
+      fontSize: 13,
       color: theme.colors.textSecondary,
-      marginTop: 2,
     },
-    dotsRow: {
+    bestPill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 12,
+      backgroundColor: theme.colors.borderLight,
+    },
+    bestText: {
+      fontSize: 13,
+      fontWeight: theme.typography.fontWeight.semibold,
+      color: theme.colors.textSecondary,
+    },
+    weekRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: theme.spacing.sm,
+      marginBottom: 18,
     },
-    dot: {
-      width: 14,
-      height: 14,
-      borderRadius: 7,
+    weekDay: {
+      alignItems: 'center',
+      gap: 4,
+    },
+    weekDot: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
       backgroundColor: theme.colors.borderLight,
     },
-    dotActive: {
-      backgroundColor: theme.colors.warning,
+    weekLetter: {
+      fontSize: 11,
+      fontWeight: theme.typography.fontWeight.medium,
+      color: theme.colors.textSecondary,
+    },
+    heatmapLabel: {
+      fontSize: 12,
+      color: theme.colors.textSecondary,
+      marginBottom: 6,
     },
     heatmap: {
+      gap: 4,
+    },
+    heatmapRow: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
-      width: '100%',
+      gap: 4,
     },
     cell: {
-      width: `${100 / 7}%`,
-      aspectRatio: 1,
-      padding: 2,
-    },
-    cellFill: {
       flex: 1,
-      borderRadius: 3,
+      height: 18,
+      borderRadius: 5,
       backgroundColor: theme.colors.borderLight,
     },
-    cellFillActive: {
-      backgroundColor: theme.colors.warning,
-    },
   });
-
-// Re-exported for the row-of-cells width math; keeps DAYS referenced.
-export const HEATMAP_DAYS = DAYS;

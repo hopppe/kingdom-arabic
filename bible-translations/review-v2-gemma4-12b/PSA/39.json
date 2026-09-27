@@ -1,0 +1,44 @@
+{
+ "book": "PSA",
+ "chapter": "39",
+ "model": "gemma4:12b",
+ "verses": {
+  "5": {
+   "ar": "هُوَذَا قَدْ جَعَلْتَ حَيَاتِي قَصِيرَةً، وَعُمْرِي كَلَا شَيْءَ أَمَامَكَ. كُلُّ إِنْسَانٍ حَيٍّ لَيْسَ سِوَى نَفْخَةٍ!",
+   "en": "You have made my days a mere handbreadth;\n    the span of my years is as nothing before you.\nEveryone is but a breath,\n    even those who seem secure.",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "شَيْءَ",
+     "current": "A thing",
+     "proposed": "nothing",
+     "reason": "inconsistent",
+     "corpus_majority": "anything"
+    }
+   ]
+  },
+  "6": {
+   "ar": "إِنَّمَا كَخَيَالٍ يَتَمَشَّى الإِنْسَانُ، فَعَبَثاً يُكَافِحُ النَّاسُ. يَجْمَعُ الْوَاحِدُ مِنْهُمْ ثَرْوَةً وَلَا يَدْرِي مَنْ يَرِثُهَا مِنْ بَعْدِهِ.",
+   "en": "“Surely everyone goes around like a mere phantom;\n    in vain they rush about, heaping up wealth\n    without knowing whose it will finally be.",
+   "corrections": [
+    {
+     "index": 12,
+     "ar": "يَدْرِي",
+     "current": "Who",
+     "proposed": "knows",
+     "reason": "inconsistent",
+     "corpus_majority": "knows"
+    },
+    {
+     "index": 13,
+     "ar": "مَنْ",
+     "current": "Will inherit it",
+     "proposed": "who",
+     "reason": "inconsistent",
+     "corpus_majority": "who",
+     "warning": "dropped_pronoun:it"
+    }
+   ]
+  }
+ }
+}

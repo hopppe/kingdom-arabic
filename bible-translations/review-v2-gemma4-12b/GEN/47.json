@@ -1,0 +1,54 @@
+{
+ "book": "GEN",
+ "chapter": "47",
+ "model": "gemma4:12b",
+ "verses": {
+  "11": {
+   "ar": "وَأَنْزَلَ يُوسُفُ أَبَاهُ وَإِخْوَتَهُ فِي مِصْرَ وَمَلَّكَهُمْ فِي رَعَمْسِيسَ أَجْوَدَ الأَرْضِ كَمَا أَمَرَ فِرْعَوْنُ.",
+   "en": "So Joseph settled his father and his brothers in Egypt and gave them property in the best part of the land, the district of Rameses, as Pharaoh directed.",
+   "corrections": [
+    {
+     "index": 0,
+     "ar": "وَأَنْزَلَ",
+     "current": "and He made descend",
+     "proposed": "and settled",
+     "reason": "inconsistent",
+     "corpus_majority": "and lowered",
+     "warning": "dropped_pronoun:he"
+    }
+   ]
+  },
+  "18": {
+   "ar": "وَعِنْدَمَا انْقَضَتْ تِلْكَ السَّنَةُ، أَقْبَلُوا إِلَيْهِ فِي السَّنَةِ التَّالِيَةِ قَائِلِينَ: «لا نُخْفِي عَنْ سَيِّدِي أَنَّ فِضَّتَنَا قَدْ نَفَدَتْ، وَأَنَّ مَوَاشِيَ الْبَهَائِمِ قَدْ أَصْبَحَتْ عِنْدَ سَيِّدِي، وَلَمْ يَبْقَ أَمَامَهُ إِلّا أَبْدَانُنَا وَأَرَاضِينَا،",
+   "en": "When that year was over, they came to him the following year and said, “We cannot hide from our lord the fact that since our money is gone and our livestock belongs to you, there is nothing left for our lord except our bodies and our land.",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "السَّنَةِ",
+     "current": "the",
+     "proposed": "the year",
+     "reason": "bare_article",
+     "corpus_majority": null
+    },
+    {
+     "index": 10,
+     "ar": "«لا",
+     "current": "We",
+     "proposed": "no",
+     "reason": "inconsistent",
+     "corpus_majority": "no",
+     "warning": "dropped_pronoun:we"
+    },
+    {
+     "index": 13,
+     "ar": "سَيِّدِي",
+     "current": "our lord",
+     "proposed": "my lord",
+     "reason": "inconsistent",
+     "corpus_majority": "my lord",
+     "warning": "dropped_pronoun:our"
+    }
+   ]
+  }
+ }
+}

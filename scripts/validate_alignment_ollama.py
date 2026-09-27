@@ -56,7 +56,7 @@ def check_pause():
         time.sleep(0.2)
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "gemma3:12b"
+MODEL = "gemma4:12b"
 
 NT_BOOKS = [
     "MAT", "MRK", "LUK", "JHN", "ACT", "ROM", "1CO", "2CO",
@@ -95,7 +95,7 @@ Answer ONLY "YES" or "NO". YES if the translation is valid or close. NO only if 
         response = requests.post(OLLAMA_URL, json={
             "model": MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": False, "think": False,
             "options": {"temperature": 0}
         }, timeout=60)
 
@@ -131,7 +131,7 @@ Your {num_words} translations:"""
         response = requests.post(OLLAMA_URL, json={
             "model": MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": False, "think": False,
             "options": {"temperature": 0.1, "num_predict": 300}
         }, timeout=120)
 
@@ -310,7 +310,7 @@ def fix_verse(verse_data, book, chapter, verse_num, mappings_dir):
                     response = requests.post(OLLAMA_URL, json={
                         "model": MODEL,
                         "prompt": word_prompt,
-                        "stream": False,
+                        "stream": False, "think": False,
                         "options": {"temperature": 0}
                     }, timeout=30)
                     m['en'] = response.json().get("response", "").strip()

@@ -1,0 +1,83 @@
+{
+ "book": "JOB",
+ "chapter": "16",
+ "model": "gemma4:12b",
+ "verses": {
+  "2": {
+   "ar": "«قَدْ سَمِعْتُ كَثِيراً مِثْلَ هَذَا الْكَلامِ وَأَنْتُمْ كُلُّكُمْ مُعَزُّونَ مُتْعِبُونَ.",
+   "en": "“I have heard many things like these;\n    you are miserable comforters, all of you!",
+   "corrections": [
+    {
+     "index": 9,
+     "ar": "مُتْعِبُونَ.",
+     "current": "Weary/Tiring",
+     "proposed": "comforters",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "7": {
+   "ar": "إِنَّ اللهَ قَدْ مَزَّقَنِي حَقّاً وَأَهْلَكَ كُلَّ قَوْمِي.",
+   "en": "Surely, God, you have worn me out;\n    you have devastated my entire household.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "حَقّاً",
+     "current": "Truly/Indeed/Rightfully",
+     "proposed": "Truly",
+     "reason": "unresolved_slash",
+     "corpus_majority": "truly"
+    },
+    {
+     "index": 5,
+     "ar": "وَأَهْلَكَ",
+     "current": "You have devastated/You have destroyed",
+     "proposed": "and destroyed",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:you"
+    },
+    {
+     "index": 6,
+     "ar": "كُلَّ",
+     "current": "My entire/All",
+     "proposed": "all",
+     "reason": "unresolved_slash",
+     "corpus_majority": "all",
+     "warning": "dropped_pronoun:my"
+    },
+    {
+     "index": 7,
+     "ar": "قَوْمِي.",
+     "current": "My people/My household",
+     "proposed": "my people",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "10": {
+   "ar": "فَغَرَ النَّاسُ أَفْوَاهَهُمْ عَلَيَّ، لَطَمُونِي تَعْيِيراً عَلَى خَدِّي، وَتَضَافَرُوا عَلَيَّ جَمِيعاً.",
+   "en": "People open their mouths to jeer at me;\n    they strike my cheek in scorn\n    and unite together against me.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "أَفْوَاهَهُمْ",
+     "current": "MOUTHS",
+     "proposed": "their mouths",
+     "reason": "inconsistent",
+     "corpus_majority": "their mouths"
+    },
+    {
+     "index": 10,
+     "ar": "جَمِيعاً.",
+     "current": "TOGETHER",
+     "proposed": "all",
+     "reason": "inconsistent",
+     "corpus_majority": "all"
+    }
+   ]
+  }
+ }
+}

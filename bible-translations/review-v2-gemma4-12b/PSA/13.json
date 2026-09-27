@@ -1,0 +1,51 @@
+{
+ "book": "PSA",
+ "chapter": "13",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "إِلَى مَتَى يَا رَبُّ تَنْسَانِي؟ أَإِلَى الأَبَدِ؟ إِلَى مَتَى تَحْجُبُ وَجْهَكَ عَنِّي؟",
+   "en": "How long, Lord? Will you forget me forever?\n    How long will you hide your face from me?",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "أَإِلَى",
+     "current": "Will you (question particle)",
+     "proposed": "o",
+     "reason": "parenthetical",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:you"
+    }
+   ]
+  },
+  "3": {
+   "ar": "انْظُرْ إِلَيَّ أَيُّهَا الرَّبُّ إِلَهِى وَاسْتَجِبْ لِي. أَنِرْ عَيْنَيَّ لِئَلّا أَنَامَ نَوْمَةَ الْمَوْتِ،",
+   "en": "Look on me and answer, Lord my God.\n    Give light to my eyes, or I will sleep in death,",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "إِلَيَّ",
+     "current": "On me",
+     "proposed": "to me",
+     "reason": "inconsistent",
+     "corpus_majority": "to me"
+    }
+   ]
+  },
+  "6": {
+   "ar": "أُرَنِّمُ لِلرَّبِّ لأَنَّهُ غَمَرَنِي بِإِحْسَانِهِ الْعَمِيمِ.",
+   "en": "I will sing the Lord’s praise,\n    for he has been good to me.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "غَمَرَنِي",
+     "current": "he has been good to me",
+     "proposed": "overwhelmed me",
+     "reason": "phrase_not_word",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:he"
+    }
+   ]
+  }
+ }
+}

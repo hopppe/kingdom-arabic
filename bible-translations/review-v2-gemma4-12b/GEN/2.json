@@ -1,0 +1,60 @@
+{
+ "book": "GEN",
+ "chapter": "2",
+ "model": "gemma4:12b",
+ "verses": {
+  "9": {
+   "ar": "وَاستَنْبَتَ الرَّبُّ الإِلَهُ مِنَ الأَرْضِ كُلَّ شَجَرَةٍ بَهِيَّةٍ لِلنَّظَرِ، وَلَذِيذَةٍ لِلأَكْلِ، وَغَرَسَ أَيْضاً شَجَرَةَ الْحَيَاةِ، وَشَجَرَةَ مَعْرِفَةِ الْخَيْرِ وَالشَّرِّ فِي وَسَطِ الْجَنَّةِ.",
+   "en": "The Lord God made all kinds of trees grow out of the ground—trees that were pleasing to the eye and good for food. In the middle of the garden were the tree of life and the tree of the knowledge of good and evil.",
+   "corrections": [
+    {
+     "index": 14,
+     "ar": "الْحَيَاةِ،",
+     "current": "tree of life",
+     "proposed": "of life",
+     "reason": "inconsistent",
+     "corpus_majority": "of life"
+    },
+    {
+     "index": 17,
+     "ar": "الْخَيْرِ",
+     "current": "of good",
+     "proposed": "good",
+     "reason": "inconsistent",
+     "corpus_majority": "good"
+    }
+   ]
+  },
+  "19": {
+   "ar": "وَكَانَ الرَّبُّ الإِلَهُ قَدْ جَبَلَ مِنَ التُّرَابِ كُلَّ وُحُوشِ الْبَرِّيَّةِ وَطُيُورِ الْفَضَاءِ وَأَحْضَرَهَا إِلَى آدَمَ لِيَرَى بِأَيِّ أَسْمَاءَ يَدْعُوهَا، فَصَارَ كُلُّ اسْمٍ أَطْلَقَهُ آدَمُ عَلَى كُلِّ مَخْلُوقٍ حَيٍّ اسْماً لَهُ.",
+   "en": "Now the Lord God had formed out of the ground all the wild animals and all the birds in the sky. He brought them to the man to see what he would name them; and whatever the man called each living creature, that was its name.",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "التُّرَابِ",
+     "current": "earth",
+     "proposed": "the ground",
+     "reason": "inconsistent",
+     "corpus_majority": "the dust"
+    },
+    {
+     "index": 9,
+     "ar": "الْبَرِّيَّةِ",
+     "current": "of the earth",
+     "proposed": "the wild",
+     "reason": "inconsistent",
+     "corpus_majority": "the wilderness"
+    },
+    {
+     "index": 15,
+     "ar": "لِيَرَى",
+     "current": "that he may see",
+     "proposed": "to see",
+     "reason": "inconsistent",
+     "corpus_majority": "to see",
+     "warning": "dropped_pronoun:he"
+    }
+   ]
+  }
+ }
+}

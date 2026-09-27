@@ -36,7 +36,7 @@ warnings.filterwarnings('ignore', message='.*urllib3.*OpenSSL.*')
 # ============================================================================
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
-MODEL = "gemma3:12b"
+MODEL = "gemma4:12b"
 NUM_WORKERS = 4  # Parallel workers for Phase 1
 
 # Old Testament books (39 books)
@@ -141,7 +141,7 @@ Your {num_words} translations:"""
         response = requests.post(OLLAMA_URL, json={
             "model": MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": False, "think": False,
             "options": {
                 "temperature": 0.1,
                 "num_predict": 400,
@@ -390,7 +390,7 @@ Reply with ONLY the English translation (1-3 words):"""
         response = requests.post(OLLAMA_URL, json={
             "model": MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": False, "think": False,
             "options": {"temperature": 0, "num_predict": 50}
         }, timeout=60)
 
@@ -592,7 +592,7 @@ Answer ONLY "YES" or "NO". YES if the translation is valid or close. NO only if 
         response = requests.post(OLLAMA_URL, json={
             "model": MODEL,
             "prompt": prompt,
-            "stream": False,
+            "stream": False, "think": False,
             "options": {"temperature": 0}
         }, timeout=60)
 
@@ -687,11 +687,162 @@ def phase4_quality_checks(books_to_process):
 
 
 # ============================================================================
+# PHASE 5: CLEAN ENGLISH TRANSLATIONS
+# ============================================================================
+
+# Arabic Unicode ranges
+ARABIC_RANGE = r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]'
+
+# Patterns to remove (case-insensitive)
+PATTERNS_TO_REMOVE = [
+    r'^TRANSLATION[.:\s]+',      # "TRANSLATION. " or "TRANSLATION: " or "TRANSLATION "
+    r'^translation[.:\s]+',      # "translation. " or "translation: " or "translation "
+    r'^Translation[.:\s]+',      # "Translation. " or "Translation: " or "Translation "
+    r'^TRANSLATE[.:\s]+',        # "TRANSLATE. " or "TRANSLATE: " or "TRANSLATE "
+    r'^translate[.:\s]+',        # "translate. " or "translate: " or "translate "
+    r'^Translate[.:\s]+',        # "Translate. " or "Translate: " or "Translate "
+]
+
+
+def has_arabic_chars(text):
+    """Check if text contains Arabic characters."""
+    return bool(re.search(ARABIC_RANGE, text))
+
+
+def clean_translation_prefix(text):
+    """
+    Remove TRANSLATION prefix and Arabic text from English field.
+    Returns (cleaned_text, was_modified)
+    """
+    if not text or not isinstance(text, str):
+        return text, False
+
+    original = text
+    text = text.strip()
+
+    # Check if it's ONLY Arabic characters (no English at all)
+    if text and has_arabic_chars(text):
+        # Extract non-Arabic parts
+        non_arabic_parts = re.split(ARABIC_RANGE + r'+', text)
+        non_arabic_parts = [p.strip() for p in non_arabic_parts if p.strip()]
+
+        # If there are no non-Arabic parts, this is purely Arabic - leave empty
+        if not non_arabic_parts:
+            return '', original != ''
+
+    # Remove "TRANSLATION." prefix (case insensitive)
+    for pattern in PATTERNS_TO_REMOVE:
+        text = re.sub(pattern, '', text, flags=re.IGNORECASE)
+
+    # Check if result is JUST "TRANSLATION" or "translation" or "TRANSLATION."
+    if re.match(r'^TRANSLATION\.?$', text.strip(), re.IGNORECASE):
+        return '', original != ''
+
+    # Remove Arabic text followed by period and optional space (e.g., "وَسَقَطَ. Fell" -> "Fell")
+    text = re.sub(ARABIC_RANGE + r'+\.\s*', '', text)
+
+    # If the result still has Arabic characters, it might be standalone Arabic - remove it
+    if has_arabic_chars(text):
+        # Try to extract just the English part after any Arabic
+        # Look for pattern: Arabic text, then English
+        parts = re.split(ARABIC_RANGE + r'+', text)
+        # Get the last non-empty part which should be English
+        for part in reversed(parts):
+            cleaned = part.strip()
+            if cleaned and not has_arabic_chars(cleaned):
+                text = cleaned
+                break
+
+        # If still has Arabic after extraction attempt, check if it's purely Arabic
+        if has_arabic_chars(text):
+            # Extract all non-Arabic characters
+            non_arabic = re.sub(ARABIC_RANGE + r'+', '', text).strip()
+            if non_arabic:
+                text = non_arabic
+            else:
+                # Purely Arabic, leave empty
+                return '', original != ''
+
+    # Final cleanup: strip whitespace
+    text = text.strip()
+
+    return text, text != original
+
+
+def clean_english_worker(args):
+    """Worker function for Phase 5: Clean English translations in a chapter."""
+    book, chapter = args
+    mappings_file = MAPPINGS_DIR / book / f"{chapter}.json"
+
+    if not mappings_file.exists():
+        return (book, chapter, 0)
+
+    try:
+        with open(mappings_file, 'r') as f:
+            data = json.load(f)
+
+        chapter_cleaned = 0
+        for verse_num in sorted(data.get('verses', {}).keys(), key=int):
+            verse_data = data['verses'][verse_num]
+            for mapping in verse_data.get('mappings', []):
+                en = mapping.get('en', '')
+                cleaned, was_modified = clean_translation_prefix(en)
+
+                if was_modified:
+                    mapping['en'] = cleaned
+                    chapter_cleaned += 1
+
+        if chapter_cleaned > 0:
+            with open(mappings_file, 'w') as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+
+        return (book, chapter, chapter_cleaned)
+    except Exception as e:
+        print(f"  Error in {book} {chapter}: {e}")
+        return (book, chapter, 0)
+
+
+def phase5_clean_english_translations(books_to_process):
+    """Phase 5: Remove Arabic text and TRANSLATION prefixes from English fields (parallel)."""
+    print("\n" + "="*70)
+    print("PHASE 5: Cleaning English Translations (4 parallel workers)")
+    print("="*70)
+    print("Removing Arabic text and TRANSLATION prefixes from English fields...\n")
+
+    # Build list of chapters to process
+    chapters_to_process = []
+    for book in books_to_process:
+        if book not in BOOK_CHAPTERS:
+            continue
+        total_chapters = BOOK_CHAPTERS[book]
+        for chapter in range(1, total_chapters + 1):
+            mappings_file = MAPPINGS_DIR / book / f"{chapter}.json"
+            if mappings_file.exists():
+                chapters_to_process.append((book, chapter))
+
+    if not chapters_to_process:
+        print("✓ No chapters to process")
+        return
+
+    print(f"Processing {len(chapters_to_process)} chapters...\n")
+
+    total_cleaned = 0
+    with Pool(processes=NUM_WORKERS) as pool:
+        for i, (book, chapter, cleaned) in enumerate(pool.imap_unordered(clean_english_worker, chapters_to_process)):
+            progress = (i + 1) / len(chapters_to_process) * 100
+            if cleaned > 0:
+                print(f"[{progress:5.1f}%] ✓ {book} {chapter:3d} - Cleaned {cleaned} mappings")
+                total_cleaned += cleaned
+
+    print(f"\nPhase 5 Complete: {total_cleaned} English translations cleaned")
+
+
+# ============================================================================
 # MAIN ORCHESTRATION
 # ============================================================================
 
 def main():
-    """Main entry point - runs all 4 phases sequentially."""
+    """Main entry point - runs all 5 phases sequentially."""
     # Start keyboard listener
     listener_thread = threading.Thread(target=keyboard_listener, daemon=True)
     listener_thread.start()
@@ -714,11 +865,12 @@ def main():
 
     start_time = time.time()
 
-    # Run all 4 phases
+    # Run all 5 phases
     phase1_create_all_mappings(books_to_process)
     phase2_fix_missing_words(books_to_process)
     phase3_fix_placeholders(books_to_process)
     phase4_quality_checks(books_to_process)
+    phase5_clean_english_translations(books_to_process)
 
     # Final summary
     elapsed = time.time() - start_time

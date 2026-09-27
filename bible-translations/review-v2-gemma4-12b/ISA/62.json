@@ -1,0 +1,61 @@
+{
+ "book": "ISA",
+ "chapter": "62",
+ "model": "gemma4:12b",
+ "verses": {
+  "8": {
+   "ar": "قَدْ أَقْسَمَ الرَّبُّ بِيَمِينِهِ وَبِذِرَاعِهِ الْقَدِيرَةِ قَائِلاً: لَنْ أُعْطِيَ حِنْطَتَكِ مِنْ بَعْدُ طَعَاماً لأَعْدَائِكِ، وَلَنْ يَشْرَبَ الْغُرَبَاءُ خَمْرَكِ الَّتِي تَعِبْتِ فِيهَا،",
+   "en": "The Lord has sworn by his right hand\n    and by his mighty arm:\n“Never again will I give your grain\n    as food for your enemies,\nand never again will foreigners drink the new wine\n    for which you have toiled;",
+   "corrections": [
+    {
+     "index": 12,
+     "ar": "طَعَاماً",
+     "current": "As",
+     "proposed": "food",
+     "reason": "inconsistent",
+     "corpus_majority": "food"
+    }
+   ]
+  },
+  "11": {
+   "ar": "الرَّبُّ قَدْ أَذَاعَ فِي كُلِّ أَقَاصِيِ الأَرْضِ: قُولُوا لابْنَةِ صِهْيَوْنَ قَدْ أَقْبَلَ مُخَلِّصُكِ. هَا أُجْرَتُهُ مَعَهُ وَجَزَاؤُهُ يَتَقَدَّمُهُ.",
+   "en": "The Lord has made proclamation\n    to the ends of the earth:\n“Say to Daughter Zion,\n    ‘See, your Savior comes!\nSee, his reward is with him,\n    and his recompense accompanies him.’”",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "قُولُوا",
+     "current": "to Daughter",
+     "proposed": "say",
+     "reason": "inconsistent",
+     "corpus_majority": "say"
+    },
+    {
+     "index": 9,
+     "ar": "صِهْيَوْنَ",
+     "current": "has",
+     "proposed": "Zion",
+     "reason": "inconsistent",
+     "corpus_majority": "zion"
+    },
+    {
+     "index": 13,
+     "ar": "هَا",
+     "current": "his reward",
+     "proposed": "See",
+     "reason": "inconsistent",
+     "corpus_majority": "behold",
+     "warning": "dropped_pronoun:his"
+    },
+    {
+     "index": 15,
+     "ar": "مَعَهُ",
+     "current": "and his recompense",
+     "proposed": "with him",
+     "reason": "inconsistent",
+     "corpus_majority": "with him",
+     "warning": "dropped_pronoun:his"
+    }
+   ]
+  }
+ }
+}

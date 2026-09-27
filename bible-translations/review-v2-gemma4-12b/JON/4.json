@@ -1,0 +1,61 @@
+{
+ "book": "JON",
+ "chapter": "4",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "فَأَثَارَ ذَلِكَ غَيْظَ يُونَانَ وَغَضَبَهُ الشَّدِيدَيْنِ.",
+   "en": "But to Jonah this seemed very wrong, and he became angry.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "يُونَانَ",
+     "current": "Of Jonah",
+     "proposed": "jonah",
+     "reason": "inconsistent",
+     "corpus_majority": "jonah"
+    }
+   ]
+  },
+  "10": {
+   "ar": "فَقَالَ الرَّبُّ: «لَقَدْ أَشْفَقْتَ أَنْتَ عَلَى الْيَقْطِينَةِ الَّتِي لَمْ تَتْعَبْ فِي تَنْمِيَتِهَا وَتَرْبِيَتِهَا. هَذِهِ الْيَقْطِينَةُ الَّتِي تَرَعْرَعَتْ فِي لَيْلَةٍ وَذَوَتْ فِي لَيْلَةٍ.",
+   "en": "But the Lord said, “You have been concerned about this plant, though you did not tend it or make it grow. It sprang up overnight and died overnight.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "أَشْفَقْتَ",
+     "current": "You pitied/felt compassion",
+     "proposed": "concerned",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:you"
+    },
+    {
+     "index": 9,
+     "ar": "تَتْعَبْ",
+     "current": "Labor/Toil",
+     "proposed": "tend",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 16,
+     "ar": "تَرَعْرَعَتْ",
+     "current": "sprouted/grew up",
+     "proposed": "sprang up",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 19,
+     "ar": "وَذَوَتْ",
+     "current": "and withered/died",
+     "proposed": "died",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_and"
+    }
+   ]
+  }
+ }
+}

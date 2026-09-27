@@ -1,0 +1,66 @@
+{
+ "book": "GEN",
+ "chapter": "18",
+ "model": "gemma4:12b",
+ "verses": {
+  "12": {
+   "ar": "فَضَحِكَتْ سَارَةُ فِي نَفْسِهَا قَائِلَةً: «أَبَعْدَ أَنْ فَنِيَ عُمْرِي وَأَصْبَحَ زَوْجِي شَيْخاً يَكُونُ لِي هَذَا التَّنَعُّمُ؟»",
+   "en": "So Sarah laughed to herself as she thought, “After I am worn out and my lord is old, will I now have this pleasure?”",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "فَنِيَ",
+     "current": "my life",
+     "proposed": "perished",
+     "reason": "inconsistent",
+     "corpus_majority": "perished",
+     "warning": "dropped_pronoun:my"
+    },
+    {
+     "index": 9,
+     "ar": "وَأَصْبَحَ",
+     "current": "and",
+     "proposed": "and became",
+     "reason": "inconsistent",
+     "corpus_majority": "and became"
+    }
+   ]
+  },
+  "19": {
+   "ar": "لأَنَّنِي قَدِ اخْتَرْتُهُ لِيُوْصِيَ بَنِيهِ وَأَهْلَ بَيْتِهِ مِنْ بَعْدِهِ كَيْ يَحْفَظُوا طَرِيقَ الرَّبِّ، عَامِلِينَ الْبِرَّ وَالْعَدْلَ، حَتَّى يُنْجِزَ الرَّبُّ مَا وَعَدَ بِهِ إِبْرَاهِيمَ».",
+   "en": "For I have chosen him, so that he will direct his children and his household after him to keep the way of the Lord by doing what is right and just, so that the Lord will bring about for Abraham what he has promised him.”",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "بَيْتِهِ",
+     "current": "His house/family",
+     "proposed": "his household",
+     "reason": "unresolved_slash",
+     "corpus_majority": "his house"
+    }
+   ]
+  },
+  "26": {
+   "ar": "فَقَالَ الرَّبُّ: «إِنْ وَجَدْتُ فِي سَدُومَ خَمْسِينَ بَارّاً فَإِنَّنِي أَصْفَحُ عَنِ الْمَكَانِ كُلِّهِ مِنْ أَجْلِهِمْ».",
+   "en": "The Lord said, “If I find fifty righteous people in the city of Sodom, I will spare the whole place for their sake.”",
+   "corrections": [
+    {
+     "index": 10,
+     "ar": "عَنِ",
+     "current": "For/About",
+     "proposed": "from",
+     "reason": "unresolved_slash",
+     "corpus_majority": "from"
+    },
+    {
+     "index": 14,
+     "ar": "أَجْلِهِمْ».",
+     "current": "(End of quote marker)",
+     "proposed": "for their sake",
+     "reason": "parenthetical",
+     "corpus_majority": null
+    }
+   ]
+  }
+ }
+}

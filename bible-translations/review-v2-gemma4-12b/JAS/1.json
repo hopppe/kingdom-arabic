@@ -1,0 +1,58 @@
+{
+ "book": "JAS",
+ "chapter": "1",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "مِنْ يَعْقُوبَ، عَبْدِ اللهِ وَالرَّبِّ يَسُوعَ الْمَسِيحِ، إِلَى أَسْبَاطِ الْيَهُودِ الاثْنَيْ عَشَرَ، الْمُشَتَّتِينَ فِي كُلِّ مَكَانٍ سَلامٌ!",
+   "en": "James, a servant of God and of the Lord Jesus Christ,\nTo the twelve tribes scattered among the nations:\nGreetings.",
+   "corrections": [
+    {
+     "index": 11,
+     "ar": "عَشَرَ،",
+     "current": "(Implied: tribes - contextually understood)",
+     "proposed": "twelve",
+     "reason": "parenthetical",
+     "corpus_majority": "ten"
+    },
+    {
+     "index": 15,
+     "ar": "مَكَانٍ",
+     "current": "Nations",
+     "proposed": "place",
+     "reason": "inconsistent",
+     "corpus_majority": "place"
+    }
+   ]
+  },
+  "2": {
+   "ar": "يَا إِخْوَتِي، عِنْدَمَا تَنْزِلُ بِكُمُ التَّجَارِبُ وَالْمِحَنُ الْمُخْتَلِفَةُ، اعْتَبِرُوهَا سَبِيلاً إِلَى الْفَرَحِ الْكُلِّيِّ.",
+   "en": "Consider it pure joy, my brothers and sisters, whenever you face trials of many kinds,",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "تَنْزِلُ",
+     "current": "you face",
+     "proposed": "descend",
+     "reason": "inconsistent",
+     "corpus_majority": "descends",
+     "warning": "dropped_pronoun:you"
+    }
+   ]
+  },
+  "18": {
+   "ar": "وَهُوَ قَدْ شَاءَ أَنْ يَجْعَلَنَا أَوْلاداً لَهُ، فَوَلَدَنَا بِكَلِمَتِهِ، كَلِمَةِ الْحَقِّ. وَغَايَتُهُ أَنْ نَكُونَ بَاكُورَةَ خَلِيقَتِهِ.",
+   "en": "He chose to give us birth through the word of truth, that we might be a kind of firstfruits of all he created.",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "أَوْلاداً",
+     "current": "Sons",
+     "proposed": "children",
+     "reason": "inconsistent",
+     "corpus_majority": "children"
+    }
+   ]
+  }
+ }
+}

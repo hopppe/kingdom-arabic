@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """
-Remove "TRANSLATION. " prefix from English mappings.
+Remove "TRANSLATION. " prefix and Arabic text from English mappings.
 
 Fixes mappings like:
   "TRANSLATION. And that is" → "And that is"
   "translation. because" → "because"
   "TRANSLATION: the overseer" → "the overseer"
+  "وَسَقَطَ. Fell" → "Fell"
+  "Arabic text. English text" → "English text"
 
 Usage:
-    python3 remove_translation_prefix.py                  # Clean all NT books
+    python3 remove_translation_prefix.py                  # Clean all books (OT + NT)
     python3 remove_translation_prefix.py MAT MRK         # Clean specific books
     python3 remove_translation_prefix.py --dry-run       # Preview changes
     python3 remove_translation_prefix.py --scan          # Just count issues
@@ -23,7 +25,14 @@ from pathlib import Path
 # CONFIGURATION
 # ============================================================================
 
-NT_BOOKS = [
+# All 66 Bible books
+ALL_BOOKS = [
+    # Old Testament (39 books)
+    "GEN", "EXO", "LEV", "NUM", "DEU", "JOS", "JDG", "RUT", "1SA", "2SA",
+    "1KI", "2KI", "1CH", "2CH", "EZR", "NEH", "EST", "JOB", "PSA", "PRO",
+    "ECC", "SNG", "ISA", "JER", "LAM", "EZK", "DAN", "HOS", "JOL", "AMO",
+    "OBA", "JON", "MIC", "NAM", "HAB", "ZEP", "HAG", "ZEC", "MAL",
+    # New Testament (27 books)
     "MAT", "MRK", "LUK", "JHN", "ACT", "ROM", "1CO", "2CO",
     "GAL", "EPH", "PHP", "COL", "1TH", "2TH", "1TI", "2TI",
     "TIT", "PHM", "HEB", "JAS", "1PE", "2PE", "1JN", "2JN", "3JN", "JUD", "REV"
@@ -31,35 +40,86 @@ NT_BOOKS = [
 
 MAPPINGS_DIR = Path("bible-translations/mappings")
 
+# Arabic Unicode ranges
+ARABIC_RANGE = r'[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]'
+
 # Patterns to remove (case-insensitive)
 PATTERNS_TO_REMOVE = [
-    r'^TRANSLATION[.:]\s*',      # "TRANSLATION. " or "TRANSLATION: "
-    r'^translation[.:]\s*',      # "translation. " or "translation: "
-    r'^Translation[.:]\s*',      # "Translation. " or "Translation: "
-    r'^TRANSLATE[.:]\s*',        # "TRANSLATE. " or "TRANSLATE: "
-    r'^translate[.:]\s*',        # "translate. " or "translate: "
-    r'^Translate[.:]\s*',        # "Translate. " or "Translate: "
+    r'^TRANSLATION[.:\s]+',      # "TRANSLATION. " or "TRANSLATION: " or "TRANSLATION "
+    r'^translation[.:\s]+',      # "translation. " or "translation: " or "translation "
+    r'^Translation[.:\s]+',      # "Translation. " or "Translation: " or "Translation "
+    r'^TRANSLATE[.:\s]+',        # "TRANSLATE. " or "TRANSLATE: " or "TRANSLATE "
+    r'^translate[.:\s]+',        # "translate. " or "translate: " or "translate "
+    r'^Translate[.:\s]+',        # "Translate. " or "Translate: " or "Translate "
 ]
 
 # ============================================================================
 # CLEANUP FUNCTIONS
 # ============================================================================
 
+def has_arabic_chars(text):
+    """Check if text contains Arabic characters."""
+    return bool(re.search(ARABIC_RANGE, text))
+
+
 def clean_translation_prefix(text):
     """
-    Remove TRANSLATION prefix from text.
+    Remove TRANSLATION prefix and Arabic text from English field.
     Returns (cleaned_text, was_modified)
     """
-    original = text
+    if not text or not isinstance(text, str):
+        return text, False
 
+    original = text
+    text = text.strip()
+
+    # Check if it's ONLY Arabic characters (no English at all)
+    if text and has_arabic_chars(text):
+        # Extract non-Arabic parts
+        non_arabic_parts = re.split(ARABIC_RANGE + r'+', text)
+        non_arabic_parts = [p.strip() for p in non_arabic_parts if p.strip()]
+
+        # If there are no non-Arabic parts, this is purely Arabic - leave empty
+        if not non_arabic_parts:
+            return '', original != ''
+
+    # Remove "TRANSLATION." prefix (case insensitive)
     for pattern in PATTERNS_TO_REMOVE:
         text = re.sub(pattern, '', text, flags=re.IGNORECASE)
 
-    # Also handle case where it's JUST "TRANSLATION" or "translation"
-    if text.strip().lower() in ['translation', 'translate']:
-        return '', True
+    # Check if result is JUST "TRANSLATION" or "translation" or "TRANSLATION."
+    if re.match(r'^TRANSLATION\.?$', text.strip(), re.IGNORECASE):
+        return '', original != ''
 
-    return text.strip(), text != original
+    # Remove Arabic text followed by period and optional space (e.g., "وَسَقَطَ. Fell" -> "Fell")
+    text = re.sub(ARABIC_RANGE + r'+\.\s*', '', text)
+
+    # If the result still has Arabic characters, it might be standalone Arabic - remove it
+    if has_arabic_chars(text):
+        # Try to extract just the English part after any Arabic
+        # Look for pattern: Arabic text, then English
+        parts = re.split(ARABIC_RANGE + r'+', text)
+        # Get the last non-empty part which should be English
+        for part in reversed(parts):
+            cleaned = part.strip()
+            if cleaned and not has_arabic_chars(cleaned):
+                text = cleaned
+                break
+
+        # If still has Arabic after extraction attempt, check if it's purely Arabic
+        if has_arabic_chars(text):
+            # Extract all non-Arabic characters
+            non_arabic = re.sub(ARABIC_RANGE + r'+', '', text).strip()
+            if non_arabic:
+                text = non_arabic
+            else:
+                # Purely Arabic, leave empty
+                return '', original != ''
+
+    # Final cleanup: strip whitespace
+    text = text.strip()
+
+    return text, text != original
 
 
 def process_chapter(book, chapter, dry_run=False, scan_only=False):
@@ -149,21 +209,22 @@ def main():
 
     # Determine which books to process
     if args:
-        books = [b.upper() for b in args if b.upper() in NT_BOOKS]
+        books = [b.upper() for b in args if b.upper() in ALL_BOOKS]
         if not books:
-            print("Error: No valid NT books specified")
-            print(f"Valid books: {', '.join(NT_BOOKS)}")
+            print("Error: No valid books specified")
+            print(f"Valid books: {', '.join(ALL_BOOKS)}")
             sys.exit(1)
     else:
-        books = NT_BOOKS
+        books = ALL_BOOKS
 
     print(f"{'='*70}")
     if scan_only:
-        print(f"SCANNING {len(books)} NT books")
+        print(f"SCANNING {len(books)} books (OT + NT)")
     elif dry_run:
-        print(f"DRY RUN: {len(books)} NT books")
+        print(f"DRY RUN: {len(books)} books (OT + NT)")
     else:
-        print(f"CLEANING {len(books)} NT books")
+        print(f"CLEANING {len(books)} books (OT + NT)")
+    print(f"Removing TRANSLATION prefix and Arabic text from English fields")
     print(f"{'='*70}\n")
 
     grand_total_fixed = 0

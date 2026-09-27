@@ -1,0 +1,52 @@
+{
+ "book": "PSA",
+ "chapter": "19",
+ "model": "gemma4:12b",
+ "verses": {
+  "6": {
+   "ar": "تَنْطَلِقُ مِنْ أَقْصَى السَّمَاوَاتِ، وَتَدُورُ إِلَى أَقَاصِيهَا، وَلَا شَيْءَ يَحْتَجِبُ مِنْ حَرِّهَا.",
+   "en": "It rises at one end of the heavens\n    and makes its circuit to the other;\n    nothing is deprived of its warmth.",
+   "corrections": [
+    {
+     "index": 8,
+     "ar": "شَيْءَ",
+     "current": "is deprived",
+     "proposed": "anything",
+     "reason": "inconsistent",
+     "corpus_majority": "anything"
+    }
+   ]
+  },
+  "12": {
+   "ar": "مَنْ يَتَنَبَّهُ إِلَى سَهَوَاتِهِ؟ مِنَ الْخَطَايَا الْخَفِيَّةِ خَلِّصْنِي،",
+   "en": "But who can discern their own errors?\n    Forgive my hidden faults.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "إِلَى",
+     "current": "their",
+     "proposed": "to",
+     "reason": "inconsistent",
+     "corpus_majority": "to",
+     "warning": "dropped_pronoun:their"
+    },
+    {
+     "index": 4,
+     "ar": "مِنَ",
+     "current": "faults",
+     "proposed": "from",
+     "reason": "inconsistent",
+     "corpus_majority": "from"
+    },
+    {
+     "index": 5,
+     "ar": "الْخَطَايَا",
+     "current": "hidden",
+     "proposed": "sins",
+     "reason": "inconsistent",
+     "corpus_majority": "sins"
+    }
+   ]
+  }
+ }
+}

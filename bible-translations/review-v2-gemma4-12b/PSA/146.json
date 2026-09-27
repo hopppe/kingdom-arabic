@@ -1,0 +1,46 @@
+{
+ "book": "PSA",
+ "chapter": "146",
+ "model": "gemma4:12b",
+ "verses": {
+  "6": {
+   "ar": "خَالِقِ السَّمَاوَاتِ وَالأَرْضِ وَالْبَحْرِ وَكُلِّ مَا فِيهَا، الأَمِينِ إِلَى الأَبَدِ.",
+   "en": "He is the Maker of heaven and earth,\n    the sea, and everything in them—\n    he remains faithful forever.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "وَالأَرْضِ",
+     "current": "earth",
+     "proposed": "and the earth",
+     "reason": "inconsistent",
+     "corpus_majority": "and the earth"
+    },
+    {
+     "index": 4,
+     "ar": "وَكُلِّ",
+     "current": "and everything",
+     "proposed": "and all",
+     "reason": "inconsistent",
+     "corpus_majority": "and all"
+    },
+    {
+     "index": 5,
+     "ar": "مَا",
+     "current": "in them",
+     "proposed": "what",
+     "reason": "inconsistent",
+     "corpus_majority": "what",
+     "warning": "dropped_pronoun:them"
+    },
+    {
+     "index": 6,
+     "ar": "فِيهَا،",
+     "current": "(implied: that is)",
+     "proposed": "in it",
+     "reason": "parenthetical",
+     "corpus_majority": null
+    }
+   ]
+  }
+ }
+}

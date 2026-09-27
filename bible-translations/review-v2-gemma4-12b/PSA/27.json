@@ -1,0 +1,44 @@
+{
+ "book": "PSA",
+ "chapter": "27",
+ "model": "gemma4:12b",
+ "verses": {
+  "6": {
+   "ar": "حِينَئِذٍ أَفْتَخِرُ عَلَى أَعْدَائِي الْمُحِيطِينَ بِي، وَأُقَدِّمُ لَهُ فِي خَيْمَتِهِ ذَبَائِحَ هُتَافٍ، فَأُغَنِّي بَلْ أُرَنِّمُ حَمْداً لِلرَّبِّ.",
+   "en": "Then my head will be exalted\n    above the enemies who surround me;\nat his sacred tent I will sacrifice with shouts of joy;\n    I will sing and make music to the Lord.",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "أَفْتَخِرُ",
+     "current": "I will boast",
+     "proposed": "my head will be exalted",
+     "reason": "inconsistent",
+     "corpus_majority": "i boast"
+    },
+    {
+     "index": 14,
+     "ar": "أُرَنِّمُ",
+     "current": "I will chant",
+     "proposed": "make music",
+     "reason": "inconsistent",
+     "corpus_majority": "i will sing",
+     "warning": "dropped_pronoun:i"
+    }
+   ]
+  },
+  "11": {
+   "ar": "عَلِّمْنِي يَا رَبُّ طَرِيقَكَ، وَقُدْنِي فِي طَرِيقٍ مُسْتَقِيمَةٍ لِئَلّا يَشْمَتَ بِي أَعْدَائِي.",
+   "en": "Teach me your way, Lord;\n    lead me in a straight path\n    because of my oppressors.",
+   "corrections": [
+    {
+     "index": 11,
+     "ar": "أَعْدَائِي.",
+     "current": "My oppressors",
+     "proposed": "my enemies",
+     "reason": "inconsistent",
+     "corpus_majority": "my enemies"
+    }
+   ]
+  }
+ }
+}

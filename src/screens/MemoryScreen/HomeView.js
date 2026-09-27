@@ -6,6 +6,7 @@ import { formatReference } from '../../data/bibleData';
 import { STATUS } from '../../utils/memory/scheduler';
 import { VerseListItem } from './VerseListItem';
 import { STARTER_VERSES } from './starters';
+import { CONTENT_MAX_WIDTH } from '../../utils/layout';
 
 const StatTile = ({ label, value, color, theme, styles }) => (
   <View style={styles.statTile}>
@@ -127,7 +128,7 @@ export function HomeView({ verses, stats, onStartReview, onAddPress, onAddStarte
 const createStyles = (theme) =>
   StyleSheet.create({
     container: { flex: 1, backgroundColor: theme.colors.background },
-    content: { padding: theme.spacing.md, paddingBottom: theme.spacing.xxl },
+    content: { width: '100%', maxWidth: CONTENT_MAX_WIDTH, alignSelf: 'center', padding: theme.spacing.md, paddingBottom: theme.spacing.xxl },
     headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: theme.spacing.md },
     title: { fontSize: theme.typography.fontSize.title, fontWeight: theme.typography.fontWeight.bold, color: theme.colors.text },
     addButton: {

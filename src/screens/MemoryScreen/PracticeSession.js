@@ -24,6 +24,7 @@ import { FirstLettersStep } from './steps/FirstLettersStep';
 import { BuildStep } from './steps/BuildStep';
 import { RecallStep } from './steps/RecallStep';
 import { useVerseSpeech } from './useVerseSpeech';
+import { CONTENT_MAX_WIDTH } from '../../utils/layout';
 
 export function PracticeSession({ verse, onExit, onGraded, queueLabel }) {
   const { theme } = useTheme();
@@ -169,7 +170,7 @@ export function PracticeSession({ verse, onExit, onGraded, queueLabel }) {
 
 const createStyles = (theme) =>
   StyleSheet.create({
-    container: { flex: 1, backgroundColor: theme.colors.background },
+    container: { flex: 1, width: '100%', maxWidth: CONTENT_MAX_WIDTH, alignSelf: 'center', backgroundColor: theme.colors.background },
     header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: theme.spacing.md, paddingBottom: theme.spacing.sm },
     closeButton: { padding: 4 },
     queueLabel: { fontSize: theme.typography.fontSize.sm, color: theme.colors.textSecondary },

@@ -1,0 +1,58 @@
+{
+ "book": "PSA",
+ "chapter": "77",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "إِلَى اللهِ أَرْفَعُ صَوْتِي، إِلَى اللهِ أَصْرُخُ فَيُصْغِي إِلَيَّ.",
+   "en": "I cried out to God for help;\n    I cried out to God to hear me.",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "أَصْرُخُ",
+     "current": "Cry out",
+     "proposed": "I cry out",
+     "reason": "inconsistent",
+     "corpus_majority": "i cry out"
+    }
+   ]
+  },
+  "3": {
+   "ar": "أَذْكُرُ الرَّبَّ فَأَتَنَهَّدُ، أُنَاجِي نَفْسِي فَيُغْشَى عَلَى رُوحِي.",
+   "en": "I remembered you, God, and I groaned;\n    I meditated, and my spirit grew faint.",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "الرَّبَّ",
+     "current": "You, God",
+     "proposed": "the Lord",
+     "reason": "inconsistent",
+     "corpus_majority": "the lord",
+     "warning": "dropped_pronoun:you"
+    }
+   ]
+  },
+  "8": {
+   "ar": "هَلِ انْتَهَتْ رَحْمَتُهُ إِلَى الأَبَدِ؟ هَلِ انْقَطَعَتْ عَنَّا مَوَاعِيدُهُ؟",
+   "en": "Has his unfailing love vanished forever?\n    Has his promise failed for all time?",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "انْتَهَتْ",
+     "current": "Vanished",
+     "proposed": "ended",
+     "reason": "inconsistent",
+     "corpus_majority": "ended"
+    },
+    {
+     "index": 7,
+     "ar": "عَنَّا",
+     "current": "For all time",
+     "proposed": "from us",
+     "reason": "inconsistent",
+     "corpus_majority": "from us"
+    }
+   ]
+  }
+ }
+}

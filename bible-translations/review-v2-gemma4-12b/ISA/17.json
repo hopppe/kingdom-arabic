@@ -1,0 +1,91 @@
+{
+ "book": "ISA",
+ "chapter": "17",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "نُبُوءَةٌ بِشَأْنِ دِمَشْقَ: «انْظُرُوا هَا دِمَشْقُ تَنْقَرِضُ مِنْ بَيْنِ الْمُدُنِ وَتُصْبِحُ كَوْمَةَ أَنْقَاضٍ.",
+   "en": "A prophecy against Damascus:\n“See, Damascus will no longer be a city\n    but will become a heap of ruins.",
+   "corrections": [
+    {
+     "index": 8,
+     "ar": "بَيْنِ",
+     "current": "Cities",
+     "proposed": "among",
+     "reason": "inconsistent",
+     "corpus_majority": "among"
+    },
+    {
+     "index": 9,
+     "ar": "الْمُدُنِ",
+     "current": "And",
+     "proposed": "the cities",
+     "reason": "inconsistent",
+     "corpus_majority": "cities"
+    }
+   ]
+  },
+  "5": {
+   "ar": "فَتُصْبِحُ جَرْدَاءَ كَحَقْلٍ جَمَعَ الْحَصَّادُونَ زَرْعَهُ، أَوْ حَصَدَتْ ذِرَاعُهُ السَّنَابِلَ، أَوْ كَرَجُلٍ يَلْتَقِطُ السَّنَابِلَ فِي وَادِي رَفَايِمَ.",
+   "en": "It will be as when reapers harvest the standing grain,\n    gathering the grain in their arms—\nas when someone gleans heads of grain\n    in the Valley of Rephaim.",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "جَمَعَ",
+     "current": "They gather",
+     "proposed": "gathered",
+     "reason": "inconsistent",
+     "corpus_majority": "gathered",
+     "warning": "dropped_pronoun:they"
+    }
+   ]
+  },
+  "10": {
+   "ar": "لأَنَّكُمْ قَدْ نَسِيتُمْ إِلَهَ خَلاصِكُمْ، وَلَمْ تَذْكُرُوا صَخْرَةَ عِزِّكُمْ. لِذَلِكَ وَإِنْ كُنْتُمْ تَزْرَعُونَ غَرْساً مُبْهِجاً وَتَغْرِسُونَ زَرْعاً غَرِيباً،",
+   "en": "You have forgotten God your Savior;\n    you have not remembered the Rock, your fortress.\nTherefore, though you set out the finest plants\n    and plant imported vines,",
+   "corrections": [
+    {
+     "index": 13,
+     "ar": "غَرْساً",
+     "current": "A seedling/sapling",
+     "proposed": "plants",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 14,
+     "ar": "مُبْهِجاً",
+     "current": "Delightful/Joyful",
+     "proposed": "finest",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 15,
+     "ar": "وَتَغْرِسُونَ",
+     "current": "And you graft/plant",
+     "proposed": "and plant",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:you"
+    },
+    {
+     "index": 16,
+     "ar": "زَرْعاً",
+     "current": "A crop/produce",
+     "proposed": "vines",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    },
+    {
+     "index": 17,
+     "ar": "غَرِيباً،",
+     "current": "Foreign/Imported",
+     "proposed": "imported",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  }
+ }
+}

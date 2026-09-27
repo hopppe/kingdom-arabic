@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react';
-import { View, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, ScrollView, StyleSheet, Switch, Platform } from 'react-native';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
+import { View, Text, Modal, TouchableOpacity, Pressable, ScrollView, StyleSheet, Switch, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -7,6 +7,16 @@ import { getBookName } from '../../data/bibleData';
 import { useNotificationPreferences } from '../../hooks/useNotificationPreferences';
 import { useTheme } from '../../context/ThemeContext';
 import { AppearanceSection } from './AppearanceSection';
+import GlassSurface from '../../components/glass/GlassSurface';
+import GlassSegmentedControl from '../../components/glass/GlassSegmentedControl';
+import ProgressContent from '../ProgressScreen/ProgressContent';
+
+const TAB_SETTINGS = 'settings';
+const TAB_PROGRESS = 'progress';
+const SHEET_TABS = [
+  { value: TAB_SETTINGS, label: 'Settings' },
+  { value: TAB_PROGRESS, label: 'Progress' },
+];
 
 export const SettingsModal = ({
   visible,
@@ -17,11 +27,33 @@ export const SettingsModal = ({
   onSelectBookmark,
   onShowHelp,
   onShowSearch,
+  showProgress = false,
+  onOpenFlashcards,
+  onOpenMemorize,
 }) => {
   const { theme } = useTheme();
   const localStyles = useMemo(() => createStyles(theme), [theme]);
   const recentBookmarks = bookmarks.slice(0, 3);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [tab, setTab] = useState(TAB_SETTINGS);
+
+  // iOS can't present another modal (or push a screen cleanly) while this sheet
+  // is still sliding away, so follow-up actions run once it has dismissed.
+  const afterDismissRef = useRef(null);
+  const closeThen = useCallback((action) => {
+    if (Platform.OS === 'ios') {
+      afterDismissRef.current = action;
+      onClose();
+    } else {
+      onClose();
+      action?.();
+    }
+  }, [onClose]);
+  const handleDismiss = useCallback(() => {
+    const action = afterDismissRef.current;
+    afterDismissRef.current = null;
+    action?.();
+  }, []);
 
   const {
     notificationsEnabled,
@@ -56,16 +88,33 @@ export const SettingsModal = ({
   return (
     <Modal
       visible={visible}
-      animationType="none"
-      transparent={true}
+      animationType="slide"
+      presentationStyle="pageSheet"
       onRequestClose={onClose}
+      onDismiss={handleDismiss}
     >
-      <TouchableWithoutFeedback accessible={false} onPress={onClose}>
-        <View style={styles.settingsModalOverlay}>
-          <TouchableWithoutFeedback accessible={false} onPress={(e) => e.stopPropagation()}>
-            <View style={styles.settingsModalContent}>
-              <Text style={styles.settingsModalTitle}>Settings</Text>
+      <View style={localStyles.sheet}>
+        <View style={localStyles.sheetHeader}>
+          {showProgress ? (
+            <GlassSegmentedControl options={SHEET_TABS} value={tab} onChange={setTab} />
+          ) : (
+            <Text style={localStyles.sheetTitle}>Settings</Text>
+          )}
+          <GlassSurface style={localStyles.closeCapsule} interactive>
+            <Pressable style={localStyles.closeButton} onPress={onClose} accessibilityRole="button" accessibilityLabel="Close">
+              <Ionicons name="close" size={22} color={theme.colors.text} />
+            </Pressable>
+          </GlassSurface>
+        </View>
 
+        {showProgress && tab === TAB_PROGRESS ? (
+          <ScrollView contentContainerStyle={localStyles.progressInner} showsVerticalScrollIndicator={false}>
+            <ProgressContent
+              onOpenFlashcards={onOpenFlashcards && (() => closeThen(onOpenFlashcards))}
+              onOpenMemorize={onOpenMemorize && (() => closeThen(onOpenMemorize))}
+            />
+          </ScrollView>
+        ) : (
               <ScrollView
                 style={localStyles.scrollContent}
                 contentContainerStyle={localStyles.scrollInner}
@@ -76,7 +125,7 @@ export const SettingsModal = ({
 
               {/* Bookmarks Section */}
               <View style={localStyles.section}>
-                <TouchableOpacity style={localStyles.sectionHeader} onPress={onShowAllBookmarks}>
+                <TouchableOpacity style={localStyles.sectionHeader} onPress={() => closeThen(onShowAllBookmarks)}>
                   <Ionicons name="bookmark" size={18} color={theme.colors.info} />
                   <Text style={localStyles.sectionTitle}>Bookmarks</Text>
                   <Text style={localStyles.bookmarkCount}>({bookmarks.length})</Text>
@@ -118,10 +167,7 @@ export const SettingsModal = ({
               {/* Search Button */}
               <TouchableOpacity
                 style={localStyles.searchButton}
-                onPress={() => {
-                  onClose();
-                  onShowSearch();
-                }}
+                onPress={() => closeThen(onShowSearch)}
               >
                 <Ionicons name="search" size={20} color={theme.colors.info} />
                 <Text style={localStyles.searchButtonText}>Search Bible</Text>
@@ -191,10 +237,7 @@ export const SettingsModal = ({
               {/* Help Button */}
               <TouchableOpacity
                 style={localStyles.helpButton}
-                onPress={() => {
-                  onClose();
-                  onShowHelp();
-                }}
+                onPress={() => closeThen(onShowHelp)}
               >
                 <Ionicons name="help-circle-outline" size={20} color={theme.colors.info} />
                 <Text style={localStyles.helpButtonText}>How to use this app</Text>
@@ -221,28 +264,51 @@ export const SettingsModal = ({
                 </TouchableOpacity>
               </View>
               </ScrollView>
-              <TouchableOpacity
-                style={styles.settingsModalButton}
-                onPress={onClose}
-              >
-                <Text style={styles.settingsModalButtonText}>Close</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      </TouchableWithoutFeedback>
+        )}
+      </View>
     </Modal>
   );
 };
 
 const createStyles = (theme) => StyleSheet.create({
+  sheet: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  sheetHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+  },
+  sheetTitle: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: theme.colors.text,
+  },
+  closeCapsule: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+  },
+  closeButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  progressInner: {
+    paddingTop: 4,
+    paddingBottom: 40,
+  },
   // Room below the last item so the time picker's Done button isn't under Close.
   scrollInner: {
+    paddingHorizontal: 16,
     paddingBottom: 56,
   },
   scrollContent: {
-    flexGrow: 1,
-    flexShrink: 1,
+    flex: 1,
   },
   section: {
     marginBottom: 20,

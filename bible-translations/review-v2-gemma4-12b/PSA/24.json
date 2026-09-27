@@ -1,0 +1,44 @@
+{
+ "book": "PSA",
+ "chapter": "24",
+ "model": "gemma4:12b",
+ "verses": {
+  "1": {
+   "ar": "لِلرَّبِّ الأَرْضُ وَكُلُّ مَا فِيهَا. لَهُ الْعَالَمُ، وَجَمِيعُ السَّاكِنِينَ فِيهِ.",
+   "en": "The earth is the Lord’s, and everything in it,\n    the world, and all who live in it;",
+   "corrections": [
+    {
+     "index": 3,
+     "ar": "مَا",
+     "current": "That (or what)",
+     "proposed": "what",
+     "reason": "parenthetical",
+     "corpus_majority": "what"
+    }
+   ]
+  },
+  "4": {
+   "ar": "إِنَّهُ صَاحِبُ الْيَدَيْنِ الطَّاهِرَتَيْنِ وَالْقَلْبِ النَّقِيِّ. ذَاكَ الَّذِي لَا يَحْمِلُ نَفْسَهُ عَلَى الْبَاطِلِ، وَلَا يَحْلِفُ مُنَافِقاً.",
+   "en": "The one who has clean hands and a pure heart,\n    who does not trust in an idol\n    or swear by a false god.",
+   "corrections": [
+    {
+     "index": 9,
+     "ar": "يَحْمِلُ",
+     "current": "He carries/places",
+     "proposed": "trusts",
+     "reason": "unresolved_slash",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:he"
+    },
+    {
+     "index": 12,
+     "ar": "الْبَاطِلِ،",
+     "current": "Falsehood/Vanity",
+     "proposed": "an idol",
+     "reason": "unresolved_slash",
+     "corpus_majority": null
+    }
+   ]
+  }
+ }
+}

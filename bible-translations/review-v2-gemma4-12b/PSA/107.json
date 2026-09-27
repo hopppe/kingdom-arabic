@@ -1,0 +1,50 @@
+{
+ "book": "PSA",
+ "chapter": "107",
+ "model": "gemma4:12b",
+ "verses": {
+  "4": {
+   "ar": "تَاهُوا فِي الْبَرِّيَّةِ، فِي صَحْرَاءَ بِلَا طَرِيقٍ، وَلَمْ يَجِدُوا مَدِينَةً يَسْكُنُونَ فِيهَا.",
+   "en": "Some wandered in desert wastelands,\n    finding no way to a city where they could settle.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "الْبَرِّيَّةِ،",
+     "current": "wastelands",
+     "proposed": "the wilderness",
+     "reason": "inconsistent",
+     "corpus_majority": "the wilderness"
+    }
+   ]
+  },
+  "15": {
+   "ar": "فَلْيَرْفَعُوا الشُّكْرَ لِلرَّبِّ عَلَى رَحْمَتِهِ، وَعَلَى عَجَائِبِهِ لِبَنِي آدَمَ.",
+   "en": "Let them give thanks to the Lord for his unfailing love\n    and his wonderful deeds for mankind,",
+   "corrections": [
+    {
+     "index": 8,
+     "ar": "آدَمَ.",
+     "current": "(Implied - no direct translation needed)",
+     "proposed": "mankind",
+     "reason": "parenthetical",
+     "corpus_majority": null
+    }
+   ]
+  },
+  "27": {
+   "ar": "تَمَايَلُوا وَتَرَنَّحُوا مِثْلَ السَّكْرَانِ، وَأَعْيَتْهُمُ الْحِيلَةُ.",
+   "en": "They reeled and staggered like drunkards;\n    they were at their wits’ end.",
+   "corrections": [
+    {
+     "index": 4,
+     "ar": "وَأَعْيَتْهُمُ",
+     "current": "They were at their wits’ end",
+     "proposed": "and_exhausted_them",
+     "reason": "phrase_not_word",
+     "corpus_majority": null,
+     "warning": "dropped_pronoun:their,they"
+    }
+   ]
+  }
+ }
+}

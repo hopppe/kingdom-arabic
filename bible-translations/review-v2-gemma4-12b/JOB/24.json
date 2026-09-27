@@ -1,0 +1,102 @@
+{
+ "book": "JOB",
+ "chapter": "24",
+ "model": "gemma4:12b",
+ "verses": {
+  "4": {
+   "ar": "يَصُدُّونَ الْمَسَاكِينَ عَنِ الطَّرِيقِ، فَيَخْتَبِئُ فُقَرَاءُ الأَرْضِ جَمِيعاً.",
+   "en": "They thrust the needy from the path\n    and force all the poor of the land into hiding.",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "جَمِيعاً.",
+     "current": "into hiding",
+     "proposed": "all",
+     "reason": "inconsistent",
+     "corpus_majority": "all"
+    }
+   ]
+  },
+  "11": {
+   "ar": "يَعْصِرُونَ الزَّيْتَ بَيْنَ أَتْلامِ زَيْتُونِ الأَشْرَارِ، وَيَدُوسُونَ مَعَاصِرَ الْخَمْرِ وَهُمْ عِطَاشٌ.",
+   "en": "They crush olives among the terraces;\n    they tread the winepresses, yet suffer thirst.",
+   "corrections": [
+    {
+     "index": 1,
+     "ar": "الزَّيْتَ",
+     "current": "olives",
+     "proposed": "the oil",
+     "reason": "inconsistent",
+     "corpus_majority": "the oil"
+    }
+   ]
+  },
+  "12": {
+   "ar": "يَرْتَفِعُ مِنَ الْمُدُنِ أَنِينُ الْمُشْرِفِينَ عَلَى الْمَوْتِ، وَتَسْتَغِيثُ نُفُوسُ الْجَرْحَى، وَاللهُ لَا يُصْغِي إِلَى دُعَائِهِمْ.",
+   "en": "The groans of the dying rise from the city,\n    and the souls of the wounded cry out for help.\n    But God charges no one with wrongdoing.",
+   "corrections": [
+    {
+     "index": 2,
+     "ar": "الْمُدُنِ",
+     "current": "THE CITY",
+     "proposed": "THE CITIES",
+     "reason": "inconsistent",
+     "corpus_majority": "cities"
+    },
+    {
+     "index": 10,
+     "ar": "وَاللهُ",
+     "current": "BUT GOD",
+     "proposed": "AND GOD",
+     "reason": "inconsistent",
+     "corpus_majority": "and god"
+    }
+   ]
+  },
+  "13": {
+   "ar": "هُنَاكَ مَنْ كَانَ بَيْنَ الْمُتَمَرِّدِيِنَ عَلَى النُّورِ، فَلَمْ يَعْرِفُوا طُرُقَهَ، وَلَمْ يَمْكُثُوا فِي سُبُلِهِ.",
+   "en": "“There are those who rebel against the light,\n    who do not know its ways\n    or stay in its paths.",
+   "corrections": [
+    {
+     "index": 8,
+     "ar": "يَعْرِفُوا",
+     "current": "Did Not Know",
+     "proposed": "know",
+     "reason": "inconsistent",
+     "corpus_majority": "know"
+    }
+   ]
+  },
+  "24": {
+   "ar": "تَشَامَخُوا لِلَحْظَةٍ ثُمَّ تَلاشَوْا، انْحَطُّوا وَجُمِعُوا كَالأَشْيَاءِ الأُخْرَى، بَلْ حُصِدُوا كَرُؤُوسِ السَّنَابِلِ؛",
+   "en": "For a little while they are exalted, and then they are gone;\n    they are brought low and gathered up like all others;\n    they are cut off like heads of grain.",
+   "corrections": [
+    {
+     "index": 7,
+     "ar": "الأُخْرَى،",
+     "current": "Indeed",
+     "proposed": "other",
+     "reason": "inconsistent",
+     "corpus_majority": "other"
+    },
+    {
+     "index": 8,
+     "ar": "بَلْ",
+     "current": "They were harvested",
+     "proposed": "but",
+     "reason": "inconsistent",
+     "corpus_majority": "but",
+     "warning": "dropped_pronoun:they"
+    },
+    {
+     "index": 11,
+     "ar": "السَّنَابِلِ؛",
+     "current": "(End of phrase)",
+     "proposed": "of grain",
+     "reason": "parenthetical",
+     "corpus_majority": null
+    }
+   ]
+  }
+ }
+}

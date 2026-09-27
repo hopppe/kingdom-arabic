@@ -2,12 +2,15 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator, Text, BackHandler } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { pushedScreenEdges } from '../../navigation/device';
 import { useTheme } from '../../context/ThemeContext';
 import { useMemoryVerses } from '../../context/MemoryVerseContext';
 import { STATUS, isDue } from '../../utils/memory/scheduler';
 import { HomeView } from './HomeView';
 import { AddVerseView } from './AddVerseView';
 import { PracticeSession } from './PracticeSession';
+
+const SCREEN_EDGES = pushedScreenEdges();
 
 // Views: 'home' | 'add' | 'practice'. Practice covers both a single verse
 // (tapped from a list) and a due-review queue (several verses in sequence).
@@ -83,7 +86,7 @@ export default function MemoryScreen({ navigation, route }) {
 
   if (!loaded) {
     return (
-      <SafeAreaView style={styles.loadingContainer} edges={['top']}>
+      <SafeAreaView style={styles.loadingContainer} edges={SCREEN_EDGES}>
         <ActivityIndicator color={theme.colors.info} size="large" />
       </SafeAreaView>
     );
@@ -91,7 +94,7 @@ export default function MemoryScreen({ navigation, route }) {
 
   if (view === 'add') {
     return (
-      <SafeAreaView style={styles.container} edges={['top']}>
+      <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
         <AddVerseView onClose={() => setView('home')} onAdded={() => setView('home')} />
       </SafeAreaView>
     );
@@ -99,7 +102,7 @@ export default function MemoryScreen({ navigation, route }) {
 
   if (view === 'practice' && activeVerse) {
     return (
-      <SafeAreaView style={styles.container} edges={['top']}>
+      <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
         <PracticeSession
           key={activeVerse.id}
           verse={activeVerse}
@@ -114,7 +117,7 @@ export default function MemoryScreen({ navigation, route }) {
   if (view === 'practice' && !activeVerse) {
     // The active verse was removed mid-session; bail out gracefully.
     return (
-      <SafeAreaView style={styles.container} edges={['top']}>
+      <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
         <View style={styles.emptyPractice}>
           <Text style={styles.emptyPracticeText}>This verse is no longer available.</Text>
         </View>
@@ -123,7 +126,7 @@ export default function MemoryScreen({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
+    <SafeAreaView style={styles.container} edges={SCREEN_EDGES}>
       <HomeView
         verses={verses}
         stats={stats}

@@ -1,0 +1,45 @@
+{
+ "book": "PSA",
+ "chapter": "115",
+ "model": "gemma4:12b",
+ "verses": {
+  "3": {
+   "ar": "إِنَّ إِلَهَنَا فِي السَّمَاوَاتِ. كُلَّ مَا شَاءَ صَنَعَ.",
+   "en": "Our God is in heaven;\n    he does whatever pleases him.",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "مَا",
+     "current": "He pleases",
+     "proposed": "what",
+     "reason": "inconsistent",
+     "corpus_majority": "what",
+     "warning": "dropped_pronoun:he"
+    },
+    {
+     "index": 6,
+     "ar": "شَاءَ",
+     "current": "He did",
+     "proposed": "willed",
+     "reason": "inconsistent",
+     "corpus_majority": "willed",
+     "warning": "dropped_pronoun:he"
+    }
+   ]
+  },
+  "5": {
+   "ar": "لَهَا أَفْوَاهٌ لَكِنَّهَا لَا تَنْطِقُ. لَهَا عُيُونٌ وَلَكِنَّهَا لَا تُبْصِرُ.",
+   "en": "They have mouths, but cannot speak,\n    eyes, but cannot see.",
+   "corrections": [
+    {
+     "index": 6,
+     "ar": "عُيُونٌ",
+     "current": "but",
+     "proposed": "eyes",
+     "reason": "inconsistent",
+     "corpus_majority": "eyes"
+    }
+   ]
+  }
+ }
+}

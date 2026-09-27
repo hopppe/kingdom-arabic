@@ -1,0 +1,52 @@
+{
+ "book": "JOB",
+ "chapter": "17",
+ "model": "gemma4:12b",
+ "verses": {
+  "9": {
+   "ar": "أَمَّا الصِّدِّيقُ فَيَتَمَسَّكُ بِطَرِيقِهِ، وَيَزْدَادُ الطَّاهِرُ الْيَدَيْنِ قُوَّةً.",
+   "en": "Nevertheless, the righteous will hold to their ways,\n    and those with clean hands will grow stronger.",
+   "corrections": [
+    {
+     "index": 0,
+     "ar": "أَمَّا",
+     "current": "Nevertheless",
+     "proposed": "as for",
+     "reason": "inconsistent",
+     "corpus_majority": "as for"
+    }
+   ]
+  },
+  "12": {
+   "ar": "يَجْعَلُونَ اللَّيْلَ نَهَاراً، وَعَلَى الرَّغْمِ مِنَ الظُّلْمَةِ يَقُولُونَ: ’إِنَّ النُّورَ قَرِيبٌ!‘",
+   "en": "turn night into day;\n    in the face of the darkness light is near.",
+   "corrections": [
+    {
+     "index": 5,
+     "ar": "مِنَ",
+     "current": "the darkness",
+     "proposed": "from",
+     "reason": "inconsistent",
+     "corpus_majority": "from"
+    },
+    {
+     "index": 6,
+     "ar": "الظُّلْمَةِ",
+     "current": "they say",
+     "proposed": "darkness",
+     "reason": "inconsistent",
+     "corpus_majority": "darkness",
+     "warning": "dropped_pronoun:they"
+    },
+    {
+     "index": 9,
+     "ar": "النُّورَ",
+     "current": "is near",
+     "proposed": "the light",
+     "reason": "inconsistent",
+     "corpus_majority": "the light"
+    }
+   ]
+  }
+ }
+}
