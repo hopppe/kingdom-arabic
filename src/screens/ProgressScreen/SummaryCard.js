@@ -16,7 +16,7 @@ export default function SummaryCard({ title, icon, color, summary, doneLabel, em
       <Pressable style={styles.pressable} onPress={onPress} disabled={!onPress} accessibilityRole="button" accessibilityLabel={title}>
         <View style={styles.header}>
           <Ionicons name={icon} size={16} color={color} />
-          <Text style={styles.title} numberOfLines={1}>{title}</Text>
+          <Text style={styles.title} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.8}>{title}</Text>
           {due > 0 ? (
             <View style={[styles.dueChip, { backgroundColor: `${theme.colors.warning}22` }]}>
               <Text style={[styles.dueText, { color: theme.colors.warning }]}>{`${due} due`}</Text>
