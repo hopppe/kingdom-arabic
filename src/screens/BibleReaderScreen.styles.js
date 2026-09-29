@@ -32,6 +32,11 @@ export const createStyles = (theme) => StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // Long book names shrink (and truncate) before pushing the header buttons off screen.
+  referenceCapsule: {
+    flexShrink: 1,
+    marginRight: 8,
+  },
   referenceButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -39,6 +44,7 @@ export const createStyles = (theme) => StyleSheet.create({
     paddingHorizontal: 16,
   },
   referenceText: {
+    flexShrink: 1,
     fontSize: 16,
     fontWeight: '600',
     color: theme.colors.text,
@@ -127,6 +133,14 @@ export const createStyles = (theme) => StyleSheet.create({
   verseContainer: {
     marginBottom: 24,
   },
+  // The passage opened from a Gathering link.
+  linkedVerse: {
+    backgroundColor: theme.colors.surfaceOverlay,
+    borderRadius: 10,
+    marginHorizontal: -8,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+  },
   paragraphWithNumber: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -214,45 +228,90 @@ export const createStyles = (theme) => StyleSheet.create({
     marginTop: 6,
     marginBottom: 0,
   },
-  bottomButtonRow: {
-    flexDirection: 'row',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    backgroundColor: 'transparent',
+  // "Back to Gathering", floating above the saved-words button.
+  gatheringReturnRow: {
     position: 'absolute',
-    bottom: 30,
-    left: 0,
-    right: 0,
-    justifyContent: 'center',
-    gap: 12,
-  },
-  navButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-  },
-  navButtonPressable: {
-    flex: 1,
+    bottom: 112,
+    left: 16,
+    right: 16,
     alignItems: 'center',
-    justifyContent: 'center',
   },
-  learnedWordsButton: {
-    flex: 1,
-    maxWidth: 220,
-    borderRadius: 25,
-  },
-  learnedWordsPressable: {
-    flex: 1,
-    minHeight: 50,
-    paddingHorizontal: 12,
+  gatheringReturnPill: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    maxWidth: '100%',
+    borderRadius: 22,
+    minHeight: 44,
   },
-  learnedWordsButtonText: {
+  gatheringReturnPressable: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexShrink: 1,
+    minHeight: 44,
+    paddingLeft: 12,
+    paddingRight: 4,
+    gap: 4,
+  },
+  gatheringReturnText: {
+    flexShrink: 1,
     fontSize: 15,
     fontWeight: '600',
-    color: theme.colors.text,
-    textAlign: 'center',
+    color: theme.colors.info,
+  },
+  gatheringReturnDismiss: {
+    minHeight: 44,
+    paddingLeft: 6,
+    paddingRight: 14,
+    justifyContent: 'center',
+  },
+  // Small round button in the bottom-left corner, with the count as a badge.
+  savedWordsButton: {
+    position: 'absolute',
+    left: 20,
+    bottom: 46,
+    width: 52,
+    height: 52,
+  },
+  savedWordsGlass: {
+    flex: 1,
+    borderRadius: 26,
+  },
+  savedWordsPressable: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  savedWordsBadge: {
+    position: 'absolute',
+    top: -4,
+    right: -4,
+    minWidth: 20,
+    height: 20,
+    paddingHorizontal: 5,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.primary,
+  },
+  savedWordsBadgeText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: theme.colors.textOnPrimary,
+  },
+  // "Next: Book N" at the end of a chapter's text.
+  nextChapterLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    gap: 4,
+    marginTop: 32,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+  },
+  nextChapterText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: theme.colors.info,
   },
   // Chapter selector modal styles
   selectorOverlay: {

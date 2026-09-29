@@ -116,13 +116,14 @@ export function MemoryVerseProvider({ children }) {
         }
         const record = createMemoryVerseRecord({ book, chapter, verse, ar: row.ar, en: row.en });
         persist([...versesRef.current, record]);
+        logActivity(ACTIVITY_TYPES.VERSE_ADDED);
         return { added: true, alreadyExists: false };
       } catch (error) {
         console.error('Failed to add memory verse:', error);
         return { added: false, alreadyExists: false, error: 'Could not add that verse. Please try again.' };
       }
     },
-    [db, persist]
+    [db, persist, logActivity]
   );
 
   const removeVerse = useCallback(

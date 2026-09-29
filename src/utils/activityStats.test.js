@@ -61,6 +61,11 @@ describe('computeCurrentStreak', () => {
     expect(computeCurrentStreak(logOnDays([-1, -2]), TODAY)).toBe(2);
   });
 
+  it('ignores days with only lookups or added cards and verses', () => {
+    const log = { [toDateKey(TODAY)]: { wordLookups: 12, cardsAdded: 3, versesAdded: 1 } };
+    expect(computeCurrentStreak(log, TODAY)).toBe(0);
+  });
+
   it('is broken by a missed day before yesterday', () => {
     expect(computeCurrentStreak(logOnDays([-2, -3]), TODAY)).toBe(0);
   });

@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Modal, TouchableOpacity, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
+import { IS_TABLET } from '../../navigation/device';
 
 export const HelpModal = ({ visible, onClose }) => {
   const { theme } = useTheme();
@@ -11,18 +12,37 @@ export const HelpModal = ({ visible, onClose }) => {
       icon: 'hand-left-outline',
       title: 'Gestures',
       items: [
-        'Tap a word → see translation',
-        'Tap verse number → play audio',
-        'Press and hold verse number → bookmark, memorize or listen',
-        'Press and hold a word (or tap its meaning) → word study',
+        'Tap a word → translation',
+        'Hold a word → word study',
+        'Tap a verse number → listen',
+        'Hold a verse number → bookmark or memorize',
+        'Swipe left / right → next / previous chapter',
+        'Saved words button (bottom left) → words you tapped',
       ],
     },
     {
       icon: 'albums-outline',
       title: 'Flashcards',
       items: [
-        'Add saved words to flashcards',
-        'Rate how hard words are for spaced repetition',
+        'Add the words you tapped as cards',
+        'Harder cards come back sooner',
+      ],
+    },
+    {
+      icon: 'bulb-outline',
+      title: 'Memorize',
+      items: [
+        'Hold a verse number → Memorize',
+        'Practice in short steps, then recall it',
+        'Reviews are scheduled for you',
+      ],
+    },
+    {
+      icon: 'stats-chart-outline',
+      title: 'Stats & backup',
+      items: [
+        IS_TABLET ? 'Stats tab → streak and activity' : 'Settings → Stats → streak and activity',
+        'Settings → Your data → back up or restore',
       ],
     },
   ];
@@ -96,13 +116,14 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  // Large but still a card: the dimmed backdrop stays visible around it.
   content: {
-    borderRadius: 16,
-    padding: 20,
-    marginHorizontal: 24,
-    maxWidth: 360,
-    width: '90%',
-    maxHeight: '80%',
+    borderRadius: 20,
+    paddingHorizontal: 22,
+    paddingVertical: 24,
+    maxWidth: 480,
+    width: '92%',
+    maxHeight: '90%',
   },
   header: {
     flexDirection: 'row',
@@ -111,14 +132,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   closeButton: {
     padding: 4,
   },
   scrollView: {
-    maxHeight: 400,
+    flexShrink: 1,
   },
   section: {
     marginBottom: 20,
@@ -130,28 +151,28 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
   },
   itemRow: {
     flexDirection: 'row',
     paddingLeft: 28,
-    marginBottom: 4,
+    marginBottom: 5,
   },
   bullet: {
-    fontSize: 14,
+    fontSize: 15,
     marginRight: 8,
   },
   itemText: {
-    fontSize: 14,
+    fontSize: 15,
     flex: 1,
-    lineHeight: 20,
+    lineHeight: 22,
   },
   gotItButton: {
-    paddingVertical: 12,
-    borderRadius: 10,
+    paddingVertical: 14,
+    borderRadius: 12,
     alignItems: 'center',
-    marginTop: 16,
+    marginTop: 12,
   },
   gotItButtonText: {
     fontSize: 16,

@@ -1,4 +1,6 @@
 import { useState, useCallback, useMemo, useRef } from 'react';
+import { useActivity } from '../context/ActivityContext';
+import { ACTIVITY_TYPES } from '../utils/activityStats';
 
 const PUNCTUATION_RE = /[.,،؛:؟!«»"()[\]]/g;
 
@@ -10,6 +12,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
   const [savedWords, setSavedWords] = useState([]);
   const wordTapInProgress = useRef(false);
   const dismissTimeoutRef = useRef(null);
+  const { logActivity } = useActivity();
 
   // Find the gloss entry ({ ar, en, formId }) for a tapped word in a verse.
   const findGlossEntry = useCallback((word, verseIndex) => {
@@ -60,6 +63,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
       setActiveWord(null);
     } else {
       // Word is new - add it and show tooltip
+      logActivity(ACTIVITY_TYPES.WORD_LOOKUP);
       const touchX = event?.nativeEvent?.pageX || 0;
       const touchY = event?.nativeEvent?.pageY || 0;
 
@@ -84,7 +88,7 @@ export function useBibleReader(chapter, currentBook, currentChapter) {
         timestamp: Date.now()
       }, ...savedWords]);
     }
-  }, [findGlossEntry, savedWords, currentBook, currentChapter, chapter]);
+  }, [findGlossEntry, savedWords, currentBook, currentChapter, chapter, logActivity]);
 
   const handleGlobalTap = useCallback(() => {
     if (dismissTimeoutRef.current) {

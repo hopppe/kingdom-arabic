@@ -64,3 +64,28 @@ describe('isTabletDevice', () => {
     expect(isTabletDevice({ os: 'android' })).toBe(false);
   });
 });
+
+describe('getChapterGridLayout', () => {
+  const { getChapterGridLayout } = require('./layout');
+
+  it('fits five comfortable columns on a phone', () => {
+    // Pixel 6a sheet: 412pt wide minus margins and padding.
+    expect(getChapterGridLayout(364)).toEqual({ columns: 5, cellSize: 72 });
+  });
+
+  it('uses many smaller cells on a tablet', () => {
+    expect(getChapterGridLayout(772)).toEqual({ columns: 12, cellSize: 64 });
+  });
+
+  it('never wraps a row: columns * cellSize fits the width', () => {
+    for (const width of [300, 333.3, 364, 391.5, 700, 1100]) {
+      const { columns, cellSize } = getChapterGridLayout(width);
+      expect(columns * cellSize).toBeLessThanOrEqual(width);
+      expect(columns).toBeGreaterThanOrEqual(5);
+    }
+  });
+
+  it('falls back before the width is known', () => {
+    expect(getChapterGridLayout(0)).toEqual({ columns: 5, cellSize: 64 });
+  });
+});

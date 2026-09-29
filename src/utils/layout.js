@@ -32,3 +32,15 @@ export const isTabletDevice = ({ os, isPad, width, height }) => {
   const shortSide = Math.min(width, height);
   return Number.isFinite(shortSide) && shortSide >= TABLET_MIN_SHORT_SIDE;
 };
+
+// Chapter picker grid: as many columns as fit at MIN_CHAPTER_CELL (never fewer than
+// MIN_CHAPTER_COLUMNS), with whole-point cells so rounding can't wrap a row early.
+export const MIN_CHAPTER_CELL = 64;
+export const MIN_CHAPTER_COLUMNS = 5;
+
+/** { columns, cellSize } for a chapter grid whose inner width is `width` points. */
+export function getChapterGridLayout(width) {
+  if (!(width > 0)) return { columns: MIN_CHAPTER_COLUMNS, cellSize: MIN_CHAPTER_CELL };
+  const columns = Math.max(MIN_CHAPTER_COLUMNS, Math.floor(width / MIN_CHAPTER_CELL));
+  return { columns, cellSize: Math.floor(width / columns) };
+}

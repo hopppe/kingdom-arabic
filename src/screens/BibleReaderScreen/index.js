@@ -7,8 +7,11 @@ import {
   Pressable,
   Alert,
   ActivityIndicator,
+  BackHandler,
   useWindowDimensions,
 } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -16,7 +19,9 @@ import * as Speech from 'expo-speech';
 import { setAudioModeAsync } from 'expo-audio';
 import { useTheme } from '../../context/ThemeContext';
 import { useFlashcards } from '../../context/FlashcardContext';
+import { useGatheringAccess } from '../../context/GatheringAccessContext';
 import { BOOKS, getBookName } from '../../data/bibleData';
+import { formatScriptureRef } from '../../utils/gathering/scriptureRef';
 import { getChapter } from '../../data/bibleRepository';
 import { useBibleDb } from '../../context/BibleDbContext';
 import { createStyles } from '../BibleReaderScreen.styles';
@@ -36,16 +41,24 @@ import { useMemoryVerses } from '../../context/MemoryVerseContext';
 import { useReadingProgress } from '../../context/ReadingProgressContext';
 import { ROUTES } from '../../navigation/routes';
 import { getReaderLayout } from '../../utils/layout';
+import { getAdjacentChapter } from '../../utils/chapterNavigation';
 import { IS_TABLET } from '../../navigation/device';
 import GlassSurface from '../../components/glass/GlassSurface';
 
 // How close (px) to the bottom of a chapter counts as having read it.
 const END_OF_CHAPTER_THRESHOLD = 150;
+// A horizontal swipe turns the chapter once it travels this far (or flicks this fast).
+// It only starts after clearly horizontal movement, so scrolling and word taps are unaffected.
+const SWIPE_ACTIVATE_X = 25;
+const SWIPE_FAIL_Y = 20;
+const SWIPE_MIN_DISTANCE = 70;
+const SWIPE_MIN_VELOCITY = 500;
 
-export default function BibleReaderScreen({ navigation }) {
+export default function BibleReaderScreen({ navigation, route }) {
   const { theme } = useTheme();
   const db = useBibleDb();
   const { addMultipleFlashcards, flashcards } = useFlashcards();
+  const { unlocked: gatheringUnlocked, unlock: unlockGathering } = useGatheringAccess();
   const { addVerse: addMemoryVerse, hasVerse: isMemoryVerse } = useMemoryVerses();
   const { markChapterRead } = useReadingProgress();
 
@@ -116,6 +129,9 @@ export default function BibleReaderScreen({ navigation }) {
   // { book, chapter, verse } to scroll to once that chapter has loaded (search, word study).
   const [targetVerse, setTargetVerse] = useState(null);
   const [loadedChapterKey, setLoadedChapterKey] = useState(null);
+  // Passage opened from the Gathering screen ({ book, chapter, verse, endVerse }); while set,
+  // it's highlighted and a "Back to Gathering" button returns to where the leader was.
+  const [gatheringReturn, setGatheringReturn] = useState(null);
 
   // Bookmarks hook
   const { bookmarks, addBookmark, removeBookmark, isBookmarked } = useBookmarks();
@@ -308,31 +324,36 @@ export default function BibleReaderScreen({ navigation }) {
     setActiveWord(null);
   }, [setActiveWord]);
 
+  // Previous/next chapter (swipes and the end-of-chapter link); continues into the neighbouring book at a book's edge.
   const navigateChapter = useCallback((direction) => {
-    const bookObj = BOOKS.find(b => b.id === currentBook);
-    if (!bookObj) return;
-
-    const currentIndex = bookObj.chapters.indexOf(currentChapter);
-    const newIndex = currentIndex + direction;
-
-    if (newIndex >= 0 && newIndex < bookObj.chapters.length) {
-      if (direction > 0) markChapterRead(currentBook, currentChapter);
-      setCurrentChapter(bookObj.chapters[newIndex]);
-      setActiveWord(null);
-    }
+    const target = getAdjacentChapter(BOOKS, currentBook, currentChapter, direction);
+    if (!target) return;
+    if (direction > 0) markChapterRead(currentBook, currentChapter);
+    setCurrentBook(target.book);
+    setCurrentChapter(target.chapter);
+    setActiveWord(null);
   }, [currentBook, currentChapter, setActiveWord, markChapterRead]);
 
-  const canNavigatePrev = useCallback(() => {
-    const bookObj = BOOKS.find(b => b.id === currentBook);
-    if (!bookObj) return false;
-    return bookObj.chapters.indexOf(currentChapter) > 0;
-  }, [currentBook, currentChapter]);
+  // Named in the link at the end of the chapter; null on the last chapter of the Bible.
+  const nextChapter = useMemo(
+    () => getAdjacentChapter(BOOKS, currentBook, currentChapter, 1),
+    [currentBook, currentChapter]
+  );
 
-  const canNavigateNext = useCallback(() => {
-    const bookObj = BOOKS.find(b => b.id === currentBook);
-    if (!bookObj) return false;
-    return bookObj.chapters.indexOf(currentChapter) < bookObj.chapters.length - 1;
-  }, [currentBook, currentChapter]);
+  // Swipe left = next chapter, swipe right = previous.
+  const chapterSwipe = useMemo(
+    () =>
+      Gesture.Pan()
+        .runOnJS(true)
+        .activeOffsetX([-SWIPE_ACTIVATE_X, SWIPE_ACTIVATE_X])
+        .failOffsetY([-SWIPE_FAIL_Y, SWIPE_FAIL_Y])
+        .onEnd(({ translationX, velocityX }) => {
+          const far = Math.abs(translationX) >= SWIPE_MIN_DISTANCE;
+          const fast = Math.abs(velocityX) >= SWIPE_MIN_VELOCITY;
+          if (far || fast) navigateChapter(translationX < 0 ? 1 : -1);
+        }),
+    [navigateChapter]
+  );
 
   const handleAddToFlashcards = useCallback(async () => {
     if (savedWords.length === 0) {
@@ -396,6 +417,57 @@ export default function BibleReaderScreen({ navigation }) {
   const openMemorize = useMemo(
     () => (IS_TABLET ? undefined : () => navigation.navigate(ROUTES.MEMORIZE)),
     [navigation]
+  );
+  const openGathering = useMemo(
+    () => (IS_TABLET || !gatheringUnlocked ? undefined : () => navigation.navigate(ROUTES.GATHERING)),
+    [navigation, gatheringUnlocked]
+  );
+
+  // Entering the unlock code in search reveals Gathering and says where to find it.
+  // The alert shows over the search sheet; dismissing it closes search so the new icon is visible.
+  const handleUnlockGathering = useCallback(() => {
+    if (gatheringUnlocked) return;
+    unlockGathering();
+    const closeSearch = () => setShowSearchModal(false);
+    Alert.alert(
+      'Gathering unlocked',
+      IS_TABLET
+        ? 'Find it in the Gathering tab at the bottom of the screen.'
+        : 'Tap the people icon at the top of the Bible screen to open it.',
+      [{ text: 'OK', onPress: closeSearch }],
+      { cancelable: true, onDismiss: closeSearch }
+    );
+  }, [gatheringUnlocked, unlockGathering]);
+
+  // A scripture link tapped on the Gathering screen: open that passage.
+  const gatheringLink = route?.params?.gatheringLink;
+  useEffect(() => {
+    if (!gatheringLink || !hasLoadedPosition) return;
+    navigation.setParams({ gatheringLink: undefined });
+    const { book, chapter: linkChapter, verse, endVerse } = gatheringLink;
+    restoreOffsetRef.current = 0;
+    setCurrentBook(book);
+    setCurrentChapter(linkChapter);
+    setTargetVerse({ book, chapter: linkChapter, verse: verse ?? 1 });
+    setActiveWord(null);
+    setGatheringReturn({ book, chapter: linkChapter, verse, endVerse });
+  }, [gatheringLink, hasLoadedPosition, navigation, setActiveWord]);
+
+  const backToGathering = useCallback(() => {
+    setGatheringReturn(null);
+    navigation.navigate(ROUTES.GATHERING);
+  }, [navigation]);
+
+  // Android back also returns to the Gathering screen instead of leaving the app.
+  useFocusEffect(
+    useCallback(() => {
+      if (!gatheringReturn) return undefined;
+      const subscription = BackHandler.addEventListener('hardwareBackPress', () => {
+        backToGathering();
+        return true;
+      });
+      return () => subscription.remove();
+    }, [gatheringReturn, backToGathering])
   );
 
   const closeVerseActions = useCallback(() => setVerseActions(null), []);
@@ -484,7 +556,8 @@ export default function BibleReaderScreen({ navigation }) {
     if (loadedChapterKey !== `${targetVerse.book}:${targetVerse.chapter}`) return undefined;
     // Wait for layout to complete
     const timer = setTimeout(() => {
-      const verseIndex = chapter.data.verse_numbers?.indexOf(targetVerse.verse) ?? targetVerse.verse - 1;
+      const foundIndex = chapter.data.verse_numbers?.indexOf(targetVerse.verse) ?? -1;
+      const verseIndex = foundIndex >= 0 ? foundIndex : targetVerse.verse - 1;
       const verseRef = verseRefs.current[verseIndex];
       if (verseRef) {
         verseRef.measureLayout(
@@ -547,10 +620,17 @@ export default function BibleReaderScreen({ navigation }) {
     const verseIsBookmarked = isBookmarked(currentBook, currentChapter, verseNum);
     const arabicWords = words.map((word, wordIndex) => renderWord(word, wordIndex, verseIndex));
     const englishText = chapter?.data?.content_english?.[verseIndex] ?? '';
+    const isLinkedVerse = Boolean(
+      gatheringReturn?.verse &&
+        gatheringReturn.book === currentBook &&
+        gatheringReturn.chapter === currentChapter &&
+        verseNum >= gatheringReturn.verse &&
+        verseNum <= gatheringReturn.endVerse
+    );
 
     return (
       <View
-        style={styles.verseContainer}
+        style={[styles.verseContainer, isLinkedVerse && styles.linkedVerse]}
         key={verseIndex}
         ref={(ref) => { verseRefs.current[verseIndex] = ref; }}
       >
@@ -599,6 +679,7 @@ export default function BibleReaderScreen({ navigation }) {
           setShowSettingsModal={setShowSettingsModal}
           onOpenFlashcards={openFlashcards}
           onOpenMemorize={openMemorize}
+          onOpenGathering={openGathering}
           theme={theme}
           styles={styles}
         />
@@ -634,73 +715,105 @@ export default function BibleReaderScreen({ navigation }) {
         setShowSettingsModal={setShowSettingsModal}
         onOpenFlashcards={openFlashcards}
         onOpenMemorize={openMemorize}
+        onOpenGathering={openGathering}
         theme={theme}
         styles={styles}
       />
 
-      <ScrollView
-        ref={scrollViewRef}
-        style={styles.content}
-        contentContainerStyle={{ paddingBottom: 100 }}
-        showsVerticalScrollIndicator={false}
-        onScroll={handleScroll}
-        scrollEventThrottle={16}
-        onScrollEndDrag={saveScrollOffset}
-        onMomentumScrollEnd={saveScrollOffset}
-        onScrollBeginDrag={() => {
-          userScrolledRef.current = true;
-          setActiveWord(null);
-        }}
-      >
-        <Pressable onPress={handleGlobalTap}>
-          <View style={[styles.storyContent, { maxWidth: readerLayout.maxWidth }]}>
-            <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
-            <Text style={styles.storyTitleEnglish}>
-              {getBookName(currentBook)} {currentChapter}
-            </Text>
+      <GestureDetector gesture={chapterSwipe}>
+        <ScrollView
+          ref={scrollViewRef}
+          style={styles.content}
+          contentContainerStyle={{ paddingBottom: 100 }}
+          showsVerticalScrollIndicator={false}
+          onScroll={handleScroll}
+          scrollEventThrottle={16}
+          onScrollEndDrag={saveScrollOffset}
+          onMomentumScrollEnd={saveScrollOffset}
+          onScrollBeginDrag={() => {
+            userScrolledRef.current = true;
+            setActiveWord(null);
+          }}
+        >
+          <Pressable onPress={handleGlobalTap}>
+            <View style={[styles.storyContent, { maxWidth: readerLayout.maxWidth }]}>
+              <Text style={styles.storyTitle}>{chapter.data.title_arabic}</Text>
+              <Text style={styles.storyTitleEnglish}>
+                {getBookName(currentBook)} {currentChapter}
+              </Text>
 
-            {chapter.data.content_arabic.map((verseText, index) => renderVerse(verseText, index))}
-          </View>
-        </Pressable>
-      </ScrollView>
+              {chapter.data.content_arabic.map((verseText, index) => renderVerse(verseText, index))}
+
+              {nextChapter && (
+                <Pressable
+                  style={styles.nextChapterLink}
+                  onPress={() => navigateChapter(1)}
+                  accessibilityRole="button"
+                  hitSlop={8}
+                >
+                  <Text style={styles.nextChapterText}>
+                    Next: {getBookName(nextChapter.book)} {nextChapter.chapter}
+                  </Text>
+                  <Ionicons name="chevron-forward" size={18} color={theme.colors.info} />
+                </Pressable>
+              )}
+            </View>
+          </Pressable>
+        </ScrollView>
+      </GestureDetector>
 
       {activeWord && (
         <WordTooltip activeWord={activeWord} theme={theme} styles={styles} onPress={openActiveWordStudy} />
       )}
 
-      <View style={styles.bottomButtonRow}>
-        <GlassSurface style={[styles.navButton, !canNavigatePrev() && { opacity: 0.3 }]} interactive>
-          <Pressable
-            style={styles.navButtonPressable}
-            onPress={() => navigateChapter(-1)}
-            disabled={!canNavigatePrev()}
-            accessibilityRole="button"
-            accessibilityLabel="Previous chapter"
-          >
-            <Ionicons name="chevron-back" size={24} color={theme.colors.text} />
-          </Pressable>
-        </GlassSurface>
+      {gatheringReturn && (
+        <View style={styles.gatheringReturnRow} pointerEvents="box-none">
+          <GlassSurface style={styles.gatheringReturnPill} interactive>
+            <Pressable
+              style={styles.gatheringReturnPressable}
+              onPress={backToGathering}
+              accessibilityRole="button"
+              accessibilityLabel="Back to Gathering"
+            >
+              <Ionicons name="chevron-back" size={18} color={theme.colors.info} />
+              <Text style={styles.gatheringReturnText} numberOfLines={1}>
+                Back to Gathering · {formatScriptureRef(gatheringReturn)}
+              </Text>
+            </Pressable>
+            <Pressable
+              style={styles.gatheringReturnDismiss}
+              onPress={() => setGatheringReturn(null)}
+              accessibilityRole="button"
+              accessibilityLabel="Stay in the Bible"
+              hitSlop={6}
+            >
+              <Ionicons name="close" size={16} color={theme.colors.textSecondary} />
+            </Pressable>
+          </GlassSurface>
+        </View>
+      )}
 
-        <GlassSurface style={styles.learnedWordsButton} interactive>
-          <Pressable style={styles.learnedWordsPressable} onPress={() => setShowSavedPanel(true)} accessibilityRole="button">
-            <Text style={styles.learnedWordsButtonText}>
-              Saved Words ({savedWords.length})
+      {/* Hidden until a word has been saved; chapters change by swiping. */}
+      {savedWords.length > 0 && (
+        <View style={styles.savedWordsButton}>
+          <GlassSurface style={styles.savedWordsGlass} interactive>
+            <Pressable
+              style={styles.savedWordsPressable}
+              onPress={() => setShowSavedPanel(true)}
+              accessibilityRole="button"
+              accessibilityLabel={`Saved words (${savedWords.length})`}
+            >
+              <Ionicons name="albums-outline" size={24} color={theme.colors.text} />
+            </Pressable>
+          </GlassSurface>
+          {/* Outside the glass, which clips its children. */}
+          <View style={styles.savedWordsBadge} pointerEvents="none">
+            <Text style={styles.savedWordsBadgeText}>
+              {savedWords.length > 99 ? '99+' : savedWords.length}
             </Text>
-          </Pressable>
-        </GlassSurface>
-
-        <GlassSurface style={[styles.navButton, !canNavigateNext() && { opacity: 0.3 }]} interactive>
-          <Pressable
-            style={styles.navButtonPressable}
-            onPress={() => navigateChapter(1)}
-            disabled={!canNavigateNext()}
-            accessibilityRole="button"
-            accessibilityLabel="Next chapter"
-          >
-            <Ionicons name="chevron-forward" size={24} color={theme.colors.text} />
-          </Pressable>
-        </GlassSurface>
-      </View>
+          </View>
+        </View>
+      )}
 
       <ChapterSelector
         visible={showChapterSelector}
@@ -777,6 +890,7 @@ export default function BibleReaderScreen({ navigation }) {
         visible={showSearchModal}
         onClose={() => setShowSearchModal(false)}
         onSelectResult={handleSearchResult}
+        onUnlockGathering={handleUnlockGathering}
       />
     </SafeAreaView>
   );

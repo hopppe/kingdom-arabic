@@ -1,24 +1,16 @@
-// The Progress dashboard's cards. Shown in the Progress tab on tablets and in
-// the reader's Settings sheet on phones.
+// The Stats dashboard: an overview (streak, totals, activity grid), then flashcards and memory verses side by side.
+// Shown in the Stats tab on tablets and in the reader's Settings sheet on phones.
 import React, { useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
 import { useActivity } from '../../context/ActivityContext';
 import { useFlashcards } from '../../context/FlashcardContext';
-import BackupSection from '../../components/backup/BackupSection';
-import {
-  computeCurrentStreak,
-  computeLongestStreak,
-  computeRetention,
-  lastNDays,
-  sumActivity,
-} from '../../utils/activityStats';
+import { useMemoryVerses } from '../../context/MemoryVerseContext';
+import { computeCurrentStreak, computeLongestStreak, countActiveDays, sumActivity } from '../../utils/activityStats';
 import { bucketFlashcardProgress } from '../../utils/flashcardStats';
-import StreakCard from './StreakCard';
-import ActivityBarChart from './ActivityBarChart';
-import FlashcardStatsCard from './FlashcardStatsCard';
-import MemoryVerseCard from './MemoryVerseCard';
-import ReadingProgressCard from './ReadingProgressCard';
+import { summarizeFlashcards, summarizeMemoryVerses } from '../../utils/progressSummary';
+import OverviewCard from './OverviewCard';
+import SummaryCard from './SummaryCard';
 
 /** props: onOpenFlashcards, onOpenMemorize (make those cards links) */
 export default function ProgressContent({ onOpenFlashcards, onOpenMemorize }) {
@@ -26,46 +18,54 @@ export default function ProgressContent({ onOpenFlashcards, onOpenMemorize }) {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const { activityLog, loaded: activityLoaded } = useActivity();
   const { userProgress } = useFlashcards();
+  const { stats: memoryStats } = useMemoryVerses();
 
-  const stats = useMemo(() => {
+  const overview = useMemo(() => {
     const now = new Date();
+    const totals = sumActivity(activityLog, 30, now);
     return {
-      currentStreak: computeCurrentStreak(activityLog, now),
-      longestStreak: computeLongestStreak(activityLog),
-      last7Days: lastNDays(activityLog, 7, now),
-      last35Days: lastNDays(activityLog, 35, now),
-      last14Days: lastNDays(activityLog, 14, now),
-      totals7: sumActivity(activityLog, 7, now),
-      totals30: sumActivity(activityLog, 30, now),
-      retention7: computeRetention(activityLog, 7, now),
-      retention30: computeRetention(activityLog, 30, now),
+      current: computeCurrentStreak(activityLog, now),
+      longest: computeLongestStreak(activityLog),
+      totals30: {
+        activeDays: countActiveDays(activityLog, 30, now),
+        cardReviews: totals.cardReviews,
+        verses: totals.verseReviews + totals.versePractice,
+      },
     };
   }, [activityLog]);
 
-  const flashcardBuckets = useMemo(() => bucketFlashcardProgress(userProgress), [userProgress]);
+  const flashcards = useMemo(() => summarizeFlashcards(bucketFlashcardProgress(userProgress)), [userProgress]);
+  const verses = useMemo(() => summarizeMemoryVerses(memoryStats), [memoryStats]);
 
   if (!activityLoaded) return null;
 
   return (
     <>
-      <StreakCard
-        currentStreak={stats.currentStreak}
-        longestStreak={stats.longestStreak}
-        last7Days={stats.last7Days}
-        last35Days={stats.last35Days}
+      <OverviewCard
+        currentStreak={overview.current}
+        longestStreak={overview.longest}
+        totals30={overview.totals30}
+        activityLog={activityLog}
       />
-      <ActivityBarChart
-        last14Days={stats.last14Days}
-        totals7={stats.totals7}
-        totals30={stats.totals30}
-        retention7={stats.retention7}
-        retention30={stats.retention30}
-      />
-      <FlashcardStatsCard buckets={flashcardBuckets} onPress={onOpenFlashcards} />
-      <MemoryVerseCard onPress={onOpenMemorize} />
-      <ReadingProgressCard />
-      <View style={styles.backup}>
-        <BackupSection />
+      <View style={styles.row}>
+        <SummaryCard
+          title="Flashcards"
+          icon="albums"
+          color={theme.colors.purple}
+          summary={flashcards}
+          doneLabel="words learned"
+          emptyText="Save words while reading to build your deck."
+          onPress={onOpenFlashcards}
+        />
+        <SummaryCard
+          title="Memorize"
+          icon="bulb"
+          color={theme.colors.warning}
+          summary={verses}
+          doneLabel="verses memorized"
+          emptyText="Long-press a verse number to add one."
+          onPress={onOpenMemorize}
+        />
       </View>
     </>
   );
@@ -73,7 +73,10 @@ export default function ProgressContent({ onOpenFlashcards, onOpenMemorize }) {
 
 const createStyles = (theme) =>
   StyleSheet.create({
-    backup: {
+    row: {
+      flexDirection: 'row',
+      gap: 12,
       marginHorizontal: theme.spacing.md,
+      marginBottom: 14,
     },
   });

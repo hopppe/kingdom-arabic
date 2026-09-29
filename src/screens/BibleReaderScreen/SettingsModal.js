@@ -3,10 +3,12 @@ import { View, Text, Modal, TouchableOpacity, Pressable, ScrollView, StyleSheet,
 import { Ionicons } from '@expo/vector-icons';
 import { Linking } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getBookName } from '../../data/bibleData';
 import { useNotificationPreferences } from '../../hooks/useNotificationPreferences';
 import { useTheme } from '../../context/ThemeContext';
 import { AppearanceSection } from './AppearanceSection';
+import BackupSection from '../../components/backup/BackupSection';
 import GlassSurface from '../../components/glass/GlassSurface';
 import GlassSegmentedControl from '../../components/glass/GlassSegmentedControl';
 import ProgressContent from '../ProgressScreen/ProgressContent';
@@ -15,7 +17,7 @@ const TAB_SETTINGS = 'settings';
 const TAB_PROGRESS = 'progress';
 const SHEET_TABS = [
   { value: TAB_SETTINGS, label: 'Settings' },
-  { value: TAB_PROGRESS, label: 'Progress' },
+  { value: TAB_PROGRESS, label: 'Stats' },
 ];
 
 export const SettingsModal = ({
@@ -34,6 +36,10 @@ export const SettingsModal = ({
   const { theme } = useTheme();
   const localStyles = useMemo(() => createStyles(theme), [theme]);
   const recentBookmarks = bookmarks.slice(0, 3);
+  // Android shows a pageSheet full-screen and edge-to-edge, so the sheet has to clear
+  // the status bar and gesture bar itself; on iOS the sheet already sits below them.
+  const insets = useSafeAreaInsets();
+  const sheetInsets = Platform.OS === 'android' ? { paddingTop: insets.top, paddingBottom: insets.bottom } : null;
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [tab, setTab] = useState(TAB_SETTINGS);
 
@@ -93,7 +99,7 @@ export const SettingsModal = ({
       onRequestClose={onClose}
       onDismiss={handleDismiss}
     >
-      <View style={localStyles.sheet}>
+      <View style={[localStyles.sheet, sheetInsets]}>
         <View style={localStyles.sheetHeader}>
           {showProgress ? (
             <GlassSegmentedControl options={SHEET_TABS} value={tab} onChange={setTab} />
@@ -120,9 +126,6 @@ export const SettingsModal = ({
                 contentContainerStyle={localStyles.scrollInner}
                 showsVerticalScrollIndicator={false}
               >
-              {/* Appearance Section */}
-              <AppearanceSection />
-
               {/* Bookmarks Section */}
               <View style={localStyles.section}>
                 <TouchableOpacity style={localStyles.sectionHeader} onPress={() => closeThen(onShowAllBookmarks)}>
@@ -233,6 +236,12 @@ export const SettingsModal = ({
                   )
                 )}
               </View>
+
+              {/* Appearance Section */}
+              <AppearanceSection />
+
+              {/* Backup / restore */}
+              <BackupSection />
 
               {/* Help Button */}
               <TouchableOpacity
@@ -384,8 +393,9 @@ const createStyles = (theme) => StyleSheet.create({
     marginBottom: 8,
     gap: 10,
   },
+  // Extra space separates the quick actions above from Appearance below.
   reminderSection: {
-    marginBottom: 8,
+    marginBottom: 24,
   },
   searchButtonText: {
     flex: 1,
@@ -400,7 +410,7 @@ const createStyles = (theme) => StyleSheet.create({
     paddingHorizontal: 8,
     borderRadius: 8,
     backgroundColor: theme.colors.surface,
-    marginTop: 0,
+    marginTop: 12,
     marginBottom: 16,
     gap: 10,
   },

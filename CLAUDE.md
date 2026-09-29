@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project: Kingdom Arabic (LearnArabic)
 
-A **local-first** React Native (Expo) app for learning Arabic through the Arabic Bible. No backend, no accounts, no network calls: Bible text ships inside the app and all user data lives in AsyncStorage on the device. Four tabs: **Bible** (read, tap words for glosses), **Flashcards** (Anki-style SRS), **Memorize** (whole-verse memorization), **Progress** (streaks, stats, reading progress, backup).
+A **local-first** React Native (Expo) app for learning Arabic through the Arabic Bible. No backend, no accounts, no network calls: Bible text ships inside the app and all user data lives in AsyncStorage on the device. Five tabs: **Bible** (read, tap words for glosses), **Flashcards** (Anki-style SRS), **Memorize** (whole-verse memorization), **Gathering** (resources for leading a spiritual gathering + random plan), **Progress** (streaks, stats). Backup/restore lives in the reader's Settings sheet ("Your data").
 
 ## Development Commands
 
@@ -44,7 +44,8 @@ src/
 │   │                        verse actions sheet, WordStudy/ (occurrences + related forms)
 │   ├── FlashcardScreen/     review session
 │   ├── MemoryScreen/        home / add verse / practice session, steps/ (Learn, Fade, First letters, Build, Recall)
-│   ├── ProgressScreen/      streak, activity chart, flashcard + memory stats, reading progress
+│   ├── GatheringScreen/     Arabic gathering guide + "Create plan"; content in data/gathering/, logic in utils/gathering/
+│   ├── ProgressScreen/      streak, activity chart, flashcard + memory stats
 │   └── components/          shared flashcard UI
 ├── components/backup/  BackupSection + useBackup
 ├── hooks/              reader, bookmarks, flashcard session/animations/prefs, notifications
@@ -63,14 +64,15 @@ scripts/                build_bible_db.py, mapping pipeline scripts; legacy-root
 
 ## Features (where to look)
 
-- **Reader:** tap a word → gloss tooltip + saved to session; tap the tooltip or long-press a word → word study; long-press a verse number → bookmark / memorize / listen; tap a verse number → TTS. Reaching the end of a chapter (or pressing Next) marks it read.
+- **Reader:** tap a word → gloss tooltip + saved to session; tap the tooltip or long-press a word → word study; long-press a verse number → bookmark / memorize / listen; tap a verse number → TTS. Reaching the end of a chapter (or pressing Next) logs a chapter read for the streak (ReadingProgressContext; there's no reading-progress UI).
 - **Flashcards:** Anki algorithm (new → learning 1m/10m → review; lapses → relearning; ease 1.3–2.5; fuzz). `recordAnswer` also logs activity.
 - **Memorize:** chunked meaning → fading words (25/50/75/100%) → first-letter cues → rebuild from tiles → free recall with self-grading; day-level SM-2 in `utils/memory/scheduler.js` (learning → reviewing → mastered at ≥21 days).
+- **Gathering:** private. Hidden (no screen/tab, not in the help sheet) until "gathering" (`utils/gathering/unlockCode.js`) is typed into Bible search and submitted with the keyboard's search key; an alert says where it now is, and it stays unlocked (`GatheringAccessContext`). The code must be in the App Store review notes (guideline 2.3.1). "جمع روحاني", Arabic first with an English toggle, built from the leader's Arabic template (fellowship, prayer, psalms & hymns, confession, Lord's Supper, Word of God/Waha, Great Commission, blessing, Lord's Prayer, Apostles' Creed) in `data/gathering/gathering.js`. Plan tab: "Create plan" picks one item per group (shuffle re-draws one); Resources tab lists everything. Scripture chips open the reader via a `gatheringLink` route param (phones: `popTo`, since v7 `navigate` would push a second reader); the reader highlights the passage and shows "Back to Gathering", which returns to the saved tab and scroll spot. A test checks every reference exists in `unified/`.
 - **Progress:** streak counts days with any activity (not broken until the day after a miss).
 
 ## AsyncStorage keys
 
-`@learnarabic_flashcards`, `_flashcard_progress`, `_flashcard_groups`, `_memory_verses`, `_reading_progress`, `_activity_log`, `_bookmarks`, `_reading_position`, `_display_prefs`, `_notifications_enabled`, `_reminder_time`, `_help_seen`, plus flashcard preference keys; `_last_backup_at` is device-only and excluded from backups.
+`@learnarabic_flashcards`, `_flashcard_progress`, `_flashcard_groups`, `_memory_verses`, `_reading_progress`, `_activity_log`, `_bookmarks`, `_reading_position`, `_display_prefs`, `_notifications_enabled`, `_reminder_time`, `_help_seen`, `_gathering_plan`, `_gathering_english`, `_gathering_unlocked`, plus flashcard preference keys; `_last_backup_at` is device-only and excluded from backups.
 
 ## Bible Source Data (JSON → SQLite)
 

@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, COLOR_SCHEMES } from '../../context/ThemeContext';
@@ -14,40 +14,72 @@ const OptionRow = ({ label, description, sample, selected, onPress, styles }) =>
       {description ? <Text style={styles.optionDescription}>{description}</Text> : null}
       {sample}
     </View>
-    <Ionicons
-      name={selected ? 'checkmark-circle' : 'ellipse-outline'}
-      size={22}
-      color={selected ? styles.colors.checkmarkSelected : styles.colors.checkmarkUnselected}
-    />
+    {selected && <Ionicons name="checkmark" size={20} color={styles.colors.checkmarkSelected} />}
   </TouchableOpacity>
+);
+
+// A dropdown row: shows the current choice and opens its options just below it.
+const DropdownRow = ({ label, value, isOpen, onToggle, children, styles }) => (
+  <View style={styles.dropdown}>
+    <TouchableOpacity
+      style={styles.dropdownHeader}
+      onPress={onToggle}
+      activeOpacity={0.7}
+      accessibilityRole="button"
+      accessibilityState={{ expanded: isOpen }}
+    >
+      <Text style={styles.dropdownLabel}>{label}</Text>
+      <Text style={styles.dropdownValue} numberOfLines={1}>{value}</Text>
+      <Ionicons name={isOpen ? 'chevron-up' : 'chevron-down'} size={18} color={styles.colors.chevron} />
+    </TouchableOpacity>
+    {isOpen && <View style={styles.dropdownOptions}>{children}</View>}
+  </View>
 );
 
 export const AppearanceSection = () => {
   const { theme, prefs, setColorScheme, setArabicFont, setArabicTextSize } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  // Only one dropdown open at a time: 'scheme' | 'font' | 'size' | null.
+  const [openKey, setOpenKey] = useState(null);
+  const toggle = (key) => setOpenKey((current) => (current === key ? null : key));
+  const choose = (setter) => (value) => {
+    setter(value);
+    setOpenKey(null);
+  };
+
+  const fonts = getAvailableArabicFonts();
+  const currentFont = fonts.find(([key]) => key === prefs.arabicFont)?.[1];
 
   return (
     <View style={styles.section}>
       <Text style={styles.sectionTitle}>Appearance</Text>
 
-      {/* Color scheme */}
-      <Text style={styles.groupLabel}>Color Scheme</Text>
-      <View style={styles.optionGroup}>
+      <DropdownRow
+        label="Color Scheme"
+        value={COLOR_SCHEMES[prefs.colorScheme]}
+        isOpen={openKey === 'scheme'}
+        onToggle={() => toggle('scheme')}
+        styles={styles}
+      >
         {Object.entries(COLOR_SCHEMES).map(([key, label]) => (
           <OptionRow
             key={key}
             label={label}
             selected={prefs.colorScheme === key}
-            onPress={() => setColorScheme(key)}
+            onPress={() => choose(setColorScheme)(key)}
             styles={styles}
           />
         ))}
-      </View>
+      </DropdownRow>
 
-      {/* Arabic font */}
-      <Text style={styles.groupLabel}>Arabic Font</Text>
-      <View style={styles.optionGroup}>
-        {getAvailableArabicFonts().map(([key, font]) => {
+      <DropdownRow
+        label="Arabic Font"
+        value={currentFont?.label}
+        isOpen={openKey === 'font'}
+        onToggle={() => toggle('font')}
+        styles={styles}
+      >
+        {fonts.map(([key, font]) => {
           const sampleStyle = buildArabicTextStyle(key, prefs.arabicTextSize);
           return (
             <OptionRow
@@ -55,7 +87,7 @@ export const AppearanceSection = () => {
               label={font.label}
               description={font.description}
               selected={prefs.arabicFont === key}
-              onPress={() => setArabicFont(key)}
+              onPress={() => choose(setArabicFont)(key)}
               styles={styles}
               sample={
                 <Text style={[styles.fontSample, sampleStyle, { color: theme.colors.text }]}>
@@ -65,21 +97,25 @@ export const AppearanceSection = () => {
             />
           );
         })}
-      </View>
+      </DropdownRow>
 
-      {/* Text size */}
-      <Text style={styles.groupLabel}>Text Size</Text>
-      <View style={styles.optionGroup}>
+      <DropdownRow
+        label="Text Size"
+        value={ARABIC_TEXT_SIZES[prefs.arabicTextSize]?.label}
+        isOpen={openKey === 'size'}
+        onToggle={() => toggle('size')}
+        styles={styles}
+      >
         {Object.entries(ARABIC_TEXT_SIZES).map(([key, size]) => (
           <OptionRow
             key={key}
             label={size.label}
             selected={prefs.arabicTextSize === key}
-            onPress={() => setArabicTextSize(key)}
+            onPress={() => choose(setArabicTextSize)(key)}
             styles={styles}
           />
         ))}
-      </View>
+      </DropdownRow>
     </View>
   );
 };
@@ -87,7 +123,7 @@ export const AppearanceSection = () => {
 const createStyles = (theme) => ({
   colors: {
     checkmarkSelected: theme.colors.info,
-    checkmarkUnselected: theme.colors.textTertiary,
+    chevron: theme.colors.textTertiary,
   },
   ...StyleSheet.create({
   section: {
@@ -100,28 +136,41 @@ const createStyles = (theme) => ({
     marginBottom: 12,
     paddingHorizontal: 8,
   },
-  groupLabel: {
-    fontSize: 13,
-    fontWeight: '600',
-    color: theme.colors.textSecondary,
-    marginBottom: 6,
-    marginTop: 10,
-    paddingHorizontal: 8,
-    textTransform: 'uppercase',
-  },
-  optionGroup: {
+  dropdown: {
     borderRadius: 8,
+    backgroundColor: theme.colors.surface,
+    marginBottom: 8,
     overflow: 'hidden',
+  },
+  dropdownHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    gap: 8,
+  },
+  dropdownLabel: {
+    flex: 1,
+    fontSize: 15,
+    fontWeight: '500',
+    color: theme.colors.text,
+  },
+  dropdownValue: {
+    flexShrink: 1,
+    fontSize: 15,
+    color: theme.colors.textSecondary,
+  },
+  dropdownOptions: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: theme.colors.border,
   },
   optionRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: 10,
-    paddingHorizontal: 8,
-    borderRadius: 8,
-    backgroundColor: theme.colors.surface,
-    marginBottom: 8,
+    paddingLeft: 24,
+    paddingRight: 12,
     gap: 10,
   },
   optionTextColumn: {

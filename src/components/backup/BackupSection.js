@@ -1,9 +1,8 @@
-import React, { useCallback, useMemo } from 'react';
-import { Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
+import React, { useCallback, useMemo, useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
 import { useBackup } from './useBackup';
-import GlassSurface from '../glass/GlassSurface';
 
 const SAVE_DESTINATIONS = Platform.select({
   ios: 'Files, iCloud Drive, Google Drive or email',
@@ -16,17 +15,18 @@ const formatDate = (iso) => {
   return Number.isNaN(date.getTime()) ? null : date.toLocaleDateString();
 };
 
-const describeSummary = ({ flashcards, memoryVerses, bookmarks, chaptersRead }) =>
+const describeSummary = ({ flashcards, memoryVerses, bookmarks }) =>
   [
     `${flashcards} flashcard${flashcards === 1 ? '' : 's'}`,
     `${memoryVerses} memory verse${memoryVerses === 1 ? '' : 's'}`,
     `${bookmarks} bookmark${bookmarks === 1 ? '' : 's'}`,
-    `${chaptersRead} chapter${chaptersRead === 1 ? '' : 's'} read`,
   ].join(', ');
 
+/** "Your data" dropdown in Settings: collapsed it shows the last backup date; open, the backup and restore actions. */
 export default function BackupSection() {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const [open, setOpen] = useState(false);
   const { lastBackupAt, busy, exportBackup, pickBackup, restoreBackup } = useBackup();
 
   const handleExport = useCallback(async () => {
@@ -63,40 +63,74 @@ export default function BackupSection() {
   const lastBackupText = formatDate(lastBackupAt);
 
   return (
-    <GlassSurface style={styles.card}>
-      <Text style={styles.title}>Your data</Text>
-      <Text style={styles.body}>
-        Everything is stored only on this device. Save a backup file to {SAVE_DESTINATIONS} so you can restore your
-        flashcards, memory verses and progress on a new phone.
-      </Text>
-      <Text style={styles.meta}>{lastBackupText ? `Last backup file created: ${lastBackupText}` : 'No backup yet'}</Text>
-
-      <TouchableOpacity style={styles.primaryButton} onPress={handleExport} disabled={busy} accessibilityRole="button">
-        {busy ? (
-          <ActivityIndicator color={theme.colors.textOnPrimary} />
-        ) : (
-          <>
-            <Ionicons name="share-outline" size={18} color={theme.colors.textOnPrimary} />
-            <Text style={styles.primaryButtonText}>Back up data</Text>
-          </>
-        )}
+    <View style={styles.dropdown}>
+      <TouchableOpacity
+        style={styles.header}
+        onPress={() => setOpen((current) => !current)}
+        activeOpacity={0.7}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: open }}
+      >
+        <Ionicons name="cloud-upload-outline" size={20} color={theme.colors.info} />
+        <Text style={styles.title}>Your data</Text>
+        <Text style={styles.headerValue} numberOfLines={1}>{lastBackupText ?? 'Not backed up'}</Text>
+        <Ionicons name={open ? 'chevron-up' : 'chevron-down'} size={18} color={theme.colors.textTertiary} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.secondaryButton} onPress={handleRestore} disabled={busy} accessibilityRole="button">
-        <Ionicons name="download-outline" size={18} color={theme.colors.text} />
-        <Text style={styles.secondaryButtonText}>Restore from backup</Text>
-      </TouchableOpacity>
-    </GlassSurface>
+      {open && (
+        <View style={styles.content}>
+          <Text style={styles.body}>
+            Everything is stored only on this device. Save a backup file to {SAVE_DESTINATIONS} so you can restore your
+            flashcards, memory verses and progress on a new phone.
+          </Text>
+          <Text style={styles.meta}>
+            {lastBackupText ? `Last backup file created: ${lastBackupText}` : 'No backup yet'}
+          </Text>
+
+          <TouchableOpacity style={styles.primaryButton} onPress={handleExport} disabled={busy} accessibilityRole="button">
+            {busy ? (
+              <ActivityIndicator color={theme.colors.textOnPrimary} />
+            ) : (
+              <>
+                <Ionicons name="share-outline" size={18} color={theme.colors.textOnPrimary} />
+                <Text style={styles.primaryButtonText}>Back up data</Text>
+              </>
+            )}
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.secondaryButton} onPress={handleRestore} disabled={busy} accessibilityRole="button">
+            <Ionicons name="download-outline" size={18} color={theme.colors.text} />
+            <Text style={styles.secondaryButtonText}>Restore from backup</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </View>
   );
 }
 
 const createStyles = (theme) =>
   StyleSheet.create({
-    card: {
-      borderRadius: 26,
-      padding: 18,
+    // Matches the Appearance dropdowns in the Settings sheet.
+    dropdown: {
+      borderRadius: 8,
+      backgroundColor: theme.colors.surface,
+      marginBottom: 8,
+      overflow: 'hidden',
     },
-    title: { fontSize: 17, fontWeight: '600', color: theme.colors.text, marginBottom: 6 },
+    header: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 8,
+      gap: 10,
+    },
+    title: { flex: 1, fontSize: 15, fontWeight: '500', color: theme.colors.text },
+    headerValue: { flexShrink: 1, fontSize: 15, color: theme.colors.textSecondary },
+    content: {
+      padding: 12,
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: theme.colors.border,
+    },
     body: { fontSize: 14, lineHeight: 20, color: theme.colors.textSecondary },
     meta: { fontSize: 13, color: theme.colors.textSecondary, marginTop: 8, marginBottom: 12 },
     primaryButton: {

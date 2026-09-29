@@ -14,6 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getPreviewText } from '../../utils/verseSearch';
+import { isGatheringUnlockCode } from '../../utils/gathering/unlockCode';
 import { searchVerses } from '../../data/bibleRepository';
 import { useBibleDb } from '../../context/BibleDbContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -22,6 +23,7 @@ export const SearchModal = ({
   visible,
   onClose,
   onSelectResult,
+  onUnlockGathering,
 }) => {
   const { theme } = useTheme();
   const localStyles = useMemo(() => createStyles(theme), [theme]);
@@ -62,6 +64,13 @@ export const SearchModal = ({
       console.error('Verse search failed:', error);
     }
   }, [db]);
+
+  // Submitting the private code (keyboard search key) unlocks Gathering; normal searches are unaffected.
+  const handleSubmit = useCallback((event) => {
+    if (onUnlockGathering && isGatheringUnlockCode(event.nativeEvent.text)) {
+      onUnlockGathering();
+    }
+  }, [onUnlockGathering]);
 
   const handleResultPress = useCallback((item) => {
     onSelectResult(item.book, item.chapter, item.verse);
@@ -123,6 +132,7 @@ export const SearchModal = ({
                     autoCapitalize="none"
                     autoCorrect={false}
                     returnKeyType="search"
+                    onSubmitEditing={handleSubmit}
                   />
                   {query.length > 0 && (
                     <TouchableOpacity

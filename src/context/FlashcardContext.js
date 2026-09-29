@@ -213,9 +213,10 @@ export const FlashcardProvider = ({ children }) => {
       saveFlashcards(finalCards);
       saveProgress(newProgress);
     }
+    logActivity(ACTIVITY_TYPES.CARD_ADDED, addedCount);
 
     return { added: addedCount, updated: updatedCount };
-  }, [initialized, loadData, saveFlashcards, saveProgress]);
+  }, [initialized, loadData, saveFlashcards, saveProgress, logActivity]);
 
   // Remove a flashcard
   const removeFlashcard = useCallback((id) => {

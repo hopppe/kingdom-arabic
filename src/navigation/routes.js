@@ -3,5 +3,6 @@ export const ROUTES = {
   BIBLE: 'Bible',
   FLASHCARDS: 'Flashcards',
   MEMORIZE: 'Memorize',
+  GATHERING: 'Gathering',
   PROGRESS: 'Progress',
 };

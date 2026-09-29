@@ -17,7 +17,7 @@ export default function ProgressScreen() {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.container} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
-        <Text style={styles.title}>Progress</Text>
+        <Text style={styles.title}>Stats</Text>
         <ProgressContent
           onOpenFlashcards={() => navigation.navigate(ROUTES.FLASHCARDS)}
           onOpenMemorize={() => navigation.navigate(ROUTES.MEMORIZE)}

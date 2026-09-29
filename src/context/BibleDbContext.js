@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { PreparingBible } from '../components/PreparingBible';
 import { SQLiteProvider, useSQLiteContext, deleteDatabaseAsync, defaultDatabaseDirectory } from 'expo-sqlite';
 import { Asset } from 'expo-asset';
 import { Directory, File, FileMode, Paths } from 'expo-file-system';
@@ -91,18 +90,8 @@ async function ensureBibleDb() {
   deleteCachedArchive(asset.localUri);
 }
 
-// Only show the "preparing" screen if installing takes noticeably long (first launch).
-const PREPARING_DELAY_MS = 400;
-
 export function BibleDbProvider({ children, onError }) {
   const [ready, setReady] = useState(false);
-  const [slow, setSlow] = useState(false);
-
-  useEffect(() => {
-    if (ready) return undefined;
-    const timer = setTimeout(() => setSlow(true), PREPARING_DELAY_MS);
-    return () => clearTimeout(timer);
-  }, [ready]);
 
   useEffect(() => {
     let cancelled = false;
@@ -114,7 +103,8 @@ export function BibleDbProvider({ children, onError }) {
     };
   }, [onError]);
 
-  if (!ready) return slow ? <PreparingBible /> : null;
+  // The animated splash stays up while the Bible installs (first launch), so render nothing here.
+  if (!ready) return null;
 
   return (
     <SQLiteProvider databaseName={BIBLE_DB_NAME} options={{ enableChangeListener: false }} onError={onError}>

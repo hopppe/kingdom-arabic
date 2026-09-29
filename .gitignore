@@ -64,3 +64,11 @@ old-ai-mappings/
 
 # Re-translation run state (progress, partial chapters, change log)
 /bible-translations/.retranslate-state/
+
+# Copyrighted source text (repo is public) - see its README
+/bible-translations/sources/sharif/*
+!/bible-translations/sources/sharif/README.md
+
+# Runtime logs and run flags (llama-server.log alone is >200 MB)
+/logs/*.log
+/logs/.retranslate-paused

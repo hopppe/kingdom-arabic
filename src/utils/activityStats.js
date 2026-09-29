@@ -1,5 +1,6 @@
 // Pure helpers for the daily activity log that powers streaks and study stats.
-// Log shape: { 'YYYY-MM-DD': { cardReviews, cardCorrect, verseReviews, versePractice, chaptersRead } }
+// Log shape: { 'YYYY-MM-DD': { cardReviews, cardCorrect, verseReviews, versePractice, chaptersRead,
+//                               wordLookups, cardsAdded, versesAdded } }
 
 export const ACTIVITY_TYPES = {
   CARD_REVIEW: 'cardReviews',
@@ -7,12 +8,23 @@ export const ACTIVITY_TYPES = {
   VERSE_REVIEW: 'verseReviews',
   VERSE_PRACTICE: 'versePractice',
   CHAPTER_READ: 'chaptersRead',
+  // Recorded for future stats; they don't make a day count toward the streak.
+  WORD_LOOKUP: 'wordLookups',
+  CARD_ADDED: 'cardsAdded',
+  VERSE_ADDED: 'versesAdded',
 };
 
 const ACTIVITY_KEYS = Object.values(ACTIVITY_TYPES);
+const STUDY_KEYS = [
+  ACTIVITY_TYPES.CARD_REVIEW,
+  ACTIVITY_TYPES.CARD_CORRECT,
+  ACTIVITY_TYPES.VERSE_REVIEW,
+  ACTIVITY_TYPES.VERSE_PRACTICE,
+  ACTIVITY_TYPES.CHAPTER_READ,
+];
 
-// Days kept in the log; older entries are dropped on write.
-export const ACTIVITY_RETENTION_DAYS = 400;
+// Days kept in the log (about three years); older entries are dropped on write.
+export const ACTIVITY_RETENTION_DAYS = 1100;
 
 const pad = (value) => String(value).padStart(2, '0');
 
@@ -33,7 +45,8 @@ export const addDays = (date, days) => {
 
 export const emptyDay = () => Object.fromEntries(ACTIVITY_KEYS.map((key) => [key, 0]));
 
-const isActiveDay = (day) => Boolean(day) && ACTIVITY_KEYS.some((key) => (day[key] || 0) > 0);
+// A streak day needs real study; looking words up or adding cards alone doesn't count.
+const isActiveDay = (day) => Boolean(day) && STUDY_KEYS.some((key) => (day[key] || 0) > 0);
 
 /** Returns a new log with `count` added to `type` on the given day. */
 export function addActivity(log, type, count = 1, date = new Date()) {
