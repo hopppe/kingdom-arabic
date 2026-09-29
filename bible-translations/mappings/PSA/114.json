@@ -1,6 +1,8 @@
 {
   "book": "PSA",
   "chapter": 114,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "عِنْدَ خُرُوجِ بَنِي إِسْرَائِيلَ مِنْ مِصْرَ، وَآلِ يَعْقُوبَ مِنْ بَيْنِ شَعْبٍ غَرِيبِ اللِّسَانِ.",
@@ -8,19 +10,19 @@
       "mappings": [
         {
           "ar": "عِنْدَ",
-          "en": "At",
+          "en": "at the time of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "خُرُوجِ",
-          "en": "Exit/Coming out",
+          "en": "exit of",
           "start": 7,
           "end": 14
         },
         {
           "ar": "بَنِي",
-          "en": "Sons/Children",
+          "en": "sons of",
           "start": 15,
           "end": 20
         },
@@ -32,7 +34,7 @@
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 34,
           "end": 38
         },
@@ -44,7 +46,7 @@
         },
         {
           "ar": "وَآلِ",
-          "en": "And the family/House/Descendants",
+          "en": "and the family of",
           "start": 47,
           "end": 52
         },
@@ -56,31 +58,31 @@
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 63,
           "end": 67
         },
         {
           "ar": "بَيْنِ",
-          "en": "Among",
+          "en": "among",
           "start": 68,
           "end": 74
         },
         {
           "ar": "شَعْبٍ",
-          "en": "People/Nation",
+          "en": "a people",
           "start": 75,
           "end": 81
         },
         {
           "ar": "غَرِيبِ",
-          "en": "Foreign/Strange",
+          "en": "strange",
           "start": 82,
           "end": 89
         },
         {
           "ar": "اللِّسَانِ.",
-          "en": "Tongue/Language",
+          "en": "the tongue",
           "start": 90,
           "end": 101
         }
@@ -92,7 +94,7 @@
       "mappings": [
         {
           "ar": "صَارَ",
-          "en": "Became",
+          "en": "became",
           "start": 0,
           "end": 5
         },
@@ -104,37 +106,37 @@
         },
         {
           "ar": "هَيْكَلاً",
-          "en": "A sanctuary",
+          "en": "sanctuary",
           "start": 15,
           "end": 24
         },
         {
           "ar": "مُقَدَّساً",
-          "en": "Holy",
+          "en": "holy",
           "start": 25,
           "end": 35
         },
         {
           "ar": "لَهُ،",
-          "en": "For him",
+          "en": "for him",
           "start": 36,
           "end": 41
         },
         {
           "ar": "وَإِسْرَائِيلُ",
-          "en": "And Israel",
+          "en": "and Israel",
           "start": 42,
           "end": 56
         },
         {
           "ar": "مَقَرَّ",
-          "en": "A dwelling place",
+          "en": "the seat",
           "start": 57,
           "end": 64
         },
         {
           "ar": "سُلْطَانِهِ.",
-          "en": "His dominion",
+          "en": "his dominion",
           "start": 65,
           "end": 77
         }
@@ -146,43 +148,43 @@
       "mappings": [
         {
           "ar": "رَأَى",
-          "en": "Saw",
+          "en": "saw",
           "start": 0,
           "end": 5
         },
         {
           "ar": "الْبَحْرُ",
-          "en": "Sea",
+          "en": "the sea",
           "start": 6,
           "end": 15
         },
         {
           "ar": "الأَحْمَرُ",
-          "en": "Red",
+          "en": "the Red",
           "start": 16,
           "end": 26
         },
         {
           "ar": "ذَلِكَ",
-          "en": "That",
+          "en": "that",
           "start": 27,
           "end": 33
         },
         {
           "ar": "فَهَرَبَ،",
-          "en": "And fled",
+          "en": "so fled",
           "start": 34,
           "end": 43
         },
         {
           "ar": "وَتَرَاجَعَ",
-          "en": "And turned back",
+          "en": "and retreated",
           "start": 44,
           "end": 55
         },
         {
           "ar": "نَهْرُ",
-          "en": "River",
+          "en": "river",
           "start": 56,
           "end": 62
         },
@@ -194,13 +196,13 @@
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 75,
           "end": 80
         },
         {
           "ar": "الْوَرَاءِ.",
-          "en": "Backward",
+          "en": "the back",
           "start": 81,
           "end": 92
         }
@@ -260,7 +262,7 @@
       "mappings": [
         {
           "ar": "مَالَكَ",
-          "en": "Why",
+          "en": "what is your matter",
           "start": 0,
           "end": 7
         },
@@ -272,25 +274,25 @@
         },
         {
           "ar": "بَحْرُ",
-          "en": "Sea",
+          "en": "sea",
           "start": 12,
           "end": 18
         },
         {
           "ar": "قَدْ",
-          "en": "(Emphasizes the action - already)",
+          "en": "have",
           "start": 19,
           "end": 23
         },
         {
           "ar": "هَرَبْتَ،",
-          "en": "Fled",
+          "en": "you fled",
           "start": 24,
           "end": 33
         },
         {
           "ar": "وَيَا",
-          "en": "O",
+          "en": "and O",
           "start": 34,
           "end": 39
         },
@@ -302,25 +304,25 @@
         },
         {
           "ar": "قَدْ",
-          "en": "(Emphasizes the action - already)",
+          "en": "have",
           "start": 50,
           "end": 54
         },
         {
           "ar": "رَجَعْتَ",
-          "en": "Turned back",
+          "en": "you returned",
           "start": 55,
           "end": 63
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 64,
           "end": 69
         },
         {
           "ar": "الْوَرَاءِ؟",
-          "en": "Backwards",
+          "en": "the back",
           "start": 70,
           "end": 81
         }
@@ -332,7 +334,7 @@
       "mappings": [
         {
           "ar": "مَالَكِ",
-          "en": "Why",
+          "en": "what is wrong with you?",
           "start": 0,
           "end": 7
         },
@@ -344,37 +346,37 @@
         },
         {
           "ar": "جِبَالُ",
-          "en": "Mountains",
+          "en": "mountains",
           "start": 12,
           "end": 19
         },
         {
           "ar": "تَقْفِزِينَ",
-          "en": "Did you leap",
+          "en": "you leap",
           "start": 20,
           "end": 31
         },
         {
           "ar": "كَالْكِبَاشِ،",
-          "en": "Like rams",
+          "en": "like rams",
           "start": 32,
           "end": 45
         },
         {
           "ar": "وَيَا",
-          "en": "O",
+          "en": "and O",
           "start": 46,
           "end": 51
         },
         {
           "ar": "تِلالُ",
-          "en": "Hills",
+          "en": "hills",
           "start": 52,
           "end": 58
         },
         {
           "ar": "كَالْحُمْلانِ؟",
-          "en": "Like lambs",
+          "en": "like lambs",
           "start": 59,
           "end": 73
         }
@@ -386,43 +388,43 @@
       "mappings": [
         {
           "ar": "تَزَلْزَلِي",
-          "en": "Tremble",
+          "en": "tremble",
           "start": 0,
           "end": 11
         },
         {
           "ar": "يَا",
-          "en": "Earth",
+          "en": "O",
           "start": 12,
           "end": 15
         },
         {
           "ar": "أَرْضُ",
-          "en": "Earth",
+          "en": "earth",
           "start": 16,
           "end": 22
         },
         {
           "ar": "فِي",
-          "en": "At",
+          "en": "in",
           "start": 23,
           "end": 26
         },
         {
           "ar": "حَضْرَةِ",
-          "en": "Presence",
+          "en": "presence of",
           "start": 27,
           "end": 35
         },
         {
           "ar": "الرَّبِّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 36,
           "end": 44
         },
         {
           "ar": "إِلَهِ",
-          "en": "God",
+          "en": "God of",
           "start": 45,
           "end": 51
         },
@@ -464,13 +466,13 @@
         },
         {
           "ar": "جَدَاوِلَ،",
-          "en": "a pool",
+          "en": "pools",
           "start": 34,
           "end": 44
         },
         {
           "ar": "وَالصَّوَّانَ",
-          "en": "and the hard rock",
+          "en": "and the flint",
           "start": 45,
           "end": 58
         },
@@ -482,13 +484,13 @@
         },
         {
           "ar": "يَنَابِيعِ",
-          "en": "springs",
+          "en": "springs of",
           "start": 65,
           "end": 75
         },
         {
           "ar": "مِيَاهٍ.",
-          "en": "of water",
+          "en": "waters",
           "start": 76,
           "end": 84
         }

@@ -1,6 +1,8 @@
 {
   "book": "JOS",
   "chapter": 12,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَهَذِهِ هِيَ أَسْمَاءُ الْمُلُوكِ الَّذِينَ قَضَى عَلَيْهِمْ بَنُو إِسْرَائِيلَ وَامْتَلَكُوا أَرْضَهُمْ شَرْقِيَّ نَهْرِ الأُرْدُنِّ، مِنْ وَادِي أَرْنُونَ حَتَّى جَبَلِ حَرْمُونَ بِمَا فِي ذَلِكَ الْمِنْطَقَةُ الشَّرْقِيَّةُ مِنَ الْعَرَبَةِ:",
@@ -14,7 +16,7 @@
         },
         {
           "ar": "هِيَ",
-          "en": "it is",
+          "en": "are",
           "start": 9,
           "end": 13
         },
@@ -26,7 +28,7 @@
         },
         {
           "ar": "الْمُلُوكِ",
-          "en": "kings",
+          "en": "the kings",
           "start": 24,
           "end": 34
         },
@@ -38,19 +40,19 @@
         },
         {
           "ar": "قَضَى",
-          "en": "judged",
+          "en": "defeated",
           "start": 45,
           "end": 50
         },
         {
           "ar": "عَلَيْهِمْ",
-          "en": "upon them",
+          "en": "over them",
           "start": 51,
           "end": 61
         },
         {
           "ar": "بَنُو",
-          "en": "sons",
+          "en": "the sons of",
           "start": 62,
           "end": 67
         },
@@ -62,7 +64,7 @@
         },
         {
           "ar": "وَامْتَلَكُوا",
-          "en": "and possessed",
+          "en": "and they took over",
           "start": 81,
           "end": 94
         },
@@ -80,13 +82,13 @@
         },
         {
           "ar": "نَهْرِ",
-          "en": "river",
+          "en": "river of",
           "start": 116,
           "end": 122
         },
         {
           "ar": "الأُرْدُنِّ،",
-          "en": "Jordan",
+          "en": "the Jordan",
           "start": 123,
           "end": 135
         },
@@ -98,7 +100,7 @@
         },
         {
           "ar": "وَادِي",
-          "en": "valley",
+          "en": "valley of",
           "start": 141,
           "end": 147
         },
@@ -110,13 +112,13 @@
         },
         {
           "ar": "حَتَّى",
-          "en": "until",
+          "en": "to",
           "start": 158,
           "end": 164
         },
         {
           "ar": "جَبَلِ",
-          "en": "mountain",
+          "en": "mountain of",
           "start": 165,
           "end": 171
         },
@@ -128,7 +130,7 @@
         },
         {
           "ar": "بِمَا",
-          "en": "with what",
+          "en": "including",
           "start": 182,
           "end": 187
         },
@@ -146,19 +148,19 @@
         },
         {
           "ar": "الْمِنْطَقَةُ",
-          "en": "region",
+          "en": "the region",
           "start": 199,
           "end": 212
         },
         {
           "ar": "الشَّرْقِيَّةُ",
-          "en": "eastern",
+          "en": "the eastern",
           "start": 213,
           "end": 227
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 228,
           "end": 232
         },
@@ -182,25 +184,25 @@
         },
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "king",
           "start": 9,
           "end": 15
         },
         {
           "ar": "الأَمُورِيِّينَ",
-          "en": "Of the Amorites",
+          "en": "the Amorites",
           "start": 16,
           "end": 31
         },
         {
           "ar": "الْمُقِيمُ",
-          "en": "Who resided/dwelt",
+          "en": "the resident",
           "start": 32,
           "end": 42
         },
         {
           "ar": "فِي",
-          "en": "within",
+          "en": "in",
           "start": 43,
           "end": 46
         },
@@ -212,25 +214,25 @@
         },
         {
           "ar": "وَكَانَتْ",
-          "en": "And it was",
+          "en": "and it was",
           "start": 58,
           "end": 67
         },
         {
           "ar": "مَمْلَكَتُهُ",
-          "en": "His kingdom",
+          "en": "his kingdom",
           "start": 68,
           "end": 80
         },
         {
           "ar": "تَمْتَدُّ",
-          "en": "Extended/Reached",
+          "en": "extended",
           "start": 81,
           "end": 90
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 91,
           "end": 95
         },
@@ -242,19 +244,19 @@
         },
         {
           "ar": "عَلَى",
-          "en": "which is the",
+          "en": "on",
           "start": 107,
           "end": 112
         },
         {
           "ar": "أَطْرَافِ",
-          "en": "The slopes/rims of",
+          "en": "the rims of",
           "start": 113,
           "end": 122
         },
         {
           "ar": "وَادِي",
-          "en": "Valley",
+          "en": "valley",
           "start": 123,
           "end": 129
         },
@@ -266,25 +268,25 @@
         },
         {
           "ar": "وَمِنْ",
-          "en": "And from",
+          "en": "and from",
           "start": 141,
           "end": 147
         },
         {
           "ar": "وَسَطِ",
-          "en": "Middle of",
+          "en": "middle of",
           "start": 148,
           "end": 154
         },
         {
           "ar": "وَادِي",
-          "en": "Valley",
+          "en": "valley",
           "start": 155,
           "end": 161
         },
         {
           "ar": "نَهْرِ",
-          "en": "river",
+          "en": "river of",
           "start": 162,
           "end": 168
         },
@@ -296,13 +298,13 @@
         },
         {
           "ar": "حَتَّى",
-          "en": "until",
+          "en": "to",
           "start": 179,
           "end": 185
         },
         {
           "ar": "نَهْرِ",
-          "en": "river",
+          "en": "river of",
           "start": 186,
           "end": 192
         },
@@ -314,19 +316,19 @@
         },
         {
           "ar": "عَلَى",
-          "en": "which is the",
+          "en": "on",
           "start": 202,
           "end": 207
         },
         {
           "ar": "حُدُودِ",
-          "en": "border of",
+          "en": "borders of",
           "start": 208,
           "end": 215
         },
         {
           "ar": "بَنِي",
-          "en": "the sons of",
+          "en": "sons of",
           "start": 216,
           "end": 221
         },
@@ -344,7 +346,7 @@
         },
         {
           "ar": "فِي",
-          "en": "within",
+          "en": "in",
           "start": 237,
           "end": 240
         },
@@ -356,13 +358,13 @@
         },
         {
           "ar": "نِصْفُ",
-          "en": "half",
+          "en": "half of",
           "start": 248,
           "end": 254
         },
         {
           "ar": "أَرَاضِي",
-          "en": "lands",
+          "en": "lands of",
           "start": 255,
           "end": 263
         },
@@ -380,139 +382,139 @@
       "mappings": [
         {
           "ar": "وَكَذَلِكَ",
-          "en": "And likewise",
+          "en": "and so",
           "start": 0,
           "end": 10
         },
         {
           "ar": "حَكَمَ",
-          "en": "Judged/Ruled",
+          "en": "ruled",
           "start": 11,
           "end": 17
         },
         {
           "ar": "الْمِنْطَقَةَ",
-          "en": "The region/area",
+          "en": "the region",
           "start": 18,
           "end": 31
         },
         {
           "ar": "الشَّرْقِيَّةَ",
-          "en": "The eastern",
+          "en": "the eastern",
           "start": 32,
           "end": 46
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 47,
           "end": 51
         },
         {
           "ar": "وَادِي",
-          "en": "Valley",
+          "en": "valley of",
           "start": 52,
           "end": 58
         },
         {
           "ar": "نَهْرِ",
-          "en": "River",
+          "en": "river of",
           "start": 59,
           "end": 65
         },
         {
           "ar": "الأُرْدُنِّ",
-          "en": "Of the Jordan",
+          "en": "Jordan",
           "start": 66,
           "end": 77
         },
         {
           "ar": "بَدْءاً",
-          "en": "Beginning",
+          "en": "starting from",
           "start": 78,
           "end": 85
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 86,
           "end": 90
         },
         {
           "ar": "بَحْرِ",
-          "en": "Sea",
+          "en": "sea of",
           "start": 91,
           "end": 97
         },
         {
           "ar": "الْجَلِيلِ",
-          "en": "Of Galilee",
+          "en": "Galilee",
           "start": 98,
           "end": 108
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 109,
           "end": 114
         },
         {
           "ar": "الْبَحْرِ",
-          "en": "The sea",
+          "en": "the sea",
           "start": 115,
           "end": 124
         },
         {
           "ar": "الْمَيِّتِ",
-          "en": "The Dead",
+          "en": "the Dead",
           "start": 125,
           "end": 135
         },
         {
           "ar": "حَتَّى",
-          "en": "Until",
+          "en": "to",
           "start": 136,
           "end": 142
         },
         {
           "ar": "طَرِيقِ",
-          "en": "Road/Path",
+          "en": "the road of",
           "start": 143,
           "end": 150
         },
         {
           "ar": "بَيْتِ",
-          "en": "Of",
+          "en": "house of",
           "start": 151,
           "end": 157
         },
         {
           "ar": "يَشِيمُوتَ،",
-          "en": "Bethshean",
+          "en": "Jeshimoth",
           "start": 158,
           "end": 169
         },
         {
           "ar": "وَشِمَالاً",
-          "en": "And northward",
+          "en": "and northward",
           "start": 170,
           "end": 180
         },
         {
           "ar": "حَتَّى",
-          "en": "Until",
+          "en": "to",
           "start": 181,
           "end": 187
         },
         {
           "ar": "سُفُوحِ",
-          "en": "Slopes",
+          "en": "the slopes of",
           "start": 188,
           "end": 195
         },
         {
           "ar": "الْفِسْجَةِ.",
-          "en": "Of the Fesja",
+          "en": "Pisgah",
           "start": 196,
           "end": 208
         }
@@ -524,19 +526,19 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "حُدُودُ",
-          "en": "Borders",
+          "en": "the territory of",
           "start": 7,
           "end": 14
         },
         {
           "ar": "مَمْلَكَةِ",
-          "en": "Kingdom",
+          "en": "kingdom of",
           "start": 15,
           "end": 25
         },
@@ -548,7 +550,7 @@
         },
         {
           "ar": "مَلِكِ",
-          "en": "King",
+          "en": "king of",
           "start": 32,
           "end": 38
         },
@@ -560,49 +562,49 @@
         },
         {
           "ar": "آخِرِ",
-          "en": "Last",
+          "en": "one of the last",
           "start": 49,
           "end": 54
         },
         {
           "ar": "بَقِيَّةِ",
-          "en": "Remnant",
+          "en": "remnant of",
           "start": 55,
           "end": 64
         },
         {
           "ar": "الرَّفَائِيِّينَ",
-          "en": "Rephaim",
+          "en": "the Rephaites",
           "start": 65,
           "end": 81
         },
         {
           "ar": "الْمُقِيمِ",
-          "en": "Dwelling",
+          "en": "who dwelt",
           "start": 82,
           "end": 92
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 93,
           "end": 96
         },
         {
           "ar": "عَشْتَارُوثَ",
-          "en": "Astaroth",
+          "en": "Ashtaroth",
           "start": 97,
           "end": 109
         },
         {
           "ar": "وَفِي",
-          "en": "And in",
+          "en": "and in",
           "start": 110,
           "end": 115
         },
         {
           "ar": "إِذْرَعِي،",
-          "en": "Uzrah",
+          "en": "Edrei",
           "start": 116,
           "end": 126
         }
@@ -614,13 +616,13 @@
       "mappings": [
         {
           "ar": "فَكَانَتْ",
-          "en": "so it extended",
+          "en": "so it was",
           "start": 0,
           "end": 9
         },
         {
           "ar": "تَمْتَدُّ",
-          "en": "stretched out",
+          "en": "extended",
           "start": 10,
           "end": 19
         },
@@ -644,13 +646,13 @@
         },
         {
           "ar": "وَسَلْخَةَ",
-          "en": "and Salchah",
+          "en": "and Salekah",
           "start": 42,
           "end": 52
         },
         {
           "ar": "وَعَلَى",
-          "en": "and over",
+          "en": "and on",
           "start": 53,
           "end": 60
         },
@@ -668,13 +670,13 @@
         },
         {
           "ar": "حَتَّى",
-          "en": "until",
+          "en": "to",
           "start": 76,
           "end": 82
         },
         {
           "ar": "تُخُومِ",
-          "en": "borders/outskirts of",
+          "en": "borders of",
           "start": 83,
           "end": 90
         },
@@ -686,7 +688,7 @@
         },
         {
           "ar": "وَالْمَعْكِيِّينَ",
-          "en": "and the Maacathites",
+          "en": "and the Maakkites",
           "start": 108,
           "end": 125
         },
@@ -710,7 +712,7 @@
         },
         {
           "ar": "حُدُودِ",
-          "en": "territories/boundaries of",
+          "en": "the borders of",
           "start": 150,
           "end": 157
         },
@@ -740,7 +742,7 @@
       "mappings": [
         {
           "ar": "فَقَضَى",
-          "en": "So decreed",
+          "en": "so conquered",
           "start": 0,
           "end": 7
         },
@@ -752,49 +754,49 @@
         },
         {
           "ar": "عَبْدُ",
-          "en": "Servant",
+          "en": "servant of",
           "start": 15,
           "end": 21
         },
         {
           "ar": "الرَّبِّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 22,
           "end": 30
         },
         {
           "ar": "وَبَنُو",
-          "en": "And the sons",
+          "en": "and the sons of",
           "start": 31,
           "end": 38
         },
         {
           "ar": "إِسْرَائِيلَ",
-          "en": "Of Israel",
+          "en": "Israelites",
           "start": 39,
           "end": 51
         },
         {
           "ar": "عَلَى",
-          "en": "Against",
+          "en": "conquered",
           "start": 52,
           "end": 57
         },
         {
           "ar": "هَاتَيْنِ",
-          "en": "These two",
+          "en": "these two",
           "start": 58,
           "end": 67
         },
         {
           "ar": "الْمَمْلَكَتَيْنِ،",
-          "en": "Kingdoms",
+          "en": "the two kingdoms",
           "start": 68,
           "end": 86
         },
         {
           "ar": "وَوَهَبَهُمَا",
-          "en": "And He gave them",
+          "en": "and he gave them",
           "start": 87,
           "end": 100
         },
@@ -806,43 +808,43 @@
         },
         {
           "ar": "عَبْدُ",
-          "en": "Servant",
+          "en": "servant of",
           "start": 108,
           "end": 114
         },
         {
           "ar": "الرَّبِّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 115,
           "end": 123
         },
         {
           "ar": "مِيرَاثاً",
-          "en": "An inheritance",
+          "en": "as an inheritance",
           "start": 124,
           "end": 133
         },
         {
           "ar": "لِلرَّأُوبَيْنِيِّينَ",
-          "en": "To the Reubenites",
+          "en": "to the Reubenites",
           "start": 134,
           "end": 155
         },
         {
           "ar": "وَالْجَادِيِّينَ",
-          "en": "And the Gadites",
+          "en": "and the Gadites",
           "start": 156,
           "end": 172
         },
         {
           "ar": "وَلِنِصْفِ",
-          "en": "And to half",
+          "en": "and to half of",
           "start": 173,
           "end": 183
         },
         {
           "ar": "سِبْطِ",
-          "en": "Tribe",
+          "en": "tribe of",
           "start": 184,
           "end": 190
         },
@@ -860,7 +862,7 @@
       "mappings": [
         {
           "ar": "وَهَذِهِ",
-          "en": "And these",
+          "en": "and these",
           "start": 0,
           "end": 8
         },
@@ -872,7 +874,7 @@
         },
         {
           "ar": "الْمُلُوكِ",
-          "en": "of the kings",
+          "en": "the kings",
           "start": 19,
           "end": 29
         },
@@ -890,7 +892,7 @@
         },
         {
           "ar": "عَلَيْهِمْ",
-          "en": "them",
+          "en": "upon them",
           "start": 46,
           "end": 56
         },
@@ -902,7 +904,7 @@
         },
         {
           "ar": "وَبَنُو",
-          "en": "and the sons",
+          "en": "and the sons of",
           "start": 65,
           "end": 72
         },
@@ -920,19 +922,19 @@
         },
         {
           "ar": "غَرْبِيِّ",
-          "en": "the west",
+          "en": "west side of",
           "start": 90,
           "end": 99
         },
         {
           "ar": "نَهْرِ",
-          "en": "of the river",
+          "en": "river of",
           "start": 100,
           "end": 106
         },
         {
           "ar": "الأُرْدُنِّ،",
-          "en": "Jordan",
+          "en": "the Jordan",
           "start": 107,
           "end": 119
         },
@@ -962,7 +964,7 @@
         },
         {
           "ar": "وَادِي",
-          "en": "Valley",
+          "en": "valley of",
           "start": 142,
           "end": 148
         },
@@ -974,31 +976,31 @@
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 159,
           "end": 164
         },
         {
           "ar": "الْجَبَلِ",
-          "en": "The Mountain",
+          "en": "the mountain",
           "start": 165,
           "end": 174
         },
         {
           "ar": "الأَقْرَعِ",
-          "en": "The Bald",
+          "en": "the bald",
           "start": 175,
           "end": 185
         },
         {
           "ar": "الْمُتَّجِهِ",
-          "en": "Which rises",
+          "en": "rising toward",
           "start": 186,
           "end": 198
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 199,
           "end": 204
         },
@@ -1010,13 +1012,13 @@
         },
         {
           "ar": "الَّتِي",
-          "en": "Which",
+          "en": "which",
           "start": 214,
           "end": 221
         },
         {
           "ar": "وَهَبَهَا",
-          "en": "He gave",
+          "en": "he gave it",
           "start": 222,
           "end": 231
         },
@@ -1028,13 +1030,13 @@
         },
         {
           "ar": "مِيرَاثاً",
-          "en": "An inheritance",
+          "en": "as an inheritance",
           "start": 240,
           "end": 249
         },
         {
           "ar": "لأَسْبَاطِ",
-          "en": "To the tribes",
+          "en": "to the tribes of",
           "start": 250,
           "end": 260
         },
@@ -1046,13 +1048,13 @@
         },
         {
           "ar": "بِحَسَبِ",
-          "en": "According to",
+          "en": "according to",
           "start": 274,
           "end": 282
         },
         {
           "ar": "فِرَقِهِمْ:",
-          "en": "Their divisions",
+          "en": "their divisions",
           "start": 283,
           "end": 294
         }
@@ -1076,7 +1078,7 @@
         },
         {
           "ar": "هِيَ",
-          "en": "she is",
+          "en": "are",
           "start": 19,
           "end": 23
         },
@@ -1088,31 +1090,31 @@
         },
         {
           "ar": "الْجَبَلِيَّةُ",
-          "en": "mountainous",
+          "en": "the hill country",
           "start": 37,
           "end": 51
         },
         {
           "ar": "وَسُفُوحُ",
-          "en": "and slopes",
+          "en": "and the foothills",
           "start": 52,
           "end": 61
         },
         {
           "ar": "التِّلالِ",
-          "en": "the hills",
+          "en": "the foothills",
           "start": 62,
           "end": 71
         },
         {
           "ar": "الْغَرْبِيَّةِ",
-          "en": "western",
+          "en": "the western",
           "start": 72,
           "end": 86
         },
         {
           "ar": "وَالْعَرَبَةُ",
-          "en": "and the valley",
+          "en": "and the Arabah",
           "start": 87,
           "end": 100
         },
@@ -1130,13 +1132,13 @@
         },
         {
           "ar": "وَالصَّحْرَاءُ",
-          "en": "and the desert",
+          "en": "and the wilderness",
           "start": 135,
           "end": 149
         },
         {
           "ar": "وَالنَّقَبُ،",
-          "en": "and the wadi",
+          "en": "and the Negev",
           "start": 150,
           "end": 162
         },
@@ -1154,31 +1156,31 @@
         },
         {
           "ar": "وَالأَمُورِيِّينَ",
-          "en": "the Amorites",
+          "en": "and the Amorites",
           "start": 187,
           "end": 204
         },
         {
           "ar": "وَالْكَنْعَانِيِّينَ",
-          "en": "the Canaanites",
+          "en": "and the Canaanites",
           "start": 205,
           "end": 225
         },
         {
           "ar": "وَالْفِرِزِّيِّينَ",
-          "en": "the Perizzites",
+          "en": "and the Perizzites",
           "start": 226,
           "end": 244
         },
         {
           "ar": "وَالْحِوِّيِّينَ",
-          "en": "the Hivites",
+          "en": "and the Hivites",
           "start": 245,
           "end": 261
         },
         {
           "ar": "وَالْيَبُوسِيِّينَ.",
-          "en": "the Jebusites",
+          "en": "and the Jebusites",
           "start": 262,
           "end": 281
         }
@@ -1190,73 +1192,73 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الْمُلُوكُ",
-          "en": "The kings",
+          "en": "the kings",
           "start": 7,
           "end": 17
         },
         {
           "ar": "فَهُمْ:",
-          "en": "So they",
+          "en": "they are",
           "start": 18,
           "end": 25
         },
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "king",
           "start": 26,
           "end": 32
         },
         {
           "ar": "أَرِيحَا",
-          "en": "Of Jericho",
+          "en": "Jericho",
           "start": 33,
           "end": 41
         },
         {
           "ar": "وَاحِدٌ.",
-          "en": "One",
+          "en": "one",
           "start": 42,
           "end": 50
         },
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "king",
           "start": 51,
           "end": 57
         },
         {
           "ar": "عَايَ",
-          "en": "Of Ai",
+          "en": "Ai",
           "start": 58,
           "end": 63
         },
         {
           "ar": "الْمُجَاوِرَةِ",
-          "en": "The neighboring",
+          "en": "neighboring",
           "start": 64,
           "end": 78
         },
         {
           "ar": "لِبَيْتِ",
-          "en": "To the house",
+          "en": "to Bethel",
           "start": 79,
           "end": 87
         },
         {
           "ar": "إِيلَ",
-          "en": "Of Bethel",
+          "en": "Bethel",
           "start": 88,
           "end": 93
         },
         {
           "ar": "وَاحِدٌ.",
-          "en": "One",
+          "en": "one",
           "start": 94,
           "end": 102
         }
@@ -1268,7 +1270,7 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "the king",
           "start": 0,
           "end": 6
         },
@@ -1280,13 +1282,13 @@
         },
         {
           "ar": "وَاحِدٌ.",
-          "en": "One",
+          "en": "one",
           "start": 20,
           "end": 28
         },
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "king",
           "start": 29,
           "end": 35
         },
@@ -1298,7 +1300,7 @@
         },
         {
           "ar": "وَاحِدٌ.",
-          "en": "One",
+          "en": "one",
           "start": 46,
           "end": 54
         }
@@ -1316,7 +1318,7 @@
         },
         {
           "ar": "يَرْمُوتَ",
-          "en": "of Jarmuth",
+          "en": "Jarmuth",
           "start": 7,
           "end": 16
         },
@@ -1334,7 +1336,7 @@
         },
         {
           "ar": "لَخِيشَ",
-          "en": "of Lachish",
+          "en": "Lachish",
           "start": 33,
           "end": 40
         },
@@ -1352,13 +1354,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "عَجْلُونَ",
-          "en": "of Eglon",
+          "en": "Eglon",
           "start": 7,
           "end": 16
         },
@@ -1376,7 +1378,7 @@
         },
         {
           "ar": "جَازَرَ",
-          "en": "of Gezer",
+          "en": "Gezer",
           "start": 33,
           "end": 40
         },
@@ -1394,13 +1396,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "دَبِيرَ",
-          "en": "of Debir",
+          "en": "Debir",
           "start": 7,
           "end": 14
         },
@@ -1418,7 +1420,7 @@
         },
         {
           "ar": "جَادَرَ",
-          "en": "of Geder",
+          "en": "Geder",
           "start": 31,
           "end": 38
         },
@@ -1436,37 +1438,37 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "the king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "حُرْمَةَ",
-          "en": "Dignity",
+          "en": "Hormah",
           "start": 7,
           "end": 15
         },
         {
           "ar": "وَاحِدٌ.",
-          "en": "One",
+          "en": "one",
           "start": 16,
           "end": 24
         },
         {
           "ar": "مَلِكُ",
-          "en": "King",
+          "en": "king",
           "start": 25,
           "end": 31
         },
         {
           "ar": "عِرَادَ",
-          "en": "Territory",
+          "en": "Arad",
           "start": 32,
           "end": 39
         },
         {
           "ar": "وَاحِدٌ.",
-          "en": "One",
+          "en": "one",
           "start": 40,
           "end": 48
         }
@@ -1478,13 +1480,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king",
           "start": 0,
           "end": 6
         },
         {
           "ar": "لِبْنَةَ",
-          "en": "brick",
+          "en": "of Libnah",
           "start": 7,
           "end": 15
         },
@@ -1520,13 +1522,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king",
           "start": 0,
           "end": 6
         },
         {
           "ar": "مَقِّيدَةَ",
-          "en": "owner",
+          "en": "Makkedah",
           "start": 7,
           "end": 17
         },
@@ -1544,7 +1546,7 @@
         },
         {
           "ar": "بَيْتِ",
-          "en": "house",
+          "en": "of Bethel",
           "start": 34,
           "end": 40
         },
@@ -1568,13 +1570,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "تَفُّوحَ",
-          "en": "bloomed",
+          "en": "Tappuah",
           "start": 7,
           "end": 15
         },
@@ -1592,7 +1594,7 @@
         },
         {
           "ar": "حَافَرَ",
-          "en": "plowed",
+          "en": "Hepher",
           "start": 32,
           "end": 39
         },
@@ -1610,7 +1612,7 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king",
           "start": 0,
           "end": 6
         },
@@ -1628,7 +1630,7 @@
         },
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king",
           "start": 24,
           "end": 30
         },
@@ -1652,13 +1654,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "مَادُونَ",
-          "en": "of Madon",
+          "en": "Madon",
           "start": 7,
           "end": 15
         },
@@ -1676,7 +1678,7 @@
         },
         {
           "ar": "حَاصُورَ",
-          "en": "of Hazor",
+          "en": "Hazor",
           "start": 32,
           "end": 40
         },
@@ -1694,13 +1696,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "شِمْرُونَ",
-          "en": "of Shimron",
+          "en": "Shimron",
           "start": 7,
           "end": 16
         },
@@ -1718,13 +1720,13 @@
         },
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king of",
           "start": 36,
           "end": 42
         },
         {
           "ar": "أَكْشَافَ",
-          "en": "of Akshaph",
+          "en": "Akshaph",
           "start": 43,
           "end": 52
         },
@@ -1742,7 +1744,7 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "king of",
           "start": 0,
           "end": 6
         },
@@ -1784,13 +1786,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "the king",
           "start": 0,
           "end": 6
         },
         {
           "ar": "قَادَشَ",
-          "en": "of Qadesh",
+          "en": "Kedesh",
           "start": 7,
           "end": 14
         },
@@ -1808,7 +1810,7 @@
         },
         {
           "ar": "يَقْنَعَامَ",
-          "en": "of Yaqnam",
+          "en": "Jokneam",
           "start": 31,
           "end": 42
         },
@@ -1838,13 +1840,13 @@
       "mappings": [
         {
           "ar": "مَلِكُ",
-          "en": "king",
+          "en": "king of",
           "start": 0,
           "end": 6
         },
         {
           "ar": "دُورٍ",
-          "en": "tower",
+          "en": "Dor",
           "start": 7,
           "end": 12
         },
@@ -1856,13 +1858,13 @@
         },
         {
           "ar": "مُرْتَفَعَاتِ",
-          "en": "heights",
+          "en": "heights of",
           "start": 17,
           "end": 30
         },
         {
           "ar": "دُورٍ",
-          "en": "tower",
+          "en": "of Dor",
           "start": 31,
           "end": 36
         },
@@ -1880,7 +1882,7 @@
         },
         {
           "ar": "جُويِيمَ",
-          "en": "valley",
+          "en": "Goyim",
           "start": 53,
           "end": 61
         },
@@ -1892,7 +1894,7 @@
         },
         {
           "ar": "الْجِلْجَالِ",
-          "en": "Gelilah",
+          "en": "Gilgal",
           "start": 66,
           "end": 78
         },
@@ -1916,7 +1918,7 @@
         },
         {
           "ar": "تِرْصَةَ",
-          "en": "throne",
+          "en": "Tirzah",
           "start": 7,
           "end": 15
         },
@@ -1928,25 +1930,25 @@
         },
         {
           "ar": "فَكَانَتْ",
-          "en": "so was",
+          "en": "so it was",
           "start": 25,
           "end": 34
         },
         {
           "ar": "جُمْلَةُ",
-          "en": "sum",
+          "en": "the total of",
           "start": 35,
           "end": 43
         },
         {
           "ar": "عَدَدِ",
-          "en": "number",
+          "en": "number of",
           "start": 44,
           "end": 50
         },
         {
           "ar": "الْمُلُوكِ",
-          "en": "kings",
+          "en": "the kings",
           "start": 51,
           "end": 61
         },
@@ -1964,7 +1966,7 @@
         },
         {
           "ar": "مَلِكاً.",
-          "en": "king",
+          "en": "kings",
           "start": 83,
           "end": 91
         }

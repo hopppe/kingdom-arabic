@@ -1,6 +1,8 @@
 {
   "book": "PSA",
   "chapter": 45,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "فَاضَ قَلْبِي بِكَلامٍ صَالِحٍ: إِنِّي أُخَاطِبُ الْمَلِكَ بِمَا قَدْ أَنْشَأْتُهُ، وَلِسَانِي فَصِيحٌ كَقَلَمِ الْكَاتِبِ الْمَاهِرِ.",
@@ -8,91 +10,91 @@
       "mappings": [
         {
           "ar": "فَاضَ",
-          "en": "Overflowed",
+          "en": "overflowed",
           "start": 0,
           "end": 5
         },
         {
           "ar": "قَلْبِي",
-          "en": "My heart",
+          "en": "my heart",
           "start": 6,
           "end": 13
         },
         {
           "ar": "بِكَلامٍ",
-          "en": "With a word",
+          "en": "with words",
           "start": 14,
           "end": 22
         },
         {
           "ar": "صَالِحٍ:",
-          "en": "Noble/Righteous",
+          "en": "noble",
           "start": 23,
           "end": 31
         },
         {
           "ar": "إِنِّي",
-          "en": "Indeed/Verily",
+          "en": "indeed I",
           "start": 32,
           "end": 38
         },
         {
           "ar": "أُخَاطِبُ",
-          "en": "I address/I speak to",
+          "en": "I address",
           "start": 39,
           "end": 48
         },
         {
           "ar": "الْمَلِكَ",
-          "en": "The king",
+          "en": "the king",
           "start": 49,
           "end": 58
         },
         {
           "ar": "بِمَا",
-          "en": "With/Concerning",
+          "en": "with what",
           "start": 59,
           "end": 64
         },
         {
           "ar": "قَدْ",
-          "en": "Indeed/Certainly (emphasizing the creation)",
+          "en": "have",
           "start": 65,
           "end": 69
         },
         {
           "ar": "أَنْشَأْتُهُ،",
-          "en": "I have created/composed",
+          "en": "I composed it",
           "start": 70,
           "end": 83
         },
         {
           "ar": "وَلِسَانِي",
-          "en": "And my tongue",
+          "en": "and my tongue",
           "start": 84,
           "end": 94
         },
         {
           "ar": "فَصِيحٌ",
-          "en": "Eloquent/Fluent",
+          "en": "eloquent",
           "start": 95,
           "end": 102
         },
         {
           "ar": "كَقَلَمِ",
-          "en": "Like the pen of",
+          "en": "like the pen of",
           "start": 103,
           "end": 111
         },
         {
           "ar": "الْكَاتِبِ",
-          "en": "The writer",
+          "en": "the writer",
           "start": 112,
           "end": 122
         },
         {
           "ar": "الْمَاهِرِ.",
-          "en": "Skilled/Proficient",
+          "en": "the skillful",
           "start": 123,
           "end": 134
         }
@@ -104,79 +106,79 @@
       "mappings": [
         {
           "ar": "أَنْتَ",
-          "en": "You",
+          "en": "you",
           "start": 0,
           "end": 6
         },
         {
           "ar": "أَبْرَعُ",
-          "en": "More excellent",
+          "en": "more excellent",
           "start": 7,
           "end": 15
         },
         {
           "ar": "جَمَالاً",
-          "en": "In beauty",
+          "en": "in beauty",
           "start": 16,
           "end": 24
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 25,
           "end": 29
         },
         {
           "ar": "كُلِّ",
-          "en": "All",
+          "en": "all",
           "start": 30,
           "end": 35
         },
         {
           "ar": "بَنِي",
-          "en": "Of the",
+          "en": "sons of",
           "start": 36,
           "end": 41
         },
         {
           "ar": "الْبَشَرِ.",
-          "en": "Men",
+          "en": "mankind",
           "start": 42,
           "end": 52
         },
         {
           "ar": "انْسَكَبَتِ",
-          "en": "Has poured",
+          "en": "poured out",
           "start": 53,
           "end": 64
         },
         {
           "ar": "النِّعْمَةُ",
-          "en": "Grace",
+          "en": "grace",
           "start": 65,
           "end": 76
         },
         {
           "ar": "عَلَى",
-          "en": "Upon",
+          "en": "on",
           "start": 77,
           "end": 82
         },
         {
           "ar": "شَفَتَيْكَ،",
-          "en": "Your lips",
+          "en": "your lips",
           "start": 83,
           "end": 94
         },
         {
           "ar": "لِذَلِكَ",
-          "en": "Therefore",
+          "en": "for that",
           "start": 95,
           "end": 103
         },
         {
           "ar": "بَارَكَكَ",
-          "en": "Blessed",
+          "en": "blessed you",
           "start": 104,
           "end": 113
         },
@@ -188,13 +190,13 @@
         },
         {
           "ar": "إِلَى",
-          "en": "Until",
+          "en": "to",
           "start": 120,
           "end": 125
         },
         {
           "ar": "الأَبَدِ.",
-          "en": "Forever",
+          "en": "forever",
           "start": 126,
           "end": 135
         }
@@ -206,43 +208,43 @@
       "mappings": [
         {
           "ar": "فِي",
-          "en": "IN",
+          "en": "in",
           "start": 0,
           "end": 3
         },
         {
           "ar": "جَلالِكَ",
-          "en": "IN YOUR MAJESTY",
+          "en": "your majesty",
           "start": 4,
           "end": 12
         },
         {
           "ar": "وَبَهَائِكَ",
-          "en": "AND IN YOUR SPLENDOR",
+          "en": "and your splendor",
           "start": 13,
           "end": 24
         },
         {
           "ar": "تَقَلَّدْ",
-          "en": "GIRD",
+          "en": "gird",
           "start": 25,
           "end": 34
         },
         {
           "ar": "سَيْفَكَ",
-          "en": "YOUR SWORD",
+          "en": "your sword",
           "start": 35,
           "end": 43
         },
         {
           "ar": "عَلَى",
-          "en": "ON",
+          "en": "on",
           "start": 44,
           "end": 49
         },
         {
           "ar": "فَخْذِكَ",
-          "en": "YOUR THIGH",
+          "en": "your thigh",
           "start": 50,
           "end": 58
         },
@@ -254,7 +256,7 @@
         },
         {
           "ar": "الْمُقْتَدِرُ،",
-          "en": "MIGHTY ONE",
+          "en": "the mighty one",
           "start": 68,
           "end": 82
         }
@@ -266,61 +268,61 @@
       "mappings": [
         {
           "ar": "وَبِجَلالِكَ",
-          "en": "And in your majesty",
+          "en": "and in your majesty",
           "start": 0,
           "end": 12
         },
         {
           "ar": "ارْكَبْ",
-          "en": "Ride",
+          "en": "ride",
           "start": 13,
           "end": 20
         },
         {
           "ar": "ظَافِراً",
-          "en": "Victoriously",
+          "en": "victoriously",
           "start": 21,
           "end": 29
         },
         {
           "ar": "لأَجْلِ",
-          "en": "For the sake of",
+          "en": "for the sake of",
           "start": 30,
           "end": 37
         },
         {
           "ar": "الْحَقِّ",
-          "en": "The truth",
+          "en": "truth",
           "start": 38,
           "end": 46
         },
         {
           "ar": "وَالْوَدَاعَةِ",
-          "en": "And humility",
+          "en": "and humility",
           "start": 47,
           "end": 61
         },
         {
           "ar": "وَالْبِرِّ،",
-          "en": "And righteousness",
+          "en": "and righteousness",
           "start": 62,
           "end": 73
         },
         {
           "ar": "فَتَقْتَحِمَ",
-          "en": "So that your hand may",
+          "en": "so let overcome",
           "start": 74,
           "end": 86
         },
         {
           "ar": "يَمِينُكَ",
-          "en": "Your right hand",
+          "en": "your right hand",
           "start": 87,
           "end": 96
         },
         {
           "ar": "الأَهْوَالَ.",
-          "en": "Awesome deeds",
+          "en": "the awesome deeds",
           "start": 97,
           "end": 109
         }
@@ -332,73 +334,73 @@
       "mappings": [
         {
           "ar": "سِهَامُكَ",
-          "en": "Your arrows",
+          "en": "your arrows",
           "start": 0,
           "end": 9
         },
         {
           "ar": "مَسْنُونَةٌ",
-          "en": "Sharp",
+          "en": "sharp",
           "start": 10,
           "end": 21
         },
         {
           "ar": "تَخْتَرِقُ",
-          "en": "Pierce",
+          "en": "pierce",
           "start": 22,
           "end": 32
         },
         {
           "ar": "أَعْمَاقَ",
-          "en": "Depths",
+          "en": "depths of",
           "start": 33,
           "end": 42
         },
         {
           "ar": "قُلُوبِ",
-          "en": "Hearts",
+          "en": "hearts of",
           "start": 43,
           "end": 50
         },
         {
           "ar": "أَعْدَاءِ",
-          "en": "Of the enemies",
+          "en": "enemies",
           "start": 51,
           "end": 60
         },
         {
           "ar": "الْمَلِكِ،",
-          "en": "Of the king",
+          "en": "the king",
           "start": 61,
           "end": 71
         },
         {
           "ar": "وَتَسْقُطُ",
-          "en": "And fall",
+          "en": "and fall",
           "start": 72,
           "end": 82
         },
         {
           "ar": "الشُّعُوبُ",
-          "en": "The nations",
+          "en": "the nations",
           "start": 83,
           "end": 93
         },
         {
           "ar": "صَرْعَى",
-          "en": "Prostrate/Fallen",
+          "en": "fallen",
           "start": 94,
           "end": 101
         },
         {
           "ar": "تَحْتَ",
-          "en": "Beneath",
+          "en": "beneath",
           "start": 102,
           "end": 108
         },
         {
           "ar": "قَدَمَيْكَ.",
-          "en": "Your feet",
+          "en": "your feet",
           "start": 109,
           "end": 120
         }
@@ -410,7 +412,7 @@
       "mappings": [
         {
           "ar": "عَرْشُكَ",
-          "en": "Your throne",
+          "en": "your throne",
           "start": 0,
           "end": 8
         },
@@ -440,19 +442,19 @@
         },
         {
           "ar": "الدُّهُورِ،",
-          "en": "ages",
+          "en": "the ages",
           "start": 32,
           "end": 43
         },
         {
           "ar": "وَصَوْلَجَانُ",
-          "en": "scepter",
+          "en": "and a scepter",
           "start": 44,
           "end": 57
         },
         {
           "ar": "مُلْكِكَ",
-          "en": "kingdom",
+          "en": "your kingdom",
           "start": 58,
           "end": 66
         },
@@ -464,7 +466,7 @@
         },
         {
           "ar": "وَمُسْتَقِيمٌ.",
-          "en": "straight",
+          "en": "and upright",
           "start": 75,
           "end": 89
         }
@@ -476,49 +478,49 @@
       "mappings": [
         {
           "ar": "أَحْبَبْتَ",
-          "en": "You love",
+          "en": "you loved",
           "start": 0,
           "end": 10
         },
         {
           "ar": "الْبِرَّ",
-          "en": "Righteousness",
+          "en": "righteousness",
           "start": 11,
           "end": 19
         },
         {
           "ar": "وَأَبْغَضْتَ",
-          "en": "You hate",
+          "en": "and you hated",
           "start": 20,
           "end": 32
         },
         {
           "ar": "الإِثْمَ.",
-          "en": "Wickedness/Sin",
+          "en": "wickedness",
           "start": 33,
           "end": 42
         },
         {
           "ar": "مِنْ",
-          "en": "Than",
+          "en": "from",
           "start": 43,
           "end": 47
         },
         {
           "ar": "أَجْلِ",
-          "en": "Account/Reason",
+          "en": "sake of",
           "start": 48,
           "end": 54
         },
         {
           "ar": "ذَلِكَ",
-          "en": "That/This",
+          "en": "that",
           "start": 55,
           "end": 61
         },
         {
           "ar": "مَسَحَكَ",
-          "en": "Has anointed you",
+          "en": "anointed you",
           "start": 62,
           "end": 70
         },
@@ -530,43 +532,43 @@
         },
         {
           "ar": "(مَلِكاً)",
-          "en": "(As a king) - *parenthetical, clarifying the context*",
+          "en": "a king",
           "start": 77,
           "end": 86
         },
         {
           "ar": "بِدُهْنِ",
-          "en": "With the oil of",
+          "en": "with the oil of",
           "start": 87,
           "end": 95
         },
         {
           "ar": "الابْتِهَاجِ",
-          "en": "Joy",
+          "en": "joy",
           "start": 96,
           "end": 108
         },
         {
           "ar": "أَكْثَرَ",
-          "en": "More",
+          "en": "more",
           "start": 109,
           "end": 117
         },
         {
           "ar": "مِنْ",
-          "en": "Than",
+          "en": "than",
           "start": 118,
           "end": 122
         },
         {
           "ar": "رُفَقَائِكَ",
-          "en": "Your companions",
+          "en": "your companions",
           "start": 123,
           "end": 134
         },
         {
           "ar": "(الْمُلُوكِ).",
-          "en": "(The kings) - *parenthetical, clarifying the context*",
+          "en": "the kings",
           "start": 135,
           "end": 148
         }
@@ -578,85 +580,85 @@
       "mappings": [
         {
           "ar": "ثِيَابُكَ",
-          "en": "Your robes",
+          "en": "your robes",
           "start": 0,
           "end": 9
         },
         {
           "ar": "كُلُّهَا",
-          "en": "All",
+          "en": "all of them",
           "start": 10,
           "end": 18
         },
         {
           "ar": "مُعَطَّرَةٌ",
-          "en": "Fragrant",
+          "en": "fragrant",
           "start": 19,
           "end": 30
         },
         {
           "ar": "بِالْمُرِّ",
-          "en": "With myrrh",
+          "en": "with myrrh",
           "start": 31,
           "end": 41
         },
         {
           "ar": "وَدُهْنِ",
-          "en": "And oil",
+          "en": "and oil of",
           "start": 42,
           "end": 50
         },
         {
           "ar": "اللُّبَانِ.",
-          "en": "Of aloes",
+          "en": "aloes",
           "start": 51,
           "end": 62
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 63,
           "end": 67
         },
         {
           "ar": "قُصُورِ",
-          "en": "Palaces",
+          "en": "palaces",
           "start": 68,
           "end": 75
         },
         {
           "ar": "الْعَاجِ",
-          "en": "Adorned with ivory",
+          "en": "the ivory",
           "start": 76,
           "end": 84
         },
         {
           "ar": "صَدَحَتْ",
-          "en": "Resounded",
+          "en": "resounded",
           "start": 85,
           "end": 93
         },
         {
           "ar": "مُوسِيقَى",
-          "en": "Music",
+          "en": "music",
           "start": 94,
           "end": 103
         },
         {
           "ar": "الآلاتِ",
-          "en": "Of the instruments",
+          "en": "the instruments",
           "start": 104,
           "end": 111
         },
         {
           "ar": "الْوَتَرِيَّةِ",
-          "en": "Of strings",
+          "en": "the stringed",
           "start": 112,
           "end": 126
         },
         {
           "ar": "فَأَطْرَبَتْكَ.",
-          "en": "And made you glad",
+          "en": "and it delighted you",
           "start": 127,
           "end": 142
         }
@@ -668,61 +670,61 @@
       "mappings": [
         {
           "ar": "أَمِيرَاتٌ",
-          "en": "Daughters",
+          "en": "princesses",
           "start": 0,
           "end": 10
         },
         {
           "ar": "بَيْنَ",
-          "en": "Among",
+          "en": "among",
           "start": 11,
           "end": 17
         },
         {
           "ar": "حَظِيَّاتِكَ.",
-          "en": "Honored women",
+          "en": "your honored women",
           "start": 18,
           "end": 31
         },
         {
           "ar": "جَلَسَتِ",
-          "en": "Sat",
+          "en": "sat",
           "start": 32,
           "end": 40
         },
         {
           "ar": "الْمَلِكَةُ",
-          "en": "Queen",
+          "en": "the queen",
           "start": 41,
           "end": 52
         },
         {
           "ar": "عَنْ",
-          "en": "At",
+          "en": "at",
           "start": 53,
           "end": 57
         },
         {
           "ar": "يَمِينِكَ",
-          "en": "Your right hand",
+          "en": "your right",
           "start": 58,
           "end": 67
         },
         {
           "ar": "مُزَيَّنَةً",
-          "en": "Adorned",
+          "en": "adorned",
           "start": 68,
           "end": 79
         },
         {
           "ar": "بِذَهَبِ",
-          "en": "With gold",
+          "en": "in gold of",
           "start": 80,
           "end": 88
         },
         {
           "ar": "أُوفِيرَ.",
-          "en": "Of Ophir",
+          "en": "Ophir",
           "start": 89,
           "end": 98
         }
@@ -746,55 +748,55 @@
         },
         {
           "ar": "بِنْتُ",
-          "en": "Daughter",
+          "en": "daughter",
           "start": 13,
           "end": 19
         },
         {
           "ar": "وَانْظُرِي،",
-          "en": "And look",
+          "en": "and pay attention",
           "start": 20,
           "end": 31
         },
         {
           "ar": "وَأَرْهِفِي",
-          "en": "And incline",
+          "en": "and incline",
           "start": 32,
           "end": 43
         },
         {
           "ar": "إِلَيَّ",
-          "en": "To me",
+          "en": "to me",
           "start": 44,
           "end": 51
         },
         {
           "ar": "أُذُنَكِ،",
-          "en": "Your ear",
+          "en": "your ear",
           "start": 52,
           "end": 61
         },
         {
           "ar": "وَانْسَيْ",
-          "en": "Forget",
+          "en": "and forget",
           "start": 62,
           "end": 71
         },
         {
           "ar": "شَعْبَكِ",
-          "en": "Your people",
+          "en": "your people",
           "start": 72,
           "end": 80
         },
         {
           "ar": "وَبَيْتَ",
-          "en": "And your house",
+          "en": "and the house of",
           "start": 81,
           "end": 89
         },
         {
           "ar": "أَبِيكِ",
-          "en": "Your father's",
+          "en": "your father",
           "start": 90,
           "end": 97
         }
@@ -806,49 +808,49 @@
       "mappings": [
         {
           "ar": "فَيَشْتَهِيَ",
-          "en": "Let the king be",
+          "en": "so let be enthralled",
           "start": 0,
           "end": 12
         },
         {
           "ar": "الْمَلِكُ",
-          "en": "The king",
+          "en": "the king",
           "start": 13,
           "end": 22
         },
         {
           "ar": "جَمَالَكِ،",
-          "en": "Your beauty",
+          "en": "your beauty",
           "start": 23,
           "end": 33
         },
         {
           "ar": "لأَنَّهُ",
-          "en": "For he",
+          "en": "because he",
           "start": 34,
           "end": 42
         },
         {
           "ar": "هُوَ",
-          "en": "He",
+          "en": "he",
           "start": 43,
           "end": 47
         },
         {
           "ar": "سَيِّدُكِ",
-          "en": "Your lord",
+          "en": "your lord",
           "start": 48,
           "end": 57
         },
         {
           "ar": "فَاسْجُدِي",
-          "en": "Honor him",
+          "en": "so worship",
           "start": 58,
           "end": 68
         },
         {
           "ar": "لَهُ.",
-          "en": "To him",
+          "en": "to him",
           "start": 69,
           "end": 74
         }
@@ -860,7 +862,7 @@
       "mappings": [
         {
           "ar": "بِنْتُ",
-          "en": "Daughter",
+          "en": "daughter of",
           "start": 0,
           "end": 6
         },
@@ -872,25 +874,25 @@
         },
         {
           "ar": "أَغْنَى",
-          "en": "Richest",
+          "en": "richest",
           "start": 13,
           "end": 20
         },
         {
           "ar": "الشُّعُوبِ",
-          "en": "Peoples",
+          "en": "the nations",
           "start": 21,
           "end": 31
         },
         {
           "ar": "تَسْتَرْضِيكِ",
-          "en": "To please you",
+          "en": "will seek your favor",
           "start": 32,
           "end": 45
         },
         {
           "ar": "بِهَدِيَّةٍ.",
-          "en": "With a gift",
+          "en": "with a gift",
           "start": 46,
           "end": 58
         }
@@ -902,25 +904,25 @@
       "mappings": [
         {
           "ar": "كُلُّهَا",
-          "en": "All",
+          "en": "all of her",
           "start": 0,
           "end": 8
         },
         {
           "ar": "مَجْدٌ",
-          "en": "glorious",
+          "en": "glory",
           "start": 9,
           "end": 15
         },
         {
           "ar": "ابْنَةُ",
-          "en": "daughter",
+          "en": "the princess",
           "start": 16,
           "end": 23
         },
         {
           "ar": "الْمَلِكِ",
-          "en": "of the king",
+          "en": "the king",
           "start": 24,
           "end": 33
         },
@@ -962,79 +964,79 @@
       "mappings": [
         {
           "ar": "تُزَفُّ",
-          "en": "Led",
+          "en": "is led",
           "start": 0,
           "end": 7
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 8,
           "end": 13
         },
         {
           "ar": "الْمَلِكِ",
-          "en": "The king",
+          "en": "the king",
           "start": 14,
           "end": 23
         },
         {
           "ar": "بِحُلَلٍ",
-          "en": "In garments",
+          "en": "in garments",
           "start": 24,
           "end": 32
         },
         {
           "ar": "مُطَرَّزَةٍ،",
-          "en": "Embroidered",
+          "en": "embroidered",
           "start": 33,
           "end": 45
         },
         {
           "ar": "وَوَصِيفَاتُهَا",
-          "en": "And her attendants",
+          "en": "and her companions",
           "start": 46,
           "end": 61
         },
         {
           "ar": "العَذَارَى",
-          "en": "Virgins",
+          "en": "the virgins",
           "start": 62,
           "end": 72
         },
         {
           "ar": "يَتْبَعْنَهَا",
-          "en": "Follow her",
+          "en": "they follow her",
           "start": 73,
           "end": 86
         },
         {
           "ar": "قَادِمَاتٍ",
-          "en": "Coming",
+          "en": "coming",
           "start": 87,
           "end": 97
         },
         {
           "ar": "إِلَيْكَ",
-          "en": "To you",
+          "en": "to you",
           "start": 98,
           "end": 106
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 107,
           "end": 110
         },
         {
           "ar": "مَوْكِبٍ",
-          "en": "Procession",
+          "en": "procession",
           "start": 111,
           "end": 119
         },
         {
           "ar": "حَافِلٍ.",
-          "en": "Crowded/Full",
+          "en": "grand",
           "start": 120,
           "end": 128
         }
@@ -1046,43 +1048,43 @@
       "mappings": [
         {
           "ar": "يُحْضَرْنَ",
-          "en": "ARE LED",
+          "en": "they are brought",
           "start": 0,
           "end": 10
         },
         {
           "ar": "بِفَرَحٍ",
-          "en": "WITH JOY",
+          "en": "with joy",
           "start": 11,
           "end": 19
         },
         {
           "ar": "وَابْتِهَاجٍ.",
-          "en": "AND GLADNESS",
+          "en": "and gladness",
           "start": 20,
           "end": 33
         },
         {
           "ar": "يَدْخُلْنَ",
-          "en": "THEY ENTER",
+          "en": "they enter",
           "start": 34,
           "end": 44
         },
         {
           "ar": "إِلَى",
-          "en": "INTO",
+          "en": "to",
           "start": 45,
           "end": 50
         },
         {
           "ar": "قَصْرِ",
-          "en": "PALACE",
+          "en": "palace of",
           "start": 51,
           "end": 57
         },
         {
           "ar": "الْمَلِكِ.",
-          "en": "OF THE KING",
+          "en": "the king",
           "start": 58,
           "end": 68
         }
@@ -1094,67 +1096,67 @@
       "mappings": [
         {
           "ar": "يُصْبِحُ",
-          "en": "Will become",
+          "en": "will become",
           "start": 0,
           "end": 8
         },
         {
           "ar": "أَبْنَاؤُكَ",
-          "en": "Your sons",
+          "en": "your sons",
           "start": 9,
           "end": 20
         },
         {
           "ar": "يَوْماً",
-          "en": "One day",
+          "en": "one day",
           "start": 21,
           "end": 28
         },
         {
           "ar": "مُلُوكاً",
-          "en": "Kings",
+          "en": "kings",
           "start": 29,
           "end": 37
         },
         {
           "ar": "كَآبَائِهِمْ",
-          "en": "Like their fathers",
+          "en": "like their fathers",
           "start": 38,
           "end": 50
         },
         {
           "ar": "فَيَتَرَبَّعُونَ",
-          "en": "They will rule",
+          "en": "and they will sit",
           "start": 51,
           "end": 67
         },
         {
           "ar": "عَلَى",
-          "en": "Upon",
+          "en": "on",
           "start": 68,
           "end": 73
         },
         {
           "ar": "عُرُوشٍ",
-          "en": "Thrones",
+          "en": "thrones",
           "start": 74,
           "end": 81
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 82,
           "end": 85
         },
         {
           "ar": "كُلِّ",
-          "en": "All",
+          "en": "every",
           "start": 86,
           "end": 91
         },
         {
           "ar": "الأَرْضِ.",
-          "en": "The land",
+          "en": "the earth",
           "start": 92,
           "end": 101
         }
@@ -1166,7 +1168,7 @@
       "mappings": [
         {
           "ar": "أُخَلِّدُ",
-          "en": "I will perpetuate",
+          "en": "I perpetuate",
           "start": 0,
           "end": 9
         },
@@ -1184,7 +1186,7 @@
         },
         {
           "ar": "فِي",
-          "en": "through",
+          "en": "in",
           "start": 26,
           "end": 29
         },
@@ -1196,13 +1198,13 @@
         },
         {
           "ar": "الأَجْيَالِ،",
-          "en": "generations",
+          "en": "the generations",
           "start": 36,
           "end": 48
         },
         {
           "ar": "وَتَحْمَدُكَ",
-          "en": "and praise you",
+          "en": "and they will praise you",
           "start": 49,
           "end": 61
         },
@@ -1214,19 +1216,19 @@
         },
         {
           "ar": "إِلَى",
-          "en": "for",
+          "en": "to",
           "start": 73,
           "end": 78
         },
         {
           "ar": "الدَّهْرِ",
-          "en": "forever",
+          "en": "time",
           "start": 79,
           "end": 88
         },
         {
           "ar": "وَالأَبَدِ.",
-          "en": "and ever",
+          "en": "and forever",
           "start": 89,
           "end": 100
         }

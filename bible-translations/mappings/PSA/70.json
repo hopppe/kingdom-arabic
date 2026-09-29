@@ -1,6 +1,8 @@
 {
   "book": "PSA",
   "chapter": 70,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "هَلُمَّ أَنْقِذْنِي يَا رَبُّ، وَأَسْرِعْ إِلَى مَعُونَتِي.",
@@ -8,13 +10,13 @@
       "mappings": [
         {
           "ar": "هَلُمَّ",
-          "en": "Hasten",
+          "en": "come quickly",
           "start": 0,
           "end": 7
         },
         {
           "ar": "أَنْقِذْنِي",
-          "en": "To save me",
+          "en": "save me",
           "start": 8,
           "end": 19
         },
@@ -32,19 +34,19 @@
         },
         {
           "ar": "وَأَسْرِعْ",
-          "en": "And hasten",
+          "en": "and hasten",
           "start": 31,
           "end": 41
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 42,
           "end": 47
         },
         {
           "ar": "مَعُونَتِي.",
-          "en": "My help",
+          "en": "my help",
           "start": 48,
           "end": 59
         }
@@ -56,19 +58,19 @@
       "mappings": [
         {
           "ar": "لِيَخْزَ",
-          "en": "May they be put to shame",
+          "en": "let be put to shame",
           "start": 0,
           "end": 8
         },
         {
           "ar": "وَيَخْجَلِ",
-          "en": "and confusion",
+          "en": "and be disgraced",
           "start": 9,
           "end": 19
         },
         {
           "ar": "السَّاعُونَ",
-          "en": "those who desire",
+          "en": "those seeking",
           "start": 20,
           "end": 31
         },
@@ -80,31 +82,31 @@
         },
         {
           "ar": "قَتْلِي.",
-          "en": "my life",
+          "en": "my killing",
           "start": 38,
           "end": 46
         },
         {
           "ar": "لِيَرْتَدَّ",
-          "en": "may all be turned back",
+          "en": "may be turned back",
           "start": 47,
           "end": 58
         },
         {
           "ar": "وَيَخْجَلِ",
-          "en": "and confusion",
+          "en": "and be put to shame",
           "start": 59,
           "end": 69
         },
         {
           "ar": "السَّاعُونَ",
-          "en": "those who desire",
+          "en": "those seeking",
           "start": 70,
           "end": 81
         },
         {
           "ar": "لأَذِيَّتِي.",
-          "en": "my ruin",
+          "en": "for my harm",
           "start": 82,
           "end": 94
         }
@@ -116,31 +118,31 @@
       "mappings": [
         {
           "ar": "لِيَرْجِعِ",
-          "en": "To return",
+          "en": "let them return",
           "start": 0,
           "end": 10
         },
         {
           "ar": "السَّاخِرُونَ",
-          "en": "The scoffers",
+          "en": "the mockers",
           "start": 11,
           "end": 24
         },
         {
           "ar": "مِنِّي",
-          "en": "From me",
+          "en": "from me",
           "start": 25,
           "end": 31
         },
         {
           "ar": "مُكَلَّلِينَ",
-          "en": "Crowned",
+          "en": "crowned",
           "start": 32,
           "end": 44
         },
         {
           "ar": "بِالْعَارِ.",
-          "en": "With shame",
+          "en": "with shame",
           "start": 45,
           "end": 56
         }
@@ -152,67 +154,67 @@
       "mappings": [
         {
           "ar": "لِيَفْرَحْ",
-          "en": "Let him rejoice",
+          "en": "may rejoice",
           "start": 0,
           "end": 10
         },
         {
           "ar": "وَيَبْتَهِجْ",
-          "en": "And be glad",
+          "en": "and be glad",
           "start": 11,
           "end": 23
         },
         {
           "ar": "بِكَ",
-          "en": "In you",
+          "en": "in you",
           "start": 24,
           "end": 28
         },
         {
           "ar": "جَمِيعُ",
-          "en": "All",
+          "en": "all",
           "start": 29,
           "end": 36
         },
         {
           "ar": "طَالِبِيكَ.",
-          "en": "Who seek you",
+          "en": "your seekers",
           "start": 37,
           "end": 48
         },
         {
           "ar": "وَلْيَقُلْ",
-          "en": "Let them say",
+          "en": "and let say",
           "start": 49,
           "end": 59
         },
         {
           "ar": "دَائِماً",
-          "en": "Always",
+          "en": "always",
           "start": 60,
           "end": 68
         },
         {
           "ar": "مُحِبُّو",
-          "en": "Those who love",
+          "en": "those who love",
           "start": 69,
           "end": 77
         },
         {
           "ar": "خَلاصِكَ:",
-          "en": "Your salvation",
+          "en": "your saving",
           "start": 78,
           "end": 87
         },
         {
           "ar": "لِيَتَعَظَّمِ",
-          "en": "May the Lord be exalted",
+          "en": "let be magnified",
           "start": 88,
           "end": 101
         },
         {
           "ar": "الرَّبُّ.",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 102,
           "end": 111
         }
@@ -224,7 +226,7 @@
       "mappings": [
         {
           "ar": "إِنَّمَا",
-          "en": "Only",
+          "en": "but as for",
           "start": 0,
           "end": 8
         },
@@ -236,19 +238,19 @@
         },
         {
           "ar": "مُتَضَايِقٌ",
-          "en": "Distressed/Troubled",
+          "en": "poor",
           "start": 15,
           "end": 26
         },
         {
           "ar": "وَمُحْتَاجٌ،",
-          "en": "And needy",
+          "en": "and needy",
           "start": 27,
           "end": 39
         },
         {
           "ar": "فَأَسْرِعِ",
-          "en": "So hasten/Quickly",
+          "en": "so come quickly",
           "start": 40,
           "end": 50
         },
@@ -260,25 +262,25 @@
         },
         {
           "ar": "إِلَيَّ.",
-          "en": "To me",
+          "en": "to me",
           "start": 62,
           "end": 70
         },
         {
           "ar": "أَنْتَ",
-          "en": "You are",
+          "en": "you",
           "start": 71,
           "end": 77
         },
         {
           "ar": "عَوْنِي",
-          "en": "My help",
+          "en": "my help",
           "start": 78,
           "end": 85
         },
         {
           "ar": "وَمُنْقِذِي.",
-          "en": "And my deliverer",
+          "en": "and my deliverer",
           "start": 86,
           "end": 98
         },
@@ -296,13 +298,13 @@
         },
         {
           "ar": "لَا",
-          "en": "Do not",
+          "en": "do not",
           "start": 109,
           "end": 112
         },
         {
           "ar": "تَتَبَاطَأْ.",
-          "en": "Delay",
+          "en": "delay",
           "start": 113,
           "end": 125
         }

@@ -1,6 +1,8 @@
 {
   "book": "PSA",
   "chapter": 149,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "هَلِّلُويَا! رَنِّمُوا لِلرَّبِّ تَرْنِيمَةً جَدِيدَةً. تَغَنَّوْا بِتَسْبِيحِهِ فِي مَحْفَلِ الأَتْقِيَاءِ.",
@@ -8,61 +10,61 @@
       "mappings": [
         {
           "ar": "هَلِّلُويَا!",
-          "en": "Hallelujah",
+          "en": "Hallelujah!",
           "start": 0,
           "end": 12
         },
         {
           "ar": "رَنِّمُوا",
-          "en": "Sing",
+          "en": "sing",
           "start": 13,
           "end": 22
         },
         {
           "ar": "لِلرَّبِّ",
-          "en": "To the Lord",
+          "en": "to the Lord",
           "start": 23,
           "end": 32
         },
         {
           "ar": "تَرْنِيمَةً",
-          "en": "A song",
+          "en": "a song",
           "start": 33,
           "end": 44
         },
         {
           "ar": "جَدِيدَةً.",
-          "en": "New",
+          "en": "new",
           "start": 45,
           "end": 55
         },
         {
           "ar": "تَغَنَّوْا",
-          "en": "Chant",
+          "en": "sing",
           "start": 56,
           "end": 66
         },
         {
           "ar": "بِتَسْبِيحِهِ",
-          "en": "With his praise",
+          "en": "with his praise",
           "start": 67,
           "end": 80
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 81,
           "end": 84
         },
         {
           "ar": "مَحْفَلِ",
-          "en": "Assembly",
+          "en": "assembly",
           "start": 85,
           "end": 93
         },
         {
           "ar": "الأَتْقِيَاءِ.",
-          "en": "Of the faithful",
+          "en": "the faithful ones",
           "start": 94,
           "end": 108
         }
@@ -74,13 +76,13 @@
       "mappings": [
         {
           "ar": "لِيَفْرَحْ",
-          "en": "Let rejoice",
+          "en": "let rejoice",
           "start": 0,
           "end": 10
         },
         {
           "ar": "شَعْبُ",
-          "en": "people",
+          "en": "people of",
           "start": 11,
           "end": 17
         },
@@ -98,13 +100,13 @@
         },
         {
           "ar": "وَلْيَبْتَهِجْ",
-          "en": "Let be glad",
+          "en": "and let be glad",
           "start": 44,
           "end": 58
         },
         {
           "ar": "بَنُو",
-          "en": "sons",
+          "en": "sons of",
           "start": 59,
           "end": 64
         },
@@ -128,7 +130,7 @@
       "mappings": [
         {
           "ar": "لِيُسَبِّحُوا",
-          "en": "Let them praise",
+          "en": "let them praise",
           "start": 0,
           "end": 13
         },
@@ -146,7 +148,7 @@
         },
         {
           "ar": "لِيُرَنِّمُوا",
-          "en": "and make music",
+          "en": "let them make music",
           "start": 35,
           "end": 48
         },
@@ -164,19 +166,19 @@
         },
         {
           "ar": "عَزْفِ",
-          "en": "music",
+          "en": "playing of",
           "start": 60,
           "end": 66
         },
         {
           "ar": "الدُّفِّ",
-          "en": "timbrel",
+          "en": "the timbrel",
           "start": 67,
           "end": 75
         },
         {
           "ar": "وَالْعُودِ.",
-          "en": "harp",
+          "en": "and the harp",
           "start": 76,
           "end": 87
         }
@@ -188,43 +190,43 @@
       "mappings": [
         {
           "ar": "لأَنَّ",
-          "en": "For",
+          "en": "for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الرَّبَّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 7,
           "end": 15
         },
         {
           "ar": "يُسَرُّ",
-          "en": "Delights",
+          "en": "takes delight",
           "start": 16,
           "end": 23
         },
         {
           "ar": "بِشَعْبِهِ،",
-          "en": "In his people",
+          "en": "in his people",
           "start": 24,
           "end": 35
         },
         {
           "ar": "يُجَمِّلُ",
-          "en": "Crowns",
+          "en": "he crowns",
           "start": 36,
           "end": 45
         },
         {
           "ar": "الْوُدَعَاءَ",
-          "en": "The humble",
+          "en": "the humble",
           "start": 46,
           "end": 58
         },
         {
           "ar": "بِالْخَلاصِ.",
-          "en": "With victory",
+          "en": "with victory",
           "start": 59,
           "end": 71
         }
@@ -236,49 +238,49 @@
       "mappings": [
         {
           "ar": "لِيَبْتَهِجِ",
-          "en": "Let them rejoice",
+          "en": "let rejoice",
           "start": 0,
           "end": 12
         },
         {
           "ar": "الأَتْقِيَاءُ",
-          "en": "His faithful people",
+          "en": "the faithful",
           "start": 13,
           "end": 26
         },
         {
           "ar": "بِهَذَا",
-          "en": "In this",
+          "en": "in this",
           "start": 27,
           "end": 34
         },
         {
           "ar": "الْمَجْدِ.",
-          "en": "Honor",
+          "en": "the glory",
           "start": 35,
           "end": 45
         },
         {
           "ar": "لِيَهْتِفُوا",
-          "en": "Sing",
+          "en": "let them shout",
           "start": 46,
           "end": 58
         },
         {
           "ar": "فَرَحاً",
-          "en": "For joy",
+          "en": "in joy",
           "start": 59,
           "end": 66
         },
         {
           "ar": "فِي",
-          "en": "On",
+          "en": "in",
           "start": 67,
           "end": 70
         },
         {
           "ar": "أَسِرَّتِهِمْ.",
-          "en": "Their beds",
+          "en": "their beds",
           "start": 71,
           "end": 85
         }
@@ -290,67 +292,67 @@
       "mappings": [
         {
           "ar": "لِيَهْتِفُوا",
-          "en": "Let them shout",
+          "en": "let them shout",
           "start": 0,
           "end": 12
         },
         {
           "ar": "مُسَبِّحِينَ",
-          "en": "Praising",
+          "en": "praising",
           "start": 13,
           "end": 25
         },
         {
           "ar": "الرَّبَّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 26,
           "end": 34
         },
         {
           "ar": "مِلْءَ",
-          "en": "Full",
+          "en": "full of",
           "start": 35,
           "end": 41
         },
         {
           "ar": "أَفْوَاهِهِمْ",
-          "en": "Their mouths",
+          "en": "their mouths",
           "start": 42,
           "end": 55
         },
         {
           "ar": "وَلْيَتَقَلَّدُوا",
-          "en": "And let them wield",
+          "en": "and let them gird",
           "start": 56,
           "end": 73
         },
         {
           "ar": "بِسَيْفٍ",
-          "en": "A sword",
+          "en": "with a sword",
           "start": 74,
           "end": 82
         },
         {
           "ar": "ذِي",
-          "en": "With",
+          "en": "having",
           "start": 83,
           "end": 86
         },
         {
           "ar": "حَدَّيْنِ",
-          "en": "Two edges",
+          "en": "two edges",
           "start": 87,
           "end": 96
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 97,
           "end": 100
         },
         {
           "ar": "أَيْدِيهِمْ،",
-          "en": "Their hands",
+          "en": "their hands",
           "start": 101,
           "end": 113
         }
@@ -362,7 +364,7 @@
       "mappings": [
         {
           "ar": "لِتَنْفِيذِ",
-          "en": "to inflict",
+          "en": "to execute",
           "start": 0,
           "end": 11
         },
@@ -374,7 +376,7 @@
         },
         {
           "ar": "فِي",
-          "en": "on",
+          "en": "in",
           "start": 25,
           "end": 28
         },
@@ -386,7 +388,7 @@
         },
         {
           "ar": "وَمُعَاقَبَةِ",
-          "en": "and punishment",
+          "en": "and punishment of",
           "start": 39,
           "end": 52
         },
@@ -404,43 +406,43 @@
       "mappings": [
         {
           "ar": "لِيُقَيِّدُوا",
-          "en": "To bind",
+          "en": "to bind",
           "start": 0,
           "end": 13
         },
         {
           "ar": "مُلُوكَهُمْ",
-          "en": "Their kings",
+          "en": "their kings",
           "start": 14,
           "end": 25
         },
         {
           "ar": "بِالسَّلاسِلِ",
-          "en": "With fetters",
+          "en": "with the chains",
           "start": 26,
           "end": 39
         },
         {
           "ar": "وَشُرَفَاءَهُمْ",
-          "en": "And their nobles",
+          "en": "and their nobles",
           "start": 40,
           "end": 55
         },
         {
           "ar": "بِأَغْلالٍ",
-          "en": "With shackles",
+          "en": "with shackles",
           "start": 56,
           "end": 66
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "of",
           "start": 67,
           "end": 71
         },
         {
           "ar": "حَدِيدٍ.",
-          "en": "Iron",
+          "en": "iron",
           "start": 72,
           "end": 80
         }
@@ -452,13 +454,13 @@
       "mappings": [
         {
           "ar": "لِيَتِمَّ",
-          "en": "to carry out",
+          "en": "let be fulfilled",
           "start": 0,
           "end": 9
         },
         {
           "ar": "فِيهِمْ",
-          "en": "among them",
+          "en": "in them",
           "start": 10,
           "end": 17
         },
@@ -470,19 +472,19 @@
         },
         {
           "ar": "اللهِ",
-          "en": "of God",
+          "en": "God",
           "start": 25,
           "end": 30
         },
         {
           "ar": "الْمَكْتُوبُ،",
-          "en": "written",
+          "en": "the written",
           "start": 31,
           "end": 44
         },
         {
           "ar": "فَيَكُونَ",
-          "en": "so that it may be",
+          "en": "so it will be",
           "start": 45,
           "end": 54
         },
@@ -494,7 +496,7 @@
         },
         {
           "ar": "تَكْرِيماً",
-          "en": "a glory",
+          "en": "for the honor of",
           "start": 61,
           "end": 71
         },
@@ -506,7 +508,7 @@
         },
         {
           "ar": "قِدِّيسِيهِ.",
-          "en": "his faithful people",
+          "en": "his holy ones",
           "start": 82,
           "end": 94
         },

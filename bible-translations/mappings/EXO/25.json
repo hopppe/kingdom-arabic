@@ -1,6 +1,8 @@
 {
   "book": "EXO",
   "chapter": 25,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَخَاطَبَ الرَّبُّ مُوسَى:",
@@ -8,13 +10,13 @@
       "mappings": [
         {
           "ar": "وَخَاطَبَ",
-          "en": "And addressed",
+          "en": "and addressed",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 10,
           "end": 18
         },
@@ -32,85 +34,85 @@
       "mappings": [
         {
           "ar": "كَلِّمْ",
-          "en": "Speak",
+          "en": "Speak to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "بَنِي",
-          "en": "Sons",
+          "en": "sons of",
           "start": 8,
           "end": 13
         },
         {
           "ar": "إِسْرَائِيلَ",
-          "en": "Israel",
+          "en": "Israelites",
           "start": 14,
           "end": 26
         },
         {
           "ar": "أَنْ",
-          "en": "That",
+          "en": "that",
           "start": 27,
           "end": 31
         },
         {
           "ar": "يَأْخُذُوا",
-          "en": "Take",
+          "en": "they bring",
           "start": 32,
           "end": 42
         },
         {
           "ar": "لِي",
-          "en": "For me",
+          "en": "for me",
           "start": 43,
           "end": 46
         },
         {
           "ar": "تَقْدِمَةً",
-          "en": "Offering",
+          "en": "an offering",
           "start": 47,
           "end": 57
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 58,
           "end": 62
         },
         {
           "ar": "كُلِّ",
-          "en": "Every",
+          "en": "every",
           "start": 63,
           "end": 68
         },
         {
           "ar": "إِنْسَانٍ",
-          "en": "Person",
+          "en": "person",
           "start": 69,
           "end": 78
         },
         {
           "ar": "يَحُثُّهُ",
-          "en": "Incites",
+          "en": "prompts him",
           "start": 79,
           "end": 88
         },
         {
           "ar": "قَلْبُهُ",
-          "en": "His heart",
+          "en": "his heart",
           "start": 89,
           "end": 97
         },
         {
           "ar": "عَلَى",
-          "en": "Upon",
+          "en": "to",
           "start": 98,
           "end": 103
         },
         {
           "ar": "ذَلِكَ.",
-          "en": "That",
+          "en": "that",
           "start": 104,
           "end": 111
         }
@@ -122,55 +124,55 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "التَّقْدِمَاتُ",
-          "en": "Offerings",
+          "en": "the offerings",
           "start": 7,
           "end": 21
         },
         {
           "ar": "الَّتِي",
-          "en": "Which",
+          "en": "that",
           "start": 22,
           "end": 29
         },
         {
           "ar": "تَأْخُذُونَهَا",
-          "en": "You take",
+          "en": "you take them",
           "start": 30,
           "end": 44
         },
         {
           "ar": "مِنْهُمْ",
-          "en": "From them",
+          "en": "from them",
           "start": 45,
           "end": 53
         },
         {
           "ar": "فَهِيَ:",
-          "en": "Are",
+          "en": "they are",
           "start": 54,
           "end": 61
         },
         {
           "ar": "ذَهَبٌ",
-          "en": "Gold",
+          "en": "gold",
           "start": 62,
           "end": 68
         },
         {
           "ar": "وَفِضَّةٌ",
-          "en": "And silver",
+          "en": "and silver",
           "start": 69,
           "end": 78
         },
         {
           "ar": "وَنُحَاسٌ",
-          "en": "And copper",
+          "en": "and bronze",
           "start": 79,
           "end": 88
         }
@@ -194,31 +196,31 @@
         },
         {
           "ar": "وَبَنَفْسَجِيَّةٌ",
-          "en": "purple",
+          "en": "and purple",
           "start": 23,
           "end": 40
         },
         {
           "ar": "وَحَمْرَاءُ،",
-          "en": "red",
+          "en": "and scarlet",
           "start": 41,
           "end": 53
         },
         {
           "ar": "وَمَنْسُوجَاتٌ",
-          "en": "and textiles",
+          "en": "and fabrics",
           "start": 54,
           "end": 68
         },
         {
           "ar": "كَتَّانِيَّةٌ",
-          "en": "linen",
+          "en": "of linen",
           "start": 69,
           "end": 82
         },
         {
           "ar": "وَشَعْرُ",
-          "en": "and hair",
+          "en": "and hair of",
           "start": 83,
           "end": 91
         },
@@ -242,7 +244,7 @@
         },
         {
           "ar": "كِبَاشٍ",
-          "en": "sheep",
+          "en": "rams",
           "start": 10,
           "end": 17
         },
@@ -254,7 +256,7 @@
         },
         {
           "ar": "بِالْحُمْرَةِ،",
-          "en": "with red",
+          "en": "with the redness",
           "start": 30,
           "end": 44
         },
@@ -278,7 +280,7 @@
         },
         {
           "ar": "السَّنْطِ،",
-          "en": "sandalwood",
+          "en": "the acacia",
           "start": 74,
           "end": 84
         }
@@ -302,7 +304,7 @@
         },
         {
           "ar": "وَأَطْيَابٌ",
-          "en": "and fragrant things",
+          "en": "and spices",
           "start": 24,
           "end": 35
         },
@@ -314,13 +316,13 @@
         },
         {
           "ar": "الْمَسْحَةِ",
-          "en": "of anointing",
+          "en": "the anointing",
           "start": 45,
           "end": 56
         },
         {
           "ar": "وَلِلْبَخُورِ",
-          "en": "and for incense",
+          "en": "and for the incense",
           "start": 57,
           "end": 70
         },
@@ -344,13 +346,13 @@
         },
         {
           "ar": "جَزْعٍ",
-          "en": "splendid",
+          "en": "onyx",
           "start": 12,
           "end": 18
         },
         {
           "ar": "كَرِيمَةٌ",
-          "en": "noble",
+          "en": "precious",
           "start": 19,
           "end": 28
         },
@@ -362,19 +364,19 @@
         },
         {
           "ar": "كَرِيمَةٌ",
-          "en": "noble",
+          "en": "gems",
           "start": 41,
           "end": 50
         },
         {
           "ar": "أُخْرَى",
-          "en": "another",
+          "en": "other",
           "start": 51,
           "end": 58
         },
         {
           "ar": "لِتَرْصِيعِ",
-          "en": "for embellishing",
+          "en": "to mount",
           "start": 59,
           "end": 70
         },
@@ -386,13 +388,13 @@
         },
         {
           "ar": "الْكَاهِنِ",
-          "en": "the priest’s",
+          "en": "the priest",
           "start": 79,
           "end": 89
         },
         {
           "ar": "وَصُدْرَتِهِ.",
-          "en": "and his chestpiece",
+          "en": "and his breastpiece",
           "start": 90,
           "end": 103
         }
@@ -404,7 +406,7 @@
       "mappings": [
         {
           "ar": "فَيَصْنَعُونَ",
-          "en": "so they will make",
+          "en": "they will make",
           "start": 0,
           "end": 13
         },
@@ -428,7 +430,7 @@
         },
         {
           "ar": "أُقِيمُ",
-          "en": "I will establish",
+          "en": "I dwell",
           "start": 35,
           "end": 42
         },
@@ -452,37 +454,37 @@
       "mappings": [
         {
           "ar": "تَصْنَعُونَهُ",
-          "en": "You make it",
+          "en": "you make it",
           "start": 0,
           "end": 13
         },
         {
           "ar": "حَسَبَ",
-          "en": "According to",
+          "en": "according to",
           "start": 14,
           "end": 20
         },
         {
           "ar": "مِثَالِ",
-          "en": "Pattern of",
+          "en": "pattern of",
           "start": 21,
           "end": 28
         },
         {
           "ar": "الْمَسْكَنِ",
-          "en": "The dwelling",
+          "en": "the tabernacle",
           "start": 29,
           "end": 40
         },
         {
           "ar": "وَالآنِيَةِ",
-          "en": "And the utensils",
+          "en": "and the furnishings",
           "start": 41,
           "end": 52
         },
         {
           "ar": "الَّتِي",
-          "en": "Which",
+          "en": "that which",
           "start": 53,
           "end": 60
         },
@@ -500,7 +502,7 @@
       "mappings": [
         {
           "ar": "يَصْنَعُونَ",
-          "en": "Have them make",
+          "en": "they make",
           "start": 0,
           "end": 11
         },
@@ -518,7 +520,7 @@
         },
         {
           "ar": "خَشَبِ",
-          "en": "wood",
+          "en": "wood of",
           "start": 27,
           "end": 33
         },
@@ -530,13 +532,13 @@
         },
         {
           "ar": "طُولُهُ",
-          "en": "length",
+          "en": "its length",
           "start": 45,
           "end": 52
         },
         {
           "ar": "ذِرَاعَانِ",
-          "en": "two and a half",
+          "en": "two cubits",
           "start": 53,
           "end": 63
         },
@@ -548,25 +550,25 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 73,
           "end": 80
         },
         {
           "ar": "مِتْرٍ",
-          "en": "a meter",
+          "en": "meter",
           "start": 81,
           "end": 87
         },
         {
           "ar": "وَرُبْعِ",
-          "en": "and a quarter",
+          "en": "and a quarter of",
           "start": 88,
           "end": 96
         },
         {
           "ar": "الْمِتْرِ)،",
-          "en": "meter)",
+          "en": "the meter",
           "start": 97,
           "end": 108
         },
@@ -578,7 +580,7 @@
         },
         {
           "ar": "ذِرَاعٌ",
-          "en": "cubit",
+          "en": "a cubit",
           "start": 120,
           "end": 127
         },
@@ -590,7 +592,7 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 137,
           "end": 144
         },
@@ -602,25 +604,25 @@
         },
         {
           "ar": "وَسَبْعِينَ",
-          "en": "seventy",
+          "en": "and seventy",
           "start": 154,
           "end": 165
         },
         {
           "ar": "سَنْتِيمِتْراً)",
-          "en": "and its height",
+          "en": "centimeters",
           "start": 166,
           "end": 181
         },
         {
           "ar": "وَارْتِفَاعُهُ",
-          "en": "a cubit",
+          "en": "and its height",
           "start": 182,
           "end": 196
         },
         {
           "ar": "ذِرَاعٌ",
-          "en": "cubit",
+          "en": "a cubit",
           "start": 197,
           "end": 204
         },
@@ -632,7 +634,7 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 214,
           "end": 221
         },
@@ -644,7 +646,7 @@
         },
         {
           "ar": "وَسَبْعِينَ",
-          "en": "seventy",
+          "en": "and seventy",
           "start": 231,
           "end": 242
         },
@@ -662,19 +664,19 @@
       "mappings": [
         {
           "ar": "وَتَضَعُ",
-          "en": "and you shall place",
+          "en": "and you shall overlay",
           "start": 0,
           "end": 8
         },
         {
           "ar": "عَلَيْهِ",
-          "en": "upon it",
+          "en": "on it",
           "start": 9,
           "end": 17
         },
         {
           "ar": "غِشَاءً",
-          "en": "covering",
+          "en": "a covering",
           "start": 18,
           "end": 25
         },
@@ -698,19 +700,19 @@
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 46,
           "end": 50
         },
         {
           "ar": "الدَّاخِلِ",
-          "en": "inner",
+          "en": "the inside",
           "start": 51,
           "end": 61
         },
         {
           "ar": "وَالْخَارِجِ،",
-          "en": "and outer",
+          "en": "and the outside",
           "start": 62,
           "end": 75
         },
@@ -722,13 +724,13 @@
         },
         {
           "ar": "لَهُ",
-          "en": "for him",
+          "en": "for it",
           "start": 86,
           "end": 90
         },
         {
           "ar": "إطَاراً",
-          "en": "frame",
+          "en": "a molding",
           "start": 91,
           "end": 98
         },
@@ -752,7 +754,7 @@
       "mappings": [
         {
           "ar": "وَاسْبِكْ",
-          "en": "Cast",
+          "en": "and cast",
           "start": 0,
           "end": 9
         },
@@ -788,7 +790,7 @@
         },
         {
           "ar": "تُثَبِّتُهَا",
-          "en": "to fasten them",
+          "en": "fasten them",
           "start": 46,
           "end": 58
         },
@@ -800,25 +802,25 @@
         },
         {
           "ar": "قَوَائِمِهِ",
-          "en": "its feet",
+          "en": "its limbs",
           "start": 65,
           "end": 76
         },
         {
           "ar": "الأَرْبَعِ",
-          "en": "four",
+          "en": "the four",
           "start": 77,
           "end": 87
         },
         {
           "ar": "حَلْقَتَيْنِ",
-          "en": "two",
+          "en": "two rings",
           "start": 88,
           "end": 100
         },
         {
           "ar": "مِنْ",
-          "en": "of",
+          "en": "from",
           "start": 101,
           "end": 105
         },
@@ -842,37 +844,37 @@
       "mappings": [
         {
           "ar": "وَتَصْنَعُ",
-          "en": "and you make",
+          "en": "and make",
           "start": 0,
           "end": 10
         },
         {
           "ar": "عَصَوَيْنِ",
-          "en": "two staffs",
+          "en": "two poles",
           "start": 11,
           "end": 21
         },
         {
           "ar": "مِنْ",
-          "en": "from",
+          "en": "of",
           "start": 22,
           "end": 26
         },
         {
           "ar": "خَشَبِ",
-          "en": "wood",
+          "en": "wood of",
           "start": 27,
           "end": 33
         },
         {
           "ar": "السَّنْطِ",
-          "en": "of acacia",
+          "en": "acacia",
           "start": 34,
           "end": 43
         },
         {
           "ar": "تُغَشِّيهِمَا",
-          "en": "cover them",
+          "en": "and overlay them",
           "start": 44,
           "end": 57
         },
@@ -890,61 +892,61 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
         {
           "ar": "تُدْخِلُهُمَا",
-          "en": "You enter them",
+          "en": "you insert them",
           "start": 6,
           "end": 19
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 20,
           "end": 23
         },
         {
           "ar": "الحَلَقَاتِ",
-          "en": "Rings",
+          "en": "the rings",
           "start": 24,
           "end": 35
         },
         {
           "ar": "الَّتِي",
-          "en": "Which",
+          "en": "which",
           "start": 36,
           "end": 43
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 44,
           "end": 49
         },
         {
           "ar": "جَانِبَيِ",
-          "en": "Sides",
+          "en": "the sides of",
           "start": 50,
           "end": 59
         },
         {
           "ar": "التَّابُوتِ",
-          "en": "Of the Ark",
+          "en": "the ark",
           "start": 60,
           "end": 71
         },
         {
           "ar": "لِيُحْمَلَ",
-          "en": "That it may be carried",
+          "en": "to be carried",
           "start": 72,
           "end": 82
         },
         {
           "ar": "بِهِمَا.",
-          "en": "With them",
+          "en": "by them",
           "start": 83,
           "end": 91
         }
@@ -956,49 +958,49 @@
       "mappings": [
         {
           "ar": "وَتَبْقَى",
-          "en": "And remain",
+          "en": "and remain",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْعَصَوَانِ",
-          "en": "The rods",
+          "en": "the poles",
           "start": 10,
           "end": 22
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 23,
           "end": 26
         },
         {
           "ar": "حَلَقَاتِ",
-          "en": "Rings",
+          "en": "the rings of",
           "start": 27,
           "end": 36
         },
         {
           "ar": "التَّابُوتِ،",
-          "en": "Of the Ark",
+          "en": "the ark",
           "start": 37,
           "end": 49
         },
         {
           "ar": "لَا",
-          "en": "Not",
+          "en": "not",
           "start": 50,
           "end": 53
         },
         {
           "ar": "تُنْزَعَانِ",
-          "en": "Are removed",
+          "en": "are not removed",
           "start": 54,
           "end": 65
         },
         {
           "ar": "مِنْهَا.",
-          "en": "From it",
+          "en": "from them",
           "start": 66,
           "end": 74
         }
@@ -1010,49 +1012,49 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
         {
           "ar": "تَضَعُ",
-          "en": "You place",
+          "en": "you put",
           "start": 6,
           "end": 12
         },
         {
           "ar": "الشَّهَادَةَ",
-          "en": "The testimony",
+          "en": "the testimony",
           "start": 13,
           "end": 25
         },
         {
           "ar": "الَّتِي",
-          "en": "Which",
+          "en": "which",
           "start": 26,
           "end": 33
         },
         {
           "ar": "أُعْطِيكَ",
-          "en": "You are given",
+          "en": "I give you",
           "start": 34,
           "end": 43
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 44,
           "end": 47
         },
         {
           "ar": "دَاخِلِ",
-          "en": "Inside",
+          "en": "inside of",
           "start": 48,
           "end": 55
         },
         {
           "ar": "التَّابُوتِ.",
-          "en": "The ark",
+          "en": "the ark",
           "start": 56,
           "end": 68
         }
@@ -1064,19 +1066,19 @@
       "mappings": [
         {
           "ar": "وَتَصْنَعُ",
-          "en": "and you make",
+          "en": "and you shall make",
           "start": 0,
           "end": 10
         },
         {
           "ar": "غِطَاءً",
-          "en": "covering",
+          "en": "a cover",
           "start": 11,
           "end": 18
         },
         {
           "ar": "مِنْ",
-          "en": "from",
+          "en": "of",
           "start": 19,
           "end": 23
         },
@@ -1100,13 +1102,13 @@
         },
         {
           "ar": "كُرْسِيُّ",
-          "en": "throne",
+          "en": "throne of",
           "start": 45,
           "end": 54
         },
         {
           "ar": "الرَّحْمَةِ،",
-          "en": "of mercy",
+          "en": "mercy",
           "start": 55,
           "end": 67
         },
@@ -1118,7 +1120,7 @@
         },
         {
           "ar": "ذِرَاعَانِ",
-          "en": "two",
+          "en": "two cubits",
           "start": 76,
           "end": 86
         },
@@ -1130,7 +1132,7 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(approximately",
+          "en": "about",
           "start": 96,
           "end": 103
         },
@@ -1142,13 +1144,13 @@
         },
         {
           "ar": "وَرُبْعِ",
-          "en": "and a quarter",
+          "en": "and a quarter of",
           "start": 111,
           "end": 119
         },
         {
           "ar": "الْمِتْرِ)",
-          "en": "of a meter)",
+          "en": "the meter",
           "start": 120,
           "end": 130
         },
@@ -1160,7 +1162,7 @@
         },
         {
           "ar": "ذِرَاعٌ",
-          "en": "an arm",
+          "en": "a cubit",
           "start": 142,
           "end": 149
         },
@@ -1172,7 +1174,7 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(approximately",
+          "en": "about",
           "start": 159,
           "end": 166
         },
@@ -1190,7 +1192,7 @@
         },
         {
           "ar": "سَنْتِيمِتْراً)",
-          "en": "centimeters)",
+          "en": "centimeters",
           "start": 188,
           "end": 203
         }
@@ -1202,25 +1204,25 @@
       "mappings": [
         {
           "ar": "وَتَخْرِطُ",
-          "en": "and carves",
+          "en": "and make",
           "start": 0,
           "end": 10
         },
         {
           "ar": "كَرُوبَيْنِ",
-          "en": "cherubim",
+          "en": "two cherubim",
           "start": 11,
           "end": 22
         },
         {
           "ar": "(تِمْثَالَيْ",
-          "en": "(statues of",
+          "en": "two statues",
           "start": 23,
           "end": 35
         },
         {
           "ar": "مَلاكَيْنِ)",
-          "en": "angels)",
+          "en": "two angels",
           "start": 36,
           "end": 47
         },
@@ -1238,7 +1240,7 @@
         },
         {
           "ar": "وَتُقِيمُهُمَا",
-          "en": "and sets them up",
+          "en": "and you shall set them",
           "start": 60,
           "end": 74
         },
@@ -1250,13 +1252,13 @@
         },
         {
           "ar": "طَرَفَيِ",
-          "en": "edges",
+          "en": "the two ends of",
           "start": 81,
           "end": 89
         },
         {
           "ar": "الْغِطَاءِ.",
-          "en": "of the covering",
+          "en": "the cover",
           "start": 90,
           "end": 101
         }
@@ -1268,13 +1270,13 @@
       "mappings": [
         {
           "ar": "فَتَصْنَعُ",
-          "en": "then you make",
+          "en": "so you shall make",
           "start": 0,
           "end": 10
         },
         {
           "ar": "كَرُوباً",
-          "en": "cherubim",
+          "en": "cherub",
           "start": 11,
           "end": 19
         },
@@ -1298,37 +1300,37 @@
         },
         {
           "ar": "طَرَفٍ",
-          "en": "side",
+          "en": "end",
           "start": 41,
           "end": 47
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 48,
           "end": 52
         },
         {
           "ar": "الْغِطَاءِ،",
-          "en": "the covering",
+          "en": "the cover",
           "start": 53,
           "end": 64
         },
         {
           "ar": "مَخْرُوطَيْنِ",
-          "en": "spindles",
+          "en": "two cherubim",
           "start": 65,
           "end": 78
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 79,
           "end": 83
         },
         {
           "ar": "الْغِطَاءِ",
-          "en": "the covering",
+          "en": "the cover",
           "start": 84,
           "end": 94
         },
@@ -1340,7 +1342,7 @@
         },
         {
           "ar": "وَقَائِمَيْنِ",
-          "en": "and pillars",
+          "en": "and standing",
           "start": 105,
           "end": 118
         },
@@ -1352,7 +1354,7 @@
         },
         {
           "ar": "طَرَفَيْهِ.",
-          "en": "edges",
+          "en": "its two ends",
           "start": 125,
           "end": 136
         }
@@ -1364,13 +1366,13 @@
       "mappings": [
         {
           "ar": "وَيَكُونُ",
-          "en": "and it will be",
+          "en": "and shall be",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْكَرُوبَانِ",
-          "en": "the ravens",
+          "en": "the cherubim",
           "start": 10,
           "end": 23
         },
@@ -1388,7 +1390,7 @@
         },
         {
           "ar": "بَاسِطَيْنِ",
-          "en": "stretching",
+          "en": "spreading",
           "start": 49,
           "end": 60
         },
@@ -1412,7 +1414,7 @@
         },
         {
           "ar": "يُظَلِّلانِ",
-          "en": "they shade",
+          "en": "they overshadow",
           "start": 91,
           "end": 102
         },
@@ -1424,13 +1426,13 @@
         },
         {
           "ar": "الْغِطَاءَ،",
-          "en": "the covering",
+          "en": "the cover",
           "start": 111,
           "end": 122
         },
         {
           "ar": "وَيَتَّجِهَانِ",
-          "en": "and they direct",
+          "en": "and they face",
           "start": 123,
           "end": 137
         },
@@ -1442,7 +1444,7 @@
         },
         {
           "ar": "نَحْوَهُ.",
-          "en": "towards it",
+          "en": "toward it",
           "start": 154,
           "end": 163
         }
@@ -1460,13 +1462,13 @@
         },
         {
           "ar": "الْغِطَاءَ",
-          "en": "the covering",
+          "en": "the cover",
           "start": 9,
           "end": 19
         },
         {
           "ar": "فَوْقَ",
-          "en": "upon",
+          "en": "on top of",
           "start": 20,
           "end": 26
         },
@@ -1490,19 +1492,19 @@
         },
         {
           "ar": "بِدَاخِلِهِ",
-          "en": "within it",
+          "en": "inside it",
           "start": 58,
           "end": 69
         },
         {
           "ar": "بِلَوْحَيِ",
-          "en": "with the tablets",
+          "en": "with the two tablets of",
           "start": 70,
           "end": 80
         },
         {
           "ar": "الشَّهَادَةِ",
-          "en": "of the testimony",
+          "en": "the testimony",
           "start": 81,
           "end": 93
         },
@@ -1526,7 +1528,7 @@
       "mappings": [
         {
           "ar": "وَهُنَاكَ",
-          "en": "And there",
+          "en": "and there",
           "start": 0,
           "end": 9
         },
@@ -1538,115 +1540,115 @@
         },
         {
           "ar": "بِكَ",
-          "en": "With you",
+          "en": "with you",
           "start": 21,
           "end": 25
         },
         {
           "ar": "وَأُكَلِّمُكَ",
-          "en": "And I speak to you",
+          "en": "and I speak to you",
           "start": 26,
           "end": 39
         },
         {
           "ar": "بِكُلِّ",
-          "en": "With all",
+          "en": "with all",
           "start": 40,
           "end": 47
         },
         {
           "ar": "مَا",
-          "en": "That",
+          "en": "that which",
           "start": 48,
           "end": 51
         },
         {
           "ar": "أُوصِيكَ",
-          "en": "I advise you",
+          "en": "I command you",
           "start": 52,
           "end": 60
         },
         {
           "ar": "بِهِ",
-          "en": "With it",
+          "en": "with it",
           "start": 61,
           "end": 65
         },
         {
           "ar": "لِتُبَلِّغَهُ",
-          "en": "So you deliver it",
+          "en": "to convey it",
           "start": 66,
           "end": 79
         },
         {
           "ar": "لِبَنِي",
-          "en": "To the children",
+          "en": "to the sons of",
           "start": 80,
           "end": 87
         },
         {
           "ar": "إِسْرَائِيلَ",
-          "en": "Of Israel",
+          "en": "Israel",
           "start": 88,
           "end": 100
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 101,
           "end": 105
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 106,
           "end": 111
         },
         {
           "ar": "الْغِطَاءِ،",
-          "en": "The covering",
+          "en": "the cover",
           "start": 112,
           "end": 123
         },
         {
           "ar": "مَا",
-          "en": "That",
+          "en": "that",
           "start": 124,
           "end": 127
         },
         {
           "ar": "بَيْنَ",
-          "en": "Between",
+          "en": "between",
           "start": 128,
           "end": 134
         },
         {
           "ar": "الْكَرُوبَيْنِ",
-          "en": "The cherubim",
+          "en": "the cherubim",
           "start": 135,
           "end": 149
         },
         {
           "ar": "اللَّذَيْنِ",
-          "en": "Which",
+          "en": "the two which",
           "start": 150,
           "end": 161
         },
         {
           "ar": "يَعْلُوَانِ",
-          "en": "Overtop",
+          "en": "they are over",
           "start": 162,
           "end": 173
         },
         {
           "ar": "تَابُوتَ",
-          "en": "The Ark",
+          "en": "ark",
           "start": 174,
           "end": 182
         },
         {
           "ar": "الشَّهَادَةِ.",
-          "en": "Of the Testimony",
+          "en": "of the testimony",
           "start": 183,
           "end": 196
         }
@@ -1658,85 +1660,85 @@
       "mappings": [
         {
           "ar": "وَكَذَلِكَ",
-          "en": "And thus",
+          "en": "and so",
           "start": 0,
           "end": 10
         },
         {
           "ar": "تَصْنَعُ",
-          "en": "You make",
+          "en": "you make",
           "start": 11,
           "end": 19
         },
         {
           "ar": "مَائِدَةً",
-          "en": "A table",
+          "en": "a table",
           "start": 20,
           "end": 29
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "of",
           "start": 30,
           "end": 34
         },
         {
           "ar": "خَشَبِ",
-          "en": "Wood",
+          "en": "wood of",
           "start": 35,
           "end": 41
         },
         {
           "ar": "السَّنْطِ",
-          "en": "Acacia",
+          "en": "the acacia",
           "start": 42,
           "end": 51
         },
         {
           "ar": "طُولُهَا",
-          "en": "Its length",
+          "en": "its length",
           "start": 52,
           "end": 60
         },
         {
           "ar": "ذِرَاعَانِ",
-          "en": "Two cubits",
+          "en": "two cubits",
           "start": 61,
           "end": 71
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(Approximately",
+          "en": "about",
           "start": 72,
           "end": 79
         },
         {
           "ar": "مِتْرٍ)",
-          "en": "A meter)",
+          "en": "meter",
           "start": 80,
           "end": 87
         },
         {
           "ar": "وَعَرْضُهَا",
-          "en": "And its width",
+          "en": "and its width",
           "start": 88,
           "end": 99
         },
         {
           "ar": "ذِرَاعٌ",
-          "en": "A cubit",
+          "en": "a cubit",
           "start": 100,
           "end": 107
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(Approximately",
+          "en": "about",
           "start": 108,
           "end": 115
         },
         {
           "ar": "خَمْسِينَ",
-          "en": "Fifty",
+          "en": "fifty",
           "start": 116,
           "end": 125
         },
@@ -1748,37 +1750,37 @@
         },
         {
           "ar": "وَارْتِفَاعُهَا",
-          "en": "And its height",
+          "en": "and its height",
           "start": 142,
           "end": 157
         },
         {
           "ar": "ذِرَاعٌ",
-          "en": "A cubit",
+          "en": "a cubit",
           "start": 158,
           "end": 165
         },
         {
           "ar": "وَنِصْفٌ",
-          "en": "And a half",
+          "en": "and a half",
           "start": 166,
           "end": 174
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(Approximately",
+          "en": "about",
           "start": 175,
           "end": 182
         },
         {
           "ar": "خَمْسَةٍ",
-          "en": "Five",
+          "en": "five",
           "start": 183,
           "end": 191
         },
         {
           "ar": "وَسَبْعِينَ",
-          "en": "seventy",
+          "en": "and seventy",
           "start": 192,
           "end": 203
         },
@@ -1796,7 +1798,7 @@
       "mappings": [
         {
           "ar": "وَغَشِّهَا",
-          "en": "and cover",
+          "en": "and overlay it",
           "start": 0,
           "end": 10
         },
@@ -1814,13 +1816,13 @@
         },
         {
           "ar": "لَهَا",
-          "en": "for her",
+          "en": "for it",
           "start": 33,
           "end": 38
         },
         {
           "ar": "إِطَاراً",
-          "en": "a frame",
+          "en": "a molding",
           "start": 39,
           "end": 47
         },
@@ -1832,13 +1834,13 @@
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 57,
           "end": 61
         },
         {
           "ar": "الذَّهَبِ،",
-          "en": "gold",
+          "en": "the gold",
           "start": 62,
           "end": 72
         }
@@ -1850,79 +1852,79 @@
       "mappings": [
         {
           "ar": "وَاصْنَعْ",
-          "en": "And make",
+          "en": "and make",
           "start": 0,
           "end": 9
         },
         {
           "ar": "لَهَا",
-          "en": "For it",
+          "en": "for it",
           "start": 10,
           "end": 15
         },
         {
           "ar": "حَافَّةً",
-          "en": "Edge",
+          "en": "a rim",
           "start": 16,
           "end": 24
         },
         {
           "ar": "حَوْلَهَا",
-          "en": "Around it",
+          "en": "around it",
           "start": 25,
           "end": 34
         },
         {
           "ar": "مِقْدَارُ",
-          "en": "The measure of",
+          "en": "the measure of",
           "start": 35,
           "end": 44
         },
         {
           "ar": "عَرْضِهَا",
-          "en": "Its width",
+          "en": "its width",
           "start": 45,
           "end": 54
         },
         {
           "ar": "شِبْرٌ،",
-          "en": "A cubit",
+          "en": "a handbreadth",
           "start": 55,
           "end": 62
         },
         {
           "ar": "وَاجْعَلْ",
-          "en": "And make",
+          "en": "and make",
           "start": 63,
           "end": 72
         },
         {
           "ar": "لِمُحِيطِ",
-          "en": "For the circumference of",
+          "en": "for the edge of",
           "start": 73,
           "end": 82
         },
         {
           "ar": "الْحَافَةِ",
-          "en": "The edge",
+          "en": "the rim",
           "start": 83,
           "end": 93
         },
         {
           "ar": "إطَاراً",
-          "en": "A frame",
+          "en": "molding",
           "start": 94,
           "end": 101
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "of",
           "start": 102,
           "end": 106
         },
         {
           "ar": "ذَهَبٍ،",
-          "en": "Gold",
+          "en": "gold",
           "start": 107,
           "end": 114
         }
@@ -1934,67 +1936,67 @@
       "mappings": [
         {
           "ar": "وَاسْبِكْ",
-          "en": "And fashion",
+          "en": "and cast",
           "start": 0,
           "end": 9
         },
         {
           "ar": "لَهَا",
-          "en": "For it",
+          "en": "for it",
           "start": 10,
           "end": 15
         },
         {
           "ar": "أَرْبَعَ",
-          "en": "Four",
+          "en": "four",
           "start": 16,
           "end": 24
         },
         {
           "ar": "حَلَقَاتٍ",
-          "en": "Rings",
+          "en": "rings",
           "start": 25,
           "end": 34
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "of",
           "start": 35,
           "end": 39
         },
         {
           "ar": "ذَهَبٍ",
-          "en": "Gold",
+          "en": "gold",
           "start": 40,
           "end": 46
         },
         {
           "ar": "تُثَبِّتُهَا",
-          "en": "To fasten them",
+          "en": "fasten them",
           "start": 47,
           "end": 59
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 60,
           "end": 65
         },
         {
           "ar": "زَوَايَا",
-          "en": "Corners",
+          "en": "corners",
           "start": 66,
           "end": 74
         },
         {
           "ar": "قَوَائِمِهَا",
-          "en": "Of its legs",
+          "en": "its legs",
           "start": 75,
           "end": 87
         },
         {
           "ar": "الأَرْبَعِ،",
-          "en": "Four",
+          "en": "the four",
           "start": 88,
           "end": 99
         }
@@ -2006,19 +2008,19 @@
       "mappings": [
         {
           "ar": "فَتَكُونُ",
-          "en": "then become",
+          "en": "so they are",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْحَلَقَاتُ",
-          "en": "rings",
+          "en": "the rings",
           "start": 10,
           "end": 22
         },
         {
           "ar": "المُثَبَّتَةُ",
-          "en": "fixed",
+          "en": "the fixed",
           "start": 23,
           "end": 36
         },
@@ -2030,7 +2032,7 @@
         },
         {
           "ar": "الْحَافَةِ،",
-          "en": "edge",
+          "en": "the rim",
           "start": 43,
           "end": 54
         },
@@ -2042,7 +2044,7 @@
         },
         {
           "ar": "لِعَصَوَيْنِ",
-          "en": "for two sticks",
+          "en": "for two poles",
           "start": 65,
           "end": 77
         },
@@ -2054,7 +2056,7 @@
         },
         {
           "ar": "بِهِمَا",
-          "en": "with them",
+          "en": "by them",
           "start": 87,
           "end": 94
         },
@@ -2072,13 +2074,13 @@
       "mappings": [
         {
           "ar": "وَتَصْنَعُ",
-          "en": "and you make",
+          "en": "and make",
           "start": 0,
           "end": 10
         },
         {
           "ar": "الْعَصَوَيْنِ",
-          "en": "the two staffs",
+          "en": "the two poles",
           "start": 11,
           "end": 24
         },
@@ -2090,19 +2092,19 @@
         },
         {
           "ar": "خَشَبِ",
-          "en": "wood",
+          "en": "wood of",
           "start": 30,
           "end": 36
         },
         {
           "ar": "السَّنْطِ",
-          "en": "of acacia",
+          "en": "acacia",
           "start": 37,
           "end": 46
         },
         {
           "ar": "وَتُغَشِّيهِمَا",
-          "en": "and you overlay them",
+          "en": "and overlay them",
           "start": 47,
           "end": 62
         },
@@ -2114,13 +2116,13 @@
         },
         {
           "ar": "لِتُحْمَلَ",
-          "en": "so that",
+          "en": "so that it may be carried",
           "start": 75,
           "end": 85
         },
         {
           "ar": "بِهِمَا",
-          "en": "by them",
+          "en": "with them",
           "start": 86,
           "end": 93
         },
@@ -2138,79 +2140,79 @@
       "mappings": [
         {
           "ar": "وَأَمَّا",
-          "en": "As for",
+          "en": "and as for",
           "start": 0,
           "end": 8
         },
         {
           "ar": "صِحَافُ",
-          "en": "Dishes",
+          "en": "plates",
           "start": 9,
           "end": 16
         },
         {
           "ar": "الْمَائِدَةِ",
-          "en": "Of the table",
+          "en": "the table",
           "start": 17,
           "end": 29
         },
         {
           "ar": "وَصُحُونُهَا",
-          "en": "And her platters",
+          "en": "and its dishes",
           "start": 30,
           "end": 42
         },
         {
           "ar": "وَكُؤُوسُهَا",
-          "en": "And her goblets",
+          "en": "and its bowls",
           "start": 43,
           "end": 55
         },
         {
           "ar": "وَأَبَارِيقُهَا",
-          "en": "And her pitchers",
+          "en": "and its pitchers",
           "start": 56,
           "end": 71
         },
         {
           "ar": "الَّتِي",
-          "en": "Which",
+          "en": "which",
           "start": 72,
           "end": 79
         },
         {
           "ar": "يُسْكَبُ",
-          "en": "Is poured",
+          "en": "is poured",
           "start": 80,
           "end": 88
         },
         {
           "ar": "بِها،",
-          "en": "With them",
+          "en": "in it",
           "start": 89,
           "end": 94
         },
         {
           "ar": "فَتَصُوغُهَا",
-          "en": "Then she fashions them",
+          "en": "and make them",
           "start": 95,
           "end": 107
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "of",
           "start": 108,
           "end": 112
         },
         {
           "ar": "ذَهَبٍ",
-          "en": "Gold",
+          "en": "gold",
           "start": 113,
           "end": 119
         },
         {
           "ar": "خَالِصٍ.",
-          "en": "Pure",
+          "en": "pure",
           "start": 120,
           "end": 128
         }
@@ -2222,7 +2224,7 @@
       "mappings": [
         {
           "ar": "وَتَضَعُ",
-          "en": "and you place",
+          "en": "and you put",
           "start": 0,
           "end": 8
         },
@@ -2240,7 +2242,7 @@
         },
         {
           "ar": "التَّقْدِمَةِ",
-          "en": "of the offering",
+          "en": "the offering",
           "start": 25,
           "end": 38
         },
@@ -2258,7 +2260,7 @@
         },
         {
           "ar": "الْمَائِدَةِ",
-          "en": "table",
+          "en": "the table",
           "start": 52,
           "end": 64
         },
@@ -2276,103 +2278,103 @@
       "mappings": [
         {
           "ar": "وَاخْرِطْ",
-          "en": "And carve",
+          "en": "and hammer out",
           "start": 0,
           "end": 9
         },
         {
           "ar": "مَنَارَةً",
-          "en": "A lampstand",
+          "en": "a lampstand",
           "start": 10,
           "end": 19
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 20,
           "end": 24
         },
         {
           "ar": "ذَهَبٍ",
-          "en": "Gold",
+          "en": "gold",
           "start": 25,
           "end": 31
         },
         {
           "ar": "خَالِصٍ،",
-          "en": "Pure",
+          "en": "pure",
           "start": 32,
           "end": 40
         },
         {
           "ar": "فَتَكُونَ",
-          "en": "So it becomes",
+          "en": "so be",
           "start": 41,
           "end": 50
         },
         {
           "ar": "قَاعِدَتُهَا",
-          "en": "Its base",
+          "en": "its base",
           "start": 51,
           "end": 63
         },
         {
           "ar": "وَسَاقُهَا",
-          "en": "Its legs",
+          "en": "and its shaft",
           "start": 64,
           "end": 74
         },
         {
           "ar": "وَكَاسَاتُهَا",
-          "en": "Its cups",
+          "en": "and its cups",
           "start": 75,
           "end": 88
         },
         {
           "ar": "وَبَرَاعِمُهَا",
-          "en": "Its buds",
+          "en": "and its buds",
           "start": 89,
           "end": 103
         },
         {
           "ar": "وَأَزْهَارُهَا",
-          "en": "Its flowers",
+          "en": "and its blossoms",
           "start": 104,
           "end": 118
         },
         {
           "ar": "كُلُّهَا",
-          "en": "All",
+          "en": "all of them",
           "start": 119,
           "end": 127
         },
         {
           "ar": "مَخْرُوطَةً",
-          "en": "Engraved",
+          "en": "hammered out",
           "start": 128,
           "end": 139
         },
         {
           "ar": "مَعاً",
-          "en": "Together",
+          "en": "together",
           "start": 140,
           "end": 145
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 146,
           "end": 150
         },
         {
           "ar": "قِطْعَةٍ",
-          "en": "One piece",
+          "en": "piece",
           "start": 151,
           "end": 159
         },
         {
           "ar": "وَاحِدَةٍ.",
-          "en": "Single",
+          "en": "one",
           "start": 160,
           "end": 170
         }
@@ -2384,7 +2386,7 @@
       "mappings": [
         {
           "ar": "وَتَتَشَعَّبُ",
-          "en": "and branches",
+          "en": "and extend",
           "start": 0,
           "end": 13
         },
@@ -2408,7 +2410,7 @@
         },
         {
           "ar": "مِنْهَا",
-          "en": "of it",
+          "en": "from it",
           "start": 33,
           "end": 40
         },
@@ -2474,7 +2476,7 @@
         },
         {
           "ar": "وَهَكَذَا",
-          "en": "and thus",
+          "en": "and so",
           "start": 56,
           "end": 65
         },
@@ -2492,7 +2494,7 @@
         },
         {
           "ar": "الأَفْرُعِ",
-          "en": "branches",
+          "en": "the branches",
           "start": 83,
           "end": 93
         },
@@ -2510,7 +2512,7 @@
         },
         {
           "ar": "الْمَنَارَةِ.",
-          "en": "the candelabrum",
+          "en": "the lampstand",
           "start": 116,
           "end": 129
         }
@@ -2522,7 +2524,7 @@
       "mappings": [
         {
           "ar": "وَيَكُونُ",
-          "en": "and it will be",
+          "en": "and there are to be",
           "start": 0,
           "end": 9
         },
@@ -2558,7 +2560,7 @@
         },
         {
           "ar": "الشَّكْلِ",
-          "en": "form",
+          "en": "the shape",
           "start": 59,
           "end": 68
         },
@@ -2570,7 +2572,7 @@
         },
         {
           "ar": "وَأَزْهَارِهَا.",
-          "en": "and its flowers",
+          "en": "and its blossoms",
           "start": 84,
           "end": 99
         }
@@ -2582,7 +2584,7 @@
       "mappings": [
         {
           "ar": "وَتَجْعَلُ",
-          "en": "and you make",
+          "en": "and you shall place",
           "start": 0,
           "end": 10
         },
@@ -2594,13 +2596,13 @@
         },
         {
           "ar": "فَرْعَيْنِ",
-          "en": "twigs",
+          "en": "two branches",
           "start": 18,
           "end": 28
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 29,
           "end": 33
         },
@@ -2612,13 +2614,13 @@
         },
         {
           "ar": "الْمُتَشَعِّبَةِ",
-          "en": "branching",
+          "en": "extending",
           "start": 45,
           "end": 61
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 62,
           "end": 66
         },
@@ -2630,13 +2632,13 @@
         },
         {
           "ar": "بُرْعُماً.",
-          "en": "a sprout",
+          "en": "a bud",
           "start": 80,
           "end": 90
         },
         {
           "ar": "هَكَذَا",
-          "en": "thus",
+          "en": "in this way",
           "start": 91,
           "end": 98
         },
@@ -2654,7 +2656,7 @@
         },
         {
           "ar": "الْأَفْرُعٍ.",
-          "en": "branches",
+          "en": "the branches",
           "start": 120,
           "end": 132
         }
@@ -2666,19 +2668,19 @@
       "mappings": [
         {
           "ar": "وَيَكُونُ",
-          "en": "and it will be",
+          "en": "and shall be",
           "start": 0,
           "end": 9
         },
         {
           "ar": "سَاقُ",
-          "en": "stem",
+          "en": "the base of",
           "start": 10,
           "end": 15
         },
         {
           "ar": "الْمَنَارَةِ",
-          "en": "lampstand",
+          "en": "the lampstand",
           "start": 16,
           "end": 28
         },
@@ -2696,7 +2698,7 @@
         },
         {
           "ar": "كُلُّهَا",
-          "en": "all",
+          "en": "all of them",
           "start": 58,
           "end": 66
         },
@@ -2714,7 +2716,7 @@
         },
         {
           "ar": "مَصْوغَةً",
-          "en": "cast",
+          "en": "hammered",
           "start": 86,
           "end": 95
         },
@@ -2744,61 +2746,61 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
         {
           "ar": "اصْنَعْ",
-          "en": "Make",
+          "en": "make",
           "start": 6,
           "end": 13
         },
         {
           "ar": "سَبْعَةَ",
-          "en": "Seven",
+          "en": "seven",
           "start": 14,
           "end": 22
         },
         {
           "ar": "سُرُجٍ",
-          "en": "Lampstands",
+          "en": "lamps",
           "start": 23,
           "end": 29
         },
         {
           "ar": "لِلْمَنَارَةِ،",
-          "en": "For the lampstand",
+          "en": "for the lampstand",
           "start": 30,
           "end": 44
         },
         {
           "ar": "وَاجْعَلْهَا",
-          "en": "And place them",
+          "en": "and set them",
           "start": 45,
           "end": 57
         },
         {
           "ar": "عَلَيْهَا",
-          "en": "Upon it",
+          "en": "on it",
           "start": 58,
           "end": 67
         },
         {
           "ar": "بِحَيْثُ",
-          "en": "So that",
+          "en": "so that",
           "start": 68,
           "end": 76
         },
         {
           "ar": "تُضِيءُ",
-          "en": "It shines",
+          "en": "they light",
           "start": 77,
           "end": 84
         },
         {
           "ar": "أَمَامَهَا.",
-          "en": "Before it",
+          "en": "in front of it",
           "start": 85,
           "end": 96
         }
@@ -2810,37 +2812,37 @@
       "mappings": [
         {
           "ar": "وَلْتَكُنْ",
-          "en": "Let it be",
+          "en": "and let be",
           "start": 0,
           "end": 10
         },
         {
           "ar": "مَلاقِطُهَا",
-          "en": "Her basins",
+          "en": "its wick trimmers",
           "start": 11,
           "end": 22
         },
         {
           "ar": "وَمَنَافِضُهَا",
-          "en": "And her sprinkling bowls",
+          "en": "and its trays",
           "start": 23,
           "end": 37
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "of",
           "start": 38,
           "end": 42
         },
         {
           "ar": "ذَهَبٍ",
-          "en": "Gold",
+          "en": "gold",
           "start": 43,
           "end": 49
         },
         {
           "ar": "خَالِصٍ.",
-          "en": "Pure",
+          "en": "pure",
           "start": 50,
           "end": 58
         }
@@ -2852,7 +2854,7 @@
       "mappings": [
         {
           "ar": "فَيَكُونَ",
-          "en": "then it will be",
+          "en": "so it will be",
           "start": 0,
           "end": 9
         },
@@ -2864,7 +2866,7 @@
         },
         {
           "ar": "الذَّهَبِ",
-          "en": "gold",
+          "en": "the gold",
           "start": 17,
           "end": 26
         },
@@ -2876,31 +2878,31 @@
         },
         {
           "ar": "الْمُصَاغِ",
-          "en": "fashioned",
+          "en": "the fashioned",
           "start": 38,
           "end": 48
         },
         {
           "ar": "لِصُنْعِ",
-          "en": "for making",
+          "en": "for the making of",
           "start": 49,
           "end": 57
         },
         {
           "ar": "الْمَنَارَةِ",
-          "en": "the candelabrum",
+          "en": "the lampstand",
           "start": 58,
           "end": 70
         },
         {
           "ar": "وَجَمِيعِ",
-          "en": "and all",
+          "en": "and all of",
           "start": 71,
           "end": 80
         },
         {
           "ar": "أَوَانِيهَا",
-          "en": "its vessels",
+          "en": "its accessories",
           "start": 81,
           "end": 92
         },
@@ -2918,7 +2920,7 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 112,
           "end": 119
         },
@@ -2930,7 +2932,7 @@
         },
         {
           "ar": "وَثَلاثِينَ",
-          "en": "thirty",
+          "en": "and thirty",
           "start": 128,
           "end": 139
         },
@@ -2954,7 +2956,7 @@
       "mappings": [
         {
           "ar": "وَاحْرِصْ",
-          "en": "And be diligent",
+          "en": "and take care",
           "start": 0,
           "end": 9
         },
@@ -2966,37 +2968,37 @@
         },
         {
           "ar": "يَكُونَ",
-          "en": "to be",
+          "en": "be",
           "start": 15,
           "end": 22
         },
         {
           "ar": "كُلُّ",
-          "en": "all",
+          "en": "every",
           "start": 23,
           "end": 28
         },
         {
           "ar": "مَا",
-          "en": "that",
+          "en": "that which",
           "start": 29,
           "end": 32
         },
         {
           "ar": "تَصْنَعُهُ",
-          "en": "you do",
+          "en": "you make it",
           "start": 33,
           "end": 43
         },
         {
           "ar": "مُطَابِقاً",
-          "en": "conforming",
+          "en": "matching",
           "start": 44,
           "end": 54
         },
         {
           "ar": "لِلْمِثَالِ",
-          "en": "to the example",
+          "en": "to the pattern",
           "start": 55,
           "end": 66
         },
@@ -3008,7 +3010,7 @@
         },
         {
           "ar": "أَظْهَرْتُهُ",
-          "en": "I showed",
+          "en": "I showed it",
           "start": 75,
           "end": 87
         },

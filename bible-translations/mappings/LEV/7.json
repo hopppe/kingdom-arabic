@@ -1,6 +1,8 @@
 {
   "book": "LEV",
   "chapter": 7,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَهَذِهِ نُصُوصُ تَعْلِيمَاتِ ذَبِيحَةِ الإِثْمِ. إِنَّهَا قُدْسُ أَقْدَاسٍ.",
@@ -8,49 +10,49 @@
       "mappings": [
         {
           "ar": "وَهَذِهِ",
-          "en": "And these",
+          "en": "and these",
           "start": 0,
           "end": 8
         },
         {
           "ar": "نُصُوصُ",
-          "en": "Instructions",
+          "en": "texts",
           "start": 9,
           "end": 16
         },
         {
           "ar": "تَعْلِيمَاتِ",
-          "en": "Sacrifice",
+          "en": "instructions",
           "start": 17,
           "end": 29
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "Of sin",
+          "en": "offering of",
           "start": 30,
           "end": 39
         },
         {
           "ar": "الإِثْمِ.",
-          "en": "Surely",
+          "en": "the sin",
           "start": 40,
           "end": 49
         },
         {
           "ar": "إِنَّهَا",
-          "en": "Holiness",
+          "en": "it is",
           "start": 50,
           "end": 58
         },
         {
           "ar": "قُدْسُ",
-          "en": "Most holy",
+          "en": "holy place",
           "start": 59,
           "end": 65
         },
         {
           "ar": "أَقْدَاسٍ.",
-          "en": "holy of holies",
+          "en": "most holy",
           "start": 66,
           "end": 76
         }
@@ -62,109 +64,109 @@
       "mappings": [
         {
           "ar": "تَذْبَحُونَ",
-          "en": "You slaughter",
+          "en": "you slaughter",
           "start": 0,
           "end": 11
         },
         {
           "ar": "ذَبِيحَةَ",
-          "en": "Offering",
+          "en": "offering",
           "start": 12,
           "end": 21
         },
         {
           "ar": "الإِثْمِ",
-          "en": "Of guilt",
+          "en": "the guilt",
           "start": 22,
           "end": 30
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 31,
           "end": 34
         },
         {
           "ar": "نَفْسِ",
-          "en": "The same",
+          "en": "the same",
           "start": 35,
           "end": 41
         },
         {
           "ar": "الْمَوْضِعِ",
-          "en": "Place",
+          "en": "the place",
           "start": 42,
           "end": 53
         },
         {
           "ar": "الَّذِي",
-          "en": "That",
+          "en": "which",
           "start": 54,
           "end": 61
         },
         {
           "ar": "تَذْبَحُونَ",
-          "en": "You slaughter",
+          "en": "you slaughter",
           "start": 62,
           "end": 73
         },
         {
           "ar": "فِيهِ",
-          "en": "Therein",
+          "en": "in it",
           "start": 74,
           "end": 79
         },
         {
           "ar": "ذَبِيحَةَ",
-          "en": "Offering",
+          "en": "offering",
           "start": 80,
           "end": 89
         },
         {
           "ar": "الْمُحْرَقَةِ،",
-          "en": "Of the burnt offering",
+          "en": "the burnt",
           "start": 90,
           "end": 104
         },
         {
           "ar": "وَيُرَشُّ",
-          "en": "And its blood is sprinkled",
+          "en": "and is splashed",
           "start": 105,
           "end": 114
         },
         {
           "ar": "دَمُهَا",
-          "en": "Its blood",
+          "en": "its blood",
           "start": 115,
           "end": 122
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 123,
           "end": 128
         },
         {
           "ar": "جَوَانِبِ",
-          "en": "Sides",
+          "en": "sides of",
           "start": 129,
           "end": 138
         },
         {
           "ar": "الْمَذْبَحِ",
-          "en": "Of the altar",
+          "en": "the altar",
           "start": 139,
           "end": 150
         },
         {
           "ar": "الْمُحِيطَةِ",
-          "en": "Surrounding it",
+          "en": "surrounding",
           "start": 151,
           "end": 163
         },
         {
           "ar": "بِهِ.",
-          "en": "It",
+          "en": "around it",
           "start": 164,
           "end": 169
         }
@@ -176,7 +178,7 @@
       "mappings": [
         {
           "ar": "وَيُقَرِّبُ",
-          "en": "and He brings near",
+          "en": "and shall offer",
           "start": 0,
           "end": 11
         },
@@ -188,7 +190,7 @@
         },
         {
           "ar": "مِنْهَا",
-          "en": "of it",
+          "en": "from it",
           "start": 23,
           "end": 30
         },
@@ -206,7 +208,7 @@
         },
         {
           "ar": "الأَلْيَةَ",
-          "en": "the appendix",
+          "en": "the fat tail",
           "start": 48,
           "end": 58
         },
@@ -218,13 +220,13 @@
         },
         {
           "ar": "الأَعْضَاءِ",
-          "en": "of the members",
+          "en": "the organs",
           "start": 68,
           "end": 79
         },
         {
           "ar": "الدَّاخِلِيَّةِ،",
-          "en": "inner",
+          "en": "the internal",
           "start": 80,
           "end": 96
         }
@@ -236,7 +238,7 @@
       "mappings": [
         {
           "ar": "وَالْكُلْيَتَيْنِ",
-          "en": "and the kidneys",
+          "en": "and the two kidneys",
           "start": 0,
           "end": 17
         },
@@ -266,13 +268,13 @@
         },
         {
           "ar": "وَيَنْزِعُ",
-          "en": "and removes",
+          "en": "and he removes",
           "start": 63,
           "end": 73
         },
         {
           "ar": "الْمَرَارَةَ",
-          "en": "the gall",
+          "en": "the gallbladder",
           "start": 74,
           "end": 86
         },
@@ -296,7 +298,7 @@
       "mappings": [
         {
           "ar": "وَيُحْرِقُهَا",
-          "en": "and he burns",
+          "en": "and he shall burn them",
           "start": 0,
           "end": 13
         },
@@ -320,31 +322,31 @@
         },
         {
           "ar": "وَقُوداً",
-          "en": "fuel",
+          "en": "as a food offering",
           "start": 43,
           "end": 51
         },
         {
           "ar": "لِلرَّبِّ.",
-          "en": "for the Lord",
+          "en": "to the Lord",
           "start": 52,
           "end": 62
         },
         {
           "ar": "إِنَّهَا",
-          "en": "indeed it is",
+          "en": "it is",
           "start": 63,
           "end": 71
         },
         {
           "ar": "قُرْبَانُ",
-          "en": "an offering",
+          "en": "offering",
           "start": 72,
           "end": 81
         },
         {
           "ar": "إِثْمٍ.",
-          "en": "of sin",
+          "en": "guilt",
           "start": 82,
           "end": 89
         }
@@ -356,7 +358,7 @@
       "mappings": [
         {
           "ar": "كُلُّ",
-          "en": "every",
+          "en": "Every",
           "start": 0,
           "end": 5
         },
@@ -368,13 +370,13 @@
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 13,
           "end": 17
         },
         {
           "ar": "الْكَهَنَةِ",
-          "en": "priests",
+          "en": "the priests",
           "start": 18,
           "end": 29
         },
@@ -386,7 +388,7 @@
         },
         {
           "ar": "مِنْهَا",
-          "en": "thereof",
+          "en": "from it",
           "start": 39,
           "end": 46
         },
@@ -410,7 +412,7 @@
         },
         {
           "ar": "لأَنَّهَا",
-          "en": "because",
+          "en": "because it is",
           "start": 70,
           "end": 79
         },
@@ -422,7 +424,7 @@
         },
         {
           "ar": "أَقْدَاسٍ.",
-          "en": "most holy",
+          "en": "holiest",
           "start": 87,
           "end": 97
         }
@@ -434,85 +436,85 @@
       "mappings": [
         {
           "ar": "وَشَرِيعَةُ",
-          "en": "And the law",
+          "en": "and the law of",
           "start": 0,
           "end": 11
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "Offering",
+          "en": "offering of",
           "start": 12,
           "end": 21
         },
         {
           "ar": "الإِثْمِ",
-          "en": "Of the sin",
+          "en": "the sin",
           "start": 22,
           "end": 30
         },
         {
           "ar": "مُمَاثِلَةٌ",
-          "en": "Is like",
+          "en": "is similar",
           "start": 31,
           "end": 42
         },
         {
           "ar": "لِذَبِيحَةِ",
-          "en": "Of the guilt",
+          "en": "to the offering",
           "start": 43,
           "end": 54
         },
         {
           "ar": "الْخَطِيئَةِ،",
-          "en": "Offering",
+          "en": "the guilt",
           "start": 55,
           "end": 68
         },
         {
           "ar": "إِذْ",
-          "en": "Because",
+          "en": "for",
           "start": 69,
           "end": 73
         },
         {
           "ar": "تَكُونُ",
-          "en": "They are",
+          "en": "are",
           "start": 74,
           "end": 81
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 82,
           "end": 86
         },
         {
           "ar": "نَصِيبِ",
-          "en": "The portion",
+          "en": "portion of",
           "start": 87,
           "end": 94
         },
         {
           "ar": "الْكَاهِنِ",
-          "en": "Of the priest",
+          "en": "the priest",
           "start": 95,
           "end": 105
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "who",
           "start": 106,
           "end": 113
         },
         {
           "ar": "يُكَفِّرُ",
-          "en": "Makes atonement",
+          "en": "makes atonement",
           "start": 114,
           "end": 123
         },
         {
           "ar": "بِها.",
-          "en": "With them",
+          "en": "with them",
           "start": 124,
           "end": 129
         }
@@ -548,31 +550,31 @@
         },
         {
           "ar": "إِنْسَانٍ",
-          "en": "of a man",
+          "en": "a person",
           "start": 42,
           "end": 51
         },
         {
           "ar": "يَكُونُ",
-          "en": "will be",
+          "en": "becomes",
           "start": 52,
           "end": 59
         },
         {
           "ar": "جِلْدُ",
-          "en": "skin",
+          "en": "hide",
           "start": 60,
           "end": 66
         },
         {
           "ar": "الْمُحْرَقَةِ",
-          "en": "burnt offering",
+          "en": "the burnt offering",
           "start": 67,
           "end": 80
         },
         {
           "ar": "الْمُقَرَّبَةِ",
-          "en": "offered",
+          "en": "the offered",
           "start": 81,
           "end": 95
         },
@@ -602,97 +604,97 @@
       "mappings": [
         {
           "ar": "وَكَذَلِكَ",
-          "en": "And so",
+          "en": "and so",
           "start": 0,
           "end": 10
         },
         {
           "ar": "كُلُّ",
-          "en": "Every",
+          "en": "every",
           "start": 11,
           "end": 16
         },
         {
           "ar": "تَقْدِمَةِ",
-          "en": "Offering",
+          "en": "offering",
           "start": 17,
           "end": 27
         },
         {
           "ar": "دَقِيقٍ",
-          "en": "Fine flour",
+          "en": "flour",
           "start": 28,
           "end": 35
         },
         {
           "ar": "مَخْبُوزٍ",
-          "en": "Baked",
+          "en": "baked",
           "start": 36,
           "end": 45
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 46,
           "end": 49
         },
         {
           "ar": "فُرْنٍ",
-          "en": "Oven",
+          "en": "an oven",
           "start": 50,
           "end": 56
         },
         {
           "ar": "أَوْ",
-          "en": "Or",
+          "en": "or",
           "start": 57,
           "end": 61
         },
         {
           "ar": "مِقْلَاةٍ",
-          "en": "Pan",
+          "en": "a pan",
           "start": 62,
           "end": 71
         },
         {
           "ar": "أَوْ",
-          "en": "Or",
+          "en": "or",
           "start": 72,
           "end": 76
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 77,
           "end": 82
         },
         {
           "ar": "الصَّاجِ",
-          "en": "Griddle",
+          "en": "the griddle",
           "start": 83,
           "end": 91
         },
         {
           "ar": "تَكُونُ",
-          "en": "Belongs",
+          "en": "is",
           "start": 92,
           "end": 99
         },
         {
           "ar": "لِلْكَاهِنِ",
-          "en": "To the priest",
+          "en": "to the priest",
           "start": 100,
           "end": 111
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "who",
           "start": 112,
           "end": 119
         },
         {
           "ar": "يُقَرِّبُهَا",
-          "en": "Offers it",
+          "en": "he offers it",
           "start": 120,
           "end": 132
         }
@@ -716,7 +718,7 @@
         },
         {
           "ar": "دَقِيقٍ",
-          "en": "fine flour",
+          "en": "flour",
           "start": 19,
           "end": 26
         },
@@ -752,13 +754,13 @@
         },
         {
           "ar": "نَصِيبِ",
-          "en": "portion",
+          "en": "portion of",
           "start": 63,
           "end": 70
         },
         {
           "ar": "أَبْنَاءِ",
-          "en": "sons",
+          "en": "sons of",
           "start": 71,
           "end": 80
         },
@@ -770,13 +772,13 @@
         },
         {
           "ar": "تُوَزَّعُ",
-          "en": "is distributed",
+          "en": "are distributed",
           "start": 90,
           "end": 99
         },
         {
           "ar": "عَلَيْهِمْ",
-          "en": "to them",
+          "en": "upon them",
           "start": 100,
           "end": 110
         },
@@ -794,49 +796,49 @@
       "mappings": [
         {
           "ar": "وَهَذِهِ",
-          "en": "And these",
+          "en": "and these",
           "start": 0,
           "end": 8
         },
         {
           "ar": "نُصُوصُ",
-          "en": "Regulations",
+          "en": "texts",
           "start": 9,
           "end": 16
         },
         {
           "ar": "تَعْلِيمَاتِ",
-          "en": "Instructions",
+          "en": "instructions",
           "start": 17,
           "end": 29
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "Offering",
+          "en": "offering",
           "start": 30,
           "end": 39
         },
         {
           "ar": "السَّلامِ",
-          "en": "Of peace",
+          "en": "the fellowship",
           "start": 40,
           "end": 49
         },
         {
           "ar": "الْمُقَرَّبَةِ",
-          "en": "Presented",
+          "en": "the one brought near",
           "start": 50,
           "end": 64
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 65,
           "end": 70
         },
         {
           "ar": "الرَّبِّ:",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 71,
           "end": 80
         }
@@ -848,109 +850,109 @@
       "mappings": [
         {
           "ar": "إِنْ",
-          "en": "If",
+          "en": "if",
           "start": 0,
           "end": 4
         },
         {
           "ar": "قَرَّبَهَا",
-          "en": "Brings near",
+          "en": "he offers it",
           "start": 5,
           "end": 15
         },
         {
           "ar": "أَحَدٌ",
-          "en": "Anyone",
+          "en": "anyone",
           "start": 16,
           "end": 22
         },
         {
           "ar": "لأَجْلِ",
-          "en": "For the sake of",
+          "en": "for the sake of",
           "start": 23,
           "end": 30
         },
         {
           "ar": "الشُّكْرِ،",
-          "en": "Of gratitude",
+          "en": "thanksgiving",
           "start": 31,
           "end": 41
         },
         {
           "ar": "فَلْيُقَدِّمْ",
-          "en": "Let him present",
+          "en": "then let him offer",
           "start": 42,
           "end": 55
         },
         {
           "ar": "مَعَهَا",
-          "en": "With it",
+          "en": "with it",
           "start": 56,
           "end": 63
         },
         {
           "ar": "كَعْكاً",
-          "en": "Cakes",
+          "en": "thick loaves",
           "start": 64,
           "end": 71
         },
         {
           "ar": "غَيْرَ",
-          "en": "Not leavened",
+          "en": "not",
           "start": 72,
           "end": 78
         },
         {
           "ar": "مُخْتَمِرٍ",
-          "en": "Mixed",
+          "en": "leavened",
           "start": 79,
           "end": 89
         },
         {
           "ar": "مَعْجُوناً",
-          "en": "With oil",
+          "en": "mixed in",
           "start": 90,
           "end": 100
         },
         {
           "ar": "بِزَيْتٍ،",
-          "en": "And thin pastries",
+          "en": "with oil",
           "start": 101,
           "end": 110
         },
         {
           "ar": "وَرِقَاقَ",
-          "en": "Of flatbread",
+          "en": "and thin loaves",
           "start": 111,
           "end": 120
         },
         {
           "ar": "فَطِيرٍ",
-          "en": "Anointed",
+          "en": "without yeast",
           "start": 121,
           "end": 128
         },
         {
           "ar": "مَدْهُونَةً",
-          "en": "With oil",
+          "en": "brushed",
           "start": 129,
           "end": 140
         },
         {
           "ar": "بِالزَّيْتِ",
-          "en": "And flour",
+          "en": "with the oil",
           "start": 141,
           "end": 152
         },
         {
           "ar": "وَدَقِيقاً",
-          "en": "Rolled",
+          "en": "and flour",
           "start": 153,
           "end": 163
         },
         {
           "ar": "مَلْتُوتاً",
-          "en": "With oil",
+          "en": "well-kneaded",
           "start": 164,
           "end": 174
         },
@@ -968,61 +970,61 @@
       "mappings": [
         {
           "ar": "فَضْلاً",
-          "en": "Furthermore",
+          "en": "along with",
           "start": 0,
           "end": 7
         },
         {
           "ar": "عَنْ",
-          "en": "From",
+          "en": "along with",
           "start": 8,
           "end": 12
         },
         {
           "ar": "أَرْغِفَةِ",
-          "en": "Loaves",
+          "en": "loaves of",
           "start": 13,
           "end": 23
         },
         {
           "ar": "خُبْزٍ",
-          "en": "Bread",
+          "en": "bread",
           "start": 24,
           "end": 30
         },
         {
           "ar": "مُخْتَمِرَةٍ،",
-          "en": "Leavened",
+          "en": "leavened",
           "start": 31,
           "end": 44
         },
         {
           "ar": "يُقَرِّبُهَا",
-          "en": "Brings",
+          "en": "he presents them",
           "start": 45,
           "end": 57
         },
         {
           "ar": "مَعَ",
-          "en": "With",
+          "en": "with",
           "start": 58,
           "end": 62
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "Sacrifice",
+          "en": "offering",
           "start": 63,
           "end": 72
         },
         {
           "ar": "شُكْرِ",
-          "en": "Thanksgiving",
+          "en": "thanksgiving",
           "start": 73,
           "end": 79
         },
         {
           "ar": "سَلامَتِهِ.",
-          "en": "Safety",
+          "en": "his peace",
           "start": 80,
           "end": 91
         }
@@ -1034,19 +1036,19 @@
       "mappings": [
         {
           "ar": "وَعَلَيْهِ",
-          "en": "And he is to",
+          "en": "and it is for him",
           "start": 0,
           "end": 10
         },
         {
           "ar": "أَنْ",
-          "en": "to",
+          "en": "that",
           "start": 11,
           "end": 15
         },
         {
           "ar": "يُقَدِّمَ",
-          "en": "present",
+          "en": "to offer",
           "start": 16,
           "end": 25
         },
@@ -1070,19 +1072,19 @@
         },
         {
           "ar": "قُرْبَانٍ",
-          "en": "offering",
+          "en": "an offering",
           "start": 46,
           "end": 55
         },
         {
           "ar": "يَرْفَعُهُ",
-          "en": "that he raises",
+          "en": "he offers it",
           "start": 56,
           "end": 66
         },
         {
           "ar": "وَيُرَجِّحُهُ",
-          "en": "and weighs",
+          "en": "and he presents it",
           "start": 67,
           "end": 80
         },
@@ -1106,19 +1108,19 @@
         },
         {
           "ar": "مِنْ",
-          "en": "of",
+          "en": "from",
           "start": 108,
           "end": 112
         },
         {
           "ar": "نَصِيبِ",
-          "en": "the portion",
+          "en": "portion of",
           "start": 113,
           "end": 120
         },
         {
           "ar": "الْكَاهِنِ",
-          "en": "of the priest",
+          "en": "the priest",
           "start": 121,
           "end": 131
         },
@@ -1148,7 +1150,7 @@
         },
         {
           "ar": "السَّلامِ.",
-          "en": "of fellowship",
+          "en": "peace",
           "start": 163,
           "end": 173
         }
@@ -1160,109 +1162,109 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "لَحْمُ",
-          "en": "Meat",
+          "en": "meat",
           "start": 7,
           "end": 13
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "Sacrifice",
+          "en": "offering",
           "start": 14,
           "end": 23
         },
         {
           "ar": "شُكْرِ",
-          "en": "Thanksgiving",
+          "en": "thanksgiving",
           "start": 24,
           "end": 30
         },
         {
           "ar": "سَلامَتِهِ",
-          "en": "Of its safety",
+          "en": "of his fellowship",
           "start": 31,
           "end": 41
         },
         {
           "ar": "فَيُؤْكَلُ",
-          "en": "Is eaten",
+          "en": "so it is eaten",
           "start": 42,
           "end": 52
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 53,
           "end": 56
         },
         {
           "ar": "نَفْسِ",
-          "en": "Same",
+          "en": "the same",
           "start": 57,
           "end": 63
         },
         {
           "ar": "يَوْمِ",
-          "en": "Day",
+          "en": "day of",
           "start": 64,
           "end": 70
         },
         {
           "ar": "تَقْدِيمِ",
-          "en": "Presentation",
+          "en": "offering of",
           "start": 71,
           "end": 80
         },
         {
           "ar": "الذَّبِيحَةِ",
-          "en": "Sacrifice",
+          "en": "the offering",
           "start": 81,
           "end": 93
         },
         {
           "ar": "كَقُرْبَانٍ،",
-          "en": "As an offering",
+          "en": "as an offering",
           "start": 94,
           "end": 106
         },
         {
           "ar": "لَا",
-          "en": "No",
+          "en": "not",
           "start": 107,
           "end": 110
         },
         {
           "ar": "يُبْقِي",
-          "en": "Leaves",
+          "en": "he leaves",
           "start": 111,
           "end": 118
         },
         {
           "ar": "مِنْهُ",
-          "en": "Of it",
+          "en": "of it",
           "start": 119,
           "end": 125
         },
         {
           "ar": "شَيْئاً",
-          "en": "Anything",
+          "en": "anything",
           "start": 126,
           "end": 133
         },
         {
           "ar": "إِلَى",
-          "en": "Until",
+          "en": "until",
           "start": 134,
           "end": 139
         },
         {
           "ar": "الصَّبَاحِ.",
-          "en": "Morning",
+          "en": "the morning",
           "start": 140,
           "end": 151
         }
@@ -1274,31 +1276,31 @@
       "mappings": [
         {
           "ar": "وَإذَا",
-          "en": "And if",
+          "en": "and if",
           "start": 0,
           "end": 6
         },
         {
           "ar": "كَانَتْ",
-          "en": "it is",
+          "en": "it was",
           "start": 7,
           "end": 14
         },
         {
           "ar": "ذَبِيحَةُ",
-          "en": "a sacrifice",
+          "en": "sacrifice",
           "start": 15,
           "end": 24
         },
         {
           "ar": "تَقْدِمَتِهِ",
-          "en": "of its presentation",
+          "en": "they offered it",
           "start": 25,
           "end": 37
         },
         {
           "ar": "نَذْراً",
-          "en": "a vowed offering",
+          "en": "a vow",
           "start": 38,
           "end": 45
         },
@@ -1316,7 +1318,7 @@
         },
         {
           "ar": "اخْتِيَارِيَّةً",
-          "en": "a freewill offering",
+          "en": "voluntary",
           "start": 61,
           "end": 76
         },
@@ -1328,19 +1330,19 @@
         },
         {
           "ar": "فَإِنَّهَا",
-          "en": "then it",
+          "en": "so it",
           "start": 86,
           "end": 96
         },
         {
           "ar": "تُؤْكَلُ",
-          "en": "shall be eaten",
+          "en": "is eaten",
           "start": 97,
           "end": 105
         },
         {
           "ar": "فِي",
-          "en": "in",
+          "en": "on",
           "start": 106,
           "end": 109
         },
@@ -1352,7 +1354,7 @@
         },
         {
           "ar": "تَقْدِيمِهَا،",
-          "en": "of its presentation",
+          "en": "its offering",
           "start": 117,
           "end": 130
         },
@@ -1364,19 +1366,19 @@
         },
         {
           "ar": "الْيَوْمِ",
-          "en": "the next",
+          "en": "the day",
           "start": 137,
           "end": 146
         },
         {
           "ar": "التَّالِي",
-          "en": "following",
+          "en": "the next",
           "start": 147,
           "end": 156
         },
         {
           "ar": "يُؤْكَلُ",
-          "en": "it is eaten",
+          "en": "may be eaten",
           "start": 157,
           "end": 165
         },
@@ -1388,13 +1390,13 @@
         },
         {
           "ar": "فَضَلَ",
-          "en": "remains",
+          "en": "remained",
           "start": 170,
           "end": 176
         },
         {
           "ar": "مِنْهَا،",
-          "en": "of it",
+          "en": "from it",
           "start": 177,
           "end": 185
         }
@@ -1406,7 +1408,7 @@
       "mappings": [
         {
           "ar": "وَيُحْرَقُ",
-          "en": "and it is burned",
+          "en": "and is burned",
           "start": 0,
           "end": 10
         },
@@ -1418,7 +1420,7 @@
         },
         {
           "ar": "مَا",
-          "en": "that",
+          "en": "that which",
           "start": 17,
           "end": 20
         },
@@ -1430,7 +1432,7 @@
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 32,
           "end": 36
         },
@@ -1442,13 +1444,13 @@
         },
         {
           "ar": "لِلْيَوْمِ",
-          "en": "for the",
+          "en": "for the day",
           "start": 50,
           "end": 60
         },
         {
           "ar": "الثَّالِثِ.",
-          "en": "third",
+          "en": "the third",
           "start": 61,
           "end": 72
         }
@@ -1460,13 +1462,13 @@
       "mappings": [
         {
           "ar": "وَكُلُّ",
-          "en": "And every",
+          "en": "and every",
           "start": 0,
           "end": 7
         },
         {
           "ar": "مَنْ",
-          "en": "who",
+          "en": "whoever",
           "start": 8,
           "end": 12
         },
@@ -1478,13 +1480,13 @@
         },
         {
           "ar": "مِنْ",
-          "en": "of",
+          "en": "from",
           "start": 22,
           "end": 26
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "offering",
+          "en": "sacrifice of",
           "start": 27,
           "end": 36
         },
@@ -1496,7 +1498,7 @@
         },
         {
           "ar": "فِي",
-          "en": "on",
+          "en": "in",
           "start": 48,
           "end": 51
         },
@@ -1508,7 +1510,7 @@
         },
         {
           "ar": "الثَّالِثِ",
-          "en": "third",
+          "en": "the third",
           "start": 62,
           "end": 72
         },
@@ -1526,7 +1528,7 @@
         },
         {
           "ar": "لأَنَّهَا",
-          "en": "because",
+          "en": "because it",
           "start": 92,
           "end": 101
         },
@@ -1550,13 +1552,13 @@
         },
         {
           "ar": "وَلا",
-          "en": "nor",
+          "en": "and not",
           "start": 130,
           "end": 134
         },
         {
           "ar": "يَحْسَبُهَا",
-          "en": "He will not reckon",
+          "en": "he counts it",
           "start": 135,
           "end": 146
         },
@@ -1568,19 +1570,19 @@
         },
         {
           "ar": "لِمَنْ",
-          "en": "to one",
+          "en": "for the one who",
           "start": 153,
           "end": 159
         },
         {
           "ar": "قَرَّبَهَا",
-          "en": "who presented it",
+          "en": "offered it",
           "start": 160,
           "end": 170
         },
         {
           "ar": "إِذْ",
-          "en": "when",
+          "en": "since",
           "start": 171,
           "end": 175
         },
@@ -1604,115 +1606,115 @@
       "mappings": [
         {
           "ar": "وَأَيُّ",
-          "en": "And which",
+          "en": "and what",
           "start": 0,
           "end": 7
         },
         {
           "ar": "لَحْمٍ",
-          "en": "Meat",
+          "en": "meat",
           "start": 8,
           "end": 14
         },
         {
           "ar": "يَمَسُّ",
-          "en": "Touches",
+          "en": "touches",
           "start": 15,
           "end": 22
         },
         {
           "ar": "شَيْئاً",
-          "en": "Anything",
+          "en": "anything",
           "start": 23,
           "end": 30
         },
         {
           "ar": "نَجِساً",
-          "en": "Unclean",
+          "en": "unclean",
           "start": 31,
           "end": 38
         },
         {
           "ar": "لَا",
-          "en": "No",
+          "en": "not",
           "start": 39,
           "end": 42
         },
         {
           "ar": "تَأْكُلُوا",
-          "en": "You eat",
+          "en": "you eat",
           "start": 43,
           "end": 53
         },
         {
           "ar": "مِنْهُ",
-          "en": "Of it",
+          "en": "from it",
           "start": 54,
           "end": 60
         },
         {
           "ar": "بَلْ",
-          "en": "But",
+          "en": "but",
           "start": 61,
           "end": 65
         },
         {
           "ar": "أَحْرِقُوهُ",
-          "en": "Burn it",
+          "en": "burn it",
           "start": 66,
           "end": 77
         },
         {
           "ar": "بِالنَّارِ.",
-          "en": "With fire",
+          "en": "in the fire",
           "start": 78,
           "end": 89
         },
         {
           "ar": "لَا",
-          "en": "No",
+          "en": "not",
           "start": 90,
           "end": 93
         },
         {
           "ar": "يَأْكُلُ",
-          "en": "Eats",
+          "en": "eats",
           "start": 94,
           "end": 102
         },
         {
           "ar": "مَنَ",
-          "en": "From",
+          "en": "of the meat",
           "start": 103,
           "end": 107
         },
         {
           "ar": "اللَّحْمِ",
-          "en": "Meat",
+          "en": "the meat",
           "start": 108,
           "end": 117
         },
         {
           "ar": "إِلا",
-          "en": "Except",
+          "en": "except",
           "start": 118,
           "end": 122
         },
         {
           "ar": "مَنْ",
-          "en": "Whoever",
+          "en": "whoever",
           "start": 123,
           "end": 127
         },
         {
           "ar": "كَانَ",
-          "en": "Was",
+          "en": "was",
           "start": 128,
           "end": 133
         },
         {
           "ar": "طَاهِراً.",
-          "en": "Pure",
+          "en": "clean",
           "start": 134,
           "end": 143
         }
@@ -1730,7 +1732,7 @@
         },
         {
           "ar": "نَجِسٍ",
-          "en": "unclean",
+          "en": "unclean one",
           "start": 8,
           "end": 14
         },
@@ -1748,25 +1750,25 @@
         },
         {
           "ar": "لَحْمِ",
-          "en": "flesh",
+          "en": "meat",
           "start": 29,
           "end": 35
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "sacrifice",
+          "en": "offering",
           "start": 36,
           "end": 45
         },
         {
           "ar": "السَّلامِ",
-          "en": "of peace",
+          "en": "the fellowship",
           "start": 46,
           "end": 55
         },
         {
           "ar": "الْمُكَرَّسَةِ",
-          "en": "consecrated",
+          "en": "the consecrated",
           "start": 56,
           "end": 70
         },
@@ -1778,7 +1780,7 @@
         },
         {
           "ar": "يُسْتَأْصَلُ",
-          "en": "is uprooted",
+          "en": "is cut off",
           "start": 81,
           "end": 93
         },
@@ -1808,7 +1810,7 @@
       "mappings": [
         {
           "ar": "وَالنَّفْسُ",
-          "en": "and the soul",
+          "en": "and the person",
           "start": 0,
           "end": 11
         },
@@ -1844,19 +1846,19 @@
         },
         {
           "ar": "أَكَانَ",
-          "en": "it was",
+          "en": "whether it was",
           "start": 53,
           "end": 60
         },
         {
           "ar": "نَجَاسَةَ",
-          "en": "impurity",
+          "en": "uncleanness of",
           "start": 61,
           "end": 70
         },
         {
           "ar": "إِنْسَانٍ",
-          "en": "of a human",
+          "en": "human",
           "start": 71,
           "end": 80
         },
@@ -1880,13 +1882,13 @@
         },
         {
           "ar": "مَكْرُوهاً",
-          "en": "an abomination",
+          "en": "something detestable",
           "start": 101,
           "end": 111
         },
         {
           "ar": "مَا",
-          "en": "that is",
+          "en": "any",
           "start": 112,
           "end": 115
         },
@@ -1904,37 +1906,37 @@
         },
         {
           "ar": "تَتَنَاوَلُ",
-          "en": "takes",
+          "en": "eats",
           "start": 131,
           "end": 142
         },
         {
           "ar": "مِنْ",
-          "en": "from",
+          "en": "of",
           "start": 143,
           "end": 147
         },
         {
           "ar": "لَحْمِ",
-          "en": "meat",
+          "en": "meat of",
           "start": 148,
           "end": 154
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "of a sacrifice",
+          "en": "offering of",
           "start": 155,
           "end": 164
         },
         {
           "ar": "السَّلامِ،",
-          "en": "of peace",
+          "en": "the peace",
           "start": 165,
           "end": 175
         },
         {
           "ar": "تُسْتَأْصَلُ",
-          "en": "is uprooted",
+          "en": "must be cut off",
           "start": 176,
           "end": 188
         },
@@ -1946,7 +1948,7 @@
         },
         {
           "ar": "النَّفْسُ",
-          "en": "soul",
+          "en": "the person",
           "start": 196,
           "end": 205
         },
@@ -1976,19 +1978,19 @@
       "mappings": [
         {
           "ar": "وَقَالَ",
-          "en": "And said",
+          "en": "and said",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 8,
           "end": 16
         },
         {
           "ar": "لِمُوسَى:",
-          "en": "To Moses",
+          "en": "to Moses",
           "start": 17,
           "end": 26
         }
@@ -2006,13 +2008,13 @@
         },
         {
           "ar": "بَنِي",
-          "en": "sons",
+          "en": "sons of",
           "start": 8,
           "end": 13
         },
         {
           "ar": "إِسْرَائِيلَ:",
-          "en": "Israel",
+          "en": "Israelites",
           "start": 14,
           "end": 27
         },
@@ -2024,13 +2026,13 @@
         },
         {
           "ar": "تَأْكُلُوا",
-          "en": "eat",
+          "en": "you eat",
           "start": 32,
           "end": 42
         },
         {
           "ar": "كُلَّ",
-          "en": "all",
+          "en": "every",
           "start": 43,
           "end": 48
         },
@@ -2042,7 +2044,7 @@
         },
         {
           "ar": "ثَوْرٍ",
-          "en": "bull",
+          "en": "of cattle",
           "start": 56,
           "end": 62
         },
@@ -2054,7 +2056,7 @@
         },
         {
           "ar": "كَبْشٍ",
-          "en": "ram",
+          "en": "sheep",
           "start": 68,
           "end": 74
         },
@@ -2066,7 +2068,7 @@
         },
         {
           "ar": "مَاعِزٍ.",
-          "en": "goat",
+          "en": "goats",
           "start": 80,
           "end": 88
         }
@@ -2078,91 +2080,91 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "شَحْمُ",
-          "en": "Fat",
+          "en": "fat",
           "start": 7,
           "end": 13
         },
         {
           "ar": "الْحَيَوَانَاتِ",
-          "en": "Animals",
+          "en": "the animals",
           "start": 14,
           "end": 29
         },
         {
           "ar": "الْمَيْتَةِ",
-          "en": "Dead",
+          "en": "the dead",
           "start": 30,
           "end": 41
         },
         {
           "ar": "أَوِ",
-          "en": "Or",
+          "en": "or",
           "start": 42,
           "end": 46
         },
         {
           "ar": "الْمُفْتَرَسَةِ",
-          "en": "Torn (by predators)",
+          "en": "the torn",
           "start": 47,
           "end": 62
         },
         {
           "ar": "فَاسْتَخْدِمُوهُ",
-          "en": "Use it",
+          "en": "so use it",
           "start": 63,
           "end": 79
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 80,
           "end": 83
         },
         {
           "ar": "أَغْرَاضِكُمُ",
-          "en": "Your",
+          "en": "your purposes",
           "start": 84,
           "end": 97
         },
         {
           "ar": "الْمُخْتَلِفَةِ،",
-          "en": "Various",
+          "en": "the different",
           "start": 98,
           "end": 114
         },
         {
           "ar": "إِنَّمَا",
-          "en": "Only",
+          "en": "but only",
           "start": 115,
           "end": 123
         },
         {
           "ar": "إِيَّاكُمْ",
-          "en": "You",
+          "en": "you must not",
           "start": 124,
           "end": 134
         },
         {
           "ar": "أَنْ",
-          "en": "To",
+          "en": "that",
           "start": 135,
           "end": 139
         },
         {
           "ar": "تَأْكُلُوا",
-          "en": "Eat",
+          "en": "you eat",
           "start": 140,
           "end": 150
         },
         {
           "ar": "مِنْهُ.",
-          "en": "From it",
+          "en": "from it",
           "start": 151,
           "end": 158
         }
@@ -2174,7 +2176,7 @@
       "mappings": [
         {
           "ar": "مَنْ",
-          "en": "who",
+          "en": "whoever",
           "start": 0,
           "end": 4
         },
@@ -2192,13 +2194,13 @@
         },
         {
           "ar": "بَهَائِمِ",
-          "en": "cattle",
+          "en": "animals of",
           "start": 21,
           "end": 30
         },
         {
           "ar": "الْمُحْرَقَاتِ",
-          "en": "burnt offerings",
+          "en": "the burnt offerings",
           "start": 31,
           "end": 45
         },
@@ -2210,7 +2212,7 @@
         },
         {
           "ar": "تُقَدِّمُونَهَا",
-          "en": "you present",
+          "en": "you offer it",
           "start": 54,
           "end": 69
         },
@@ -2222,7 +2224,7 @@
         },
         {
           "ar": "يُبَادُ",
-          "en": "will be cut off",
+          "en": "must be cut off",
           "start": 80,
           "end": 87
         },
@@ -2240,7 +2242,7 @@
         },
         {
           "ar": "شَعْبِهِ.",
-          "en": "people",
+          "en": "his people",
           "start": 100,
           "end": 109
         }
@@ -2252,61 +2254,61 @@
       "mappings": [
         {
           "ar": "لَا",
-          "en": "Do not",
+          "en": "do not",
           "start": 0,
           "end": 3
         },
         {
           "ar": "تَأْكُلُوا",
-          "en": "Eat",
+          "en": "you must not eat",
           "start": 4,
           "end": 14
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 15,
           "end": 18
         },
         {
           "ar": "جَمِيعِ",
-          "en": "All",
+          "en": "all",
           "start": 19,
           "end": 26
         },
         {
           "ar": "مَسَاكِنِكُمْ",
-          "en": "Your dwellings",
+          "en": "your dwellings",
           "start": 27,
           "end": 40
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 41,
           "end": 45
         },
         {
           "ar": "دَمِ",
-          "en": "Blood",
+          "en": "blood of",
           "start": 46,
           "end": 50
         },
         {
           "ar": "الطَّيْرِ",
-          "en": "Of birds",
+          "en": "the birds",
           "start": 51,
           "end": 60
         },
         {
           "ar": "أَوِ",
-          "en": "Or",
+          "en": "or",
           "start": 61,
           "end": 65
         },
         {
           "ar": "الْبَهَائِمِ.",
-          "en": "The livestock",
+          "en": "the animals",
           "start": 66,
           "end": 79
         }
@@ -2318,7 +2320,7 @@
       "mappings": [
         {
           "ar": "مَنْ",
-          "en": "who",
+          "en": "whoever",
           "start": 0,
           "end": 4
         },
@@ -2348,7 +2350,7 @@
         },
         {
           "ar": "يُبَادُ",
-          "en": "is destroyed",
+          "en": "must be cut off",
           "start": 35,
           "end": 42
         },
@@ -2378,19 +2380,19 @@
       "mappings": [
         {
           "ar": "وَقَالَ",
-          "en": "And said",
+          "en": "and said",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 8,
           "end": 16
         },
         {
           "ar": "لِمُوسَى:",
-          "en": "To Moses",
+          "en": "to Moses",
           "start": 17,
           "end": 26
         }
@@ -2408,7 +2410,7 @@
         },
         {
           "ar": "بَنِي",
-          "en": "sons",
+          "en": "the sons of",
           "start": 8,
           "end": 13
         },
@@ -2420,7 +2422,7 @@
         },
         {
           "ar": "مَنْ",
-          "en": "who",
+          "en": "whoever",
           "start": 28,
           "end": 32
         },
@@ -2438,19 +2440,19 @@
         },
         {
           "ar": "ذَبِيحَةَ",
-          "en": "sacrifice",
+          "en": "offering",
           "start": 53,
           "end": 62
         },
         {
           "ar": "سَلامَتِهِ",
-          "en": "of his peace",
+          "en": "his fellowship",
           "start": 63,
           "end": 73
         },
         {
           "ar": "عَلَيْهِ",
-          "en": "upon it",
+          "en": "to him",
           "start": 74,
           "end": 82
         },
@@ -2462,13 +2464,13 @@
         },
         {
           "ar": "يُحْضِرَهَا",
-          "en": "brings",
+          "en": "he brings it",
           "start": 88,
           "end": 99
         },
         {
           "ar": "بِنَفْسِهِ.",
-          "en": "himself",
+          "en": "by himself",
           "start": 100,
           "end": 111
         }
@@ -2480,73 +2482,73 @@
       "mappings": [
         {
           "ar": "هُوَ",
-          "en": "He",
+          "en": "he",
           "start": 0,
           "end": 4
         },
         {
           "ar": "نَفْسُهُ",
-          "en": "Himself",
+          "en": "himself",
           "start": 5,
           "end": 13
         },
         {
           "ar": "يَأْتِي",
-          "en": "Comes",
+          "en": "bring",
           "start": 14,
           "end": 21
         },
         {
           "ar": "بِوَقَائِدِ",
-          "en": "With fuel",
+          "en": "with the food offerings",
           "start": 22,
           "end": 33
         },
         {
           "ar": "الرَّبِّ.",
-          "en": "Of the Lord",
+          "en": "the Lord",
           "start": 34,
           "end": 43
         },
         {
           "ar": "يَأْتِي",
-          "en": "Comes",
+          "en": "bring",
           "start": 44,
           "end": 51
         },
         {
           "ar": "بِالشَّحْمِ",
-          "en": "With the fat",
+          "en": "with the fat",
           "start": 52,
           "end": 63
         },
         {
           "ar": "وَالصَّدْرِ.",
-          "en": "And the breast",
+          "en": "and the breast",
           "start": 64,
           "end": 76
         },
         {
           "ar": "فَيُرَجِّحُ",
-          "en": "Then He prefers",
+          "en": "and he waves",
           "start": 77,
           "end": 88
         },
         {
           "ar": "الصَّدْرَ",
-          "en": "The breast",
+          "en": "the breast",
           "start": 89,
           "end": 98
         },
         {
           "ar": "أَمَامَ",
-          "en": "Before",
+          "en": "before",
           "start": 99,
           "end": 106
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "Of the Lord",
+          "en": "the Lord",
           "start": 107,
           "end": 116
         }
@@ -2558,61 +2560,61 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "But",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الشَّحْمُ",
-          "en": "Fat",
+          "en": "the fat",
           "start": 7,
           "end": 16
         },
         {
           "ar": "فَيُوْقِدُهُ",
-          "en": "He kindles",
+          "en": "and he burns it",
           "start": 17,
           "end": 29
         },
         {
           "ar": "الْكَاهِنُ",
-          "en": "The priest",
+          "en": "the priest",
           "start": 30,
           "end": 40
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 41,
           "end": 46
         },
         {
           "ar": "الْمَذْبَحِ،",
-          "en": "The altar",
+          "en": "the altar",
           "start": 47,
           "end": 59
         },
         {
           "ar": "وَيَكُونُ",
-          "en": "And it will be",
+          "en": "and shall be",
           "start": 60,
           "end": 69
         },
         {
           "ar": "الصَّدْرُ",
-          "en": "The breast",
+          "en": "the breast",
           "start": 70,
           "end": 79
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "from",
           "start": 80,
           "end": 84
         },
         {
           "ar": "نَصِيبِ",
-          "en": "The portion of",
+          "en": "portion of",
           "start": 85,
           "end": 92
         },
@@ -2624,7 +2626,7 @@
         },
         {
           "ar": "وَبَنِيهِ.",
-          "en": "And his sons",
+          "en": "and his sons",
           "start": 101,
           "end": 111
         }
@@ -2636,13 +2638,13 @@
       "mappings": [
         {
           "ar": "وَتُقَدِّمُونَ",
-          "en": "and you present",
+          "en": "and you give",
           "start": 0,
           "end": 14
         },
         {
           "ar": "السَّاقَ",
-          "en": "the leg",
+          "en": "the thigh",
           "start": 15,
           "end": 23
         },
@@ -2666,7 +2668,7 @@
         },
         {
           "ar": "سَلامَتِكُمْ",
-          "en": "your well-being",
+          "en": "your fellowship",
           "start": 50,
           "end": 62
         },
@@ -2684,7 +2686,7 @@
         },
         {
           "ar": "نَصِيباً",
-          "en": "a portion",
+          "en": "a contribution",
           "start": 80,
           "end": 88
         },
@@ -2702,31 +2704,31 @@
       "mappings": [
         {
           "ar": "فَمَنْ",
-          "en": "So who",
+          "en": "so whoever",
           "start": 0,
           "end": 6
         },
         {
           "ar": "يُقَرِّبُ",
-          "en": "brings near",
+          "en": "offers",
           "start": 7,
           "end": 16
         },
         {
           "ar": "دَمَ",
-          "en": "the blood",
+          "en": "blood",
           "start": 17,
           "end": 21
         },
         {
           "ar": "قُرْبَانِ",
-          "en": "of offering",
+          "en": "offering of",
           "start": 22,
           "end": 31
         },
         {
           "ar": "السَّلامِ",
-          "en": "of peace",
+          "en": "the fellowship",
           "start": 32,
           "end": 41
         },
@@ -2738,31 +2740,31 @@
         },
         {
           "ar": "مِنْ",
-          "en": "from",
+          "en": "of",
           "start": 54,
           "end": 58
         },
         {
           "ar": "أَبْنَاءِ",
-          "en": "the sons",
+          "en": "sons of",
           "start": 59,
           "end": 68
         },
         {
           "ar": "هَرُونَ",
-          "en": "of Aaron",
+          "en": "Aaron",
           "start": 69,
           "end": 76
         },
         {
           "ar": "تَكُونُ",
-          "en": "it will be",
+          "en": "shall be",
           "start": 77,
           "end": 84
         },
         {
           "ar": "السَّاقُ",
-          "en": "the leg",
+          "en": "the thigh",
           "start": 85,
           "end": 93
         },
@@ -2774,7 +2776,7 @@
         },
         {
           "ar": "نَصِيباً",
-          "en": "a portion",
+          "en": "a share",
           "start": 105,
           "end": 113
         },
@@ -2792,67 +2794,67 @@
       "mappings": [
         {
           "ar": "لأَنَّنِي",
-          "en": "because I",
+          "en": "for I",
           "start": 0,
           "end": 9
         },
         {
           "ar": "قَدْ",
-          "en": "indeed",
+          "en": "have",
           "start": 10,
           "end": 14
         },
         {
           "ar": "أَخَذْتُ",
-          "en": "took",
+          "en": "I took",
           "start": 15,
           "end": 23
         },
         {
           "ar": "صَدْرَ",
-          "en": "the front/head",
+          "en": "breast",
           "start": 24,
           "end": 30
         },
         {
           "ar": "التَّرْجِيحِ",
-          "en": "of the offering",
+          "en": "the waved",
           "start": 31,
           "end": 43
         },
         {
           "ar": "وَسَاقَ",
-          "en": "and the leg",
+          "en": "and the thigh",
           "start": 44,
           "end": 51
         },
         {
           "ar": "ذَبِيحَةِ",
-          "en": "of the sacrifice",
+          "en": "of the offering",
           "start": 52,
           "end": 61
         },
         {
           "ar": "سَلامِ",
-          "en": "of peace",
+          "en": "peace",
           "start": 62,
           "end": 68
         },
         {
           "ar": "بَنِي",
-          "en": "of the sons",
+          "en": "sons of",
           "start": 69,
           "end": 74
         },
         {
           "ar": "إِسْرَائِيلَ",
-          "en": "of Israel",
+          "en": "Israel",
           "start": 75,
           "end": 87
         },
         {
           "ar": "وَأَعْطَيْتُهَا",
-          "en": "and I gave it",
+          "en": "and I gave them",
           "start": 88,
           "end": 103
         },
@@ -2876,19 +2878,19 @@
         },
         {
           "ar": "فَرِيضَةً",
-          "en": "as a statute",
+          "en": "a portion",
           "start": 140,
           "end": 149
         },
         {
           "ar": "دَائِمَةً،",
-          "en": "everlasting",
+          "en": "perpetual",
           "start": 150,
           "end": 160
         },
         {
           "ar": "جِيلاً",
-          "en": "generation",
+          "en": "a generation",
           "start": 161,
           "end": 167
         },
@@ -2912,19 +2914,19 @@
       "mappings": [
         {
           "ar": "هَذَا",
-          "en": "This",
+          "en": "this",
           "start": 0,
           "end": 5
         },
         {
           "ar": "هُوَ",
-          "en": "It",
+          "en": "it is",
           "start": 6,
           "end": 10
         },
         {
           "ar": "نَصِيبُ",
-          "en": "Portion",
+          "en": "portion",
           "start": 11,
           "end": 18
         },
@@ -2936,61 +2938,61 @@
         },
         {
           "ar": "وَنَصِيبُ",
-          "en": "And portion",
+          "en": "and the portion",
           "start": 27,
           "end": 36
         },
         {
           "ar": "أَبْنَائِهِ",
-          "en": "Sons",
+          "en": "his sons",
           "start": 37,
           "end": 48
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 49,
           "end": 53
         },
         {
           "ar": "مُحْرَقَاتِ",
-          "en": "Burnings",
+          "en": "burnt offerings",
           "start": 54,
           "end": 65
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "Of the Lord",
+          "en": "the Lord",
           "start": 66,
           "end": 75
         },
         {
           "ar": "يَوْمَ",
-          "en": "Day",
+          "en": "on the day",
           "start": 76,
           "end": 82
         },
         {
           "ar": "تَكْرِيسِهِمْ",
-          "en": "Consecration",
+          "en": "their consecration",
           "start": 83,
           "end": 96
         },
         {
           "ar": "لِيَكُونُوا",
-          "en": "To be",
+          "en": "to be",
           "start": 97,
           "end": 108
         },
         {
           "ar": "كَهَنَةً",
-          "en": "Priests",
+          "en": "priests",
           "start": 109,
           "end": 117
         },
         {
           "ar": "لِلرَّبِّ.",
-          "en": "Of the Lord",
+          "en": "for the Lord",
           "start": 118,
           "end": 128
         }
@@ -3002,7 +3004,7 @@
       "mappings": [
         {
           "ar": "وَقَدْ",
-          "en": "And indeed",
+          "en": "and already",
           "start": 0,
           "end": 6
         },
@@ -3014,7 +3016,7 @@
         },
         {
           "ar": "الرَّبُّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 14,
           "end": 22
         },
@@ -3026,7 +3028,7 @@
         },
         {
           "ar": "يُعْطَى",
-          "en": "to be given",
+          "en": "be given",
           "start": 28,
           "end": 35
         },
@@ -3038,13 +3040,13 @@
         },
         {
           "ar": "يَوْمَ",
-          "en": "day",
+          "en": "the day",
           "start": 43,
           "end": 49
         },
         {
           "ar": "تَكْرِيسِهِمْ",
-          "en": "of their consecration",
+          "en": "their anointing",
           "start": 50,
           "end": 63
         },
@@ -3062,31 +3064,31 @@
         },
         {
           "ar": "بَنِي",
-          "en": "children",
+          "en": "sons of",
           "start": 76,
           "end": 81
         },
         {
           "ar": "إِسْرَائِيلَ،",
-          "en": "of Israel",
+          "en": "Israel",
           "start": 82,
           "end": 95
         },
         {
           "ar": "فَرِيضَةً",
-          "en": "an ordinance",
+          "en": "a portion",
           "start": 96,
           "end": 105
         },
         {
           "ar": "دَائِمَةً",
-          "en": "everlasting",
+          "en": "perpetual",
           "start": 106,
           "end": 115
         },
         {
           "ar": "جِيلاً",
-          "en": "generation",
+          "en": "a generation",
           "start": 116,
           "end": 122
         },
@@ -3110,97 +3112,97 @@
       "mappings": [
         {
           "ar": "تِلْكَ",
-          "en": "These",
+          "en": "Those",
           "start": 0,
           "end": 6
         },
         {
           "ar": "هِي",
-          "en": "Are",
+          "en": "are",
           "start": 7,
           "end": 10
         },
         {
           "ar": "نُصُوصُ",
-          "en": "Regulations/Instructions/Statutes",
+          "en": "texts",
           "start": 11,
           "end": 18
         },
         {
           "ar": "تَعْلِيمَاتِ",
-          "en": "For/Of",
+          "en": "instructions",
           "start": 19,
           "end": 31
         },
         {
           "ar": "شَرِيعَةِ",
-          "en": "Law/Ordinance/Prescription",
+          "en": "law of",
           "start": 32,
           "end": 41
         },
         {
           "ar": "الْمُحْرَقَةِ",
-          "en": "Burnt Offering",
+          "en": "the burnt offering",
           "start": 42,
           "end": 55
         },
         {
           "ar": "وَتَقْدِمَةِ",
-          "en": "And Grain Offering",
+          "en": "and offering of",
           "start": 56,
           "end": 68
         },
         {
           "ar": "الدَّقِيقِ",
-          "en": "Fine Flour Offering",
+          "en": "the flour",
           "start": 69,
           "end": 79
         },
         {
           "ar": "وَذَبِيحَةِ",
-          "en": "And Sacrifice",
+          "en": "and the offering of",
           "start": 80,
           "end": 91
         },
         {
           "ar": "الْخَطيئَةِ",
-          "en": "Sin Offering",
+          "en": "the sin",
           "start": 92,
           "end": 103
         },
         {
           "ar": "وَذَبِيحَةِ",
-          "en": "And Sacrifice",
+          "en": "and the offering of",
           "start": 104,
           "end": 115
         },
         {
           "ar": "الإِثْمِ،",
-          "en": "Guilt Offering",
+          "en": "the guilt",
           "start": 116,
           "end": 125
         },
         {
           "ar": "وَذَبِيحَةِ",
-          "en": "And Sacrifice",
+          "en": "and the offering of",
           "start": 126,
           "end": 137
         },
         {
           "ar": "التَّكْرِيسِ",
-          "en": "Consecration Offering",
+          "en": "the ordination",
           "start": 138,
           "end": 150
         },
         {
           "ar": "وَذَبِيحَةِ",
-          "en": "And Sacrifice",
+          "en": "and the offering of",
           "start": 151,
           "end": 162
         },
         {
           "ar": "السَّلامِ،",
-          "en": "Fellowship Offering",
+          "en": "peace",
           "start": 163,
           "end": 173
         }
@@ -3218,19 +3220,19 @@
         },
         {
           "ar": "أَوْصَى",
-          "en": "commanded",
+          "en": "gave",
           "start": 8,
           "end": 15
         },
         {
           "ar": "الرَّبُّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 16,
           "end": 24
         },
         {
           "ar": "بِها",
-          "en": "therewith",
+          "en": "with which",
           "start": 25,
           "end": 29
         },
@@ -3248,7 +3250,7 @@
         },
         {
           "ar": "جَبَلِ",
-          "en": "mountain",
+          "en": "mountain of",
           "start": 41,
           "end": 47
         },
@@ -3266,31 +3268,31 @@
         },
         {
           "ar": "أَمَرَ",
-          "en": "ordered",
+          "en": "he commanded",
           "start": 68,
           "end": 74
         },
         {
           "ar": "بَنِي",
-          "en": "children",
+          "en": "the sons of",
           "start": 75,
           "end": 80
         },
         {
           "ar": "إِسْرَائِيلَ",
-          "en": "Israel",
+          "en": "the Israelites",
           "start": 81,
           "end": 93
         },
         {
           "ar": "بِتَقْدِيمِ",
-          "en": "with presenting",
+          "en": "with bringing",
           "start": 94,
           "end": 105
         },
         {
           "ar": "قَرَابِينِهِمْ",
-          "en": "their sacrifices",
+          "en": "their offerings",
           "start": 106,
           "end": 120
         },
@@ -3308,7 +3310,7 @@
         },
         {
           "ar": "صَحْرَاءِ",
-          "en": "wilderness",
+          "en": "the desert of",
           "start": 135,
           "end": 144
         },

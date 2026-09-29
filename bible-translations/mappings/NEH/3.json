@@ -1,6 +1,8 @@
 {
   "book": "NEH",
   "chapter": 3,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَقَامَ أَلِيَاشِيبُ رَئِيسُ الْكَهَنَةِ وَبَنَى بَابَ الضَّأْنِ بِمُؤَازَرَةِ إِخْوَتِهِ الْكَهَنَةِ. ثُمَّ قَدَّسُوهُ وَثَبَّتُوا مَصَارِيعَهُ، وَثَابَرُوا عَلَى الْبِنَاءِ حَتَّى بَلَغُوا بُرْجَ الْمِئَةِ وَبُرْجَ حَنَنْئِيلَ.",
@@ -8,7 +10,7 @@
       "mappings": [
         {
           "ar": "وَقَامَ",
-          "en": "And he stood up",
+          "en": "and rose",
           "start": 0,
           "end": 7
         },
@@ -20,7 +22,7 @@
         },
         {
           "ar": "رَئِيسُ",
-          "en": "high priest",
+          "en": "the priest",
           "start": 21,
           "end": 28
         },
@@ -38,13 +40,13 @@
         },
         {
           "ar": "بَابَ",
-          "en": "the gate",
+          "en": "gate",
           "start": 49,
           "end": 54
         },
         {
           "ar": "الضَّأْنِ",
-          "en": "of sheep",
+          "en": "the sheep",
           "start": 55,
           "end": 64
         },
@@ -80,7 +82,7 @@
         },
         {
           "ar": "وَثَبَّتُوا",
-          "en": "set",
+          "en": "and they set",
           "start": 120,
           "end": 131
         },
@@ -92,19 +94,19 @@
         },
         {
           "ar": "وَثَابَرُوا",
-          "en": "building",
+          "en": "and they persisted",
           "start": 146,
           "end": 157
         },
         {
           "ar": "عَلَى",
-          "en": "with",
+          "en": "on",
           "start": 158,
           "end": 163
         },
         {
           "ar": "الْبِنَاءِ",
-          "en": "building",
+          "en": "the building",
           "start": 164,
           "end": 174
         },
@@ -122,25 +124,25 @@
         },
         {
           "ar": "بُرْجَ",
-          "en": "tower",
+          "en": "tower of",
           "start": 191,
           "end": 197
         },
         {
           "ar": "الْمِئَةِ",
-          "en": "of the Hundred",
+          "en": "the Hundred",
           "start": 198,
           "end": 207
         },
         {
           "ar": "وَبُرْجَ",
-          "en": "and tower",
+          "en": "and the tower of",
           "start": 208,
           "end": 216
         },
         {
           "ar": "حَنَنْئِيلَ.",
-          "en": "of Hananel",
+          "en": "Hananel",
           "start": 217,
           "end": 229
         }
@@ -152,73 +154,73 @@
       "mappings": [
         {
           "ar": "وَقَامَ",
-          "en": "And they rose",
+          "en": "and rose",
           "start": 0,
           "end": 7
         },
         {
           "ar": "رِجَالُ",
-          "en": "Men",
+          "en": "men of",
           "start": 8,
           "end": 15
         },
         {
           "ar": "أَرِيحَا",
-          "en": "Of Jericho",
+          "en": "Jericho",
           "start": 16,
           "end": 24
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 25,
           "end": 30
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "Adjoining",
+          "en": "next to them",
           "start": 31,
           "end": 42
         },
         {
           "ar": "يَبْنُونَ",
-          "en": "Building",
+          "en": "they were building",
           "start": 43,
           "end": 52
         },
         {
           "ar": "جُزءاً",
-          "en": "A portion",
+          "en": "a section",
           "start": 53,
           "end": 59
         },
         {
           "ar": "مِنَ",
-          "en": "Of",
+          "en": "of",
           "start": 60,
           "end": 64
         },
         {
           "ar": "السُّورِ،",
-          "en": "The wall",
+          "en": "the wall",
           "start": 65,
           "end": 74
         },
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 75,
           "end": 82
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "Adjoining",
+          "en": "next to them",
           "start": 83,
           "end": 94
         },
         {
           "ar": "بَنَى",
-          "en": "Built",
+          "en": "built",
           "start": 95,
           "end": 100
         },
@@ -230,13 +232,13 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son",
+          "en": "son of",
           "start": 110,
           "end": 114
         },
         {
           "ar": "إِمْرِي،",
-          "en": "Of Imri",
+          "en": "Imri",
           "start": 115,
           "end": 123
         }
@@ -248,61 +250,61 @@
       "mappings": [
         {
           "ar": "وَبَنَى",
-          "en": "And they built",
+          "en": "and built",
           "start": 0,
           "end": 7
         },
         {
           "ar": "بَنُو",
-          "en": "The sons",
+          "en": "the sons of",
           "start": 8,
           "end": 13
         },
         {
           "ar": "هَسْنَاءَةَ",
-          "en": "Of Hassenaah",
+          "en": "Hassenaah",
           "start": 14,
           "end": 25
         },
         {
           "ar": "بَابَ",
-          "en": "The gate",
+          "en": "gate",
           "start": 26,
           "end": 31
         },
         {
           "ar": "السَّمَكِ،",
-          "en": "Of the fish",
+          "en": "the Fish",
           "start": 32,
           "end": 42
         },
         {
           "ar": "وَسَقَفُوهُ",
-          "en": "They roofed it",
+          "en": "and they beamed it",
           "start": 43,
           "end": 54
         },
         {
           "ar": "وَنَصَبُوا",
-          "en": "They set up",
+          "en": "and they set up",
           "start": 55,
           "end": 65
         },
         {
           "ar": "مَصَارِيعَهُ",
-          "en": "Its shutters",
+          "en": "its doors",
           "start": 66,
           "end": 78
         },
         {
           "ar": "وَأَقْفَالَهُ",
-          "en": "And its locks",
+          "en": "and its bolts",
           "start": 79,
           "end": 92
         },
         {
           "ar": "وَعَوَارِضَهُ.",
-          "en": "And its beams",
+          "en": "and its bars",
           "start": 93,
           "end": 107
         }
@@ -314,19 +316,19 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "and next",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "next section",
+          "en": "beside them",
           "start": 8,
           "end": 19
         },
         {
           "ar": "رَمَّمَ",
-          "en": "made repairs",
+          "en": "repaired",
           "start": 20,
           "end": 27
         },
@@ -338,7 +340,7 @@
         },
         {
           "ar": "بنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 39,
           "end": 42
         },
@@ -362,43 +364,43 @@
         },
         {
           "ar": "قِسْماً",
-          "en": "A section",
+          "en": "a section",
           "start": 67,
           "end": 74
         },
         {
           "ar": "مِنَ",
-          "en": "Of",
+          "en": "of",
           "start": 75,
           "end": 79
         },
         {
           "ar": "السُّورِ،",
-          "en": "The wall",
+          "en": "the wall",
           "start": 80,
           "end": 89
         },
         {
           "ar": "كَمَا",
-          "en": "Just as",
+          "en": "as",
           "start": 90,
           "end": 95
         },
         {
           "ar": "قَامَ",
-          "en": "Undertook",
+          "en": "did",
           "start": 96,
           "end": 101
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 102,
           "end": 107
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "next section",
+          "en": "beside them",
           "start": 108,
           "end": 119
         },
@@ -434,25 +436,25 @@
         },
         {
           "ar": "بِالتَّرْمِيمِ،",
-          "en": "with repairs",
+          "en": "with the repair",
           "start": 165,
           "end": 180
         },
         {
           "ar": "وَإِلَى",
-          "en": "and next",
+          "en": "and to",
           "start": 181,
           "end": 188
         },
         {
           "ar": "جَانِبِهِ",
-          "en": "next to him",
+          "en": "beside him",
           "start": 189,
           "end": 198
         },
         {
           "ar": "رَمَّمَ",
-          "en": "made repairs",
+          "en": "repaired",
           "start": 199,
           "end": 206
         },
@@ -482,25 +484,25 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "Beside them",
+          "en": "near them",
           "start": 8,
           "end": 19
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Repaired",
+          "en": "repaired",
           "start": 20,
           "end": 27
         },
         {
           "ar": "التَّقُوعِيُّ",
-          "en": "The men of Tekoa",
+          "en": "the men of Tekoa",
           "start": 28,
           "end": 41
         }
@@ -512,7 +514,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
@@ -560,37 +562,37 @@
         },
         {
           "ar": "الْعَتِيقَ،",
-          "en": "the old",
+          "en": "the ancient",
           "start": 73,
           "end": 84
         },
         {
           "ar": "وَسَقَفَاهُ",
-          "en": "and its lintels",
+          "en": "and they laid its beams",
           "start": 85,
           "end": 96
         },
         {
           "ar": "وَنَصَبَا",
-          "en": "and set up",
+          "en": "and they set up",
           "start": 97,
           "end": 106
         },
         {
           "ar": "مَصَارِيعَهُ",
-          "en": "its shutters",
+          "en": "its beams",
           "start": 107,
           "end": 119
         },
         {
           "ar": "وَأَقْفَالَهُ",
-          "en": "and its locks",
+          "en": "and its bolts",
           "start": 120,
           "end": 133
         },
         {
           "ar": "وَعَوَارِضَهُ.",
-          "en": "and its crossbeams",
+          "en": "and its bars",
           "start": 134,
           "end": 148
         }
@@ -602,19 +604,19 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "And",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جِوَارِهِمَا",
-          "en": "Next to them",
+          "en": "near them",
           "start": 8,
           "end": 20
         },
         {
           "ar": "قَامَ",
-          "en": "Were made",
+          "en": "arose",
           "start": 21,
           "end": 26
         },
@@ -626,31 +628,31 @@
         },
         {
           "ar": "الْجِبْعُونِيُّ",
-          "en": "Of Gibeon",
+          "en": "of Gibeon",
           "start": 37,
           "end": 52
         },
         {
           "ar": "وَيَادُونُ",
-          "en": "And",
+          "en": "and Jadon",
           "start": 53,
           "end": 63
         },
         {
           "ar": "الْمِيرُونُوثِيُّ",
-          "en": "Of Meronoth",
+          "en": "the Meronothite",
           "start": 64,
           "end": 81
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 82,
           "end": 86
         },
         {
           "ar": "أَهْلِ",
-          "en": "People of",
+          "en": "of the people of",
           "start": 87,
           "end": 93
         },
@@ -662,61 +664,61 @@
         },
         {
           "ar": "وَالْمِصْفَاةِ",
-          "en": "And Mizpah",
+          "en": "and Mizpah",
           "start": 104,
           "end": 118
         },
         {
           "ar": "بِالتَّرْمِيمِ،",
-          "en": "With repairs",
+          "en": "with the repairs",
           "start": 119,
           "end": 134
         },
         {
           "ar": "حَتَّى",
-          "en": "Until",
+          "en": "until",
           "start": 135,
           "end": 141
         },
         {
           "ar": "وَصَلَ",
-          "en": "Reached",
+          "en": "reached",
           "start": 142,
           "end": 148
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 149,
           "end": 154
         },
         {
           "ar": "قْصْر",
-          "en": "Palace",
+          "en": "palace",
           "start": 155,
           "end": 160
         },
         {
           "ar": "حَاكِمِ",
-          "en": "Of the governor",
+          "en": "of the governor",
           "start": 161,
           "end": 168
         },
         {
           "ar": "مِنْطَقَةِ",
-          "en": "Region",
+          "en": "of the region",
           "start": 169,
           "end": 179
         },
         {
           "ar": "غَرْبِيِّ",
-          "en": "Western",
+          "en": "of the west of",
           "start": 180,
           "end": 189
         },
         {
           "ar": "الْفُرَاتِ.",
-          "en": "Euphrates",
+          "en": "the Euphrates",
           "start": 190,
           "end": 201
         }
@@ -728,7 +730,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
@@ -776,7 +778,7 @@
         },
         {
           "ar": "جَانِبِهِ",
-          "en": "beside him",
+          "en": "next to it",
           "start": 77,
           "end": 86
         },
@@ -800,13 +802,13 @@
         },
         {
           "ar": "وَتَرَكُوا",
-          "en": "and they left",
+          "en": "and they restored",
           "start": 117,
           "end": 127
         },
         {
           "ar": "تَرْمِيمَ",
-          "en": "the restoration",
+          "en": "the restoration of",
           "start": 128,
           "end": 137
         },
@@ -842,19 +844,19 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "And",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "Next to them",
+          "en": "beside them",
           "start": 8,
           "end": 19
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Repaired",
+          "en": "repaired",
           "start": 20,
           "end": 27
         },
@@ -866,7 +868,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 37,
           "end": 41
         },
@@ -878,19 +880,19 @@
         },
         {
           "ar": "رَئِيسُ",
-          "en": "Leader/Ruler",
+          "en": "ruler",
           "start": 49,
           "end": 56
         },
         {
           "ar": "نِصْفِ",
-          "en": "Half of",
+          "en": "half of",
           "start": 57,
           "end": 63
         },
         {
           "ar": "دَائِرَةِ",
-          "en": "District/Division",
+          "en": "district",
           "start": 64,
           "end": 73
         },
@@ -902,19 +904,19 @@
         },
         {
           "ar": "جُزْءاً",
-          "en": "A section/Part",
+          "en": "a section",
           "start": 88,
           "end": 95
         },
         {
           "ar": "مِنَ",
-          "en": "Of",
+          "en": "of",
           "start": 96,
           "end": 100
         },
         {
           "ar": "السُّورِ.",
-          "en": "The wall",
+          "en": "the wall",
           "start": 101,
           "end": 110
         }
@@ -926,37 +928,37 @@
       "mappings": [
         {
           "ar": "كَمَا",
-          "en": "As",
+          "en": "as",
           "start": 0,
           "end": 5
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Made repairs",
+          "en": "made repairs",
           "start": 6,
           "end": 13
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 14,
           "end": 19
         },
         {
           "ar": "جِوَارِهِمْ",
-          "en": "Theirs (referring to the area/location)",
+          "en": "near them",
           "start": 20,
           "end": 31
         },
         {
           "ar": "يَدَايَا",
-          "en": "Jedaiah",
+          "en": "my hands",
           "start": 32,
           "end": 40
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 41,
           "end": 45
         },
@@ -968,37 +970,37 @@
         },
         {
           "ar": "القِسْمَ",
-          "en": "The section",
+          "en": "the section",
           "start": 57,
           "end": 65
         },
         {
           "ar": "الْمُقَابِلَ",
-          "en": "Opposite",
+          "en": "the opposite",
           "start": 66,
           "end": 78
         },
         {
           "ar": "لِبَيْتِهِ.",
-          "en": "His house",
+          "en": "to his house",
           "start": 79,
           "end": 90
         },
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 91,
           "end": 98
         },
         {
           "ar": "جَانِبِهِ",
-          "en": "His side",
+          "en": "beside him",
           "start": 99,
           "end": 108
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Made repairs",
+          "en": "made repairs",
           "start": 109,
           "end": 116
         },
@@ -1010,7 +1012,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 126,
           "end": 130
         },
@@ -1028,7 +1030,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
@@ -1064,7 +1066,7 @@
         },
         {
           "ar": "فَحَثَ",
-          "en": "Pahath-Moab",
+          "en": "son of Pahath-",
           "start": 51,
           "end": 57
         },
@@ -1076,7 +1078,7 @@
         },
         {
           "ar": "قِسْماً",
-          "en": "section",
+          "en": "a section",
           "start": 65,
           "end": 72
         },
@@ -1088,7 +1090,7 @@
         },
         {
           "ar": "بِالإِضَافَةِ",
-          "en": "in addition",
+          "en": "in addition to",
           "start": 83,
           "end": 96
         },
@@ -1100,13 +1102,13 @@
         },
         {
           "ar": "بُرْجِ",
-          "en": "tower",
+          "en": "tower of",
           "start": 103,
           "end": 109
         },
         {
           "ar": "التَّنَانِيرِ.",
-          "en": "of the ovens",
+          "en": "the ovens",
           "start": 110,
           "end": 124
         }
@@ -1118,19 +1120,19 @@
       "mappings": [
         {
           "ar": "وَقَامَ",
-          "en": "And he rose",
+          "en": "and stood up",
           "start": 0,
           "end": 7
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 8,
           "end": 13
         },
         {
           "ar": "جَانِبِهِ",
-          "en": "Beside him",
+          "en": "his side",
           "start": 14,
           "end": 23
         },
@@ -1142,7 +1144,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 33,
           "end": 37
         },
@@ -1154,19 +1156,19 @@
         },
         {
           "ar": "رَئِيسُ",
-          "en": "Ruler",
+          "en": "ruler",
           "start": 50,
           "end": 57
         },
         {
           "ar": "نِصْفِ",
-          "en": "Half of",
+          "en": "half of",
           "start": 58,
           "end": 64
         },
         {
           "ar": "دَائِرَةِ",
-          "en": "District",
+          "en": "district",
           "start": 65,
           "end": 74
         },
@@ -1178,19 +1180,19 @@
         },
         {
           "ar": "هُوَ",
-          "en": "He",
+          "en": "he",
           "start": 88,
           "end": 92
         },
         {
           "ar": "وَبَنَاتُهُ",
-          "en": "And his daughters",
+          "en": "and his daughters",
           "start": 93,
           "end": 104
         },
         {
           "ar": "بِالتَّرْمِيمِ.",
-          "en": "With the repair",
+          "en": "with the repairing",
           "start": 105,
           "end": 120
         }
@@ -1202,79 +1204,79 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "REPAIRED",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
         {
           "ar": "حَانُونُ",
-          "en": "HANUN",
+          "en": "Hanun",
           "start": 10,
           "end": 18
         },
         {
           "ar": "وَسُكَّانُ",
-          "en": "RESIDENTS",
+          "en": "and the residents of",
           "start": 19,
           "end": 29
         },
         {
           "ar": "زَانُوحَ",
-          "en": "ZANOAH",
+          "en": "Zanoah",
           "start": 30,
           "end": 38
         },
         {
           "ar": "بَابَ",
-          "en": "GATE",
+          "en": "gate",
           "start": 39,
           "end": 44
         },
         {
           "ar": "الْوَادِي،",
-          "en": "VALLEY",
+          "en": "the Valley",
           "start": 45,
           "end": 55
         },
         {
           "ar": "وَنَصَبُوا",
-          "en": "THEY REBUILT",
+          "en": "and they set up",
           "start": 56,
           "end": 66
         },
         {
           "ar": "مَصَارِيعَهُ",
-          "en": "DOORS",
+          "en": "its doors",
           "start": 67,
           "end": 79
         },
         {
           "ar": "وَأَقْفَالَهُ",
-          "en": "BOLTS",
+          "en": "and its bolts",
           "start": 80,
           "end": 93
         },
         {
           "ar": "وَعَوَارِضَهُ،",
-          "en": "BARS",
+          "en": "and its bars",
           "start": 94,
           "end": 108
         },
         {
           "ar": "فَضْلاً",
-          "en": "IN ADDITION",
+          "en": "in addition to",
           "start": 109,
           "end": 116
         },
         {
           "ar": "عَنْ",
-          "en": "about",
+          "en": "beyond",
           "start": 117,
           "end": 121
         },
         {
           "ar": "أَلْفِ",
-          "en": "a thousand",
+          "en": "thousand",
           "start": 122,
           "end": 128
         },
@@ -1286,7 +1288,7 @@
         },
         {
           "ar": "(خَمْسِ",
-          "en": "(five",
+          "en": "five",
           "start": 137,
           "end": 144
         },
@@ -1298,7 +1300,7 @@
         },
         {
           "ar": "مِتْرٍ)",
-          "en": "meters)",
+          "en": "meters",
           "start": 152,
           "end": 159
         },
@@ -1322,13 +1324,13 @@
         },
         {
           "ar": "بَابِ",
-          "en": "to the gate",
+          "en": "gate of",
           "start": 181,
           "end": 186
         },
         {
           "ar": "الدِّمْنِ.",
-          "en": "of the dung",
+          "en": "the Dung",
           "start": 187,
           "end": 197
         }
@@ -1340,7 +1342,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
@@ -1370,43 +1372,43 @@
         },
         {
           "ar": "دَائِرَةِ",
-          "en": "district",
+          "en": "district of",
           "start": 42,
           "end": 51
         },
         {
           "ar": "بَيْتِ",
-          "en": "house/district of",
+          "en": "of Beth",
           "start": 52,
           "end": 58
         },
         {
           "ar": "هَكَّارِيمَ",
-          "en": "Beth Hakkerem",
+          "en": "Hakkerem",
           "start": 59,
           "end": 70
         },
         {
           "ar": "بَابَ",
-          "en": "the Dung Gate",
+          "en": "gate",
           "start": 71,
           "end": 76
         },
         {
           "ar": "الدِّمْنِ",
-          "en": "the Dung Gate",
+          "en": "the Dung",
           "start": 77,
           "end": 86
         },
         {
           "ar": "وَنَصَبَ",
-          "en": "and set up/installed",
+          "en": "and he set up",
           "start": 87,
           "end": 95
         },
         {
           "ar": "مَصَارِيعَهُ",
-          "en": "its doors/shutters",
+          "en": "its doors",
           "start": 96,
           "end": 108
         },
@@ -1418,7 +1420,7 @@
         },
         {
           "ar": "وَعَوَارِضَهُ.",
-          "en": "and its crossbars/lintels",
+          "en": "and its bars",
           "start": 123,
           "end": 137
         }
@@ -1430,13 +1432,13 @@
       "mappings": [
         {
           "ar": "كَمَا",
-          "en": "As",
+          "en": "as",
           "start": 0,
           "end": 5
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Repaired",
+          "en": "repaired",
           "start": 6,
           "end": 13
         },
@@ -1448,7 +1450,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 23,
           "end": 27
         },
@@ -1460,13 +1462,13 @@
         },
         {
           "ar": "رَئِيسُ",
-          "en": "Ruler of",
+          "en": "ruler",
           "start": 40,
           "end": 47
         },
         {
           "ar": "دَائِرَةِ",
-          "en": "District of",
+          "en": "district of",
           "start": 48,
           "end": 57
         },
@@ -1478,127 +1480,127 @@
         },
         {
           "ar": "بَابَ",
-          "en": "Gate",
+          "en": "gate",
           "start": 71,
           "end": 76
         },
         {
           "ar": "الْعَيْنِ",
-          "en": "Of the Fountain",
+          "en": "the Fountain",
           "start": 77,
           "end": 86
         },
         {
           "ar": "وَسَقَفَهُ",
-          "en": "And its roof",
+          "en": "and its roof",
           "start": 87,
           "end": 97
         },
         {
           "ar": "وَنَصَبَ",
-          "en": "And installed",
+          "en": "and he set",
           "start": 98,
           "end": 106
         },
         {
           "ar": "مَصَارِيعَهُ",
-          "en": "Its shutters",
+          "en": "its doors",
           "start": 107,
           "end": 119
         },
         {
           "ar": "وَأَقْفَالَهُ",
-          "en": "And its bolts",
+          "en": "and its bolts",
           "start": 120,
           "end": 133
         },
         {
           "ar": "وَعَوَارِضَهُ،",
-          "en": "And its crossbeams",
+          "en": "and its bars",
           "start": 134,
           "end": 148
         },
         {
           "ar": "وَأَعَادَ",
-          "en": "And he rebuilt",
+          "en": "and he rebuilt",
           "start": 149,
           "end": 158
         },
         {
           "ar": "بِنَاءَ",
-          "en": "The rebuilding",
+          "en": "construction of",
           "start": 159,
           "end": 166
         },
         {
           "ar": "سُورِ",
-          "en": "The wall",
+          "en": "wall of",
           "start": 167,
           "end": 172
         },
         {
           "ar": "بِرْكَةِ",
-          "en": "The pool",
+          "en": "of the pool",
           "start": 173,
           "end": 181
         },
         {
           "ar": "سِلُوَامَ",
-          "en": "Of Siloam",
+          "en": "Siloam",
           "start": 182,
           "end": 191
         },
         {
           "ar": "عِنْدَ",
-          "en": "By",
+          "en": "by",
           "start": 192,
           "end": 198
         },
         {
           "ar": "حَدِيقَةِ",
-          "en": "The King’s Garden",
+          "en": "of the garden",
           "start": 199,
           "end": 208
         },
         {
           "ar": "الْمَلِكِ",
-          "en": "The King's",
+          "en": "the King",
           "start": 209,
           "end": 218
         },
         {
           "ar": "حَتَّى",
-          "en": "As far as",
+          "en": "as far as",
           "start": 219,
           "end": 225
         },
         {
           "ar": "الدَّرَجِ",
-          "en": "The steps",
+          "en": "the steps",
           "start": 226,
           "end": 235
         },
         {
           "ar": "الْمُنْحَدِرِ",
-          "en": "Descending",
+          "en": "going down",
           "start": 236,
           "end": 249
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 250,
           "end": 254
         },
         {
           "ar": "مَدِينَةِ",
-          "en": "The City",
+          "en": "city of",
           "start": 255,
           "end": 264
         },
         {
           "ar": "دَاوُدَ.",
-          "en": "Of David",
+          "en": "David",
           "start": 265,
           "end": 273
         }
@@ -1610,13 +1612,13 @@
       "mappings": [
         {
           "ar": "وَبَعْدَهُ",
-          "en": "And after him",
+          "en": "and beyond him",
           "start": 0,
           "end": 10
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Made repairs",
+          "en": "repaired",
           "start": 11,
           "end": 18
         },
@@ -1628,7 +1630,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 29,
           "end": 33
         },
@@ -1640,37 +1642,37 @@
         },
         {
           "ar": "رَئِيسُ",
-          "en": "Ruler",
+          "en": "ruler",
           "start": 44,
           "end": 51
         },
         {
           "ar": "نِصْفِ",
-          "en": "Half",
+          "en": "half of",
           "start": 52,
           "end": 58
         },
         {
           "ar": "دَائِرَةِ",
-          "en": "District",
+          "en": "district",
           "start": 59,
           "end": 68
         },
         {
           "ar": "بَيْتِ",
-          "en": "House",
+          "en": "of house",
           "start": 69,
           "end": 75
         },
         {
           "ar": "صُورَ",
-          "en": "Of",
+          "en": "Zur",
           "start": 76,
           "end": 81
         },
         {
           "ar": "جُزْءاً",
-          "en": "A portion",
+          "en": "a part",
           "start": 82,
           "end": 89
         },
@@ -1682,7 +1684,7 @@
         },
         {
           "ar": "السُّورِ",
-          "en": "wall",
+          "en": "the wall",
           "start": 95,
           "end": 103
         },
@@ -1700,7 +1702,7 @@
         },
         {
           "ar": "مَدَافِنِ",
-          "en": "tombs",
+          "en": "tombs of",
           "start": 121,
           "end": 130
         },
@@ -1718,7 +1720,7 @@
         },
         {
           "ar": "الاصْطِنَاعِيَّةِ",
-          "en": "artificial",
+          "en": "the artificial",
           "start": 154,
           "end": 171
         },
@@ -1730,13 +1732,13 @@
         },
         {
           "ar": "بَيْتِ",
-          "en": "House",
+          "en": "house of",
           "start": 178,
           "end": 184
         },
         {
           "ar": "الأَبْطَالِ.",
-          "en": "Heroes",
+          "en": "the Heroes",
           "start": 185,
           "end": 197
         }
@@ -1748,31 +1750,31 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "To",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جِوَارِهِ",
-          "en": "Beside him",
+          "en": "next to him",
           "start": 8,
           "end": 17
         },
         {
           "ar": "قَامَ",
-          "en": "Rose/Undertook",
+          "en": "performed",
           "start": 18,
           "end": 23
         },
         {
           "ar": "اللّاوِيُّونَ",
-          "en": "The Levites",
+          "en": "the Levites",
           "start": 24,
           "end": 37
         },
         {
           "ar": "بِالتَّرْمِيمِ:",
-          "en": "With the repairs",
+          "en": "with the repairs",
           "start": 38,
           "end": 53
         },
@@ -1784,7 +1786,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 62,
           "end": 66
         },
@@ -1796,43 +1798,43 @@
         },
         {
           "ar": "وَإِلَى",
-          "en": "To",
+          "en": "and to",
           "start": 75,
           "end": 82
         },
         {
           "ar": "جَانِبِهِ",
-          "en": "Beside him",
+          "en": "beside him",
           "start": 83,
           "end": 92
         },
         {
           "ar": "قَامَ",
-          "en": "Rose/Undertook",
+          "en": "carried out",
           "start": 93,
           "end": 98
         },
         {
           "ar": "حَشَبْيَا",
-          "en": "Hashabiah",
+          "en": "Hashbiah",
           "start": 99,
           "end": 108
         },
         {
           "ar": "رَئِيسُ",
-          "en": "Ruler",
+          "en": "ruler",
           "start": 109,
           "end": 116
         },
         {
           "ar": "نِصْفِ",
-          "en": "Half",
+          "en": "half of",
           "start": 117,
           "end": 123
         },
         {
           "ar": "دَائِرَةِ",
-          "en": "District",
+          "en": "district",
           "start": 124,
           "end": 133
         },
@@ -1844,37 +1846,37 @@
         },
         {
           "ar": "بِتَرْمِيمِ",
-          "en": "Repairs",
+          "en": "with the repair of",
           "start": 144,
           "end": 155
         },
         {
           "ar": "الْجُزْءِ",
-          "en": "The part",
+          "en": "the part",
           "start": 156,
           "end": 165
         },
         {
           "ar": "الَّذِي",
-          "en": "Which",
+          "en": "which",
           "start": 166,
           "end": 173
         },
         {
           "ar": "يَقَعُ",
-          "en": "Lies",
+          "en": "is located",
           "start": 174,
           "end": 180
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 181,
           "end": 184
         },
         {
           "ar": "قِسْمِهِ.",
-          "en": "His section",
+          "en": "his district",
           "start": 185,
           "end": 194
         }
@@ -1886,7 +1888,7 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
@@ -1898,7 +1900,7 @@
         },
         {
           "ar": "إِخْوَتُهُمْ",
-          "en": "their fellow Levites",
+          "en": "their brothers",
           "start": 14,
           "end": 26
         },
@@ -1934,7 +1936,7 @@
         },
         {
           "ar": "نِصْفِ",
-          "en": "the other half",
+          "en": "half of",
           "start": 73,
           "end": 79
         },
@@ -1952,7 +1954,7 @@
         },
         {
           "ar": "قِسْماً.",
-          "en": "a division",
+          "en": "a section",
           "start": 100,
           "end": 108
         }
@@ -1964,7 +1966,7 @@
       "mappings": [
         {
           "ar": "كَمَا",
-          "en": "As",
+          "en": "as",
           "start": 0,
           "end": 5
         },
@@ -1982,7 +1984,7 @@
         },
         {
           "ar": "جِوَارِهِ",
-          "en": "his side/nearby",
+          "en": "next to him",
           "start": 20,
           "end": 29
         },
@@ -2000,13 +2002,13 @@
         },
         {
           "ar": "يَشُوعَ",
-          "en": "Joshua",
+          "en": "Jeshua",
           "start": 43,
           "end": 50
         },
         {
           "ar": "رَئِيسُ",
-          "en": "ruler/chief of",
+          "en": "ruler",
           "start": 51,
           "end": 58
         },
@@ -2018,13 +2020,13 @@
         },
         {
           "ar": "قِسْماً",
-          "en": "a section/division",
+          "en": "a section",
           "start": 72,
           "end": 79
         },
         {
           "ar": "ثَانِياً،",
-          "en": "second",
+          "en": "another",
           "start": 80,
           "end": 89
         },
@@ -2036,37 +2038,37 @@
         },
         {
           "ar": "أَمَامِ",
-          "en": "facing/before",
+          "en": "in front of",
           "start": 95,
           "end": 102
         },
         {
           "ar": "عَقَبَةِ",
-          "en": "the ascent/path",
+          "en": "the ascent",
           "start": 103,
           "end": 111
         },
         {
           "ar": "مَخْزَنِ",
-          "en": "the armory/weapons storage",
+          "en": "storehouse of",
           "start": 112,
           "end": 120
         },
         {
           "ar": "السِّلاحِ",
-          "en": "at/near",
+          "en": "the weapons",
           "start": 121,
           "end": 130
         },
         {
           "ar": "عِنْدَ",
-          "en": "the angle/corner",
+          "en": "as far as",
           "start": 131,
           "end": 137
         },
         {
           "ar": "الزَّاوِيَةِ.",
-          "en": "of the wall",
+          "en": "the corner",
           "start": 138,
           "end": 151
         }
@@ -2078,7 +2080,7 @@
       "mappings": [
         {
           "ar": "وَتَلاهُ",
-          "en": "And he followed",
+          "en": "and next to him",
           "start": 0,
           "end": 8
         },
@@ -2102,25 +2104,25 @@
         },
         {
           "ar": "فَرَمَّمَ",
-          "en": "repaired",
+          "en": "so repaired",
           "start": 32,
           "end": 41
         },
         {
           "ar": "بِحَمَاسٍ",
-          "en": "zealously",
+          "en": "with zeal",
           "start": 42,
           "end": 51
         },
         {
           "ar": "قِسْماً",
-          "en": "section",
+          "en": "a section",
           "start": 52,
           "end": 59
         },
         {
           "ar": "ثَانِياً،",
-          "en": "second",
+          "en": "another",
           "start": 60,
           "end": 69
         },
@@ -2132,25 +2134,25 @@
         },
         {
           "ar": "الزَّاوِيَةِ",
-          "en": "the angle",
+          "en": "the corner",
           "start": 75,
           "end": 87
         },
         {
           "ar": "حَتَّى",
-          "en": "until",
+          "en": "to",
           "start": 88,
           "end": 94
         },
         {
           "ar": "مَدْخَلِ",
-          "en": "entrance",
+          "en": "the entrance of",
           "start": 95,
           "end": 103
         },
         {
           "ar": "بَيْتِ",
-          "en": "of the house",
+          "en": "house of",
           "start": 104,
           "end": 110
         },
@@ -2162,7 +2164,7 @@
         },
         {
           "ar": "رَئِيسِ",
-          "en": "high priest",
+          "en": "the head of",
           "start": 124,
           "end": 131
         },
@@ -2180,7 +2182,7 @@
       "mappings": [
         {
           "ar": "وَأَعْقَبَهُ",
-          "en": "Next to him",
+          "en": "and next to him",
           "start": 0,
           "end": 12
         },
@@ -2216,13 +2218,13 @@
         },
         {
           "ar": "فَرَمَّمَ",
-          "en": "repaired",
+          "en": "so repaired",
           "start": 54,
           "end": 63
         },
         {
           "ar": "قِسْماً",
-          "en": "section",
+          "en": "a section",
           "start": 64,
           "end": 71
         },
@@ -2240,13 +2242,13 @@
         },
         {
           "ar": "مَدْخَلِ",
-          "en": "entrance",
+          "en": "the entrance of",
           "start": 86,
           "end": 94
         },
         {
           "ar": "بَيْتِ",
-          "en": "house",
+          "en": "house of",
           "start": 95,
           "end": 101
         },
@@ -2276,43 +2278,43 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
         {
           "ar": "بَعْدَهُ",
-          "en": "After him",
+          "en": "after him",
           "start": 6,
           "end": 14
         },
         {
           "ar": "قَامَ",
-          "en": "Rose/Performed",
+          "en": "performed",
           "start": 15,
           "end": 20
         },
         {
           "ar": "الْكَهَنَةُ",
-          "en": "The priests",
+          "en": "the priests",
           "start": 21,
           "end": 32
         },
         {
           "ar": "أَهْلُ",
-          "en": "People/Inhabitants",
+          "en": "people of",
           "start": 33,
           "end": 39
         },
         {
           "ar": "الْغَوْرِ",
-          "en": "The surrounding region/Depths",
+          "en": "the surrounding region",
           "start": 40,
           "end": 49
         },
         {
           "ar": "بِالتَّرْمِيمِ.",
-          "en": "With the repairs/For the repair",
+          "en": "with the repairs",
           "start": 50,
           "end": 65
         }
@@ -2324,13 +2326,13 @@
       "mappings": [
         {
           "ar": "وَبَعْدَهُمْ",
-          "en": "And after them",
+          "en": "and beyond them",
           "start": 0,
           "end": 12
         },
         {
           "ar": "رَمَّمَ",
-          "en": "made repairs / restored",
+          "en": "repaired",
           "start": 13,
           "end": 20
         },
@@ -2342,13 +2344,13 @@
         },
         {
           "ar": "وَحَشُّوبُ",
-          "en": "Hasshub",
+          "en": "and Hasshub",
           "start": 34,
           "end": 44
         },
         {
           "ar": "قُبَالَةَ",
-          "en": "in front of / facing",
+          "en": "in front of",
           "start": 45,
           "end": 54
         },
@@ -2360,13 +2362,13 @@
         },
         {
           "ar": "كَمَا",
-          "en": "just as / as",
+          "en": "as",
           "start": 68,
           "end": 73
         },
         {
           "ar": "رَمَّمَ",
-          "en": "made repairs / restored",
+          "en": "made repairs",
           "start": 74,
           "end": 81
         },
@@ -2402,7 +2404,7 @@
         },
         {
           "ar": "بِجَانِبِ",
-          "en": "beside / next to",
+          "en": "beside",
           "start": 122,
           "end": 131
         },
@@ -2420,19 +2422,19 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جِوَارِهِ",
-          "en": "Next to him",
+          "en": "next to him",
           "start": 8,
           "end": 17
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Repaired",
+          "en": "repaired",
           "start": 18,
           "end": 25
         },
@@ -2444,7 +2446,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 35,
           "end": 39
         },
@@ -2456,31 +2458,31 @@
         },
         {
           "ar": "قِسْماً",
-          "en": "Section",
+          "en": "a section",
           "start": 52,
           "end": 59
         },
         {
           "ar": "ثَانِياً،",
-          "en": "Another",
+          "en": "another",
           "start": 60,
           "end": 69
         },
         {
           "ar": "ابْتِدَاءً",
-          "en": "Beginning",
+          "en": "starting from",
           "start": 70,
           "end": 80
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 81,
           "end": 85
         },
         {
           "ar": "بَيْتِ",
-          "en": "House of",
+          "en": "house of",
           "start": 86,
           "end": 92
         },
@@ -2492,19 +2494,19 @@
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 103,
           "end": 108
         },
         {
           "ar": "الزَّاوِيَةِ",
-          "en": "The angle",
+          "en": "the angle",
           "start": 109,
           "end": 121
         },
         {
           "ar": "فَالْعَطْفَةِ.",
-          "en": "And the corner",
+          "en": "and the corner",
           "start": 122,
           "end": 136
         }
@@ -2516,7 +2518,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and worked",
           "start": 0,
           "end": 9
         },
@@ -2564,7 +2566,7 @@
         },
         {
           "ar": "الْقَائِمِ",
-          "en": "projecting",
+          "en": "the projecting",
           "start": 73,
           "end": 83
         },
@@ -2576,19 +2578,19 @@
         },
         {
           "ar": "قَصْرِ",
-          "en": "palace",
+          "en": "of the palace",
           "start": 92,
           "end": 98
         },
         {
           "ar": "الْمَلِكِ",
-          "en": "of the king",
+          "en": "the king",
           "start": 99,
           "end": 108
         },
         {
           "ar": "الأَعْلَى،",
-          "en": "upper",
+          "en": "the upper",
           "start": 109,
           "end": 119
         },
@@ -2600,13 +2602,13 @@
         },
         {
           "ar": "فِنَاءِ",
-          "en": "court",
+          "en": "of the court",
           "start": 127,
           "end": 134
         },
         {
           "ar": "السِّجْنِ.",
-          "en": "the guard",
+          "en": "the prison",
           "start": 135,
           "end": 145
         },
@@ -2642,7 +2644,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
@@ -2672,7 +2674,7 @@
         },
         {
           "ar": "الأَكَمَةِ",
-          "en": "the hill of Ophel",
+          "en": "the hill",
           "start": 49,
           "end": 59
         },
@@ -2690,13 +2692,13 @@
         },
         {
           "ar": "بَابِ",
-          "en": "the Water Gate",
+          "en": "gate of",
           "start": 77,
           "end": 82
         },
         {
           "ar": "الْمَاءِ",
-          "en": "of water",
+          "en": "the water",
           "start": 83,
           "end": 91
         },
@@ -2714,7 +2716,7 @@
         },
         {
           "ar": "الْخَارِجِيِّ.",
-          "en": "outer",
+          "en": "the projecting",
           "start": 113,
           "end": 127
         }
@@ -2726,7 +2728,7 @@
       "mappings": [
         {
           "ar": "كَذَلِكَ",
-          "en": "Likewise",
+          "en": "in this way",
           "start": 0,
           "end": 8
         },
@@ -2756,13 +2758,13 @@
         },
         {
           "ar": "فِي",
-          "en": "to/towards",
+          "en": "in",
           "start": 51,
           "end": 54
         },
         {
           "ar": "مُقَابِلِ",
-          "en": "opposite/facing",
+          "en": "opposite of the",
           "start": 55,
           "end": 64
         },
@@ -2774,31 +2776,31 @@
         },
         {
           "ar": "الْكَبِيرِ",
-          "en": "great/large",
+          "en": "the great",
           "start": 75,
           "end": 85
         },
         {
           "ar": "الْخَارِجِيِّ",
-          "en": "outer/projecting",
+          "en": "the projecting",
           "start": 86,
           "end": 99
         },
         {
           "ar": "حَتَّى",
-          "en": "to/as far as",
+          "en": "to",
           "start": 100,
           "end": 106
         },
         {
           "ar": "سُورِ",
-          "en": "the wall",
+          "en": "the wall of",
           "start": 107,
           "end": 112
         },
         {
           "ar": "الأَكَمَةِ.",
-          "en": "of Ophel",
+          "en": "Ophel",
           "start": 113,
           "end": 124
         }
@@ -2810,7 +2812,7 @@
       "mappings": [
         {
           "ar": "وَرَمَّمَ",
-          "en": "repaired",
+          "en": "and repaired",
           "start": 0,
           "end": 9
         },
@@ -2840,13 +2842,13 @@
         },
         {
           "ar": "الْجُزْءَ",
-          "en": "the section",
+          "en": "the portion",
           "start": 41,
           "end": 50
         },
         {
           "ar": "الْوَاقِعَ",
-          "en": "located",
+          "en": "that was located",
           "start": 51,
           "end": 61
         },
@@ -2864,13 +2866,13 @@
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 79,
           "end": 83
         },
         {
           "ar": "الْقِسْمِ",
-          "en": "the division",
+          "en": "the section",
           "start": 84,
           "end": 93
         },
@@ -2888,13 +2890,13 @@
         },
         {
           "ar": "بَابِ",
-          "en": "gate",
+          "en": "gate of",
           "start": 112,
           "end": 117
         },
         {
           "ar": "الْخَيْلِ.",
-          "en": "of horses",
+          "en": "the horses",
           "start": 118,
           "end": 128
         }
@@ -2906,19 +2908,19 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جَانِبِهِمْ",
-          "en": "Beside them",
+          "en": "side of them",
           "start": 8,
           "end": 19
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Made repairs",
+          "en": "made repairs",
           "start": 20,
           "end": 27
         },
@@ -2930,7 +2932,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 37,
           "end": 41
         },
@@ -2942,31 +2944,31 @@
         },
         {
           "ar": "مُقَابِلَ",
-          "en": "Opposite",
+          "en": "opposite",
           "start": 51,
           "end": 60
         },
         {
           "ar": "بَيْتِهِ.",
-          "en": "His house",
+          "en": "his house",
           "start": 61,
           "end": 70
         },
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 71,
           "end": 78
         },
         {
           "ar": "جِوَارِهِ",
-          "en": "Beside him",
+          "en": "near him",
           "start": 79,
           "end": 88
         },
         {
           "ar": "قَامَ",
-          "en": "Rose/Undertook",
+          "en": "performed",
           "start": 89,
           "end": 94
         },
@@ -2978,7 +2980,7 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 105,
           "end": 109
         },
@@ -2990,25 +2992,25 @@
         },
         {
           "ar": "حَارِسُ",
-          "en": "Guard",
+          "en": "the guard",
           "start": 120,
           "end": 127
         },
         {
           "ar": "بَابِ",
-          "en": "Gate",
+          "en": "gate of",
           "start": 128,
           "end": 133
         },
         {
           "ar": "الشَّرْقِ",
-          "en": "The East",
+          "en": "the East",
           "start": 134,
           "end": 143
         },
         {
           "ar": "بِالتَّرْمِيمِ.",
-          "en": "With repairs",
+          "en": "with the repair",
           "start": 144,
           "end": 159
         }
@@ -3020,7 +3022,7 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
@@ -3062,7 +3064,7 @@
         },
         {
           "ar": "السَّادِسُ",
-          "en": "sixth",
+          "en": "the sixth",
           "start": 59,
           "end": 69
         },
@@ -3074,13 +3076,13 @@
         },
         {
           "ar": "قِسْماً",
-          "en": "another section",
+          "en": "a section",
           "start": 81,
           "end": 88
         },
         {
           "ar": "ثَانِياً.",
-          "en": "secondly",
+          "en": "another",
           "start": 89,
           "end": 98
         },
@@ -3098,7 +3100,7 @@
         },
         {
           "ar": "بِقُرْبِهِمَا",
-          "en": "next to them",
+          "en": "near them",
           "start": 113,
           "end": 126
         },
@@ -3140,19 +3142,19 @@
       "mappings": [
         {
           "ar": "وَإِلَى",
-          "en": "And to",
+          "en": "and to",
           "start": 0,
           "end": 7
         },
         {
           "ar": "جَانِبِهِ",
-          "en": "Beside him",
+          "en": "beside him",
           "start": 8,
           "end": 17
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Made repairs",
+          "en": "repaired",
           "start": 18,
           "end": 25
         },
@@ -3164,79 +3166,79 @@
         },
         {
           "ar": "بْنُ",
-          "en": "Son of",
+          "en": "son of",
           "start": 37,
           "end": 41
         },
         {
           "ar": "الصَّائِغِ",
-          "en": "The goldsmith",
+          "en": "the goldsmith",
           "start": 42,
           "end": 52
         },
         {
           "ar": "حَتَّى",
-          "en": "As far as",
+          "en": "as far as",
           "start": 53,
           "end": 59
         },
         {
           "ar": "بَيْتِ",
-          "en": "House of",
+          "en": "house of",
           "start": 60,
           "end": 66
         },
         {
           "ar": "خُدَّامِ",
-          "en": "Temple servants",
+          "en": "servants of",
           "start": 67,
           "end": 75
         },
         {
           "ar": "الْهَيْكَلِ،",
-          "en": "Of the temple",
+          "en": "the temple",
           "start": 76,
           "end": 88
         },
         {
           "ar": "وَبَهْوِ",
-          "en": "And the porch of",
+          "en": "and the courtyard of",
           "start": 89,
           "end": 97
         },
         {
           "ar": "التُّجَّارِ",
-          "en": "The merchants",
+          "en": "the merchants",
           "start": 98,
           "end": 109
         },
         {
           "ar": "مُقَابِلَ",
-          "en": "Opposite",
+          "en": "opposite",
           "start": 110,
           "end": 119
         },
         {
           "ar": "بَابِ",
-          "en": "Gate of",
+          "en": "gate of",
           "start": 120,
           "end": 125
         },
         {
           "ar": "الْعَدِّ",
-          "en": "Inspection",
+          "en": "the counting",
           "start": 126,
           "end": 134
         },
         {
           "ar": "فَعَقَبَةِ",
-          "en": "And the corner",
+          "en": "and the room of",
           "start": 135,
           "end": 145
         },
         {
           "ar": "الْعَطْفَةِ.",
-          "en": "Room",
+          "en": "the turn",
           "start": 146,
           "end": 158
         }
@@ -3248,67 +3250,67 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 0,
           "end": 5
         },
         {
           "ar": "رَمَّمَ",
-          "en": "Made repairs",
+          "en": "repaired",
           "start": 6,
           "end": 13
         },
         {
           "ar": "الصَّاغَةُ",
-          "en": "Goldsmiths",
+          "en": "the goldsmiths",
           "start": 14,
           "end": 24
         },
         {
           "ar": "وَالتُّجَّارُ",
-          "en": "And merchants",
+          "en": "and the merchants",
           "start": 25,
           "end": 38
         },
         {
           "ar": "مَا",
-          "en": "Between",
+          "en": "that which",
           "start": 39,
           "end": 42
         },
         {
           "ar": "بَيْنَ",
-          "en": "Between",
+          "en": "between",
           "start": 43,
           "end": 49
         },
         {
           "ar": "عَقَبَةِ",
-          "en": "Corner",
+          "en": "the corner",
           "start": 50,
           "end": 58
         },
         {
           "ar": "الْعَطْفَةِ",
-          "en": "The corner",
+          "en": "the Corner",
           "start": 59,
           "end": 70
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 71,
           "end": 76
         },
         {
           "ar": "بَابِ",
-          "en": "Gate",
+          "en": "gate of",
           "start": 77,
           "end": 82
         },
         {
           "ar": "الضَّأْنِ.",
-          "en": "The Sheep Gate",
+          "en": "the Sheep",
           "start": 83,
           "end": 93
         }

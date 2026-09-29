@@ -1,6 +1,8 @@
 {
   "book": "2CH",
   "chapter": 5,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَاكْتَمَلَ جَمِيعُ الْعَمَلِ الَّذِي قَامَ بِهِ سُلَيْمَانُ لِبِنَاءِ بَيْتِ الرَّبِّ، وَأَتَى بِكُلِّ مُدَّخَرَاتِ دَاوُدَ أَبِيهِ الَّتِي كَرَّسَهَا مِنْ فِضَّةٍ وَذَهَبٍ وَأَوَانٍ، وَجَعَلَهَا فِي مَخَازِنِ بَيْتِ اللهِ.",
@@ -8,37 +10,37 @@
       "mappings": [
         {
           "ar": "وَاكْتَمَلَ",
-          "en": "Was finished",
+          "en": "and was finished",
           "start": 0,
           "end": 11
         },
         {
           "ar": "جَمِيعُ",
-          "en": "All",
+          "en": "all",
           "start": 12,
           "end": 19
         },
         {
           "ar": "الْعَمَلِ",
-          "en": "Work",
+          "en": "the work",
           "start": 20,
           "end": 29
         },
         {
           "ar": "الَّذِي",
-          "en": "That",
+          "en": "which",
           "start": 30,
           "end": 37
         },
         {
           "ar": "قَامَ",
-          "en": "Had done",
+          "en": "did",
           "start": 38,
           "end": 43
         },
         {
           "ar": "بِهِ",
-          "en": "For",
+          "en": "he did it",
           "start": 44,
           "end": 48
         },
@@ -50,115 +52,115 @@
         },
         {
           "ar": "لِبِنَاءِ",
-          "en": "For the building of",
+          "en": "for the building of",
           "start": 61,
           "end": 70
         },
         {
           "ar": "بَيْتِ",
-          "en": "OF THE TEMPLE. Of the temple, specifying the temple of the Lord",
+          "en": "house of",
           "start": 71,
           "end": 77
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 78,
           "end": 87
         },
         {
           "ar": "وَأَتَى",
-          "en": "He brought",
+          "en": "and he brought",
           "start": 88,
           "end": 95
         },
         {
           "ar": "بِكُلِّ",
-          "en": "With all",
+          "en": "with all of",
           "start": 96,
           "end": 103
         },
         {
           "ar": "مُدَّخَرَاتِ",
-          "en": "Dedicated treasures",
+          "en": "the things stored",
           "start": 104,
           "end": 116
         },
         {
           "ar": "دَاوُدَ",
-          "en": "DAVID. David, his father",
+          "en": "David",
           "start": 117,
           "end": 124
         },
         {
           "ar": "أَبِيهِ",
-          "en": "HIS. His, referring to David",
+          "en": "his father",
           "start": 125,
           "end": 132
         },
         {
           "ar": "الَّتِي",
-          "en": "WHICH. Which, referring to the dedicated items",
+          "en": "which",
           "start": 133,
           "end": 140
         },
         {
           "ar": "كَرَّسَهَا",
-          "en": "DEDICATED. Dedicated, meaning set apart for a sacred purpose",
+          "en": "he dedicated them",
           "start": 141,
           "end": 151
         },
         {
           "ar": "مِنْ",
-          "en": "FROM. From, indicating the material of the dedicated items",
+          "en": "from",
           "start": 152,
           "end": 156
         },
         {
           "ar": "فِضَّةٍ",
-          "en": "SILVER. Silver, a precious metal",
+          "en": "silver",
           "start": 157,
           "end": 164
         },
         {
           "ar": "وَذَهَبٍ",
-          "en": "AND GOLD. And gold, another precious metal",
+          "en": "and gold",
           "start": 165,
           "end": 173
         },
         {
           "ar": "وَأَوَانٍ،",
-          "en": "AND FURNISHINGS. And furnishings, referring to various vessels and items",
+          "en": "and utensils",
           "start": 174,
           "end": 184
         },
         {
           "ar": "وَجَعَلَهَا",
-          "en": "AND HE PLACED. And he placed, referring to Solomon's action",
+          "en": "and he placed them",
           "start": 185,
           "end": 196
         },
         {
           "ar": "فِي",
-          "en": "IN. In, indicating location",
+          "en": "in",
           "start": 197,
           "end": 200
         },
         {
           "ar": "مَخَازِنِ",
-          "en": "TREASURIES. Treasuries, storage places for valuable items",
+          "en": "treasuries",
           "start": 201,
           "end": 210
         },
         {
           "ar": "بَيْتِ",
-          "en": "OF THE TEMPLE. Of the temple, specifying the temple of the Lord",
+          "en": "house of",
           "start": 211,
           "end": 217
         },
         {
           "ar": "اللهِ.",
-          "en": "OF GOD. Of God, referring to God's temple",
+          "en": "God",
           "start": 218,
           "end": 224
         }
@@ -176,7 +178,7 @@
         },
         {
           "ar": "دَعَا",
-          "en": "Called",
+          "en": "summoned",
           "start": 10,
           "end": 15
         },
@@ -188,7 +190,7 @@
         },
         {
           "ar": "شُيُوخَ",
-          "en": "Elders",
+          "en": "elders",
           "start": 28,
           "end": 35
         },
@@ -200,31 +202,31 @@
         },
         {
           "ar": "وَكُلَّ",
-          "en": "And all",
+          "en": "and all",
           "start": 49,
           "end": 56
         },
         {
           "ar": "رُؤَسَاءِ",
-          "en": "Heads",
+          "en": "heads",
           "start": 57,
           "end": 66
         },
         {
           "ar": "الأَسْبَاطِ",
-          "en": "Tribes",
+          "en": "the tribes",
           "start": 67,
           "end": 78
         },
         {
           "ar": "وَالْعَائِلاتِ",
-          "en": "Families",
+          "en": "and the families",
           "start": 79,
           "end": 93
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 94,
           "end": 99
         },
@@ -236,31 +238,31 @@
         },
         {
           "ar": "لِيُحْضِرُوا",
-          "en": "To bring",
+          "en": "to bring up",
           "start": 114,
           "end": 126
         },
         {
           "ar": "تَابُوتَ",
-          "en": "Ark",
+          "en": "ark",
           "start": 127,
           "end": 135
         },
         {
           "ar": "عَهْدِ",
-          "en": "Covenant",
+          "en": "covenant of",
           "start": 136,
           "end": 142
         },
         {
           "ar": "الرَّبِّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 143,
           "end": 151
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 152,
           "end": 156
         },
@@ -272,7 +274,7 @@
         },
         {
           "ar": "مَدِينَةِ",
-          "en": "City",
+          "en": "city of",
           "start": 168,
           "end": 177
         },
@@ -290,31 +292,31 @@
       "mappings": [
         {
           "ar": "فَالْتَفَّ",
-          "en": "So wrapped",
+          "en": "and gathered",
           "start": 0,
           "end": 10
         },
         {
           "ar": "حَوْلَ",
-          "en": "Around",
+          "en": "around",
           "start": 11,
           "end": 17
         },
         {
           "ar": "الْمَلِكِ",
-          "en": "The king",
+          "en": "the king",
           "start": 18,
           "end": 27
         },
         {
           "ar": "جَمِيعُ",
-          "en": "All",
+          "en": "all",
           "start": 28,
           "end": 35
         },
         {
           "ar": "شُيُوخِ",
-          "en": "Elders",
+          "en": "elders of",
           "start": 36,
           "end": 43
         },
@@ -326,49 +328,49 @@
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 57,
           "end": 60
         },
         {
           "ar": "أَثْنَاءِ",
-          "en": "During",
+          "en": "during",
           "start": 61,
           "end": 70
         },
         {
           "ar": "عِيدِ",
-          "en": "Festival",
+          "en": "festival of",
           "start": 71,
           "end": 76
         },
         {
           "ar": "الْمَظَالِّ",
-          "en": "Of tabernacles",
+          "en": "the Tabernacles",
           "start": 77,
           "end": 88
         },
         {
           "ar": "الْوَاقِعِ",
-          "en": "Occurring",
+          "en": "occurring",
           "start": 89,
           "end": 99
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 100,
           "end": 103
         },
         {
           "ar": "الشَّهْرِ",
-          "en": "Month",
+          "en": "the month",
           "start": 104,
           "end": 113
         },
         {
           "ar": "السَّابِعِ.",
-          "en": "Seventh",
+          "en": "the seventh",
           "start": 114,
           "end": 125
         }
@@ -380,7 +382,7 @@
       "mappings": [
         {
           "ar": "وَبَعْدَ",
-          "en": "And after",
+          "en": "and after",
           "start": 0,
           "end": 8
         },
@@ -392,7 +394,7 @@
         },
         {
           "ar": "حَضَرَ",
-          "en": "attended",
+          "en": "had arrived",
           "start": 14,
           "end": 20
         },
@@ -404,19 +406,19 @@
         },
         {
           "ar": "شُيُوخِ",
-          "en": "elders",
+          "en": "elders of",
           "start": 29,
           "end": 36
         },
         {
           "ar": "إِسْرَائِيلَ،",
-          "en": "of Israel",
+          "en": "Israel",
           "start": 37,
           "end": 50
         },
         {
           "ar": "حَمَلَ",
-          "en": "carried",
+          "en": "took up",
           "start": 51,
           "end": 57
         },
@@ -428,7 +430,7 @@
         },
         {
           "ar": "التَّابُوتَ.",
-          "en": "the Ark",
+          "en": "the ark",
           "start": 72,
           "end": 84
         }
@@ -440,7 +442,7 @@
       "mappings": [
         {
           "ar": "وَنَقَلَ",
-          "en": "and transported",
+          "en": "and they carried",
           "start": 0,
           "end": 8
         },
@@ -464,31 +466,31 @@
         },
         {
           "ar": "خَيْمَةَ",
-          "en": "the tent",
+          "en": "the tent of",
           "start": 45,
           "end": 53
         },
         {
           "ar": "الاجْتِمَاعِ",
-          "en": "of meeting",
+          "en": "meeting",
           "start": 54,
           "end": 66
         },
         {
           "ar": "وَسَائِرَ",
-          "en": "and all",
+          "en": "and all the rest of",
           "start": 67,
           "end": 76
         },
         {
           "ar": "آنِيَةِ",
-          "en": "utensils",
+          "en": "furnishings",
           "start": 77,
           "end": 84
         },
         {
           "ar": "الْقُدْسِ",
-          "en": "of holiness",
+          "en": "the holy",
           "start": 85,
           "end": 94
         },
@@ -509,6 +511,1140 @@
           "en": "the tent",
           "start": 107,
           "end": 119
+        }
+      ]
+    },
+    "6": {
+      "ar": "وَشَرَعَ الْمَلِكُ سُلَيْمَانُ وَكُلُّ الحَاضِرِينَ الْمُحْتَشِدِينَ أَمَامَ التَّابُوتِ يَذْبَحُونَ مَا لَا يُحْصَى وَلا يُعَدُّ مِنْ غَنَمٍ وَبَقَرٍ.",
+      "en": "and King Solomon and the entire assembly of Israel that had gathered about him were before the ark, sacrificing so many sheep and cattle that they could not be recorded or counted.",
+      "mappings": [
+        {
+          "ar": "وَشَرَعَ",
+          "en": "and began",
+          "start": 0,
+          "end": 8
+        },
+        {
+          "ar": "الْمَلِكُ",
+          "en": "the king",
+          "start": 9,
+          "end": 18
+        },
+        {
+          "ar": "سُلَيْمَانُ",
+          "en": "Solomon",
+          "start": 19,
+          "end": 30
+        },
+        {
+          "ar": "وَكُلُّ",
+          "en": "and all",
+          "start": 31,
+          "end": 38
+        },
+        {
+          "ar": "الحَاضِرِينَ",
+          "en": "the present ones",
+          "start": 39,
+          "end": 51
+        },
+        {
+          "ar": "الْمُحْتَشِدِينَ",
+          "en": "the gathered",
+          "start": 52,
+          "end": 68
+        },
+        {
+          "ar": "أَمَامَ",
+          "en": "before",
+          "start": 69,
+          "end": 76
+        },
+        {
+          "ar": "التَّابُوتِ",
+          "en": "the ark",
+          "start": 77,
+          "end": 88
+        },
+        {
+          "ar": "يَذْبَحُونَ",
+          "en": "they sacrificed",
+          "start": 89,
+          "end": 100
+        },
+        {
+          "ar": "مَا",
+          "en": "that which",
+          "start": 101,
+          "end": 104
+        },
+        {
+          "ar": "لَا",
+          "en": "not",
+          "start": 105,
+          "end": 108
+        },
+        {
+          "ar": "يُحْصَى",
+          "en": "be counted",
+          "start": 109,
+          "end": 116
+        },
+        {
+          "ar": "وَلا",
+          "en": "and not",
+          "start": 117,
+          "end": 121
+        },
+        {
+          "ar": "يُعَدُّ",
+          "en": "are counted",
+          "start": 122,
+          "end": 129
+        },
+        {
+          "ar": "مِنْ",
+          "en": "of",
+          "start": 130,
+          "end": 134
+        },
+        {
+          "ar": "غَنَمٍ",
+          "en": "sheep",
+          "start": 135,
+          "end": 141
+        },
+        {
+          "ar": "وَبَقَرٍ.",
+          "en": "and cattle",
+          "start": 142,
+          "end": 151
+        }
+      ]
+    },
+    "7": {
+      "ar": "وَأَدْخَلَ الْكَهَنَةُ تَابُوتَ عَهْدِ الرَّبِّ إِلَى مَكَانِهِ فِي مِحْرَابِ الْهَيْكَلِ فِي قُدْسِ الأَقْدَاسِ، تَحْتَ جَنَاحَيِ الْكَرُوبَيْنِ،",
+      "en": "The priests then brought the ark of the Lord’s covenant to its place in the inner sanctuary of the temple, the Most Holy Place, and put it beneath the wings of the cherubim.",
+      "mappings": [
+        {
+          "ar": "وَأَدْخَلَ",
+          "en": "and brought",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "ar": "الْكَهَنَةُ",
+          "en": "the priests",
+          "start": 11,
+          "end": 22
+        },
+        {
+          "ar": "تَابُوتَ",
+          "en": "ark",
+          "start": 23,
+          "end": 31
+        },
+        {
+          "ar": "عَهْدِ",
+          "en": "covenant of",
+          "start": 32,
+          "end": 38
+        },
+        {
+          "ar": "الرَّبِّ",
+          "en": "the Lord",
+          "start": 39,
+          "end": 47
+        },
+        {
+          "ar": "إِلَى",
+          "en": "to",
+          "start": 48,
+          "end": 53
+        },
+        {
+          "ar": "مَكَانِهِ",
+          "en": "its place",
+          "start": 54,
+          "end": 63
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 64,
+          "end": 67
+        },
+        {
+          "ar": "مِحْرَابِ",
+          "en": "sanctuary",
+          "start": 68,
+          "end": 77
+        },
+        {
+          "ar": "الْهَيْكَلِ",
+          "en": "the temple",
+          "start": 78,
+          "end": 89
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 90,
+          "end": 93
+        },
+        {
+          "ar": "قُدْسِ",
+          "en": "of the Holy",
+          "start": 94,
+          "end": 100
+        },
+        {
+          "ar": "الأَقْدَاسِ،",
+          "en": "the Holy Ones",
+          "start": 101,
+          "end": 113
+        },
+        {
+          "ar": "تَحْتَ",
+          "en": "beneath",
+          "start": 114,
+          "end": 120
+        },
+        {
+          "ar": "جَنَاحَيِ",
+          "en": "the wings of",
+          "start": 121,
+          "end": 130
+        },
+        {
+          "ar": "الْكَرُوبَيْنِ،",
+          "en": "the cherubim",
+          "start": 131,
+          "end": 146
+        }
+      ]
+    },
+    "8": {
+      "ar": "اللَّذَيْنِ كَانَا بَاسِطَيْنِ أَجْنِحَتَهُمَا فَوْقَ مَوْضِعِ التَّابُوتِ مُظَلِّلَيْنِ التَّابُوتَ وَعِصِيَّهُ.",
+      "en": "The cherubim spread their wings over the place of the ark and covered the ark and its carrying poles.",
+      "mappings": [
+        {
+          "ar": "اللَّذَيْنِ",
+          "en": "the two who",
+          "start": 0,
+          "end": 11
+        },
+        {
+          "ar": "كَانَا",
+          "en": "were",
+          "start": 12,
+          "end": 18
+        },
+        {
+          "ar": "بَاسِطَيْنِ",
+          "en": "spreading",
+          "start": 19,
+          "end": 30
+        },
+        {
+          "ar": "أَجْنِحَتَهُمَا",
+          "en": "their wings",
+          "start": 31,
+          "end": 46
+        },
+        {
+          "ar": "فَوْقَ",
+          "en": "over",
+          "start": 47,
+          "end": 53
+        },
+        {
+          "ar": "مَوْضِعِ",
+          "en": "place of",
+          "start": 54,
+          "end": 62
+        },
+        {
+          "ar": "التَّابُوتِ",
+          "en": "the ark",
+          "start": 63,
+          "end": 74
+        },
+        {
+          "ar": "مُظَلِّلَيْنِ",
+          "en": "covering",
+          "start": 75,
+          "end": 88
+        },
+        {
+          "ar": "التَّابُوتَ",
+          "en": "the ark",
+          "start": 89,
+          "end": 100
+        },
+        {
+          "ar": "وَعِصِيَّهُ.",
+          "en": "and its poles",
+          "start": 101,
+          "end": 113
+        }
+      ]
+    },
+    "9": {
+      "ar": "وَسَحَبُوا أَطْرَافَ الْعِصِيِّ فَبَدَتْ رُؤُوسُهَا فِي قُدْسِ الأَقْدَاسِ أَمَامَ الْمِحْرَابِ وَلَمْ يَسْبِقْ أَنْ شُوهِدَتْ خَارِجَةً مِنْ حَلَقَاتِهَا وَهِيَ مَا بَرِحَتْ هُنَاكَ إِلَى هَذَا الْيَوْمِ.",
+      "en": "These poles were so long that their ends, extending from the ark, could be seen from in front of the inner sanctuary, but not from outside the Holy Place; and they are still there today.",
+      "mappings": [
+        {
+          "ar": "وَسَحَبُوا",
+          "en": "and they extended",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "ar": "أَطْرَافَ",
+          "en": "ends of",
+          "start": 11,
+          "end": 20
+        },
+        {
+          "ar": "الْعِصِيِّ",
+          "en": "the poles",
+          "start": 21,
+          "end": 31
+        },
+        {
+          "ar": "فَبَدَتْ",
+          "en": "and they appeared",
+          "start": 32,
+          "end": 40
+        },
+        {
+          "ar": "رُؤُوسُهَا",
+          "en": "their ends",
+          "start": 41,
+          "end": 51
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 52,
+          "end": 55
+        },
+        {
+          "ar": "قُدْسِ",
+          "en": "sanctuary",
+          "start": 56,
+          "end": 62
+        },
+        {
+          "ar": "الأَقْدَاسِ",
+          "en": "the Holy Place",
+          "start": 63,
+          "end": 74
+        },
+        {
+          "ar": "أَمَامَ",
+          "en": "in front of",
+          "start": 75,
+          "end": 82
+        },
+        {
+          "ar": "الْمِحْرَابِ",
+          "en": "the sanctuary",
+          "start": 83,
+          "end": 95
+        },
+        {
+          "ar": "وَلَمْ",
+          "en": "and not",
+          "start": 96,
+          "end": 102
+        },
+        {
+          "ar": "يَسْبِقْ",
+          "en": "ever",
+          "start": 103,
+          "end": 111
+        },
+        {
+          "ar": "أَنْ",
+          "en": "that",
+          "start": 112,
+          "end": 116
+        },
+        {
+          "ar": "شُوهِدَتْ",
+          "en": "were seen",
+          "start": 117,
+          "end": 126
+        },
+        {
+          "ar": "خَارِجَةً",
+          "en": "coming out",
+          "start": 127,
+          "end": 136
+        },
+        {
+          "ar": "مِنْ",
+          "en": "from",
+          "start": 137,
+          "end": 141
+        },
+        {
+          "ar": "حَلَقَاتِهَا",
+          "en": "its rings",
+          "start": 142,
+          "end": 154
+        },
+        {
+          "ar": "وَهِيَ",
+          "en": "and they are",
+          "start": 155,
+          "end": 161
+        },
+        {
+          "ar": "مَا",
+          "en": "still",
+          "start": 162,
+          "end": 165
+        },
+        {
+          "ar": "بَرِحَتْ",
+          "en": "remained",
+          "start": 166,
+          "end": 174
+        },
+        {
+          "ar": "هُنَاكَ",
+          "en": "there",
+          "start": 175,
+          "end": 182
+        },
+        {
+          "ar": "إِلَى",
+          "en": "to",
+          "start": 183,
+          "end": 188
+        },
+        {
+          "ar": "هَذَا",
+          "en": "this",
+          "start": 189,
+          "end": 194
+        },
+        {
+          "ar": "الْيَوْمِ.",
+          "en": "the day",
+          "start": 195,
+          "end": 205
+        }
+      ]
+    },
+    "10": {
+      "ar": "وَلَمْ يَكُنِ التَّابُوتُ يَضُمُّ سِوَى لَوْحَيِ الْحَجَرِ اللَّذَيْنِ وَضَعَهُمَا مُوسَى هُنَاكَ فِي حُورِيبَ حِينَ عَاهَدَ الرَّبُّ بَنِي إِسْرَائِيلَ لَدَى خُرُوجِهِمْ مِنْ دِيَارِ مِصْرَ.",
+      "en": "There was nothing in the ark except the two tablets that Moses had placed in it at Horeb, where the Lord made a covenant with the Israelites after they came out of Egypt.",
+      "mappings": [
+        {
+          "ar": "وَلَمْ",
+          "en": "and not",
+          "start": 0,
+          "end": 6
+        },
+        {
+          "ar": "يَكُنِ",
+          "en": "be",
+          "start": 7,
+          "end": 13
+        },
+        {
+          "ar": "التَّابُوتُ",
+          "en": "the ark",
+          "start": 14,
+          "end": 25
+        },
+        {
+          "ar": "يَضُمُّ",
+          "en": "contained",
+          "start": 26,
+          "end": 33
+        },
+        {
+          "ar": "سِوَى",
+          "en": "except",
+          "start": 34,
+          "end": 39
+        },
+        {
+          "ar": "لَوْحَيِ",
+          "en": "the two tablets of",
+          "start": 40,
+          "end": 48
+        },
+        {
+          "ar": "الْحَجَرِ",
+          "en": "the stone",
+          "start": 49,
+          "end": 58
+        },
+        {
+          "ar": "اللَّذَيْنِ",
+          "en": "the two which",
+          "start": 59,
+          "end": 70
+        },
+        {
+          "ar": "وَضَعَهُمَا",
+          "en": "had placed them",
+          "start": 71,
+          "end": 82
+        },
+        {
+          "ar": "مُوسَى",
+          "en": "Moses",
+          "start": 83,
+          "end": 89
+        },
+        {
+          "ar": "هُنَاكَ",
+          "en": "there",
+          "start": 90,
+          "end": 97
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 98,
+          "end": 101
+        },
+        {
+          "ar": "حُورِيبَ",
+          "en": "Horeb",
+          "start": 102,
+          "end": 110
+        },
+        {
+          "ar": "حِينَ",
+          "en": "when",
+          "start": 111,
+          "end": 116
+        },
+        {
+          "ar": "عَاهَدَ",
+          "en": "made a covenant",
+          "start": 117,
+          "end": 124
+        },
+        {
+          "ar": "الرَّبُّ",
+          "en": "the Lord",
+          "start": 125,
+          "end": 133
+        },
+        {
+          "ar": "بَنِي",
+          "en": "the sons of",
+          "start": 134,
+          "end": 139
+        },
+        {
+          "ar": "إِسْرَائِيلَ",
+          "en": "the Israelites",
+          "start": 140,
+          "end": 152
+        },
+        {
+          "ar": "لَدَى",
+          "en": "at",
+          "start": 153,
+          "end": 158
+        },
+        {
+          "ar": "خُرُوجِهِمْ",
+          "en": "their exit",
+          "start": 159,
+          "end": 170
+        },
+        {
+          "ar": "مِنْ",
+          "en": "from",
+          "start": 171,
+          "end": 175
+        },
+        {
+          "ar": "دِيَارِ",
+          "en": "lands of",
+          "start": 176,
+          "end": 183
+        },
+        {
+          "ar": "مِصْرَ.",
+          "en": "Egypt",
+          "start": 184,
+          "end": 191
+        }
+      ]
+    },
+    "11": {
+      "ar": "ثُمَّ خَرَجَ الْكَهَنَةُ مِنَ الْقُدْسِ. وَكَانَ جَمِيعُ الْكَهَنَةِ الْحَاضِرِينَ قَدْ تَقَدَّسُوا بِغَضِّ النَّظَرِ عَنِ الْفِرَقِ الَّتِي يَنْتَمُونَ إِلَيْهَا.",
+      "en": "The priests then withdrew from the Holy Place. All the priests who were there had consecrated themselves, regardless of their divisions.",
+      "mappings": [
+        {
+          "ar": "ثُمَّ",
+          "en": "then",
+          "start": 0,
+          "end": 5
+        },
+        {
+          "ar": "خَرَجَ",
+          "en": "withdrew",
+          "start": 6,
+          "end": 12
+        },
+        {
+          "ar": "الْكَهَنَةُ",
+          "en": "the priests",
+          "start": 13,
+          "end": 24
+        },
+        {
+          "ar": "مِنَ",
+          "en": "from",
+          "start": 25,
+          "end": 29
+        },
+        {
+          "ar": "الْقُدْسِ.",
+          "en": "the Holy Place",
+          "start": 30,
+          "end": 40
+        },
+        {
+          "ar": "وَكَانَ",
+          "en": "and were",
+          "start": 41,
+          "end": 48
+        },
+        {
+          "ar": "جَمِيعُ",
+          "en": "all",
+          "start": 49,
+          "end": 56
+        },
+        {
+          "ar": "الْكَهَنَةِ",
+          "en": "the priests",
+          "start": 57,
+          "end": 68
+        },
+        {
+          "ar": "الْحَاضِرِينَ",
+          "en": "the present",
+          "start": 69,
+          "end": 82
+        },
+        {
+          "ar": "قَدْ",
+          "en": "had",
+          "start": 83,
+          "end": 87
+        },
+        {
+          "ar": "تَقَدَّسُوا",
+          "en": "had consecrated themselves",
+          "start": 88,
+          "end": 99
+        },
+        {
+          "ar": "بِغَضِّ",
+          "en": "regardless of",
+          "start": 100,
+          "end": 107
+        },
+        {
+          "ar": "النَّظَرِ",
+          "en": "the looking",
+          "start": 108,
+          "end": 117
+        },
+        {
+          "ar": "عَنِ",
+          "en": "from",
+          "start": 118,
+          "end": 122
+        },
+        {
+          "ar": "الْفِرَقِ",
+          "en": "the divisions",
+          "start": 123,
+          "end": 132
+        },
+        {
+          "ar": "الَّتِي",
+          "en": "which",
+          "start": 133,
+          "end": 140
+        },
+        {
+          "ar": "يَنْتَمُونَ",
+          "en": "they belonged",
+          "start": 141,
+          "end": 152
+        },
+        {
+          "ar": "إِلَيْهَا.",
+          "en": "to them",
+          "start": 153,
+          "end": 163
+        }
+      ]
+    },
+    "12": {
+      "ar": "وَلَبِسَ اللّاوِيُّونَ الْمُغَنُّونَ أَجْمَعُونَ كَتَّاناً، وَعَلَى رَأْسِهِمْ آسَافُ وَهَيْمَانُ وَيَدُوثُونُ وَأَبْنَاؤُهُمْ وَأَقْرِبَاؤُهُمْ، وَرَاحُوا يَعْزِفُونَ عَلَى الصُّنُوجِ وَالرَّبَابِ وَالْعِيدَانِ وَهُمْ وَاقِفُونَ شَرْقِيَّ الْمَذْبَحِ، يُرَافِقُهُمْ مِئَةٌ وَعِشْرُونَ كَاهِناً يَنْفُخُونَ بِالأَبْوَاقِ.",
+      "en": "All the Levites who were musicians—Asaph, Heman, Jeduthun and their sons and relatives—stood on the east side of the altar, dressed in fine linen and playing cymbals, harps and lyres. They were accompanied by 120 priests sounding trumpets.",
+      "mappings": [
+        {
+          "ar": "وَلَبِسَ",
+          "en": "and wore",
+          "start": 0,
+          "end": 8
+        },
+        {
+          "ar": "اللّاوِيُّونَ",
+          "en": "the Levites",
+          "start": 9,
+          "end": 22
+        },
+        {
+          "ar": "الْمُغَنُّونَ",
+          "en": "the musicians",
+          "start": 23,
+          "end": 36
+        },
+        {
+          "ar": "أَجْمَعُونَ",
+          "en": "all of them",
+          "start": 37,
+          "end": 48
+        },
+        {
+          "ar": "كَتَّاناً،",
+          "en": "linen",
+          "start": 49,
+          "end": 59
+        },
+        {
+          "ar": "وَعَلَى",
+          "en": "and on",
+          "start": 60,
+          "end": 67
+        },
+        {
+          "ar": "رَأْسِهِمْ",
+          "en": "their heads",
+          "start": 68,
+          "end": 78
+        },
+        {
+          "ar": "آسَافُ",
+          "en": "Asaph",
+          "start": 79,
+          "end": 85
+        },
+        {
+          "ar": "وَهَيْمَانُ",
+          "en": "and Heman",
+          "start": 86,
+          "end": 97
+        },
+        {
+          "ar": "وَيَدُوثُونُ",
+          "en": "and Jeduthun",
+          "start": 98,
+          "end": 110
+        },
+        {
+          "ar": "وَأَبْنَاؤُهُمْ",
+          "en": "and their sons",
+          "start": 111,
+          "end": 126
+        },
+        {
+          "ar": "وَأَقْرِبَاؤُهُمْ،",
+          "en": "and their relatives",
+          "start": 127,
+          "end": 145
+        },
+        {
+          "ar": "وَرَاحُوا",
+          "en": "and they went",
+          "start": 146,
+          "end": 155
+        },
+        {
+          "ar": "يَعْزِفُونَ",
+          "en": "they were playing",
+          "start": 156,
+          "end": 167
+        },
+        {
+          "ar": "عَلَى",
+          "en": "on",
+          "start": 168,
+          "end": 173
+        },
+        {
+          "ar": "الصُّنُوجِ",
+          "en": "the cymbals",
+          "start": 174,
+          "end": 184
+        },
+        {
+          "ar": "وَالرَّبَابِ",
+          "en": "and the harps",
+          "start": 185,
+          "end": 197
+        },
+        {
+          "ar": "وَالْعِيدَانِ",
+          "en": "and the lyres",
+          "start": 198,
+          "end": 211
+        },
+        {
+          "ar": "وَهُمْ",
+          "en": "and they were",
+          "start": 212,
+          "end": 218
+        },
+        {
+          "ar": "وَاقِفُونَ",
+          "en": "standing",
+          "start": 219,
+          "end": 229
+        },
+        {
+          "ar": "شَرْقِيَّ",
+          "en": "east side of",
+          "start": 230,
+          "end": 239
+        },
+        {
+          "ar": "الْمَذْبَحِ،",
+          "en": "the altar",
+          "start": 240,
+          "end": 252
+        },
+        {
+          "ar": "يُرَافِقُهُمْ",
+          "en": "accompanying them",
+          "start": 253,
+          "end": 266
+        },
+        {
+          "ar": "مِئَةٌ",
+          "en": "hundred",
+          "start": 267,
+          "end": 273
+        },
+        {
+          "ar": "وَعِشْرُونَ",
+          "en": "and twenty",
+          "start": 274,
+          "end": 285
+        },
+        {
+          "ar": "كَاهِناً",
+          "en": "priests",
+          "start": 286,
+          "end": 294
+        },
+        {
+          "ar": "يَنْفُخُونَ",
+          "en": "they sounded",
+          "start": 295,
+          "end": 306
+        },
+        {
+          "ar": "بِالأَبْوَاقِ.",
+          "en": "with the trumpets",
+          "start": 307,
+          "end": 321
+        }
+      ]
+    },
+    "13": {
+      "ar": "وَعِنْدَمَا تَنَاغَمَتْ أَصْوَاتُ الأَبْوَاقِ وَالْمُغَنِّينَ وَكَأَنَّهَا صَوْتٌ وَاحِدٌ يَتَغَنَّى بِحَمْدِ الرَّبِّ وَتَسْبِيحِهِ، ارْتَفَعَتْ أَصْوَاتُهُمْ بِالْغِنَاءِ، مَصْحُوبَةً بِنَغَمَاتِ الأَبْوَاقِ وَعَزْفِ الصُّنُوجِ مُرَنِّمِينَ لِلرَّبِّ قَائِلِينَ: «الرَّبُّ صَالِحٌ وَرَحْمَتُهُ إِلَى الأَبَدِ تَدُومُ». فَامْتلأَ الْهَيْكَلُ سَحَاباً.",
+      "en": "The trumpeters and musicians joined in unison to give praise and thanks to the Lord. Accompanied by trumpets, cymbals and other instruments, the singers raised their voices in praise to the Lord and sang:\n“He is good;\n    his love endures forever.”\nThen the temple of the Lord was filled with the cloud,",
+      "mappings": [
+        {
+          "ar": "وَعِنْدَمَا",
+          "en": "and when",
+          "start": 0,
+          "end": 11
+        },
+        {
+          "ar": "تَنَاغَمَتْ",
+          "en": "harmonized",
+          "start": 12,
+          "end": 23
+        },
+        {
+          "ar": "أَصْوَاتُ",
+          "en": "voices",
+          "start": 24,
+          "end": 33
+        },
+        {
+          "ar": "الأَبْوَاقِ",
+          "en": "the trumpets",
+          "start": 34,
+          "end": 45
+        },
+        {
+          "ar": "وَالْمُغَنِّينَ",
+          "en": "and the musicians",
+          "start": 46,
+          "end": 61
+        },
+        {
+          "ar": "وَكَأَنَّهَا",
+          "en": "and as if it",
+          "start": 62,
+          "end": 74
+        },
+        {
+          "ar": "صَوْتٌ",
+          "en": "a voice",
+          "start": 75,
+          "end": 81
+        },
+        {
+          "ar": "وَاحِدٌ",
+          "en": "one",
+          "start": 82,
+          "end": 89
+        },
+        {
+          "ar": "يَتَغَنَّى",
+          "en": "singing",
+          "start": 90,
+          "end": 100
+        },
+        {
+          "ar": "بِحَمْدِ",
+          "en": "with the praise of",
+          "start": 101,
+          "end": 109
+        },
+        {
+          "ar": "الرَّبِّ",
+          "en": "the Lord",
+          "start": 110,
+          "end": 118
+        },
+        {
+          "ar": "وَتَسْبِيحِهِ،",
+          "en": "and his praise",
+          "start": 119,
+          "end": 133
+        },
+        {
+          "ar": "ارْتَفَعَتْ",
+          "en": "rose",
+          "start": 134,
+          "end": 145
+        },
+        {
+          "ar": "أَصْوَاتُهُمْ",
+          "en": "their voices",
+          "start": 146,
+          "end": 159
+        },
+        {
+          "ar": "بِالْغِنَاءِ،",
+          "en": "in singing",
+          "start": 160,
+          "end": 173
+        },
+        {
+          "ar": "مَصْحُوبَةً",
+          "en": "accompanied",
+          "start": 174,
+          "end": 185
+        },
+        {
+          "ar": "بِنَغَمَاتِ",
+          "en": "with melodies of",
+          "start": 186,
+          "end": 197
+        },
+        {
+          "ar": "الأَبْوَاقِ",
+          "en": "the trumpets",
+          "start": 198,
+          "end": 209
+        },
+        {
+          "ar": "وَعَزْفِ",
+          "en": "and the playing of",
+          "start": 210,
+          "end": 218
+        },
+        {
+          "ar": "الصُّنُوجِ",
+          "en": "the cymbals",
+          "start": 219,
+          "end": 229
+        },
+        {
+          "ar": "مُرَنِّمِينَ",
+          "en": "singing",
+          "start": 230,
+          "end": 242
+        },
+        {
+          "ar": "لِلرَّبِّ",
+          "en": "to the Lord",
+          "start": 243,
+          "end": 252
+        },
+        {
+          "ar": "قَائِلِينَ:",
+          "en": "saying",
+          "start": 253,
+          "end": 264
+        },
+        {
+          "ar": "«الرَّبُّ",
+          "en": "the Lord",
+          "start": 265,
+          "end": 274
+        },
+        {
+          "ar": "صَالِحٌ",
+          "en": "good",
+          "start": 275,
+          "end": 282
+        },
+        {
+          "ar": "وَرَحْمَتُهُ",
+          "en": "and his love",
+          "start": 283,
+          "end": 295
+        },
+        {
+          "ar": "إِلَى",
+          "en": "to",
+          "start": 296,
+          "end": 301
+        },
+        {
+          "ar": "الأَبَدِ",
+          "en": "forever",
+          "start": 302,
+          "end": 310
+        },
+        {
+          "ar": "تَدُومُ».",
+          "en": "endures",
+          "start": 311,
+          "end": 320
+        },
+        {
+          "ar": "فَامْتلأَ",
+          "en": "then it was filled",
+          "start": 321,
+          "end": 330
+        },
+        {
+          "ar": "الْهَيْكَلُ",
+          "en": "the temple",
+          "start": 331,
+          "end": 342
+        },
+        {
+          "ar": "سَحَاباً.",
+          "en": "a cloud",
+          "start": 343,
+          "end": 352
+        }
+      ]
+    },
+    "14": {
+      "ar": "وَلَمْ يَسْتَطِعِ الْكَهَنَةُ الْقِيَامَ بِالْخِدْمَةِ بِسَبَبِ السَّحَابِ لأَنَّ مَجْدَ الرَّبِّ مَلأَ الْهَيْكَلَ.",
+      "en": "and the priests could not perform their service because of the cloud, for the glory of the Lord filled the temple of God.",
+      "mappings": [
+        {
+          "ar": "وَلَمْ",
+          "en": "and not",
+          "start": 0,
+          "end": 6
+        },
+        {
+          "ar": "يَسْتَطِعِ",
+          "en": "could",
+          "start": 7,
+          "end": 17
+        },
+        {
+          "ar": "الْكَهَنَةُ",
+          "en": "the priests",
+          "start": 18,
+          "end": 29
+        },
+        {
+          "ar": "الْقِيَامَ",
+          "en": "performing",
+          "start": 30,
+          "end": 40
+        },
+        {
+          "ar": "بِالْخِدْمَةِ",
+          "en": "with the service",
+          "start": 41,
+          "end": 54
+        },
+        {
+          "ar": "بِسَبَبِ",
+          "en": "because of",
+          "start": 55,
+          "end": 63
+        },
+        {
+          "ar": "السَّحَابِ",
+          "en": "the cloud",
+          "start": 64,
+          "end": 74
+        },
+        {
+          "ar": "لأَنَّ",
+          "en": "for",
+          "start": 75,
+          "end": 81
+        },
+        {
+          "ar": "مَجْدَ",
+          "en": "glory",
+          "start": 82,
+          "end": 88
+        },
+        {
+          "ar": "الرَّبِّ",
+          "en": "the Lord",
+          "start": 89,
+          "end": 97
+        },
+        {
+          "ar": "مَلأَ",
+          "en": "filled",
+          "start": 98,
+          "end": 103
+        },
+        {
+          "ar": "الْهَيْكَلَ.",
+          "en": "the temple",
+          "start": 104,
+          "end": 116
         }
       ]
     }

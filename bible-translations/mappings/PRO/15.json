@@ -1,6 +1,8 @@
 {
   "book": "PRO",
   "chapter": 15,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "الْجَوَابُ اللَّيِّنُ يُبَدِّدُ الْغَضَبَ، وَالْكَلِمَةُ الْقَارِصَةُ تُهَيِّجُ السَّخَطَ.",
@@ -8,49 +10,49 @@
       "mappings": [
         {
           "ar": "الْجَوَابُ",
-          "en": "ANSWER",
+          "en": "the answer",
           "start": 0,
           "end": 10
         },
         {
           "ar": "اللَّيِّنُ",
-          "en": "GENTLE",
+          "en": "gentle",
           "start": 11,
           "end": 21
         },
         {
           "ar": "يُبَدِّدُ",
-          "en": "TURNS AWAY",
+          "en": "turns away",
           "start": 22,
           "end": 31
         },
         {
           "ar": "الْغَضَبَ،",
-          "en": "WRATH",
+          "en": "the wrath",
           "start": 32,
           "end": 42
         },
         {
           "ar": "وَالْكَلِمَةُ",
-          "en": "AND THE WORD",
+          "en": "and the word",
           "start": 43,
           "end": 56
         },
         {
           "ar": "الْقَارِصَةُ",
-          "en": "HARSH",
+          "en": "the harsh",
           "start": 57,
           "end": 69
         },
         {
           "ar": "تُهَيِّجُ",
-          "en": "STIRS UP",
+          "en": "stirs up",
           "start": 70,
           "end": 79
         },
         {
           "ar": "السَّخَطَ.",
-          "en": "ANGER",
+          "en": "anger",
           "start": 80,
           "end": 90
         }
@@ -68,13 +70,13 @@
         },
         {
           "ar": "الْحَكِيمِ",
-          "en": "of the wise",
+          "en": "the wise one",
           "start": 8,
           "end": 18
         },
         {
           "ar": "يُتْقِنُ",
-          "en": "adorns",
+          "en": "perfects",
           "start": 19,
           "end": 27
         },
@@ -86,13 +88,13 @@
         },
         {
           "ar": "وَأَقْوَالُ",
-          "en": "but the mouth",
+          "en": "and the sayings of",
           "start": 43,
           "end": 54
         },
         {
           "ar": "الْجُهَّالِ",
-          "en": "of the fools",
+          "en": "the fools",
           "start": 55,
           "end": 66
         },
@@ -116,13 +118,13 @@
       "mappings": [
         {
           "ar": "عَيْنَا",
-          "en": "eyes",
+          "en": "the eyes of",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الرَّبِّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 8,
           "end": 16
         },
@@ -146,7 +148,7 @@
         },
         {
           "ar": "تُرَاقِبَانِ",
-          "en": "watching",
+          "en": "they watch",
           "start": 35,
           "end": 47
         },
@@ -158,7 +160,7 @@
         },
         {
           "ar": "وَالأَخْيَارَ.",
-          "en": "the good",
+          "en": "and the good",
           "start": 60,
           "end": 74
         }
@@ -170,25 +172,25 @@
       "mappings": [
         {
           "ar": "اللِّسَانُ",
-          "en": "tongue",
+          "en": "the tongue",
           "start": 0,
           "end": 10
         },
         {
           "ar": "السَّلِيمُ",
-          "en": "soothing",
+          "en": "the soothing",
           "start": 11,
           "end": 21
         },
         {
           "ar": "يُنْعِشُ",
-          "en": "refreshes",
+          "en": "soothes",
           "start": 22,
           "end": 30
         },
         {
           "ar": "كَشَجَرَةِ",
-          "en": "like a",
+          "en": "like a tree of",
           "start": 31,
           "end": 41
         },
@@ -200,13 +202,13 @@
         },
         {
           "ar": "وَاعْوِجَاجُهُ",
-          "en": "its crookedness",
+          "en": "and its crookedness",
           "start": 51,
           "end": 65
         },
         {
           "ar": "يُؤَدِّي",
-          "en": "leads",
+          "en": "leads to",
           "start": 66,
           "end": 74
         },
@@ -224,7 +226,7 @@
         },
         {
           "ar": "الرُّوحِ.",
-          "en": "spirit",
+          "en": "the spirit",
           "start": 92,
           "end": 101
         }
@@ -236,19 +238,19 @@
       "mappings": [
         {
           "ar": "الْجَاهِلُ",
-          "en": "fool",
+          "en": "the fool",
           "start": 0,
           "end": 10
         },
         {
           "ar": "يَسْتَخِفُّ",
-          "en": "spurns",
+          "en": "scorns",
           "start": 11,
           "end": 22
         },
         {
           "ar": "بِتَأْدِيبِ",
-          "en": "a parent’s discipline",
+          "en": "with the discipline of",
           "start": 23,
           "end": 34
         },
@@ -266,19 +268,19 @@
         },
         {
           "ar": "الْعَاقِلُ",
-          "en": "whoever",
+          "en": "the wise one",
           "start": 51,
           "end": 61
         },
         {
           "ar": "فَيَقْبَلُ",
-          "en": "heeds",
+          "en": "but he accepts",
           "start": 62,
           "end": 72
         },
         {
           "ar": "التَّأْدِيبَ.",
-          "en": "correction",
+          "en": "the discipline",
           "start": 73,
           "end": 86
         }
@@ -290,55 +292,55 @@
       "mappings": [
         {
           "ar": "فِي",
-          "en": "IN",
+          "en": "in",
           "start": 0,
           "end": 3
         },
         {
           "ar": "بَيْتِ",
-          "en": "HOUSE",
+          "en": "house of",
           "start": 4,
           "end": 10
         },
         {
           "ar": "الصِّدِّيقِ",
-          "en": "THE RIGHTEOUS",
+          "en": "the righteous one",
           "start": 11,
           "end": 22
         },
         {
           "ar": "كَنْزٌ",
-          "en": "TREASURE",
+          "en": "treasure",
           "start": 23,
           "end": 29
         },
         {
           "ar": "نَفِيسٌ،",
-          "en": "PRECIOUS",
+          "en": "precious",
           "start": 30,
           "end": 38
         },
         {
           "ar": "وَفِي",
-          "en": "AND IN",
+          "en": "and in",
           "start": 39,
           "end": 44
         },
         {
           "ar": "دَخْلِ",
-          "en": "INCOME",
+          "en": "income of",
           "start": 45,
           "end": 51
         },
         {
           "ar": "الأَشْرَارِ",
-          "en": "OF THE WICKED",
+          "en": "the wicked",
           "start": 52,
           "end": 63
         },
         {
           "ar": "بَلِيَّةٌ.",
-          "en": "RUIN",
+          "en": "ruin",
           "start": 64,
           "end": 74
         }
@@ -350,61 +352,61 @@
       "mappings": [
         {
           "ar": "أَقْوَالُ",
-          "en": "WORDS",
+          "en": "words of",
           "start": 0,
           "end": 9
         },
         {
           "ar": "شِفَاهِ",
-          "en": "LIPS",
+          "en": "his lips",
           "start": 10,
           "end": 17
         },
         {
           "ar": "الْحُكَمَاءِ",
-          "en": "OF THE WISE",
+          "en": "the wise",
           "start": 18,
           "end": 30
         },
         {
           "ar": "تَنْشُرُ",
-          "en": "SPREAD",
+          "en": "spread",
           "start": 31,
           "end": 39
         },
         {
           "ar": "الْمَعْرِفَةَ،",
-          "en": "KNOWLEDGE",
+          "en": "knowledge",
           "start": 40,
           "end": 54
         },
         {
           "ar": "أَمَّا",
-          "en": "BUT",
+          "en": "but",
           "start": 55,
           "end": 61
         },
         {
           "ar": "قُلُوبُ",
-          "en": "HEARTS",
+          "en": "hearts",
           "start": 62,
           "end": 69
         },
         {
           "ar": "الْجُهَّالِ",
-          "en": "OF FOOLS",
+          "en": "the fools",
           "start": 70,
           "end": 81
         },
         {
           "ar": "فَتَنْبُعُ",
-          "en": "SPRINGS",
+          "en": "but gush forth",
           "start": 82,
           "end": 92
         },
         {
           "ar": "حَمَاقَةً.",
-          "en": "FOOLISHNESS",
+          "en": "foolishness",
           "start": 93,
           "end": 103
         }
@@ -416,43 +418,43 @@
       "mappings": [
         {
           "ar": "قُرْبَانُ",
-          "en": "Sacrifice",
+          "en": "sacrifice",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْمُنَافِقِينَ",
-          "en": "Of the wicked",
+          "en": "of the hypocrites",
           "start": 10,
           "end": 25
         },
         {
           "ar": "مَكْرَهَةُ",
-          "en": "Detests",
+          "en": "detested by",
           "start": 26,
           "end": 36
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 37,
           "end": 46
         },
         {
           "ar": "وَمَسَرَّتُهُ",
-          "en": "His pleasure",
+          "en": "and his pleasure",
           "start": 47,
           "end": 60
         },
         {
           "ar": "صَلاةُ",
-          "en": "Prayer",
+          "en": "prayer of",
           "start": 61,
           "end": 67
         },
         {
           "ar": "الْمُسْتَقِيمِينَ.",
-          "en": "The upright",
+          "en": "the upright",
           "start": 68,
           "end": 86
         }
@@ -464,19 +466,19 @@
       "mappings": [
         {
           "ar": "سُلُوكُ",
-          "en": "way",
+          "en": "the way of",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الشِّرِّيرِ",
-          "en": "of the wicked",
+          "en": "the wicked one",
           "start": 8,
           "end": 19
         },
         {
           "ar": "رِجْسٌ",
-          "en": "detests",
+          "en": "abomination",
           "start": 20,
           "end": 26
         },
@@ -500,13 +502,13 @@
         },
         {
           "ar": "لِمَنْ",
-          "en": "for those",
+          "en": "for those who",
           "start": 57,
           "end": 63
         },
         {
           "ar": "يَتْبَعُ",
-          "en": "who pursue",
+          "en": "pursue",
           "start": 64,
           "end": 72
         },
@@ -524,67 +526,67 @@
       "mappings": [
         {
           "ar": "الْمُنْحَرِفُ",
-          "en": "One who deviates",
+          "en": "the one who deviates",
           "start": 0,
           "end": 13
         },
         {
           "ar": "عَنْ",
-          "en": "From",
+          "en": "from",
           "start": 14,
           "end": 18
         },
         {
           "ar": "طَرِيقِ",
-          "en": "The path",
+          "en": "path of",
           "start": 19,
           "end": 26
         },
         {
           "ar": "الرَّبِّ",
-          "en": "Of the Lord",
+          "en": "the Lord",
           "start": 27,
           "end": 35
         },
         {
           "ar": "يُجَازَى",
-          "en": "Is rewarded",
+          "en": "is disciplined",
           "start": 36,
           "end": 44
         },
         {
           "ar": "بِالتَّأْدِيبِ",
-          "en": "With discipline",
+          "en": "with discipline",
           "start": 45,
           "end": 59
         },
         {
           "ar": "الْقَاسِي،",
-          "en": "Severe",
+          "en": "the stern",
           "start": 60,
           "end": 70
         },
         {
           "ar": "وَمَنْ",
-          "en": "And whoever",
+          "en": "and the one who",
           "start": 71,
           "end": 77
         },
         {
           "ar": "يَمْقُتُ",
-          "en": "Hates",
+          "en": "hates",
           "start": 78,
           "end": 86
         },
         {
           "ar": "التَّقْوِيمَ",
-          "en": "Correction",
+          "en": "correction",
           "start": 87,
           "end": 99
         },
         {
           "ar": "يَمُوتُ.",
-          "en": "Will die",
+          "en": "dies",
           "start": 100,
           "end": 108
         }
@@ -596,67 +598,67 @@
       "mappings": [
         {
           "ar": "أَعْمَاقُ",
-          "en": "Depths",
+          "en": "depths of",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْهَاوِيَةِ",
-          "en": "Abyss",
+          "en": "the abyss",
           "start": 10,
           "end": 22
         },
         {
           "ar": "وَالْهَلاكِ",
-          "en": "Destruction",
+          "en": "and destruction",
           "start": 23,
           "end": 34
         },
         {
           "ar": "مَكْشُوفَةٌ",
-          "en": "Revealed",
+          "en": "are exposed",
           "start": 35,
           "end": 46
         },
         {
           "ar": "أَمَامَ",
-          "en": "Before",
+          "en": "before",
           "start": 47,
           "end": 54
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 55,
           "end": 64
         },
         {
           "ar": "فَكَمْ",
-          "en": "How much",
+          "en": "how much more",
           "start": 65,
           "end": 71
         },
         {
           "ar": "بِالْحَرِيِّ",
-          "en": "Surely/Indeed",
+          "en": "how much more",
           "start": 72,
           "end": 84
         },
         {
           "ar": "قُلُوبُ",
-          "en": "Hearts",
+          "en": "hearts",
           "start": 85,
           "end": 92
         },
         {
           "ar": "أَبْنَاءِ",
-          "en": "Sons",
+          "en": "sons of",
           "start": 93,
           "end": 102
         },
         {
           "ar": "الْبَشَرِ.",
-          "en": "Humanity/Mankind",
+          "en": "humans",
           "start": 103,
           "end": 113
         }
@@ -668,13 +670,13 @@
       "mappings": [
         {
           "ar": "الْمُسْتَهْزِئُ",
-          "en": "Mockers",
+          "en": "the mocker",
           "start": 0,
           "end": 15
         },
         {
           "ar": "يَكْرَهُ",
-          "en": "resent",
+          "en": "hates",
           "start": 16,
           "end": 24
         },
@@ -686,13 +688,13 @@
         },
         {
           "ar": "وَلا",
-          "en": "and",
+          "en": "and not",
           "start": 39,
           "end": 43
         },
         {
           "ar": "يَلْجَأُ",
-          "en": "avoid",
+          "en": "he seeks refuge",
           "start": 44,
           "end": 52
         },
@@ -716,55 +718,55 @@
       "mappings": [
         {
           "ar": "الْقَلْبُ",
-          "en": "HEART",
+          "en": "the heart",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْفَرِحُ",
-          "en": "HAPPINESS",
+          "en": "happy",
           "start": 10,
           "end": 19
         },
         {
           "ar": "يَجْعَلُ",
-          "en": "MAKES",
+          "en": "makes",
           "start": 20,
           "end": 28
         },
         {
           "ar": "الْوَجْهَ",
-          "en": "FACE",
+          "en": "the face",
           "start": 29,
           "end": 38
         },
         {
           "ar": "طَلِقاً،",
-          "en": "CHEERFUL",
+          "en": "cheerful",
           "start": 39,
           "end": 47
         },
         {
           "ar": "وَبِكَآبَةِ",
-          "en": "AND WITH",
+          "en": "and in the heartache",
           "start": 48,
           "end": 59
         },
         {
           "ar": "الْقَلْبِ",
-          "en": "HEART",
+          "en": "the heart",
           "start": 60,
           "end": 69
         },
         {
           "ar": "تَنْسَحِقُ",
-          "en": "CRUSHES",
+          "en": "crushes",
           "start": 70,
           "end": 80
         },
         {
           "ar": "الرُّوحُ.",
-          "en": "SPIRIT",
+          "en": "the spirit",
           "start": 81,
           "end": 90
         }
@@ -776,49 +778,49 @@
       "mappings": [
         {
           "ar": "قَلْبُ",
-          "en": "HEART",
+          "en": "heart",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الْحَكِيمِ",
-          "en": "THE WISEMAN'S",
+          "en": "the discerning one",
           "start": 7,
           "end": 17
         },
         {
           "ar": "يَلْتَمِسُ",
-          "en": "SEEKS",
+          "en": "seeks",
           "start": 18,
           "end": 28
         },
         {
           "ar": "الْمَعْرِفَةَ،",
-          "en": "KNOWLEDGE",
+          "en": "knowledge",
           "start": 29,
           "end": 43
         },
         {
           "ar": "وَفَمُ",
-          "en": "AND THE",
+          "en": "and the mouth of",
           "start": 44,
           "end": 50
         },
         {
           "ar": "الْجَاهِلِ",
-          "en": "FOOL'S",
+          "en": "the fool",
           "start": 51,
           "end": 61
         },
         {
           "ar": "يَرْعَى",
-          "en": "FEEDS ON",
+          "en": "feeds on",
           "start": 62,
           "end": 69
         },
         {
           "ar": "حَمَاقَةً.",
-          "en": "FOLLY",
+          "en": "folly",
           "start": 70,
           "end": 80
         }
@@ -830,61 +832,61 @@
       "mappings": [
         {
           "ar": "جَمِيعُ",
-          "en": "All",
+          "en": "all",
           "start": 0,
           "end": 7
         },
         {
           "ar": "أَيَّامِ",
-          "en": "Days",
+          "en": "days of",
           "start": 8,
           "end": 16
         },
         {
           "ar": "الْبَائِسِ",
-          "en": "The oppressed",
+          "en": "the oppressed",
           "start": 17,
           "end": 27
         },
         {
           "ar": "شَقِيَّةٌ،",
-          "en": "Wretched",
+          "en": "wretched",
           "start": 28,
           "end": 38
         },
         {
           "ar": "أَمَّا",
-          "en": "But",
+          "en": "but",
           "start": 39,
           "end": 45
         },
         {
           "ar": "طَيِّبُ",
-          "en": "The cheerful",
+          "en": "cheerful",
           "start": 46,
           "end": 53
         },
         {
           "ar": "الْقَلْبِ",
-          "en": "Heart",
+          "en": "the heart",
           "start": 54,
           "end": 63
         },
         {
           "ar": "فَالتَّوْفِيقُ",
-          "en": "The success",
+          "en": "but the success",
           "start": 64,
           "end": 78
         },
         {
           "ar": "الدَّائِمُ",
-          "en": "Continual",
+          "en": "continual",
           "start": 79,
           "end": 89
         },
         {
           "ar": "حَلِيفُهُ.",
-          "en": "Ally",
+          "en": "his companion",
           "start": 90,
           "end": 100
         }
@@ -896,19 +898,19 @@
       "mappings": [
         {
           "ar": "قَلِيلٌ",
-          "en": "little",
+          "en": "a little",
           "start": 0,
           "end": 7
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 8,
           "end": 12
         },
         {
           "ar": "الْمَالِ",
-          "en": "wealth",
+          "en": "the wealth",
           "start": 13,
           "end": 21
         },
@@ -920,7 +922,7 @@
         },
         {
           "ar": "تَقْوَى",
-          "en": "fear",
+          "en": "fear of",
           "start": 27,
           "end": 34
         },
@@ -956,13 +958,13 @@
         },
         {
           "ar": "يُخَالِطُهُ",
-          "en": "that mixes with it",
+          "en": "it is mixed with",
           "start": 71,
           "end": 82
         },
         {
           "ar": "هَمٌّ.",
-          "en": "anxiety",
+          "en": "turmoil",
           "start": 83,
           "end": 89
         }
@@ -974,115 +976,115 @@
       "mappings": [
         {
           "ar": "أَكْلَةٌ",
-          "en": "A small serving",
+          "en": "a serving",
           "start": 0,
           "end": 8
         },
         {
           "ar": "مِنَ",
-          "en": "Of",
+          "en": "of",
           "start": 9,
           "end": 13
         },
         {
           "ar": "الْبُقُولِ",
-          "en": "Vegetables",
+          "en": "the vegetables",
           "start": 14,
           "end": 24
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 25,
           "end": 28
         },
         {
           "ar": "جَوٍّ",
-          "en": "An atmosphere",
+          "en": "atmosphere",
           "start": 29,
           "end": 34
         },
         {
           "ar": "مُشَبَّعٍ",
-          "en": "Saturated",
+          "en": "saturated",
           "start": 35,
           "end": 44
         },
         {
           "ar": "بِالْمَحَبَّةِ",
-          "en": "With love",
+          "en": "with love",
           "start": 45,
           "end": 59
         },
         {
           "ar": "خَيْرٌ",
-          "en": "Better",
+          "en": "better",
           "start": 60,
           "end": 66
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "than",
           "start": 67,
           "end": 71
         },
         {
           "ar": "أَكْلِ",
-          "en": "Eating",
+          "en": "eating",
           "start": 72,
           "end": 78
         },
         {
           "ar": "وَجْبَةٍ",
-          "en": "A meal",
+          "en": "a meal",
           "start": 79,
           "end": 87
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "of",
           "start": 88,
           "end": 92
         },
         {
           "ar": "لَحْمِ",
-          "en": "Meat",
+          "en": "meat",
           "start": 93,
           "end": 99
         },
         {
           "ar": "عِجْلٍ",
-          "en": "A calf",
+          "en": "a calf",
           "start": 100,
           "end": 106
         },
         {
           "ar": "مَعْلُوفٍ",
-          "en": "Fattened",
+          "en": "fattened",
           "start": 107,
           "end": 116
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 117,
           "end": 120
         },
         {
           "ar": "جَوٍّ",
-          "en": "An atmosphere",
+          "en": "atmosphere",
           "start": 121,
           "end": 126
         },
         {
           "ar": "مِنَ",
-          "en": "Of",
+          "en": "of",
           "start": 127,
           "end": 131
         },
         {
           "ar": "الْبَغْضَاءِ.",
-          "en": "Hatred",
+          "en": "hatred",
           "start": 132,
           "end": 145
         }
@@ -1094,13 +1096,13 @@
       "mappings": [
         {
           "ar": "الرَّجُلُ",
-          "en": "person",
+          "en": "the man",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْغَضُوبُ",
-          "en": "hot-tempered",
+          "en": "the hot-tempered",
           "start": 10,
           "end": 20
         },
@@ -1112,19 +1114,19 @@
         },
         {
           "ar": "الْخُصُومَةَ،",
-          "en": "conflict",
+          "en": "the conflict",
           "start": 29,
           "end": 42
         },
         {
           "ar": "وَالطَّويِلُ",
-          "en": "but the one",
+          "en": "and the one who is patient",
           "start": 43,
           "end": 55
         },
         {
           "ar": "الأَنَاةِ",
-          "en": "patient",
+          "en": "patience",
           "start": 56,
           "end": 65
         },
@@ -1136,7 +1138,7 @@
         },
         {
           "ar": "النِّزَاعَ.",
-          "en": "a quarrel",
+          "en": "the quarrel",
           "start": 76,
           "end": 87
         }
@@ -1148,25 +1150,25 @@
       "mappings": [
         {
           "ar": "طَرِيقُ",
-          "en": "way",
+          "en": "the way of",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الْكَسُولِ",
-          "en": "sluggard",
+          "en": "the sluggard",
           "start": 8,
           "end": 18
         },
         {
           "ar": "مَمْلُوءٌ",
-          "en": "blocked",
+          "en": "is blocked",
           "start": 19,
           "end": 28
         },
         {
           "ar": "بِالْمَتَاعِبِ،",
-          "en": "with thorns",
+          "en": "with difficulties",
           "start": 29,
           "end": 44
         },
@@ -1178,19 +1180,19 @@
         },
         {
           "ar": "سَبِيلُ",
-          "en": "path",
+          "en": "path of",
           "start": 52,
           "end": 59
         },
         {
           "ar": "الْمُسْتَقِيمِينَ",
-          "en": "upright",
+          "en": "the upright",
           "start": 60,
           "end": 77
         },
         {
           "ar": "فَمُمَهَّدٌ.",
-          "en": "a highway",
+          "en": "but is leveled",
           "start": 78,
           "end": 90
         }
@@ -1202,19 +1204,19 @@
       "mappings": [
         {
           "ar": "الابْنُ",
-          "en": "son",
+          "en": "the son",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الْحَكِيمُ",
-          "en": "wise",
+          "en": "the wise",
           "start": 8,
           "end": 18
         },
         {
           "ar": "يَسُرُّ",
-          "en": "brings joy",
+          "en": "brings joy to",
           "start": 19,
           "end": 26
         },
@@ -1226,7 +1228,7 @@
         },
         {
           "ar": "وَالْجَاهِلُ",
-          "en": "but a foolish man",
+          "en": "and the foolish one",
           "start": 35,
           "end": 47
         },
@@ -1250,49 +1252,49 @@
       "mappings": [
         {
           "ar": "الْحَمَاقَةُ",
-          "en": "Folly",
+          "en": "folly",
           "start": 0,
           "end": 12
         },
         {
           "ar": "مَصْدَرُ",
-          "en": "Source",
+          "en": "source of",
           "start": 13,
           "end": 21
         },
         {
           "ar": "فَرَحٍ",
-          "en": "Joy",
+          "en": "joy",
           "start": 22,
           "end": 28
         },
         {
           "ar": "لِلْغَبِيِّ،",
-          "en": "To one who has no sense",
+          "en": "to the foolish one",
           "start": 29,
           "end": 41
         },
         {
           "ar": "أَمَّا",
-          "en": "But",
+          "en": "but",
           "start": 42,
           "end": 48
         },
         {
           "ar": "الْفَهِيمُ",
-          "en": "Whoever has understanding",
+          "en": "the understanding one",
           "start": 49,
           "end": 59
         },
         {
           "ar": "فَيَسْلُكُ",
-          "en": "Keeps",
+          "en": "but he walks",
           "start": 60,
           "end": 70
         },
         {
           "ar": "بِاسْتِقَامَةٍ.",
-          "en": "A straight course",
+          "en": "in uprightness",
           "start": 71,
           "end": 86
         }
@@ -1304,49 +1306,49 @@
       "mappings": [
         {
           "ar": "تُخْفِقُ",
-          "en": "Fail",
+          "en": "fail",
           "start": 0,
           "end": 8
         },
         {
           "ar": "الْمَقَاصِدُ",
-          "en": "Plans",
+          "en": "the plans",
           "start": 9,
           "end": 21
         },
         {
           "ar": "مِنْ",
-          "en": "For",
+          "en": "from",
           "start": 22,
           "end": 26
         },
         {
           "ar": "غَيْرِ",
-          "en": "Without",
+          "en": "without",
           "start": 27,
           "end": 33
         },
         {
           "ar": "مَشُورَةٍ،",
-          "en": "Counsel",
+          "en": "counsel",
           "start": 34,
           "end": 44
         },
         {
           "ar": "وَتُفْلِحُ",
-          "en": "Succeed",
+          "en": "and succeed",
           "start": 45,
           "end": 55
         },
         {
           "ar": "بِكَثْرَةِ",
-          "en": "With",
+          "en": "with the abundance of",
           "start": 56,
           "end": 66
         },
         {
           "ar": "الْمُشِيرِينَ.",
-          "en": "Advisors",
+          "en": "the advisers",
           "start": 67,
           "end": 81
         }
@@ -1358,55 +1360,55 @@
       "mappings": [
         {
           "ar": "الْجَوَابُ",
-          "en": "REPLY",
+          "en": "the reply",
           "start": 0,
           "end": 10
         },
         {
           "ar": "الْمُلائِمُ",
-          "en": "APT",
+          "en": "the apt",
           "start": 11,
           "end": 22
         },
         {
           "ar": "يُفَرِّحُ",
-          "en": "GLADDENS",
+          "en": "makes happy",
           "start": 23,
           "end": 32
         },
         {
           "ar": "الإِنْسَانَ،",
-          "en": "A PERSON",
+          "en": "the person",
           "start": 33,
           "end": 45
         },
         {
           "ar": "وَمَا",
-          "en": "AND",
+          "en": "and how",
           "start": 46,
           "end": 51
         },
         {
           "ar": "أَحْسَنَ",
-          "en": "HOW GOOD",
+          "en": "good",
           "start": 52,
           "end": 60
         },
         {
           "ar": "الْكَلِمَةَ",
-          "en": "A WORD",
+          "en": "the word",
           "start": 61,
           "end": 72
         },
         {
           "ar": "فِي",
-          "en": "IN",
+          "en": "in",
           "start": 73,
           "end": 76
         },
         {
           "ar": "حِينِهَا.",
-          "en": "ITS TIME",
+          "en": "its time",
           "start": 77,
           "end": 86
         }
@@ -1418,79 +1420,79 @@
       "mappings": [
         {
           "ar": "طَرِيقُ",
-          "en": "PATH",
+          "en": "path of",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الإِنْسَانِ",
-          "en": "OF MAN",
+          "en": "of the man",
           "start": 8,
           "end": 19
         },
         {
           "ar": "الْحَكِيمِ",
-          "en": "THE PRUDENT",
+          "en": "the prudent",
           "start": 20,
           "end": 30
         },
         {
           "ar": "تَرْتَقِي",
-          "en": "LEADS",
+          "en": "rises",
           "start": 31,
           "end": 40
         },
         {
           "ar": "بِهِ",
-          "en": "HIM",
+          "en": "with it",
           "start": 41,
           "end": 45
         },
         {
           "ar": "صُعُوداً",
-          "en": "UPWARD",
+          "en": "upward",
           "start": 46,
           "end": 54
         },
         {
           "ar": "نَحْوَ",
-          "en": "TOWARD",
+          "en": "toward",
           "start": 55,
           "end": 61
         },
         {
           "ar": "الْحَيَاةِ،",
-          "en": "LIFE",
+          "en": "life",
           "start": 62,
           "end": 73
         },
         {
           "ar": "لِكَيْ",
-          "en": "SO THAT",
+          "en": "so that",
           "start": 74,
           "end": 80
         },
         {
           "ar": "يَتَفَادَى",
-          "en": "TO AVOID",
+          "en": "he avoids",
           "start": 81,
           "end": 91
         },
         {
           "ar": "الْهَاوِيَةَ",
-          "en": "THE REALM OF THE DEAD",
+          "en": "the abyss",
           "start": 92,
           "end": 104
         },
         {
           "ar": "مِنْ",
-          "en": "FROM",
+          "en": "from",
           "start": 105,
           "end": 109
         },
         {
           "ar": "تَحْتُ.",
-          "en": "BELOW",
+          "en": "below",
           "start": 110,
           "end": 117
         }
@@ -1502,19 +1504,19 @@
       "mappings": [
         {
           "ar": "يَسْتَأْصِلُ",
-          "en": "tears down",
+          "en": "uproots",
           "start": 0,
           "end": 12
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 13,
           "end": 21
         },
         {
           "ar": "بَيْتَ",
-          "en": "house",
+          "en": "house of",
           "start": 22,
           "end": 28
         },
@@ -1526,19 +1528,19 @@
         },
         {
           "ar": "وَيُوَطِّدُ",
-          "en": "sets",
+          "en": "and he secures",
           "start": 49,
           "end": 60
         },
         {
           "ar": "تُخْمَ",
-          "en": "boundary stones",
+          "en": "boundary of",
           "start": 61,
           "end": 67
         },
         {
           "ar": "الأَرْمَلَةِ.",
-          "en": "the widow’s",
+          "en": "the widow",
           "start": 68,
           "end": 81
         }
@@ -1556,19 +1558,19 @@
         },
         {
           "ar": "الأَشْرَارِ",
-          "en": "of the wicked",
+          "en": "the wicked",
           "start": 9,
           "end": 20
         },
         {
           "ar": "رِجْسٌ",
-          "en": "detests",
+          "en": "abomination",
           "start": 21,
           "end": 27
         },
         {
           "ar": "لَدَى",
-          "en": "in the sight of",
+          "en": "with",
           "start": 28,
           "end": 33
         },
@@ -1580,25 +1582,25 @@
         },
         {
           "ar": "وَفِي",
-          "en": "but in",
+          "en": "and in",
           "start": 44,
           "end": 49
         },
         {
           "ar": "أَقْوَالِ",
-          "en": "words",
+          "en": "words of",
           "start": 50,
           "end": 59
         },
         {
           "ar": "الأَطْهَارِ",
-          "en": "of the pure/gracious",
+          "en": "the pure ones",
           "start": 60,
           "end": 71
         },
         {
           "ar": "مَسَرَّتُهُ.",
-          "en": "his delight/joy",
+          "en": "his delight",
           "start": 72,
           "end": 84
         }
@@ -1610,61 +1612,61 @@
       "mappings": [
         {
           "ar": "الْحَرِيصُ",
-          "en": "The",
+          "en": "the greedy one",
           "start": 0,
           "end": 10
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 11,
           "end": 16
         },
         {
           "ar": "الْكَسْبِ",
-          "en": "Gain/Earning",
+          "en": "the gain",
           "start": 17,
           "end": 26
         },
         {
           "ar": "يَجْلِبُ",
-          "en": "Brings",
+          "en": "brings",
           "start": 27,
           "end": 35
         },
         {
           "ar": "الْمَتَاعِبَ",
-          "en": "Troubles/Sorrows",
+          "en": "the troubles",
           "start": 36,
           "end": 48
         },
         {
           "ar": "لِبَيْتِهِ،",
-          "en": "To his household",
+          "en": "to his house",
           "start": 49,
           "end": 60
         },
         {
           "ar": "وَمَنْ",
-          "en": "And whoever",
+          "en": "and the one who",
           "start": 61,
           "end": 67
         },
         {
           "ar": "يَكْرَهُ",
-          "en": "Hates",
+          "en": "hates",
           "start": 68,
           "end": 76
         },
         {
           "ar": "الرِّشْوَةَ",
-          "en": "Bribes",
+          "en": "bribes",
           "start": 77,
           "end": 88
         },
         {
           "ar": "يَحْيَا.",
-          "en": "Will live",
+          "en": "will live",
           "start": 89,
           "end": 97
         }
@@ -1676,61 +1678,61 @@
       "mappings": [
         {
           "ar": "قَلْبُ",
-          "en": "HEART",
+          "en": "heart",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الصِّدِّيقِ",
-          "en": "OF THE RIGHTEOUS",
+          "en": "the righteous one",
           "start": 7,
           "end": 18
         },
         {
           "ar": "يَتَمَعَّنُ",
-          "en": "WEIGHS",
+          "en": "weighs",
           "start": 19,
           "end": 30
         },
         {
           "ar": "فِي",
-          "en": "ITS",
+          "en": "in",
           "start": 31,
           "end": 34
         },
         {
           "ar": "الْجَوَابِ،",
-          "en": "ANSWERS",
+          "en": "the answer",
           "start": 35,
           "end": 46
         },
         {
           "ar": "أَمَّا",
-          "en": "BUT",
+          "en": "but",
           "start": 47,
           "end": 53
         },
         {
           "ar": "أَفْوَاهُ",
-          "en": "MOUTHS",
+          "en": "his mouth",
           "start": 54,
           "end": 63
         },
         {
           "ar": "الأَشْرَارِ",
-          "en": "OF THE WICKED",
+          "en": "the wicked",
           "start": 64,
           "end": 75
         },
         {
           "ar": "فَتَتَدَفَّقُ",
-          "en": "GUSHES",
+          "en": "but gushes",
           "start": 76,
           "end": 89
         },
         {
           "ar": "بِالْخَبَائِثِ.",
-          "en": "WITH EVIL",
+          "en": "with evil",
           "start": 90,
           "end": 105
         }
@@ -1742,7 +1744,7 @@
       "mappings": [
         {
           "ar": "الرَّبُّ",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 0,
           "end": 8
         },
@@ -1760,31 +1762,31 @@
         },
         {
           "ar": "الأَشْرَارِ،",
-          "en": "wicked",
+          "en": "the wicked",
           "start": 22,
           "end": 34
         },
         {
           "ar": "إِنَّمَا",
-          "en": "only",
+          "en": "but only",
           "start": 35,
           "end": 43
         },
         {
           "ar": "يَسْمَعُ",
-          "en": "hears",
+          "en": "he hears",
           "start": 44,
           "end": 52
         },
         {
           "ar": "صَلاةَ",
-          "en": "prayer",
+          "en": "the prayer of",
           "start": 53,
           "end": 59
         },
         {
           "ar": "الأَبْرَارِ.",
-          "en": "righteous",
+          "en": "the righteous",
           "start": 60,
           "end": 72
         }
@@ -1796,67 +1798,67 @@
       "mappings": [
         {
           "ar": "الْبَهْجَةُ",
-          "en": "Joy",
+          "en": "the joy",
           "start": 0,
           "end": 11
         },
         {
           "ar": "الْمُتَأَلِّقَةُ",
-          "en": "Shining",
+          "en": "shining",
           "start": 12,
           "end": 28
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 29,
           "end": 32
         },
         {
           "ar": "الْعَيْنَيْنِ",
-          "en": "Eyes",
+          "en": "the eyes",
           "start": 33,
           "end": 46
         },
         {
           "ar": "تُفْرِحُ",
-          "en": "Brings",
+          "en": "brings joy to",
           "start": 47,
           "end": 55
         },
         {
           "ar": "قَلْبَ",
-          "en": "Heart",
+          "en": "heart",
           "start": 56,
           "end": 62
         },
         {
           "ar": "الصِّدِّيقِ،",
-          "en": "Friend's",
+          "en": "the righteous one",
           "start": 63,
           "end": 75
         },
         {
           "ar": "وَالْخَبَرُ",
-          "en": "And the news",
+          "en": "and the news",
           "start": 76,
           "end": 87
         },
         {
           "ar": "الطَّيِّبُ",
-          "en": "Good",
+          "en": "good",
           "start": 88,
           "end": 98
         },
         {
           "ar": "يُنْعِشُ",
-          "en": "Revives",
+          "en": "gives health to",
           "start": 99,
           "end": 107
         },
         {
           "ar": "النَّفْسَ.",
-          "en": "Soul",
+          "en": "the soul",
           "start": 108,
           "end": 118
         }
@@ -1868,55 +1870,55 @@
       "mappings": [
         {
           "ar": "ذُو",
-          "en": "He",
+          "en": "having",
           "start": 0,
           "end": 3
         },
         {
           "ar": "الأُذُنِ",
-          "en": "The ear",
+          "en": "the ear",
           "start": 4,
           "end": 12
         },
         {
           "ar": "الْمُسْتَمِعَةِ",
-          "en": "Listening",
+          "en": "listening",
           "start": 13,
           "end": 28
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 29,
           "end": 34
         },
         {
           "ar": "التَّوْبِيخِ",
-          "en": "Reproof",
+          "en": "the correction",
           "start": 35,
           "end": 47
         },
         {
           "ar": "الْمُحْيِي",
-          "en": "Life-giving",
+          "en": "life-giving",
           "start": 48,
           "end": 58
         },
         {
           "ar": "يَمْكُثُ",
-          "en": "Remains",
+          "en": "will stay",
           "start": 59,
           "end": 67
         },
         {
           "ar": "بَيْنَ",
-          "en": "Among",
+          "en": "among",
           "start": 68,
           "end": 74
         },
         {
           "ar": "الْحُكَمَاءِ.",
-          "en": "The wise",
+          "en": "the wise",
           "start": 75,
           "end": 88
         }
@@ -1928,7 +1930,7 @@
       "mappings": [
         {
           "ar": "مَنْ",
-          "en": "Who",
+          "en": "whoever",
           "start": 0,
           "end": 4
         },
@@ -1940,7 +1942,7 @@
         },
         {
           "ar": "التَّأْدِيبَ",
-          "en": "discipline",
+          "en": "the discipline",
           "start": 17,
           "end": 29
         },
@@ -1952,13 +1954,13 @@
         },
         {
           "ar": "نَفْسَهُ،",
-          "en": "themselves",
+          "en": "himself",
           "start": 41,
           "end": 50
         },
         {
           "ar": "وَمَنْ",
-          "en": "and who",
+          "en": "and whoever",
           "start": 51,
           "end": 57
         },
@@ -1970,7 +1972,7 @@
         },
         {
           "ar": "لَهُ",
-          "en": "it (referring to discipline)",
+          "en": "to it",
           "start": 70,
           "end": 74
         },
@@ -1994,55 +1996,55 @@
       "mappings": [
         {
           "ar": "تَقْوَى",
-          "en": "Reverence",
+          "en": "fear of",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الرَّبِّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 8,
           "end": 16
         },
         {
           "ar": "تَأْدِيبُ",
-          "en": "Instruction",
+          "en": "instruction",
           "start": 17,
           "end": 26
         },
         {
           "ar": "حِكْمَةٍ،",
-          "en": "Wisdom’s",
+          "en": "of wisdom",
           "start": 27,
           "end": 36
         },
         {
           "ar": "وَقَبْلَ",
-          "en": "Before",
+          "en": "and before",
           "start": 37,
           "end": 45
         },
         {
           "ar": "الْحُظْوَةِ",
-          "en": "Honor",
+          "en": "honor",
           "start": 46,
           "end": 57
         },
         {
           "ar": "بِالْكَرَامَةِ",
-          "en": "With dignity",
+          "en": "with honor",
           "start": 58,
           "end": 72
         },
         {
           "ar": "يَكُونُ",
-          "en": "Comes",
+          "en": "is",
           "start": 73,
           "end": 80
         },
         {
           "ar": "التَّوَاضُعُ.",
-          "en": "Humility",
+          "en": "humility",
           "start": 81,
           "end": 94
         }

@@ -1,6 +1,8 @@
 {
   "book": "JOB",
   "chapter": 24,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "لِمَاذَا إِذاً لَمْ يُحَدِّدِ الْقَدِيرُ أَزْمِنَةَ الْمُحَاكَمَةِ، وَلِمَاذَا لَا يَرَى مُتَّقُوهُ يَوْمَهُ؟",
@@ -8,73 +10,73 @@
       "mappings": [
         {
           "ar": "لِمَاذَا",
-          "en": "Why",
+          "en": "why",
           "start": 0,
           "end": 8
         },
         {
           "ar": "إِذاً",
-          "en": "Then",
+          "en": "then",
           "start": 9,
           "end": 14
         },
         {
           "ar": "لَمْ",
-          "en": "Not",
+          "en": "not",
           "start": 15,
           "end": 19
         },
         {
           "ar": "يُحَدِّدِ",
-          "en": "Determine/Set",
+          "en": "set",
           "start": 20,
           "end": 29
         },
         {
           "ar": "الْقَدِيرُ",
-          "en": "The Almighty",
+          "en": "the Almighty",
           "start": 30,
           "end": 40
         },
         {
           "ar": "أَزْمِنَةَ",
-          "en": "Times",
+          "en": "times",
           "start": 41,
           "end": 51
         },
         {
           "ar": "الْمُحَاكَمَةِ،",
-          "en": "Of Judgment",
+          "en": "judgment",
           "start": 52,
           "end": 67
         },
         {
           "ar": "وَلِمَاذَا",
-          "en": "Why",
+          "en": "and why",
           "start": 68,
           "end": 78
         },
         {
           "ar": "لَا",
-          "en": "Not",
+          "en": "not",
           "start": 79,
           "end": 82
         },
         {
           "ar": "يَرَى",
-          "en": "See",
+          "en": "see",
           "start": 83,
           "end": 88
         },
         {
           "ar": "مُتَّقُوهُ",
-          "en": "His Righteous/Godfearing",
+          "en": "those who fear him",
           "start": 89,
           "end": 99
         },
         {
           "ar": "يَوْمَهُ؟",
-          "en": "His Day",
+          "en": "his day",
           "start": 100,
           "end": 109
         }
@@ -86,37 +88,37 @@
       "mappings": [
         {
           "ar": "يَنْقُلُ",
-          "en": "Moves",
+          "en": "move",
           "start": 0,
           "end": 8
         },
         {
           "ar": "النَّاسُ",
-          "en": "People",
+          "en": "the people",
           "start": 9,
           "end": 17
         },
         {
           "ar": "التُّخُومَ،",
-          "en": "Boundary stones",
+          "en": "the boundaries",
           "start": 18,
           "end": 29
         },
         {
           "ar": "وَيَغْتَصِبُونَ",
-          "en": "Seize/Take by force",
+          "en": "and they seize",
           "start": 30,
           "end": 45
         },
         {
           "ar": "الْقُطْعَانَ",
-          "en": "Flocks",
+          "en": "the flocks",
           "start": 46,
           "end": 58
         },
         {
           "ar": "وَيَرْعَوْنَهَا.",
-          "en": "They pasture/graze them",
+          "en": "and they pasture them",
           "start": 59,
           "end": 75
         }
@@ -128,7 +130,7 @@
       "mappings": [
         {
           "ar": "يَأْخُذُونَ",
-          "en": "They drive away",
+          "en": "they take",
           "start": 0,
           "end": 11
         },
@@ -140,13 +142,13 @@
         },
         {
           "ar": "الأَيْتَامِ",
-          "en": "of the orphans",
+          "en": "the orphans",
           "start": 20,
           "end": 31
         },
         {
           "ar": "وَيَرْتَهِنُونَ",
-          "en": "and take in pledge",
+          "en": "and they pledge",
           "start": 32,
           "end": 47
         },
@@ -158,7 +160,7 @@
         },
         {
           "ar": "الأَرْمَلَةِ.",
-          "en": "of the widow",
+          "en": "the widow",
           "start": 55,
           "end": 68
         }
@@ -170,7 +172,7 @@
       "mappings": [
         {
           "ar": "يَصُدُّونَ",
-          "en": "They thrust",
+          "en": "they thrust",
           "start": 0,
           "end": 10
         },
@@ -194,25 +196,25 @@
         },
         {
           "ar": "فَيَخْتَبِئُ",
-          "en": "and force",
+          "en": "and hide",
           "start": 42,
           "end": 54
         },
         {
           "ar": "فُقَرَاءُ",
-          "en": "all the poor",
+          "en": "the poor",
           "start": 55,
           "end": 64
         },
         {
           "ar": "الأَرْضِ",
-          "en": "of the land",
+          "en": "the earth",
           "start": 65,
           "end": 73
         },
         {
           "ar": "جَمِيعاً.",
-          "en": "into hiding",
+          "en": "all",
           "start": 74,
           "end": 83
         }
@@ -230,97 +232,97 @@
         },
         {
           "ar": "فَهَا",
-          "en": "Behold/Here",
+          "en": "behold",
           "start": 10,
           "end": 15
         },
         {
           "ar": "هُمْ",
-          "en": "They",
+          "en": "they",
           "start": 16,
           "end": 20
         },
         {
           "ar": "يَخْرُجُونَ",
-          "en": "They go out/They emerge",
+          "en": "they go out",
           "start": 21,
           "end": 32
         },
         {
           "ar": "إِلَى",
-          "en": "To/Towards",
+          "en": "to",
           "start": 33,
           "end": 38
         },
         {
           "ar": "عَمَلِهِمْ",
-          "en": "Their work/Their labor",
+          "en": "their work",
           "start": 39,
           "end": 49
         },
         {
           "ar": "كَالْحِمَارِ",
-          "en": "Like the",
+          "en": "like the donkey",
           "start": 50,
           "end": 62
         },
         {
           "ar": "الْوَحْشِيِّ",
-          "en": "Wild",
+          "en": "wild",
           "start": 63,
           "end": 75
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 76,
           "end": 79
         },
         {
           "ar": "الصَّحْرَاءِ",
-          "en": "Desert",
+          "en": "the desert",
           "start": 80,
           "end": 92
         },
         {
           "ar": "يَطْلُبُونَ",
-          "en": "They seek/They search",
+          "en": "they seek",
           "start": 93,
           "end": 104
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 105,
           "end": 108
         },
         {
           "ar": "الْقَفْرِ",
-          "en": "Wasteland/Desert",
+          "en": "the wasteland",
           "start": 109,
           "end": 118
         },
         {
           "ar": "صَيْداً،",
-          "en": "Prey",
+          "en": "prey",
           "start": 119,
           "end": 127
         },
         {
           "ar": "لِيَكُونَ",
-          "en": "So that it may be/To be",
+          "en": "to be",
           "start": 128,
           "end": 137
         },
         {
           "ar": "طَعَاماً",
-          "en": "Food",
+          "en": "food",
           "start": 138,
           "end": 146
         },
         {
           "ar": "لأَبْنَائِهِمْ،",
-          "en": "For their children",
+          "en": "for their children",
           "start": 147,
           "end": 162
         }
@@ -332,7 +334,7 @@
       "mappings": [
         {
           "ar": "يَجْمَعُونَ",
-          "en": "They gather",
+          "en": "they gather",
           "start": 0,
           "end": 11
         },
@@ -350,25 +352,25 @@
         },
         {
           "ar": "الْحَقْلِ",
-          "en": "the fields",
+          "en": "the field",
           "start": 28,
           "end": 37
         },
         {
           "ar": "وَيَقْطُفُونَ",
-          "en": "and glean",
+          "en": "and they glean",
           "start": 38,
           "end": 51
         },
         {
           "ar": "كَرْمَ",
-          "en": "vineyards",
+          "en": "vineyard of",
           "start": 52,
           "end": 58
         },
         {
           "ar": "الشِّرِّيرِ.",
-          "en": "of the wicked",
+          "en": "the wicked one",
           "start": 59,
           "end": 71
         }
@@ -380,61 +382,61 @@
       "mappings": [
         {
           "ar": "يَرْقُدُونَ",
-          "en": "They sleep",
+          "en": "they sleep",
           "start": 0,
           "end": 11
         },
         {
           "ar": "اللَّيْلَ",
-          "en": "The night",
+          "en": "the night",
           "start": 12,
           "end": 21
         },
         {
           "ar": "كُلَّهُ",
-          "en": "The whole",
+          "en": "all of it",
           "start": 22,
           "end": 29
         },
         {
           "ar": "عُرَاةً",
-          "en": "Naked",
+          "en": "naked",
           "start": 30,
           "end": 37
         },
         {
           "ar": "مِنْ",
-          "en": "Without",
+          "en": "from",
           "start": 38,
           "end": 42
         },
         {
           "ar": "غَيْرِ",
-          "en": "Except for",
+          "en": "other than",
           "start": 43,
           "end": 49
         },
         {
           "ar": "كَسْوَةٍ",
-          "en": "Covering",
+          "en": "clothing",
           "start": 50,
           "end": 58
         },
         {
           "ar": "تَقِيهِمْ",
-          "en": "To protect them",
+          "en": "protects them",
           "start": 59,
           "end": 68
         },
         {
           "ar": "قَسْوَةَ",
-          "en": "The harshness of",
+          "en": "harshness of",
           "start": 69,
           "end": 77
         },
         {
           "ar": "الْبَرْدِ.",
-          "en": "The cold",
+          "en": "the cold",
           "start": 78,
           "end": 88
         }
@@ -446,13 +448,13 @@
       "mappings": [
         {
           "ar": "يَبْتَلُّونَ",
-          "en": "They are drenched",
+          "en": "they are drenched",
           "start": 0,
           "end": 12
         },
         {
           "ar": "مِنْ",
-          "en": "by",
+          "en": "from",
           "start": 13,
           "end": 17
         },
@@ -464,37 +466,37 @@
         },
         {
           "ar": "الْجِبَالِ،",
-          "en": "of",
+          "en": "the mountains",
           "start": 25,
           "end": 36
         },
         {
           "ar": "وَيَرْكَنُونَ",
-          "en": "the mountains",
+          "en": "and they lean",
           "start": 37,
           "end": 50
         },
         {
           "ar": "إِلَى",
-          "en": "of",
+          "en": "to",
           "start": 51,
           "end": 56
         },
         {
           "ar": "الصَّخْرِ",
-          "en": "hug",
+          "en": "the rock",
           "start": 57,
           "end": 66
         },
         {
           "ar": "لاِفْتِقَارِهِمْ",
-          "en": "for lack",
+          "en": "for their need",
           "start": 67,
           "end": 83
         },
         {
           "ar": "إِلَى",
-          "en": "of",
+          "en": "to",
           "start": 84,
           "end": 89
         },
@@ -512,13 +514,13 @@
       "mappings": [
         {
           "ar": "يَخْطِفُونَ",
-          "en": "snatch",
+          "en": "they snatch",
           "start": 0,
           "end": 11
         },
         {
           "ar": "الْيَتَامَى",
-          "en": "fatherless",
+          "en": "the orphans",
           "start": 12,
           "end": 23
         },
@@ -536,19 +538,19 @@
         },
         {
           "ar": "وَيَرْتَهِنُونَ",
-          "en": "seize",
+          "en": "and they pledge",
           "start": 41,
           "end": 56
         },
         {
           "ar": "طِفْلَ",
-          "en": "infant",
+          "en": "the infant of",
           "start": 57,
           "end": 63
         },
         {
           "ar": "الْمِسْكِينِ،",
-          "en": "of the poor",
+          "en": "the poor one",
           "start": 64,
           "end": 77
         }
@@ -560,43 +562,43 @@
       "mappings": [
         {
           "ar": "يَطُوفُونَ",
-          "en": "They go about",
+          "en": "they go about",
           "start": 0,
           "end": 10
         },
         {
           "ar": "عُرَاةً",
-          "en": "Naked",
+          "en": "naked",
           "start": 11,
           "end": 18
         },
         {
           "ar": "بِلا",
-          "en": "Without",
+          "en": "without",
           "start": 19,
           "end": 23
         },
         {
           "ar": "كِسَاءٍ،",
-          "en": "Garment/Clothing",
+          "en": "clothing",
           "start": 24,
           "end": 32
         },
         {
           "ar": "جِيَاعاً",
-          "en": "Hungry",
+          "en": "hungry",
           "start": 33,
           "end": 41
         },
         {
           "ar": "حَامِلِينَ",
-          "en": "Carrying",
+          "en": "carrying",
           "start": 42,
           "end": 52
         },
         {
           "ar": "الْحُزَمَ.",
-          "en": "Sheaves/Bundles",
+          "en": "the sheaves",
           "start": 53,
           "end": 63
         }
@@ -608,13 +610,13 @@
       "mappings": [
         {
           "ar": "يَعْصِرُونَ",
-          "en": "They crush",
+          "en": "they crush",
           "start": 0,
           "end": 11
         },
         {
           "ar": "الزَّيْتَ",
-          "en": "olives",
+          "en": "the oil",
           "start": 12,
           "end": 21
         },
@@ -632,19 +634,19 @@
         },
         {
           "ar": "زَيْتُونِ",
-          "en": "of olives",
+          "en": "olives",
           "start": 38,
           "end": 47
         },
         {
           "ar": "الأَشْرَارِ،",
-          "en": "of the wicked",
+          "en": "the wicked",
           "start": 48,
           "end": 60
         },
         {
           "ar": "وَيَدُوسُونَ",
-          "en": "they tread",
+          "en": "and they tread",
           "start": 61,
           "end": 73
         },
@@ -656,19 +658,19 @@
         },
         {
           "ar": "الْخَمْرِ",
-          "en": "of wine",
+          "en": "the wine",
           "start": 84,
           "end": 93
         },
         {
           "ar": "وَهُمْ",
-          "en": "and they",
+          "en": "and they are",
           "start": 94,
           "end": 100
         },
         {
           "ar": "عِطَاشٌ.",
-          "en": "are thirsty",
+          "en": "thirsty",
           "start": 101,
           "end": 109
         }
@@ -680,91 +682,91 @@
       "mappings": [
         {
           "ar": "يَرْتَفِعُ",
-          "en": "RISES",
+          "en": "rise",
           "start": 0,
           "end": 10
         },
         {
           "ar": "مِنَ",
-          "en": "FROM",
+          "en": "from",
           "start": 11,
           "end": 15
         },
         {
           "ar": "الْمُدُنِ",
-          "en": "THE CITY",
+          "en": "the cities",
           "start": 16,
           "end": 25
         },
         {
           "ar": "أَنِينُ",
-          "en": "GROANS",
+          "en": "groans",
           "start": 26,
           "end": 33
         },
         {
           "ar": "الْمُشْرِفِينَ",
-          "en": "THOSE WAITING",
+          "en": "the dying",
           "start": 34,
           "end": 48
         },
         {
           "ar": "عَلَى",
-          "en": "ON",
+          "en": "on",
           "start": 49,
           "end": 54
         },
         {
           "ar": "الْمَوْتِ،",
-          "en": "DEATH",
+          "en": "death",
           "start": 55,
           "end": 65
         },
         {
           "ar": "وَتَسْتَغِيثُ",
-          "en": "AND CRY OUT",
+          "en": "and cry out for help",
           "start": 66,
           "end": 79
         },
         {
           "ar": "نُفُوسُ",
-          "en": "THE SOULS",
+          "en": "souls",
           "start": 80,
           "end": 87
         },
         {
           "ar": "الْجَرْحَى،",
-          "en": "OF THE WOUNDED",
+          "en": "the wounded",
           "start": 88,
           "end": 99
         },
         {
           "ar": "وَاللهُ",
-          "en": "BUT GOD",
+          "en": "and God",
           "start": 100,
           "end": 107
         },
         {
           "ar": "لَا",
-          "en": "DOES NOT",
+          "en": "not",
           "start": 108,
           "end": 111
         },
         {
           "ar": "يُصْغِي",
-          "en": "LISTEN",
+          "en": "listens",
           "start": 112,
           "end": 119
         },
         {
           "ar": "إِلَى",
-          "en": "TO",
+          "en": "to",
           "start": 120,
           "end": 125
         },
         {
           "ar": "دُعَائِهِمْ.",
-          "en": "THEIR PRAYERS",
+          "en": "their prayer",
           "start": 126,
           "end": 138
         }
@@ -776,85 +778,85 @@
       "mappings": [
         {
           "ar": "هُنَاكَ",
-          "en": "There",
+          "en": "there",
           "start": 0,
           "end": 7
         },
         {
           "ar": "مَنْ",
-          "en": "Those",
+          "en": "who",
           "start": 8,
           "end": 12
         },
         {
           "ar": "كَانَ",
-          "en": "Were",
+          "en": "were",
           "start": 13,
           "end": 18
         },
         {
           "ar": "بَيْنَ",
-          "en": "Among",
+          "en": "among",
           "start": 19,
           "end": 25
         },
         {
           "ar": "الْمُتَمَرِّدِيِنَ",
-          "en": "Rebels",
+          "en": "the rebels",
           "start": 26,
           "end": 44
         },
         {
           "ar": "عَلَى",
-          "en": "Against",
+          "en": "against",
           "start": 45,
           "end": 50
         },
         {
           "ar": "النُّورِ،",
-          "en": "The Light",
+          "en": "the light",
           "start": 51,
           "end": 60
         },
         {
           "ar": "فَلَمْ",
-          "en": "But",
+          "en": "but they did not",
           "start": 61,
           "end": 67
         },
         {
           "ar": "يَعْرِفُوا",
-          "en": "Did Not Know",
+          "en": "they know",
           "start": 68,
           "end": 78
         },
         {
           "ar": "طُرُقَهَ،",
-          "en": "Its Ways",
+          "en": "its ways",
           "start": 79,
           "end": 88
         },
         {
           "ar": "وَلَمْ",
-          "en": "And Did Not",
+          "en": "and not",
           "start": 89,
           "end": 95
         },
         {
           "ar": "يَمْكُثُوا",
-          "en": "Remain",
+          "en": "they stay",
           "start": 96,
           "end": 106
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 107,
           "end": 110
         },
         {
           "ar": "سُبُلِهِ.",
-          "en": "Its Paths",
+          "en": "his paths",
           "start": 111,
           "end": 120
         }
@@ -866,73 +868,73 @@
       "mappings": [
         {
           "ar": "عِنْدَ",
-          "en": "When",
+          "en": "at",
           "start": 0,
           "end": 6
         },
         {
           "ar": "مَطْلَعِ",
-          "en": "At the rising of",
+          "en": "rising of",
           "start": 7,
           "end": 15
         },
         {
           "ar": "النُّورِ",
-          "en": "The light",
+          "en": "the light",
           "start": 16,
           "end": 24
         },
         {
           "ar": "يَنْهَضُ",
-          "en": "Rises up",
+          "en": "rises up",
           "start": 25,
           "end": 33
         },
         {
           "ar": "الْقَاتِلُ",
-          "en": "The murderer",
+          "en": "the murderer",
           "start": 34,
           "end": 44
         },
         {
           "ar": "وَيُهْلِكُ",
-          "en": "And destroys",
+          "en": "and kills",
           "start": 45,
           "end": 55
         },
         {
           "ar": "الْبَائِسَ",
-          "en": "The poor",
+          "en": "the poor",
           "start": 56,
           "end": 66
         },
         {
           "ar": "وَالْمُحْتَاجَ،",
-          "en": "And the needy",
+          "en": "and the needy",
           "start": 67,
           "end": 82
         },
         {
           "ar": "وَفِي",
-          "en": "And in",
+          "en": "and in",
           "start": 83,
           "end": 88
         },
         {
           "ar": "اللَّيْلِ",
-          "en": "The night",
+          "en": "the night",
           "start": 89,
           "end": 98
         },
         {
           "ar": "يَغْدُو",
-          "en": "Becomes",
+          "en": "becomes",
           "start": 99,
           "end": 106
         },
         {
           "ar": "لِصّاً.",
-          "en": "A thief",
+          "en": "a thief",
           "start": 107,
           "end": 114
         }
@@ -944,7 +946,7 @@
       "mappings": [
         {
           "ar": "يَنْتَظِرُ",
-          "en": "waits",
+          "en": "waits for",
           "start": 0,
           "end": 10
         },
@@ -956,19 +958,19 @@
         },
         {
           "ar": "حُلُولَ",
-          "en": "the arrival of",
+          "en": "the coming of",
           "start": 21,
           "end": 28
         },
         {
           "ar": "الْعَتَمَةِ",
-          "en": "darkness",
+          "en": "the dusk",
           "start": 29,
           "end": 40
         },
         {
           "ar": "فَيَتَقَنَّعُ",
-          "en": "then he conceals himself",
+          "en": "and he conceals himself",
           "start": 41,
           "end": 54
         },
@@ -986,7 +988,7 @@
         },
         {
           "ar": "تُبْصِرَنِي",
-          "en": "see me",
+          "en": "will see me",
           "start": 70,
           "end": 81
         },
@@ -1004,13 +1006,13 @@
       "mappings": [
         {
           "ar": "يَنْقُبُونَ",
-          "en": "They break into",
+          "en": "they break into",
           "start": 0,
           "end": 11
         },
         {
           "ar": "البُيُوتَ",
-          "en": "houses",
+          "en": "the houses",
           "start": 12,
           "end": 21
         },
@@ -1028,7 +1030,7 @@
         },
         {
           "ar": "النَّهَارِ",
-          "en": "the daytime",
+          "en": "the day",
           "start": 37,
           "end": 47
         },
@@ -1040,7 +1042,7 @@
         },
         {
           "ar": "عَلَى",
-          "en": "upon",
+          "en": "on",
           "start": 60,
           "end": 65
         },
@@ -1058,7 +1060,7 @@
         },
         {
           "ar": "يَعْرِفُونَ",
-          "en": "know",
+          "en": "they know",
           "start": 84,
           "end": 95
         },
@@ -1076,55 +1078,55 @@
       "mappings": [
         {
           "ar": "لأَنَّ",
-          "en": "For",
+          "en": "for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الصَّبَاحَ",
-          "en": "Morning",
+          "en": "the morning",
           "start": 7,
           "end": 17
         },
         {
           "ar": "عِنْدَهُمْ",
-          "en": "With them",
+          "en": "with them",
           "start": 18,
           "end": 28
         },
         {
           "ar": "كَظِلِّ",
-          "en": "Like",
+          "en": "like the shadow of",
           "start": 29,
           "end": 36
         },
         {
           "ar": "الْمَوْتِ،",
-          "en": "Of death",
+          "en": "death",
           "start": 37,
           "end": 47
         },
         {
           "ar": "وَأَهْوَالُ",
-          "en": "And terrors",
+          "en": "and the terrors",
           "start": 48,
           "end": 59
         },
         {
           "ar": "الظُّلْمَةِ",
-          "en": "Of darkness",
+          "en": "the darkness",
           "start": 60,
           "end": 71
         },
         {
           "ar": "هِيَ",
-          "en": "Are",
+          "en": "it is",
           "start": 72,
           "end": 76
         },
         {
           "ar": "رِفْقَتُهُمْ.",
-          "en": "Companionship",
+          "en": "their companionship",
           "start": 77,
           "end": 90
         }
@@ -1136,85 +1138,85 @@
       "mappings": [
         {
           "ar": "يَنْجَرِفُونَ",
-          "en": "They are swept away",
+          "en": "they are swept away",
           "start": 0,
           "end": 13
         },
         {
           "ar": "لِخِفَّتِهِمْ",
-          "en": "Because of their lightness",
+          "en": "for their lightness",
           "start": 14,
           "end": 27
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 28,
           "end": 33
         },
         {
           "ar": "وَجْهِ",
-          "en": "Surface",
+          "en": "surface",
           "start": 34,
           "end": 40
         },
         {
           "ar": "الْمِيَاهِ،",
-          "en": "Of the water",
+          "en": "the waters",
           "start": 41,
           "end": 52
         },
         {
           "ar": "وَنَصِيبُهُمْ",
-          "en": "And their portion",
+          "en": "and their portion",
           "start": 53,
           "end": 66
         },
         {
           "ar": "مَلْعُونٌ",
-          "en": "Is cursed",
+          "en": "cursed",
           "start": 67,
           "end": 76
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 77,
           "end": 80
         },
         {
           "ar": "الأَرْضِ،",
-          "en": "The land",
+          "en": "the land",
           "start": 81,
           "end": 90
         },
         {
           "ar": "وَلا",
-          "en": "And no",
+          "en": "and no",
           "start": 91,
           "end": 95
         },
         {
           "ar": "أَحَدَ",
-          "en": "One",
+          "en": "anyone",
           "start": 96,
           "end": 102
         },
         {
           "ar": "يَتَوَجَّهُ",
-          "en": "Turns",
+          "en": "goes",
           "start": 103,
           "end": 114
         },
         {
           "ar": "نَحْوَ",
-          "en": "Towards",
+          "en": "toward",
           "start": 115,
           "end": 121
         },
         {
           "ar": "كُرُومِهِمْ.",
-          "en": "Their vineyards",
+          "en": "their vineyards",
           "start": 122,
           "end": 134
         }
@@ -1226,67 +1228,67 @@
       "mappings": [
         {
           "ar": "وَكَمَا",
-          "en": "As",
+          "en": "and as",
           "start": 0,
           "end": 7
         },
         {
           "ar": "أَنَّ",
-          "en": "That",
+          "en": "that",
           "start": 8,
           "end": 13
         },
         {
           "ar": "الْقَحْطَ",
-          "en": "Drought",
+          "en": "the drought",
           "start": 14,
           "end": 23
         },
         {
           "ar": "وَالْقَيْظَ",
-          "en": "And heat",
+          "en": "and the heat",
           "start": 24,
           "end": 35
         },
         {
           "ar": "يَذْهَبَانِ",
-          "en": "Vanish/Take away",
+          "en": "they take away",
           "start": 36,
           "end": 47
         },
         {
           "ar": "بِمِيَاهِ",
-          "en": "With the waters of",
+          "en": "with the waters of",
           "start": 48,
           "end": 57
         },
         {
           "ar": "الثَّلْجِ،",
-          "en": "Snow",
+          "en": "the snow",
           "start": 58,
           "end": 68
         },
         {
           "ar": "كَذَلِكَ",
-          "en": "Likewise",
+          "en": "in the same way",
           "start": 69,
           "end": 77
         },
         {
           "ar": "تَذْهَبُ",
-          "en": "Vanishes/Takes away",
+          "en": "snatches away",
           "start": 78,
           "end": 86
         },
         {
           "ar": "الْهَاوِيَةُ",
-          "en": "The grave/Abyss",
+          "en": "the grave",
           "start": 87,
           "end": 99
         },
         {
           "ar": "بِالْخَاطِئِ،",
-          "en": "With the sinner",
+          "en": "with the sinner",
           "start": 100,
           "end": 113
         }
@@ -1298,79 +1300,79 @@
       "mappings": [
         {
           "ar": "تَنْسَاهُ",
-          "en": "They forget",
+          "en": "it forgets him",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الرَّحِمُ",
-          "en": "The womb",
+          "en": "the womb",
           "start": 10,
           "end": 19
         },
         {
           "ar": "وَيَسْتَطِيبُهُ",
-          "en": "And the worm fattens on them",
+          "en": "and it feasts on it",
           "start": 20,
           "end": 35
         },
         {
           "ar": "الدُّودُ،",
-          "en": "The worm",
+          "en": "the worm",
           "start": 36,
           "end": 45
         },
         {
           "ar": "وَلا",
-          "en": "And",
+          "en": "and no one",
           "start": 46,
           "end": 50
         },
         {
           "ar": "أَحَدَ",
-          "en": "No one",
+          "en": "anyone",
           "start": 51,
           "end": 57
         },
         {
           "ar": "يَذْكُرُ",
-          "en": "Remembers",
+          "en": "remembers",
           "start": 58,
           "end": 66
         },
         {
           "ar": "الأَشْرَارَ",
-          "en": "The wicked",
+          "en": "the wicked",
           "start": 67,
           "end": 78
         },
         {
           "ar": "فِيمَا",
-          "en": "Afterward",
+          "en": "after which",
           "start": 79,
           "end": 85
         },
         {
           "ar": "بَعْدُ،",
-          "en": "Later",
+          "en": "after",
           "start": 86,
           "end": 93
         },
         {
           "ar": "فَيَكُونُونَ",
-          "en": "They become",
+          "en": "so they will be",
           "start": 94,
           "end": 106
         },
         {
           "ar": "كَشَجَرَةٍ",
-          "en": "Like a tree",
+          "en": "like a tree",
           "start": 107,
           "end": 117
         },
         {
           "ar": "مُقْتَلَعَةٍ.",
-          "en": "Uprooted",
+          "en": "uprooted",
           "start": 118,
           "end": 131
         }
@@ -1382,7 +1384,7 @@
       "mappings": [
         {
           "ar": "يُسِيئُونَ",
-          "en": "They prey on",
+          "en": "they mistreat",
           "start": 0,
           "end": 10
         },
@@ -1406,25 +1408,25 @@
         },
         {
           "ar": "لَمْ",
-          "en": "did not",
+          "en": "not",
           "start": 36,
           "end": 40
         },
         {
           "ar": "تَلِدْ،",
-          "en": "bear",
+          "en": "gave birth",
           "start": 41,
           "end": 48
         },
         {
           "ar": "وَلا",
-          "en": "and",
+          "en": "and not",
           "start": 49,
           "end": 53
         },
         {
           "ar": "يُحْسِنُونَ",
-          "en": "show no kindness",
+          "en": "they show kindness",
           "start": 54,
           "end": 65
         },
@@ -1460,7 +1462,7 @@
         },
         {
           "ar": "جَلالِهِ",
-          "en": "His majesty",
+          "en": "his majesty",
           "start": 10,
           "end": 18
         },
@@ -1478,7 +1480,7 @@
         },
         {
           "ar": "وَيُمِيتُهُ.",
-          "en": "and causes him to die",
+          "en": "and he kills him",
           "start": 40,
           "end": 52
         }
@@ -1490,19 +1492,19 @@
       "mappings": [
         {
           "ar": "يَمْنَحُهُمْ",
-          "en": "He grants them",
+          "en": "he gives them",
           "start": 0,
           "end": 12
         },
         {
           "ar": "طُمَأْنِينَةً",
-          "en": "a feeling of security",
+          "en": "security",
           "start": 13,
           "end": 26
         },
         {
           "ar": "تَرْكَنُ",
-          "en": "they lean",
+          "en": "rest in",
           "start": 27,
           "end": 35
         },
@@ -1520,7 +1522,7 @@
         },
         {
           "ar": "إِلَى",
-          "en": "until",
+          "en": "to",
           "start": 58,
           "end": 63
         },
@@ -1544,7 +1546,7 @@
         },
         {
           "ar": "تُرَاقِبانِ",
-          "en": "watch over",
+          "en": "are watching",
           "start": 90,
           "end": 101
         },
@@ -1562,73 +1564,73 @@
       "mappings": [
         {
           "ar": "تَشَامَخُوا",
-          "en": "They exulted",
+          "en": "they were exalted",
           "start": 0,
           "end": 11
         },
         {
           "ar": "لِلَحْظَةٍ",
-          "en": "For a moment",
+          "en": "for a moment",
           "start": 12,
           "end": 22
         },
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "then",
           "start": 23,
           "end": 28
         },
         {
           "ar": "تَلاشَوْا،",
-          "en": "They vanished",
+          "en": "they are gone",
           "start": 29,
           "end": 39
         },
         {
           "ar": "انْحَطُّوا",
-          "en": "They were brought low",
+          "en": "they were brought low",
           "start": 40,
           "end": 50
         },
         {
           "ar": "وَجُمِعُوا",
-          "en": "And gathered up",
+          "en": "and they were gathered",
           "start": 51,
           "end": 61
         },
         {
           "ar": "كَالأَشْيَاءِ",
-          "en": "Like all other things",
+          "en": "like the things",
           "start": 62,
           "end": 75
         },
         {
           "ar": "الأُخْرَى،",
-          "en": "Indeed",
+          "en": "the others",
           "start": 76,
           "end": 86
         },
         {
           "ar": "بَلْ",
-          "en": "They were harvested",
+          "en": "but rather",
           "start": 87,
           "end": 91
         },
         {
           "ar": "حُصِدُوا",
-          "en": "Like heads of",
+          "en": "they were cut off",
           "start": 92,
           "end": 100
         },
         {
           "ar": "كَرُؤُوسِ",
-          "en": "Ears of grain",
+          "en": "like heads of",
           "start": 101,
           "end": 110
         },
         {
           "ar": "السَّنَابِلِ؛",
-          "en": "(End of phrase)",
+          "en": "the heads of grain",
           "start": 111,
           "end": 124
         }
@@ -1640,49 +1642,49 @@
       "mappings": [
         {
           "ar": "وَإلَّا،",
-          "en": ", Otherwise",
+          "en": "and if not",
           "start": 0,
           "end": 8
         },
         {
           "ar": "مَنْ",
-          "en": ", Who",
+          "en": "who",
           "start": 9,
           "end": 13
         },
         {
           "ar": "يَقْدِرُ",
-          "en": ", Can",
+          "en": "can",
           "start": 14,
           "end": 22
         },
         {
           "ar": "أَنْ",
-          "en": ", To",
+          "en": "that",
           "start": 23,
           "end": 27
         },
         {
           "ar": "يُكَذِّبَنِي",
-          "en": ", Prove me false",
+          "en": "prove me false",
           "start": 28,
           "end": 40
         },
         {
           "ar": "وَيَجْعَلَ",
-          "en": ", And reduce",
+          "en": "and make",
           "start": 41,
           "end": 51
         },
         {
           "ar": "كَلامِي",
-          "en": ", My words",
+          "en": "my words",
           "start": 52,
           "end": 59
         },
         {
           "ar": "كَالْعَدَمِ؟»",
-          "en": ", To nothing",
+          "en": "like nothing",
           "start": 60,
           "end": 73
         }

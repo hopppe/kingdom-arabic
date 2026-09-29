@@ -1,6 +1,8 @@
 {
   "book": "2SA",
   "chapter": 16,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَعِنْدَمَا عَبَرَ دَاوُدُ قِمَّةَ الْجَبَلِ لاقَاهُ صِيبَا خَادِمُ مَفِيبُوشَثَ بِحِمَارَيْنِ مُحَمَّلَيْنِ بِمِئَتَيْ رَغِيفِ خُبْزٍ وَمِئَةِ عُنْقُودِ زَبِيبٍ وَمِئَةِ قُرْصِ تِينٍ وَزِقِّ خَمْرٍ.",
@@ -8,13 +10,13 @@
       "mappings": [
         {
           "ar": "وَعِنْدَمَا",
-          "en": "And when",
+          "en": "and when",
           "start": 0,
           "end": 11
         },
         {
           "ar": "عَبَرَ",
-          "en": "crossed",
+          "en": "had passed",
           "start": 12,
           "end": 18
         },
@@ -26,7 +28,7 @@
         },
         {
           "ar": "قِمَّةَ",
-          "en": "summit",
+          "en": "the summit of",
           "start": 27,
           "end": 34
         },
@@ -44,7 +46,7 @@
         },
         {
           "ar": "صِيبَا",
-          "en": "there was",
+          "en": "Ziba",
           "start": 53,
           "end": 59
         },
@@ -56,13 +58,13 @@
         },
         {
           "ar": "مَفِيبُوشَثَ",
-          "en": "of Mephibosheth",
+          "en": "Mephibosheth",
           "start": 68,
           "end": 80
         },
         {
           "ar": "بِحِمَارَيْنِ",
-          "en": "with a string of donkeys",
+          "en": "with two donkeys",
           "start": 81,
           "end": 94
         },
@@ -80,7 +82,7 @@
         },
         {
           "ar": "رَغِيفِ",
-          "en": "loaves",
+          "en": "loaves of",
           "start": 120,
           "end": 127
         },
@@ -98,7 +100,7 @@
         },
         {
           "ar": "عُنْقُودِ",
-          "en": "cakes",
+          "en": "cluster of",
           "start": 144,
           "end": 153
         },
@@ -110,13 +112,13 @@
         },
         {
           "ar": "وَمِئَةِ",
-          "en": "and a hundred",
+          "en": "and one hundred",
           "start": 162,
           "end": 170
         },
         {
           "ar": "قُرْصِ",
-          "en": "cakes",
+          "en": "cakes of",
           "start": 171,
           "end": 177
         },
@@ -128,7 +130,7 @@
         },
         {
           "ar": "وَزِقِّ",
-          "en": "a skin of",
+          "en": "and a skin of",
           "start": 184,
           "end": 191
         },
@@ -146,277 +148,7 @@
       "mappings": [
         {
           "ar": "فَقَالَ",
-          "en": "He said",
-          "start": 0,
-          "end": 7
-        },
-        {
-          "ar": "الْمَلِكُ",
-          "en": "The king",
-          "start": 8,
-          "end": 17
-        },
-        {
-          "ar": "لِصِيبَا:",
-          "en": "To Ziba",
-          "start": 18,
-          "end": 27
-        },
-        {
-          "ar": "«لِمَنْ",
-          "en": "To whom",
-          "start": 28,
-          "end": 35
-        },
-        {
-          "ar": "كُلُّ",
-          "en": "All of",
-          "start": 36,
-          "end": 41
-        },
-        {
-          "ar": "هَذَا؟»",
-          "en": "This",
-          "start": 42,
-          "end": 49
-        },
-        {
-          "ar": "فَأَجَابَ",
-          "en": "He answered",
-          "start": 50,
-          "end": 59
-        },
-        {
-          "ar": "صِيبَا:",
-          "en": "Ziba",
-          "start": 60,
-          "end": 67
-        },
-        {
-          "ar": "«الْحِمَارَانِ",
-          "en": "The donkeys",
-          "start": 68,
-          "end": 82
-        },
-        {
-          "ar": "لِرُكُوبِ",
-          "en": "For riding",
-          "start": 83,
-          "end": 92
-        },
-        {
-          "ar": "عَائِلَةِ",
-          "en": "The king’s household",
-          "start": 93,
-          "end": 102
-        },
-        {
-          "ar": "الْمَلِكِ،",
-          "en": "The king",
-          "start": 103,
-          "end": 113
-        },
-        {
-          "ar": "وَالْخُبْزُ",
-          "en": "And the bread",
-          "start": 114,
-          "end": 125
-        },
-        {
-          "ar": "وَالتِّينُ",
-          "en": "And the figs",
-          "start": 126,
-          "end": 136
-        },
-        {
-          "ar": "لِيَأْكُلَهَا",
-          "en": "To eat",
-          "start": 137,
-          "end": 150
-        },
-        {
-          "ar": "الرِّجَالُ،",
-          "en": "The men",
-          "start": 151,
-          "end": 162
-        },
-        {
-          "ar": "وَالْخَمْرُ",
-          "en": "And the wine",
-          "start": 163,
-          "end": 174
-        },
-        {
-          "ar": "لِمَنْ",
-          "en": "For those who",
-          "start": 175,
-          "end": 181
-        },
-        {
-          "ar": "أَعْيَا",
-          "en": "Become exhausted",
-          "start": 182,
-          "end": 189
-        },
-        {
-          "ar": "فِي",
-          "en": "In the wilderness",
-          "start": 190,
-          "end": 193
-        },
-        {
-          "ar": "الصَّحْرَاءِ».",
-          "en": "wilderness",
-          "start": 194,
-          "end": 208
-        }
-      ]
-    },
-    "3": {
-      "ar": "فَسَأَلَهُ الْمَلِكُ: «وَأَيْنَ حَفِيدُ سَيِّدِكَ؟» فَأَجَابَ صِيبَا: «هُوَ مُقِيمٌ فِي أُورُشَلِيمَ لأَنَّهُ حَدَّثَ نَفْسَهُ قَائِلاً: الْيَوْمَ يَرُدُّ لِي بَيْتُ إِسْرَائِيلَ مَمْلَكَةَ جِدِّي».",
-      "en": "The king then asked, “Where is your master’s grandson?”\nZiba said to him, “He is staying in Jerusalem, because he thinks, ‘Today the Israelites will restore to me my grandfather’s kingdom.’”",
-      "mappings": [
-        {
-          "ar": "فَسَأَلَهُ",
-          "en": "So he asked",
-          "start": 0,
-          "end": 10
-        },
-        {
-          "ar": "الْمَلِكُ:",
-          "en": "The king",
-          "start": 11,
-          "end": 21
-        },
-        {
-          "ar": "«وَأَيْنَ",
-          "en": "And where",
-          "start": 22,
-          "end": 31
-        },
-        {
-          "ar": "حَفِيدُ",
-          "en": "Grandson",
-          "start": 32,
-          "end": 39
-        },
-        {
-          "ar": "سَيِّدِكَ؟»",
-          "en": "Of your master",
-          "start": 40,
-          "end": 51
-        },
-        {
-          "ar": "فَأَجَابَ",
-          "en": "He answered",
-          "start": 52,
-          "end": 61
-        },
-        {
-          "ar": "صِيبَا:",
-          "en": "Sibah",
-          "start": 62,
-          "end": 69
-        },
-        {
-          "ar": "«هُوَ",
-          "en": "He is",
-          "start": 70,
-          "end": 75
-        },
-        {
-          "ar": "مُقِيمٌ",
-          "en": "Residing",
-          "start": 76,
-          "end": 83
-        },
-        {
-          "ar": "فِي",
-          "en": "In",
-          "start": 84,
-          "end": 87
-        },
-        {
-          "ar": "أُورُشَلِيمَ",
-          "en": "Jerusalem",
-          "start": 88,
-          "end": 100
-        },
-        {
-          "ar": "لأَنَّهُ",
-          "en": "Because",
-          "start": 101,
-          "end": 109
-        },
-        {
-          "ar": "حَدَّثَ",
-          "en": "He told",
-          "start": 110,
-          "end": 117
-        },
-        {
-          "ar": "نَفْسَهُ",
-          "en": "Himself",
-          "start": 118,
-          "end": 126
-        },
-        {
-          "ar": "قَائِلاً:",
-          "en": "Saying",
-          "start": 127,
-          "end": 136
-        },
-        {
-          "ar": "الْيَوْمَ",
-          "en": "Today",
-          "start": 137,
-          "end": 146
-        },
-        {
-          "ar": "يَرُدُّ",
-          "en": "Will restore",
-          "start": 147,
-          "end": 154
-        },
-        {
-          "ar": "لِي",
-          "en": "To me",
-          "start": 155,
-          "end": 158
-        },
-        {
-          "ar": "بَيْتُ",
-          "en": "House of",
-          "start": 159,
-          "end": 165
-        },
-        {
-          "ar": "إِسْرَائِيلَ",
-          "en": "Israel",
-          "start": 166,
-          "end": 178
-        },
-        {
-          "ar": "مَمْلَكَةَ",
-          "en": "Kingdom of",
-          "start": 179,
-          "end": 189
-        },
-        {
-          "ar": "جِدِّي».",
-          "en": "My grandfather",
-          "start": 190,
-          "end": 198
-        }
-      ]
-    },
-    "4": {
-      "ar": "فَقَالَ الْمَلِكُ لِصِيبَا: «لَقَدْ وَهَبْتُكَ كُلَّ مَا يَمْتَلِكُهُ مَفِيبُوشَثُ». فَقَالَ صِيبَا: «إِنَّنِي أَنْحَنِي أَمَامَكَ بِخُضُوعٍ، لَعَلَّنِي أَحْظَى بِرِضَى سَيِّدِي الْمَلِكِ».",
-      "en": "Then the king said to Ziba, “All that belonged to Mephibosheth is now yours.”\n“I humbly bow,” Ziba said. “May I find favor in your eyes, my lord the king.”",
-      "mappings": [
-        {
-          "ar": "فَقَالَ",
-          "en": "said",
+          "en": "so he said",
           "start": 0,
           "end": 7
         },
@@ -428,7 +160,277 @@
         },
         {
           "ar": "لِصِيبَا:",
-          "en": "to Sibah",
+          "en": "to Ziba",
+          "start": 18,
+          "end": 27
+        },
+        {
+          "ar": "«لِمَنْ",
+          "en": "for whom",
+          "start": 28,
+          "end": 35
+        },
+        {
+          "ar": "كُلُّ",
+          "en": "all of",
+          "start": 36,
+          "end": 41
+        },
+        {
+          "ar": "هَذَا؟»",
+          "en": "this",
+          "start": 42,
+          "end": 49
+        },
+        {
+          "ar": "فَأَجَابَ",
+          "en": "so he answered",
+          "start": 50,
+          "end": 59
+        },
+        {
+          "ar": "صِيبَا:",
+          "en": "Ziba",
+          "start": 60,
+          "end": 67
+        },
+        {
+          "ar": "«الْحِمَارَانِ",
+          "en": "the donkeys",
+          "start": 68,
+          "end": 82
+        },
+        {
+          "ar": "لِرُكُوبِ",
+          "en": "for riding",
+          "start": 83,
+          "end": 92
+        },
+        {
+          "ar": "عَائِلَةِ",
+          "en": "household of",
+          "start": 93,
+          "end": 102
+        },
+        {
+          "ar": "الْمَلِكِ،",
+          "en": "the king",
+          "start": 103,
+          "end": 113
+        },
+        {
+          "ar": "وَالْخُبْزُ",
+          "en": "and the bread",
+          "start": 114,
+          "end": 125
+        },
+        {
+          "ar": "وَالتِّينُ",
+          "en": "and the figs",
+          "start": 126,
+          "end": 136
+        },
+        {
+          "ar": "لِيَأْكُلَهَا",
+          "en": "for them to eat",
+          "start": 137,
+          "end": 150
+        },
+        {
+          "ar": "الرِّجَالُ،",
+          "en": "the men",
+          "start": 151,
+          "end": 162
+        },
+        {
+          "ar": "وَالْخَمْرُ",
+          "en": "and the wine",
+          "start": 163,
+          "end": 174
+        },
+        {
+          "ar": "لِمَنْ",
+          "en": "for those who",
+          "start": 175,
+          "end": 181
+        },
+        {
+          "ar": "أَعْيَا",
+          "en": "became exhausted",
+          "start": 182,
+          "end": 189
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 190,
+          "end": 193
+        },
+        {
+          "ar": "الصَّحْرَاءِ».",
+          "en": "the wilderness",
+          "start": 194,
+          "end": 208
+        }
+      ]
+    },
+    "3": {
+      "ar": "فَسَأَلَهُ الْمَلِكُ: «وَأَيْنَ حَفِيدُ سَيِّدِكَ؟» فَأَجَابَ صِيبَا: «هُوَ مُقِيمٌ فِي أُورُشَلِيمَ لأَنَّهُ حَدَّثَ نَفْسَهُ قَائِلاً: الْيَوْمَ يَرُدُّ لِي بَيْتُ إِسْرَائِيلَ مَمْلَكَةَ جِدِّي».",
+      "en": "The king then asked, “Where is your master’s grandson?”\nZiba said to him, “He is staying in Jerusalem, because he thinks, ‘Today the Israelites will restore to me my grandfather’s kingdom.’”",
+      "mappings": [
+        {
+          "ar": "فَسَأَلَهُ",
+          "en": "then he asked",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "ar": "الْمَلِكُ:",
+          "en": "the king",
+          "start": 11,
+          "end": 21
+        },
+        {
+          "ar": "«وَأَيْنَ",
+          "en": "and where",
+          "start": 22,
+          "end": 31
+        },
+        {
+          "ar": "حَفِيدُ",
+          "en": "grandson",
+          "start": 32,
+          "end": 39
+        },
+        {
+          "ar": "سَيِّدِكَ؟»",
+          "en": "your master",
+          "start": 40,
+          "end": 51
+        },
+        {
+          "ar": "فَأَجَابَ",
+          "en": "so he answered",
+          "start": 52,
+          "end": 61
+        },
+        {
+          "ar": "صِيبَا:",
+          "en": "Ziba",
+          "start": 62,
+          "end": 69
+        },
+        {
+          "ar": "«هُوَ",
+          "en": "he",
+          "start": 70,
+          "end": 75
+        },
+        {
+          "ar": "مُقِيمٌ",
+          "en": "staying",
+          "start": 76,
+          "end": 83
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 84,
+          "end": 87
+        },
+        {
+          "ar": "أُورُشَلِيمَ",
+          "en": "Jerusalem",
+          "start": 88,
+          "end": 100
+        },
+        {
+          "ar": "لأَنَّهُ",
+          "en": "because he",
+          "start": 101,
+          "end": 109
+        },
+        {
+          "ar": "حَدَّثَ",
+          "en": "he spoke to",
+          "start": 110,
+          "end": 117
+        },
+        {
+          "ar": "نَفْسَهُ",
+          "en": "himself",
+          "start": 118,
+          "end": 126
+        },
+        {
+          "ar": "قَائِلاً:",
+          "en": "saying",
+          "start": 127,
+          "end": 136
+        },
+        {
+          "ar": "الْيَوْمَ",
+          "en": "today",
+          "start": 137,
+          "end": 146
+        },
+        {
+          "ar": "يَرُدُّ",
+          "en": "will restore",
+          "start": 147,
+          "end": 154
+        },
+        {
+          "ar": "لِي",
+          "en": "to me",
+          "start": 155,
+          "end": 158
+        },
+        {
+          "ar": "بَيْتُ",
+          "en": "house of",
+          "start": 159,
+          "end": 165
+        },
+        {
+          "ar": "إِسْرَائِيلَ",
+          "en": "Israel",
+          "start": 166,
+          "end": 178
+        },
+        {
+          "ar": "مَمْلَكَةَ",
+          "en": "kingdom of",
+          "start": 179,
+          "end": 189
+        },
+        {
+          "ar": "جِدِّي».",
+          "en": "my grandfather's",
+          "start": 190,
+          "end": 198
+        }
+      ]
+    },
+    "4": {
+      "ar": "فَقَالَ الْمَلِكُ لِصِيبَا: «لَقَدْ وَهَبْتُكَ كُلَّ مَا يَمْتَلِكُهُ مَفِيبُوشَثُ». فَقَالَ صِيبَا: «إِنَّنِي أَنْحَنِي أَمَامَكَ بِخُضُوعٍ، لَعَلَّنِي أَحْظَى بِرِضَى سَيِّدِي الْمَلِكِ».",
+      "en": "Then the king said to Ziba, “All that belonged to Mephibosheth is now yours.”\n“I humbly bow,” Ziba said. “May I find favor in your eyes, my lord the king.”",
+      "mappings": [
+        {
+          "ar": "فَقَالَ",
+          "en": "so he said",
+          "start": 0,
+          "end": 7
+        },
+        {
+          "ar": "الْمَلِكُ",
+          "en": "the king",
+          "start": 8,
+          "end": 17
+        },
+        {
+          "ar": "لِصِيبَا:",
+          "en": "to Ziba",
           "start": 18,
           "end": 27
         },
@@ -440,7 +442,7 @@
         },
         {
           "ar": "وَهَبْتُكَ",
-          "en": "I have gifted",
+          "en": "I gave you",
           "start": 36,
           "end": 46
         },
@@ -452,13 +454,13 @@
         },
         {
           "ar": "مَا",
-          "en": "that",
+          "en": "that which",
           "start": 53,
           "end": 56
         },
         {
           "ar": "يَمْتَلِكُهُ",
-          "en": "possesses",
+          "en": "he owns it",
           "start": 57,
           "end": 69
         },
@@ -470,13 +472,13 @@
         },
         {
           "ar": "فَقَالَ",
-          "en": "said",
+          "en": "so he said",
           "start": 85,
           "end": 92
         },
         {
           "ar": "صِيبَا:",
-          "en": "Sibah",
+          "en": "Ziba",
           "start": 93,
           "end": 100
         },
@@ -488,7 +490,7 @@
         },
         {
           "ar": "أَنْحَنِي",
-          "en": "bow",
+          "en": "I bow",
           "start": 111,
           "end": 120
         },
@@ -500,25 +502,25 @@
         },
         {
           "ar": "بِخُضُوعٍ،",
-          "en": "with humility",
+          "en": "in humility",
           "start": 131,
           "end": 141
         },
         {
           "ar": "لَعَلَّنِي",
-          "en": "perhaps I",
+          "en": "may I",
           "start": 142,
           "end": 152
         },
         {
           "ar": "أَحْظَى",
-          "en": "gain",
+          "en": "obtain",
           "start": 153,
           "end": 160
         },
         {
           "ar": "بِرِضَى",
-          "en": "with the favor",
+          "en": "with favor",
           "start": 161,
           "end": 168
         },
@@ -548,7 +550,7 @@
         },
         {
           "ar": "وَصَلَ",
-          "en": "arrived",
+          "en": "approached",
           "start": 12,
           "end": 18
         },
@@ -602,7 +604,7 @@
         },
         {
           "ar": "يَنْتَمِي",
-          "en": "belonged",
+          "en": "belonged to",
           "start": 81,
           "end": 90
         },
@@ -614,7 +616,7 @@
         },
         {
           "ar": "عَشِيرَةِ",
-          "en": "clan",
+          "en": "clan of",
           "start": 97,
           "end": 106
         },
@@ -626,7 +628,7 @@
         },
         {
           "ar": "يُدْعَى",
-          "en": "is called",
+          "en": "was called",
           "start": 116,
           "end": 123
         },
@@ -644,31 +646,31 @@
         },
         {
           "ar": "جِيرَا،",
-          "en": "Jerah",
+          "en": "Gera",
           "start": 136,
           "end": 143
         },
         {
           "ar": "وَرَاحَ",
-          "en": "and proceeded",
+          "en": "and began",
           "start": 144,
           "end": 151
         },
         {
           "ar": "يَكِيلُ",
-          "en": "to hurl",
+          "en": "he was casting",
           "start": 152,
           "end": 159
         },
         {
           "ar": "لَهُ",
-          "en": "at him",
+          "en": "to him",
           "start": 160,
           "end": 164
         },
         {
           "ar": "الشَّتَائِمَ،",
-          "en": "the curses",
+          "en": "the insults",
           "start": 165,
           "end": 178
         }
@@ -680,7 +682,7 @@
       "mappings": [
         {
           "ar": "وَرَشَقَ",
-          "en": "And pelted",
+          "en": "and pelted",
           "start": 0,
           "end": 8
         },
@@ -692,61 +694,61 @@
         },
         {
           "ar": "وَرِجَالَهُ",
-          "en": "And his men",
+          "en": "and his men",
           "start": 17,
           "end": 28
         },
         {
           "ar": "وَالشَّعْبَ",
-          "en": "And the people",
+          "en": "and the people",
           "start": 29,
           "end": 40
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "who",
           "start": 41,
           "end": 48
         },
         {
           "ar": "مَعَهُ",
-          "en": "With him",
+          "en": "with him",
           "start": 49,
           "end": 55
         },
         {
           "ar": "وَالأَبْطَالَ",
-          "en": "And the heroes",
+          "en": "and the heroes",
           "start": 56,
           "end": 69
         },
         {
           "ar": "الْمُلْتَفِّينَ",
-          "en": "Arrayed",
+          "en": "surrounding",
           "start": 70,
           "end": 85
         },
         {
           "ar": "عَنْ",
-          "en": "From",
+          "en": "on",
           "start": 86,
           "end": 90
         },
         {
           "ar": "يَمِينِهِ",
-          "en": "His right",
+          "en": "his right",
           "start": 91,
           "end": 100
         },
         {
           "ar": "وَيَسَارِهِ",
-          "en": "And his left",
+          "en": "and his left",
           "start": 101,
           "end": 112
         },
         {
           "ar": "بِالْحِجَارَةِ.",
-          "en": "With stones",
+          "en": "with the stones",
           "start": 113,
           "end": 128
         }
@@ -758,37 +760,37 @@
       "mappings": [
         {
           "ar": "وَهُوَ",
-          "en": "And he",
+          "en": "and he",
           "start": 0,
           "end": 6
         },
         {
           "ar": "يُرَدِّدُ",
-          "en": "Repeating",
+          "en": "he uttered",
           "start": 7,
           "end": 16
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 17,
           "end": 20
         },
         {
           "ar": "شَتَائِمِهِ:",
-          "en": "His curses",
+          "en": "his curses",
           "start": 21,
           "end": 33
         },
         {
           "ar": "«اخْرُجْ!",
-          "en": "Exit",
+          "en": "Get out",
           "start": 34,
           "end": 43
         },
         {
           "ar": "اخْرُجْ",
-          "en": "Exit",
+          "en": "get out",
           "start": 44,
           "end": 51
         },
@@ -800,25 +802,25 @@
         },
         {
           "ar": "رَجُلَ",
-          "en": "Man",
+          "en": "man",
           "start": 56,
           "end": 62
         },
         {
           "ar": "الدِّمَاءِ",
-          "en": "Of blood",
+          "en": "of blood",
           "start": 63,
           "end": 73
         },
         {
           "ar": "وَرَجُلَ",
-          "en": "And man",
+          "en": "and man",
           "start": 74,
           "end": 82
         },
         {
           "ar": "بَلِيَّعَالَ!",
-          "en": "Beliar",
+          "en": "scoundrel",
           "start": 83,
           "end": 96
         }
@@ -830,121 +832,121 @@
       "mappings": [
         {
           "ar": "لَقَدْ",
-          "en": "Indeed",
+          "en": "indeed",
           "start": 0,
           "end": 6
         },
         {
           "ar": "رَدَّ",
-          "en": "Returned",
+          "en": "repaid",
           "start": 7,
           "end": 12
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 13,
           "end": 21
         },
         {
           "ar": "عَلَيْكَ",
-          "en": "To you",
+          "en": "to you",
           "start": 22,
           "end": 30
         },
         {
           "ar": "كُلَّ",
-          "en": "All",
+          "en": "all",
           "start": 31,
           "end": 36
         },
         {
           "ar": "مَا",
-          "en": "That",
+          "en": "that which",
           "start": 37,
           "end": 40
         },
         {
           "ar": "سَفَكْتَهُ",
-          "en": "You shed",
+          "en": "you shed it",
           "start": 41,
           "end": 51
         },
         {
           "ar": "مِنْ",
-          "en": "Of",
+          "en": "from",
           "start": 52,
           "end": 56
         },
         {
           "ar": "دِمَاءِ",
-          "en": "Blood",
+          "en": "blood",
           "start": 57,
           "end": 64
         },
         {
           "ar": "بَيْتِ",
-          "en": "Of the house",
+          "en": "household of",
           "start": 65,
           "end": 71
         },
         {
           "ar": "شَاوُلَ",
-          "en": "Of Saul",
+          "en": "Saul",
           "start": 72,
           "end": 79
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "who",
           "start": 80,
           "end": 87
         },
         {
           "ar": "مَلَكْتَ",
-          "en": "You ruled",
+          "en": "you reigned",
           "start": 88,
           "end": 96
         },
         {
           "ar": "عِوَضاً",
-          "en": "Instead",
+          "en": "in place of",
           "start": 97,
           "end": 104
         },
         {
           "ar": "عَنْهُ،",
-          "en": "Of it",
+          "en": "for him",
           "start": 105,
           "end": 112
         },
         {
           "ar": "وَقَدْ",
-          "en": "And",
+          "en": "and indeed",
           "start": 113,
           "end": 119
         },
         {
           "ar": "سَلَّمَ",
-          "en": "Delivered",
+          "en": "has given",
           "start": 120,
           "end": 127
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 128,
           "end": 136
         },
         {
           "ar": "الْمَمْلَكَةَ",
-          "en": "The kingdom",
+          "en": "the kingdom",
           "start": 137,
           "end": 150
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 151,
           "end": 156
         },
@@ -956,61 +958,61 @@
         },
         {
           "ar": "ابْنِكَ.",
-          "en": "Your son",
+          "en": "your son",
           "start": 170,
           "end": 178
         },
         {
           "ar": "وَهَا",
-          "en": "Behold",
+          "en": "behold",
           "start": 179,
           "end": 184
         },
         {
           "ar": "أَنْتَ",
-          "en": "You",
+          "en": "you",
           "start": 185,
           "end": 191
         },
         {
           "ar": "غَارِقٌ",
-          "en": "Are sinking",
+          "en": "drowning",
           "start": 192,
           "end": 199
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 200,
           "end": 203
         },
         {
           "ar": "شَرِّ",
-          "en": "Evil",
+          "en": "evil of",
           "start": 204,
           "end": 209
         },
         {
           "ar": "أَعْمَالِكَ",
-          "en": "Of your deeds",
+          "en": "your deeds",
           "start": 210,
           "end": 221
         },
         {
           "ar": "لأَنَّكَ",
-          "en": "Because",
+          "en": "because you are",
           "start": 222,
           "end": 230
         },
         {
           "ar": "رَجُلُ",
-          "en": "A man",
+          "en": "man of",
           "start": 231,
           "end": 237
         },
         {
           "ar": "دِمَاءٍ».",
-          "en": "Of blood",
+          "en": "blood",
           "start": 238,
           "end": 247
         }
@@ -1022,7 +1024,7 @@
       "mappings": [
         {
           "ar": "فَقَالَ",
-          "en": "said",
+          "en": "so he said",
           "start": 0,
           "end": 7
         },
@@ -1040,7 +1042,7 @@
         },
         {
           "ar": "صُرُوِيَّةَ",
-          "en": "Zerubbabel",
+          "en": "Zeruiah",
           "start": 25,
           "end": 36
         },
@@ -1052,13 +1054,13 @@
         },
         {
           "ar": "«لِمَاذَا",
-          "en": "Why",
+          "en": "why",
           "start": 49,
           "end": 58
         },
         {
           "ar": "يَشْتِمُ",
-          "en": "cursed",
+          "en": "curses",
           "start": 59,
           "end": 67
         },
@@ -1070,13 +1072,13 @@
         },
         {
           "ar": "الْكَلْبُ",
-          "en": "dog",
+          "en": "the dog",
           "start": 74,
           "end": 83
         },
         {
           "ar": "الْمَيْتُ",
-          "en": "dead",
+          "en": "the dead",
           "start": 84,
           "end": 93
         },
@@ -1094,25 +1096,25 @@
         },
         {
           "ar": "دَعْنِي",
-          "en": "Let me",
+          "en": "let me",
           "start": 114,
           "end": 121
         },
         {
           "ar": "أَهْجُمُ",
-          "en": "attack",
+          "en": "I attack",
           "start": 122,
           "end": 130
         },
         {
           "ar": "عَلَيْهِ",
-          "en": "him",
+          "en": "over him",
           "start": 131,
           "end": 139
         },
         {
           "ar": "فَأَقْطَعَ",
-          "en": "so that I cut",
+          "en": "and cut off",
           "start": 140,
           "end": 150
         },
@@ -1130,7 +1132,7 @@
       "mappings": [
         {
           "ar": "فَقَالَ",
-          "en": "said",
+          "en": "so he said",
           "start": 0,
           "end": 7
         },
@@ -1160,13 +1162,13 @@
         },
         {
           "ar": "شَأْنِكُمْ",
-          "en": "your business",
+          "en": "your affair",
           "start": 38,
           "end": 48
         },
         {
           "ar": "يَا",
-          "en": "o",
+          "en": "O",
           "start": 49,
           "end": 52
         },
@@ -1178,7 +1180,7 @@
         },
         {
           "ar": "صُرُوِيَّةَ.",
-          "en": "Sorech",
+          "en": "of Zeruiah",
           "start": 59,
           "end": 71
         },
@@ -1190,13 +1192,13 @@
         },
         {
           "ar": "يَشْتِمُ",
-          "en": "curse",
+          "en": "he curses",
           "start": 80,
           "end": 88
         },
         {
           "ar": "لأَنَّ",
-          "en": "for",
+          "en": "because",
           "start": 89,
           "end": 95
         },
@@ -1232,25 +1234,25 @@
         },
         {
           "ar": "فَمَنْ",
-          "en": "then who",
+          "en": "so who",
           "start": 133,
           "end": 139
         },
         {
           "ar": "يَقْدِرُ",
-          "en": "is able",
+          "en": "can",
           "start": 140,
           "end": 148
         },
         {
           "ar": "أَنْ",
-          "en": "to",
+          "en": "that",
           "start": 149,
           "end": 153
         },
         {
           "ar": "يَسْأَلَ:",
-          "en": "ask",
+          "en": "to ask",
           "start": 154,
           "end": 163
         },
@@ -1262,7 +1264,7 @@
         },
         {
           "ar": "تَفْعَلُ",
-          "en": "do",
+          "en": "you do",
           "start": 173,
           "end": 181
         },
@@ -1280,139 +1282,139 @@
       "mappings": [
         {
           "ar": "وَقَالَ",
-          "en": "And said",
+          "en": "and said",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الْمَلِكُ",
-          "en": "The king",
+          "en": "the king",
           "start": 8,
           "end": 17
         },
         {
           "ar": "لأَبِيشَايَ",
-          "en": "To Abishai",
+          "en": "to Abishai",
           "start": 18,
           "end": 29
         },
         {
           "ar": "وَسَائِرِ",
-          "en": "And the rest",
+          "en": "and the rest of",
           "start": 30,
           "end": 39
         },
         {
           "ar": "رِجَالِهِ:",
-          "en": "Of his men",
+          "en": "his men",
           "start": 40,
           "end": 50
         },
         {
           "ar": "«هُوَذَا",
-          "en": "Behold",
+          "en": "behold",
           "start": 51,
           "end": 59
         },
         {
           "ar": "ابْنِي",
-          "en": "My son",
+          "en": "my son",
           "start": 60,
           "end": 66
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "who",
           "start": 67,
           "end": 74
         },
         {
           "ar": "خَرَجَ",
-          "en": "Went out",
+          "en": "came forth",
           "start": 75,
           "end": 81
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 82,
           "end": 86
         },
         {
           "ar": "صُلْبِي",
-          "en": "My loins",
+          "en": "my loins",
           "start": 87,
           "end": 94
         },
         {
           "ar": "يَسْعَى",
-          "en": "He seeks",
+          "en": "is trying",
           "start": 95,
           "end": 102
         },
         {
           "ar": "لِقَتْلِي،",
-          "en": "To kill me",
+          "en": "to kill me",
           "start": 103,
           "end": 113
         },
         {
           "ar": "فَكَمْ",
-          "en": "So how much more",
+          "en": "how much more",
           "start": 114,
           "end": 120
         },
         {
           "ar": "بالْحَرِيِّ",
-          "en": "Surely",
+          "en": "especially",
           "start": 121,
           "end": 132
         },
         {
           "ar": "هَذَا",
-          "en": "This",
+          "en": "this",
           "start": 133,
           "end": 138
         },
         {
           "ar": "الْبَنْيَامِينِيُّ.",
-          "en": "Benjamin",
+          "en": "the Benjamite",
           "start": 139,
           "end": 158
         },
         {
           "ar": "دَعُوهُ",
-          "en": "Let him",
+          "en": "leave him",
           "start": 159,
           "end": 166
         },
         {
           "ar": "يَشْتِمُ",
-          "en": "Curse",
+          "en": "curses",
           "start": 167,
           "end": 175
         },
         {
           "ar": "لأَنَّ",
-          "en": "For",
+          "en": "for",
           "start": 176,
           "end": 182
         },
         {
           "ar": "الرَّبَّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 183,
           "end": 191
         },
         {
           "ar": "أَمَرَهُ",
-          "en": "Commanded him",
+          "en": "he commanded him",
           "start": 192,
           "end": 200
         },
         {
           "ar": "بِشَتْمِي.",
-          "en": "To curse me",
+          "en": "with cursing me",
           "start": 201,
           "end": 211
         }
@@ -1424,73 +1426,73 @@
       "mappings": [
         {
           "ar": "لَعَلَّ",
-          "en": "Perhaps",
+          "en": "it may be that",
           "start": 0,
           "end": 7
         },
         {
           "ar": "الرَّبَّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 8,
           "end": 16
         },
         {
           "ar": "يَنْظُرُ",
-          "en": "Looks",
+          "en": "looks",
           "start": 17,
           "end": 25
         },
         {
           "ar": "إِلَى",
-          "en": "To",
+          "en": "to",
           "start": 26,
           "end": 31
         },
         {
           "ar": "مَذَلَّتِي،",
-          "en": "My Humiliation",
+          "en": "my misery",
           "start": 32,
           "end": 43
         },
         {
           "ar": "وَيُكَافِئُنِي",
-          "en": "And Rewards Me",
+          "en": "and rewards me",
           "start": 44,
           "end": 58
         },
         {
           "ar": "خَيْراً",
-          "en": "Well",
+          "en": "good",
           "start": 59,
           "end": 66
         },
         {
           "ar": "عِوَضَ",
-          "en": "Instead of",
+          "en": "instead of",
           "start": 67,
           "end": 73
         },
         {
           "ar": "شَتَائِمِهِ",
-          "en": "His Revilings",
+          "en": "his curses",
           "start": 74,
           "end": 85
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 86,
           "end": 89
         },
         {
           "ar": "هَذَا",
-          "en": "This",
+          "en": "this",
           "start": 90,
           "end": 95
         },
         {
           "ar": "الْيَوْمِ».",
-          "en": "Day",
+          "en": "the day",
           "start": 96,
           "end": 107
         }
@@ -1502,7 +1504,7 @@
       "mappings": [
         {
           "ar": "وَتَابَعَ",
-          "en": "and followed",
+          "en": "and continued",
           "start": 0,
           "end": 9
         },
@@ -1550,19 +1552,19 @@
         },
         {
           "ar": "ظَلَّ",
-          "en": "remained",
+          "en": "continued",
           "start": 75,
           "end": 80
         },
         {
           "ar": "يَمْشِي",
-          "en": "walked",
+          "en": "was going",
           "start": 81,
           "end": 88
         },
         {
           "ar": "بِمُحَاذَاتِهِمْ",
-          "en": "alongside",
+          "en": "alongside them",
           "start": 89,
           "end": 105
         },
@@ -1586,7 +1588,7 @@
         },
         {
           "ar": "مِنَ",
-          "en": "of",
+          "en": "from",
           "start": 131,
           "end": 135
         },
@@ -1604,7 +1606,7 @@
         },
         {
           "ar": "يَكِيلُ",
-          "en": "measured out",
+          "en": "he was casting",
           "start": 153,
           "end": 160
         },
@@ -1622,31 +1624,31 @@
         },
         {
           "ar": "وَيَرْشُقُهُمْ",
-          "en": "and pelted them",
+          "en": "and he threw at them",
           "start": 181,
           "end": 195
         },
         {
           "ar": "بِالْحِجَارَةِ",
-          "en": "with stones",
+          "en": "with the stones",
           "start": 196,
           "end": 210
         },
         {
           "ar": "وَيَذْرِي",
-          "en": "and scattered",
+          "en": "and showered",
           "start": 211,
           "end": 220
         },
         {
           "ar": "عَلَيْهِمِ",
-          "en": "upon them",
+          "en": "on them",
           "start": 221,
           "end": 231
         },
         {
           "ar": "التُّرَابَ.",
-          "en": "the dust",
+          "en": "the dirt",
           "start": 232,
           "end": 243
         }
@@ -1658,85 +1660,85 @@
       "mappings": [
         {
           "ar": "وَعِنْدَمَا",
-          "en": "And when",
+          "en": "and when",
           "start": 0,
           "end": 11
         },
         {
           "ar": "وَصَلَ",
-          "en": "Arrived",
+          "en": "arrived",
           "start": 12,
           "end": 18
         },
         {
           "ar": "الْمَلِكُ",
-          "en": "The king",
+          "en": "the king",
           "start": 19,
           "end": 28
         },
         {
           "ar": "وَالشَّعْبُ",
-          "en": "And the people",
+          "en": "and the people",
           "start": 29,
           "end": 40
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "who",
           "start": 41,
           "end": 48
         },
         {
           "ar": "مَعَهُ",
-          "en": "With him",
+          "en": "with him",
           "start": 49,
           "end": 55
         },
         {
           "ar": "ضِفَافَ",
-          "en": "Along the banks",
+          "en": "the shores of",
           "start": 56,
           "end": 63
         },
         {
           "ar": "الأُرْدُنِّ",
-          "en": "Of the Jordan",
+          "en": "the Jordan",
           "start": 64,
           "end": 75
         },
         {
           "ar": "كَانَ",
-          "en": "There was",
+          "en": "was",
           "start": 76,
           "end": 81
         },
         {
           "ar": "الإِعْيَاءُ",
-          "en": "Distress",
+          "en": "exhaustion",
           "start": 82,
           "end": 93
         },
         {
           "ar": "قَدْ",
-          "en": "Indeed",
+          "en": "had",
           "start": 94,
           "end": 98
         },
         {
           "ar": "أَصَابَهُمْ،",
-          "en": "Befell them",
+          "en": "had struck them",
           "start": 99,
           "end": 111
         },
         {
           "ar": "فَاسْتَرَاحُوا",
-          "en": "So they rested",
+          "en": "so they rested",
           "start": 112,
           "end": 126
         },
         {
           "ar": "هُنَاكَ.",
-          "en": "There",
+          "en": "there",
           "start": 127,
           "end": 135
         }
@@ -1748,7 +1750,7 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
@@ -1760,19 +1762,19 @@
         },
         {
           "ar": "وَأَتْبَاعُهُ",
-          "en": "And his followers",
+          "en": "and his followers",
           "start": 20,
           "end": 33
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 34,
           "end": 38
         },
         {
           "ar": "رِجَالِ",
-          "en": "Men of",
+          "en": "men of",
           "start": 39,
           "end": 46
         },
@@ -1784,19 +1786,19 @@
         },
         {
           "ar": "وَأَخِيتُوفَلُ،",
-          "en": "And Ahithophel",
+          "en": "and Ahithophel",
           "start": 61,
           "end": 76
         },
         {
           "ar": "فَقَدْ",
-          "en": "Indeed",
+          "en": "indeed",
           "start": 77,
           "end": 83
         },
         {
           "ar": "دَخَلُوا",
-          "en": "Entered",
+          "en": "they entered",
           "start": 84,
           "end": 92
         },
@@ -1832,7 +1834,7 @@
         },
         {
           "ar": "مُسْتَشَارُ",
-          "en": "advisor",
+          "en": "confidant",
           "start": 29,
           "end": 40
         },
@@ -1856,31 +1858,31 @@
         },
         {
           "ar": "هَاتِفاً:",
-          "en": "crying out",
+          "en": "shouting",
           "start": 68,
           "end": 77
         },
         {
           "ar": "«لِيَحْيَ",
-          "en": "May the king live",
+          "en": "let live",
           "start": 78,
           "end": 87
         },
         {
           "ar": "الْمَلِكُ!",
-          "en": "The king",
+          "en": "the king",
           "start": 88,
           "end": 98
         },
         {
           "ar": "لِيَحْيَ",
-          "en": "May the king live",
+          "en": "let live",
           "start": 99,
           "end": 107
         },
         {
           "ar": "الْمَلِكُ!»",
-          "en": "The king",
+          "en": "the king",
           "start": 108,
           "end": 119
         }
@@ -1892,7 +1894,7 @@
       "mappings": [
         {
           "ar": "فَقَالَ",
-          "en": "said",
+          "en": "so he said",
           "start": 0,
           "end": 7
         },
@@ -1910,19 +1912,19 @@
         },
         {
           "ar": "«أَبِهَذِهِ",
-          "en": "“With",
+          "en": "in this",
           "start": 27,
           "end": 38
         },
         {
           "ar": "الطَّرِيقَةِ",
-          "en": "manner",
+          "en": "way",
           "start": 39,
           "end": 51
         },
         {
           "ar": "تُكَافِئُ",
-          "en": "reward",
+          "en": "you reward",
           "start": 52,
           "end": 61
         },
@@ -1946,7 +1948,7 @@
         },
         {
           "ar": "تَذْهَبْ",
-          "en": "go",
+          "en": "you went",
           "start": 87,
           "end": 95
         },
@@ -1964,7 +1966,7 @@
       "mappings": [
         {
           "ar": "فَأَجَابَ:",
-          "en": "He answered",
+          "en": "so he answered",
           "start": 0,
           "end": 10
         },
@@ -1976,7 +1978,7 @@
         },
         {
           "ar": "إِنَّنِي",
-          "en": "Indeed I",
+          "en": "indeed I",
           "start": 16,
           "end": 24
         },
@@ -1988,55 +1990,55 @@
         },
         {
           "ar": "وَأُقِيمُ",
-          "en": "I establish",
+          "en": "and I remain",
           "start": 34,
           "end": 43
         },
         {
           "ar": "مَعَ",
-          "en": "With",
+          "en": "with",
           "start": 44,
           "end": 48
         },
         {
           "ar": "مَنِ",
-          "en": "Whom",
+          "en": "who",
           "start": 49,
           "end": 53
         },
         {
           "ar": "اخْتَارَهُ",
-          "en": "He chose",
+          "en": "he chose him",
           "start": 54,
           "end": 64
         },
         {
           "ar": "الرَّبُّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 65,
           "end": 73
         },
         {
           "ar": "وَهَذَا",
-          "en": "And this",
+          "en": "and this",
           "start": 74,
           "end": 81
         },
         {
           "ar": "الشَّعْبُ",
-          "en": "The people",
+          "en": "the people",
           "start": 82,
           "end": 91
         },
         {
           "ar": "وَكُلُّ",
-          "en": "And all",
+          "en": "and all",
           "start": 92,
           "end": 99
         },
         {
           "ar": "رِجَالِ",
-          "en": "Men of",
+          "en": "men of",
           "start": 100,
           "end": 107
         },
@@ -2054,43 +2056,43 @@
       "mappings": [
         {
           "ar": "ثُمَّ",
-          "en": "Then",
+          "en": "Furthermore",
           "start": 0,
           "end": 5
         },
         {
           "ar": "مَنْ",
-          "en": "Who",
+          "en": "whom",
           "start": 6,
           "end": 10
         },
         {
           "ar": "أَخْدُمُ؟",
-          "en": "Do I serve",
+          "en": "do I serve",
           "start": 11,
           "end": 20
         },
         {
           "ar": "أَلَسْتُ",
-          "en": "Am I not",
+          "en": "am I not",
           "start": 21,
           "end": 29
         },
         {
           "ar": "أَخْدُمُ",
-          "en": "I serve",
+          "en": "do I serve",
           "start": 30,
           "end": 38
         },
         {
           "ar": "ابْنَهُ؟",
-          "en": "His son",
+          "en": "his son",
           "start": 39,
           "end": 47
         },
         {
           "ar": "فَكَمَا",
-          "en": "Just as",
+          "en": "so just as",
           "start": 48,
           "end": 55
         },
@@ -2102,25 +2104,25 @@
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 65,
           "end": 68
         },
         {
           "ar": "حَضْرَةِ",
-          "en": "Presence of",
+          "en": "presence of",
           "start": 69,
           "end": 77
         },
         {
           "ar": "أَبِيكَ",
-          "en": "Your father",
+          "en": "your father",
           "start": 78,
           "end": 85
         },
         {
           "ar": "كَذَلِكَ",
-          "en": "Likewise",
+          "en": "in that way",
           "start": 86,
           "end": 94
         },
@@ -2132,13 +2134,13 @@
         },
         {
           "ar": "بَيْنَ",
-          "en": "Between",
+          "en": "between",
           "start": 104,
           "end": 110
         },
         {
           "ar": "يَدَيْكَ».",
-          "en": "Your hands",
+          "en": "your hands",
           "start": 111,
           "end": 121
         }
@@ -2150,7 +2152,7 @@
       "mappings": [
         {
           "ar": "وَسَأَلَ",
-          "en": "And he asked",
+          "en": "and he asked",
           "start": 0,
           "end": 8
         },
@@ -2168,19 +2170,19 @@
         },
         {
           "ar": "«أَشِيرُوا",
-          "en": "Advise",
+          "en": "give advice",
           "start": 36,
           "end": 46
         },
         {
           "ar": "مَاذَا",
-          "en": "What",
+          "en": "what",
           "start": 47,
           "end": 53
         },
         {
           "ar": "نَفْعَلُ؟»",
-          "en": "Do",
+          "en": "we do",
           "start": 54,
           "end": 64
         }
@@ -2192,7 +2194,7 @@
       "mappings": [
         {
           "ar": "فَأَجَابَ",
-          "en": "So replied",
+          "en": "so he answered",
           "start": 0,
           "end": 9
         },
@@ -2204,73 +2206,73 @@
         },
         {
           "ar": "«ادْخُلْ",
-          "en": "Enter",
+          "en": "enter",
           "start": 24,
           "end": 32
         },
         {
           "ar": "وَضَاجِعْ",
-          "en": "Lie down with",
+          "en": "and sleep with",
           "start": 33,
           "end": 42
         },
         {
           "ar": "مَحْظِيَّاتِ",
-          "en": "Chambers",
+          "en": "concubines",
           "start": 43,
           "end": 55
         },
         {
           "ar": "أَبِيكَ",
-          "en": "Your father’s",
+          "en": "your father",
           "start": 56,
           "end": 63
         },
         {
           "ar": "اللَّوَاتِي",
-          "en": "Which",
+          "en": "whom",
           "start": 64,
           "end": 75
         },
         {
           "ar": "تَرَكَهُنَّ",
-          "en": "He left",
+          "en": "he left them",
           "start": 76,
           "end": 87
         },
         {
           "ar": "لِلْمُحَافَظَةِ",
-          "en": "For the preservation",
+          "en": "for the keeping",
           "start": 88,
           "end": 103
         },
         {
           "ar": "عَلَى",
-          "en": "On",
+          "en": "on",
           "start": 104,
           "end": 109
         },
         {
           "ar": "الْقَصْرِ،",
-          "en": "The palace",
+          "en": "the palace",
           "start": 110,
           "end": 120
         },
         {
           "ar": "فَيَسْمَعَ",
-          "en": "So that",
+          "en": "so will hear",
           "start": 121,
           "end": 131
         },
         {
           "ar": "جَمِيعُ",
-          "en": "All",
+          "en": "all",
           "start": 132,
           "end": 139
         },
         {
           "ar": "بَنِي",
-          "en": "The sons of",
+          "en": "sons of",
           "start": 140,
           "end": 145
         },
@@ -2282,55 +2284,55 @@
         },
         {
           "ar": "أَنَّكَ",
-          "en": "That",
+          "en": "that you",
           "start": 158,
           "end": 165
         },
         {
           "ar": "قَدْ",
-          "en": "Indeed",
+          "en": "have",
           "start": 166,
           "end": 170
         },
         {
           "ar": "صِرْتَ",
-          "en": "You have become",
+          "en": "you became",
           "start": 171,
           "end": 177
         },
         {
           "ar": "مَكْرُوهاً",
-          "en": "Hateful",
+          "en": "obnoxious",
           "start": 178,
           "end": 188
         },
         {
           "ar": "لَدَى",
-          "en": "With",
+          "en": "with",
           "start": 189,
           "end": 194
         },
         {
           "ar": "أَبِيكَ،",
-          "en": "Your father",
+          "en": "your father",
           "start": 195,
           "end": 203
         },
         {
           "ar": "فَتَتَشَدَّدَ",
-          "en": "So that",
+          "en": "and will be strengthened",
           "start": 204,
           "end": 217
         },
         {
           "ar": "أَيْدِي",
-          "en": "The hands of",
+          "en": "the hands of",
           "start": 218,
           "end": 225
         },
         {
           "ar": "مُنَاصِرِيكَ».",
-          "en": "Your supporters",
+          "en": "your supporters",
           "start": 226,
           "end": 240
         }
@@ -2342,7 +2344,7 @@
       "mappings": [
         {
           "ar": "فَنَصَبُوا",
-          "en": "So they pitched",
+          "en": "so they pitched",
           "start": 0,
           "end": 10
         },
@@ -2354,13 +2356,13 @@
         },
         {
           "ar": "الْخَيْمَةَ",
-          "en": "a tent",
+          "en": "the tent",
           "start": 25,
           "end": 36
         },
         {
           "ar": "عَلَى",
-          "en": "in the sight",
+          "en": "on",
           "start": 37,
           "end": 42
         },
@@ -2378,43 +2380,43 @@
         },
         {
           "ar": "لِمُضَاجَعَةِ",
-          "en": "for lying with",
+          "en": "to sleep with",
           "start": 63,
           "end": 76
         },
         {
           "ar": "مَحْظِيَّاتِ",
-          "en": "the concubines",
+          "en": "concubines",
           "start": 77,
           "end": 89
         },
         {
           "ar": "أَبِيهِ",
-          "en": "of his father",
+          "en": "his father",
           "start": 90,
           "end": 97
         },
         {
           "ar": "عَلَى",
-          "en": "in the sight",
+          "en": "in",
           "start": 98,
           "end": 103
         },
         {
           "ar": "مَرْأَى",
-          "en": "of all",
+          "en": "in the sight of",
           "start": 104,
           "end": 111
         },
         {
           "ar": "جَمِيعِ",
-          "en": "Israel",
+          "en": "all of",
           "start": 112,
           "end": 119
         },
         {
           "ar": "الإِسْرَائِيلِيِّينَ.",
-          "en": "people",
+          "en": "the Israelites",
           "start": 120,
           "end": 141
         }
@@ -2432,25 +2434,25 @@
         },
         {
           "ar": "مَشُورَاتُ",
-          "en": "counsel/advice",
+          "en": "counsel of",
           "start": 10,
           "end": 20
         },
         {
           "ar": "أَخِيتُوفَلَ",
-          "en": "of Ahithophel",
+          "en": "Ahithophel",
           "start": 21,
           "end": 33
         },
         {
           "ar": "الَّتِي",
-          "en": "which/that",
+          "en": "which",
           "start": 34,
           "end": 41
         },
         {
           "ar": "يُسْدِيهَا",
-          "en": "he gave/provided",
+          "en": "he gave it",
           "start": 42,
           "end": 52
         },
@@ -2468,43 +2470,43 @@
         },
         {
           "ar": "الأَيَّامِ",
-          "en": "days",
+          "en": "the days",
           "start": 64,
           "end": 74
         },
         {
           "ar": "تَحْظَى",
-          "en": "were received/enjoyed",
+          "en": "were held",
           "start": 75,
           "end": 82
         },
         {
           "ar": "بِقُبُولِ",
-          "en": "with acceptance/approval",
+          "en": "with the acceptance of",
           "start": 83,
           "end": 92
         },
         {
           "ar": "دَاوُدَ",
-          "en": "of David",
+          "en": "David",
           "start": 93,
           "end": 100
         },
         {
           "ar": "وأَبْشَالُوُمَ",
-          "en": "and Abishalom",
+          "en": "and Absalom",
           "start": 101,
           "end": 115
         },
         {
           "ar": "لأَنَّهَا",
-          "en": "because they",
+          "en": "because it",
           "start": 116,
           "end": 125
         },
         {
           "ar": "كَانَتْ",
-          "en": "was",
+          "en": "it was",
           "start": 126,
           "end": 133
         },
@@ -2516,19 +2518,19 @@
         },
         {
           "ar": "اعْتِبَارِهِمَا",
-          "en": "their view/estimation",
+          "en": "their consideration",
           "start": 138,
           "end": 153
         },
         {
           "ar": "كَأَنَّهَا",
-          "en": "as if",
+          "en": "as if it",
           "start": 154,
           "end": 164
         },
         {
           "ar": "صَادِرَةٌ",
-          "en": "emanating/coming forth",
+          "en": "coming from",
           "start": 165,
           "end": 174
         },
@@ -2540,13 +2542,13 @@
         },
         {
           "ar": "فَمِ",
-          "en": "mouth",
+          "en": "mouth of",
           "start": 180,
           "end": 184
         },
         {
           "ar": "اللهِ.",
-          "en": "of God",
+          "en": "God",
           "start": 185,
           "end": 191
         }

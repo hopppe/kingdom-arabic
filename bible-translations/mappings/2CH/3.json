@@ -1,6 +1,8 @@
 {
   "book": "2CH",
   "chapter": 3,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "وَأَخَذَ سُلَيْمَانُ فِي بِنَاءِ هَيْكَلِ الرَّبِّ فِي بَيْدَرِ أُرْنَانَ الْيَبُوسِيِّ فِي أُورُشَلِيمَ عَلَى جَبَلِ الْمُرَيَّا، حَيْثُ تَرَاءَى الرَّبُّ لِدَاوُدَ أَبِيهِ، وَحَيْثُ وَقَعَ اخْتِيَارُ دَاوُدَ عَلَى مَكَانِ الْهَيْكَلِ.",
@@ -8,7 +10,7 @@
       "mappings": [
         {
           "ar": "وَأَخَذَ",
-          "en": "and took",
+          "en": "and began",
           "start": 0,
           "end": 8
         },
@@ -26,19 +28,19 @@
         },
         {
           "ar": "بِنَاءِ",
-          "en": "building",
+          "en": "building of",
           "start": 25,
           "end": 32
         },
         {
           "ar": "هَيْكَلِ",
-          "en": "temple",
+          "en": "temple of",
           "start": 33,
           "end": 41
         },
         {
           "ar": "الرَّبِّ",
-          "en": "of the Lord",
+          "en": "the Lord",
           "start": 42,
           "end": 50
         },
@@ -50,13 +52,13 @@
         },
         {
           "ar": "بَيْدَرِ",
-          "en": "threshing floor",
+          "en": "threshing floor of",
           "start": 55,
           "end": 63
         },
         {
           "ar": "أُرْنَانَ",
-          "en": "of Ornan",
+          "en": "Araunah",
           "start": 64,
           "end": 73
         },
@@ -86,13 +88,13 @@
         },
         {
           "ar": "جَبَلِ",
-          "en": "mountain",
+          "en": "mountain of",
           "start": 111,
           "end": 117
         },
         {
           "ar": "الْمُرَيَّا،",
-          "en": "of Moriah",
+          "en": "Moriah",
           "start": 118,
           "end": 130
         },
@@ -158,13 +160,13 @@
         },
         {
           "ar": "مَكَانِ",
-          "en": "place",
+          "en": "place of",
           "start": 216,
           "end": 223
         },
         {
           "ar": "الْهَيْكَلِ.",
-          "en": "of the temple",
+          "en": "the temple",
           "start": 224,
           "end": 236
         }
@@ -176,7 +178,7 @@
       "mappings": [
         {
           "ar": "وَشَرَعَ",
-          "en": "And commenced",
+          "en": "and began",
           "start": 0,
           "end": 8
         },
@@ -188,7 +190,7 @@
         },
         {
           "ar": "الْبِنَاءِ",
-          "en": "of construction",
+          "en": "the building",
           "start": 13,
           "end": 23
         },
@@ -206,7 +208,7 @@
         },
         {
           "ar": "الثَّانِي",
-          "en": "second",
+          "en": "the second",
           "start": 38,
           "end": 47
         },
@@ -224,7 +226,7 @@
         },
         {
           "ar": "الثَّانِي",
-          "en": "second",
+          "en": "the second",
           "start": 63,
           "end": 72
         },
@@ -242,13 +244,13 @@
         },
         {
           "ar": "الرَّابِعَةِ",
-          "en": "fourth",
+          "en": "the fourth",
           "start": 88,
           "end": 100
         },
         {
           "ar": "لِحُكْمِهِ.",
-          "en": "of his rule",
+          "en": "of his reign",
           "start": 101,
           "end": 112
         }
@@ -260,25 +262,25 @@
       "mappings": [
         {
           "ar": "أَمَّا",
-          "en": "As for",
+          "en": "as for",
           "start": 0,
           "end": 6
         },
         {
           "ar": "الْهَيْكَلُ",
-          "en": "The temple",
+          "en": "the temple",
           "start": 7,
           "end": 18
         },
         {
           "ar": "الَّذِي",
-          "en": "Who",
+          "en": "which",
           "start": 19,
           "end": 26
         },
         {
           "ar": "أَنْشَأَهُ",
-          "en": "Built",
+          "en": "he built it",
           "start": 27,
           "end": 37
         },
@@ -290,79 +292,79 @@
         },
         {
           "ar": "فَكَانَ",
-          "en": "So it was",
+          "en": "so it was",
           "start": 50,
           "end": 57
         },
         {
           "ar": "سِتِّينَ",
-          "en": "Sixty",
+          "en": "sixty",
           "start": 58,
           "end": 66
         },
         {
           "ar": "ذِرَاعاً",
-          "en": "Cubit",
+          "en": "cubits",
           "start": 67,
           "end": 75
         },
         {
           "ar": "(نَحْوَ",
-          "en": "Approximately",
+          "en": "about",
           "start": 76,
           "end": 83
         },
         {
           "ar": "ثَلاثِينَ",
-          "en": "Thirty",
+          "en": "thirty",
           "start": 84,
           "end": 93
         },
         {
           "ar": "مِتْراً)",
-          "en": "Meters",
+          "en": "meters",
           "start": 94,
           "end": 102
         },
         {
           "ar": "طُولاً",
-          "en": "Length",
+          "en": "long",
           "start": 103,
           "end": 109
         },
         {
           "ar": "وَعِشْرِينَ",
-          "en": "And twenty",
+          "en": "and twenty",
           "start": 110,
           "end": 121
         },
         {
           "ar": "ذِرَاعاً",
-          "en": "Cubit",
+          "en": "cubits",
           "start": 122,
           "end": 130
         },
         {
           "ar": "(نَحْوَ",
-          "en": "Approximately",
+          "en": "about",
           "start": 131,
           "end": 138
         },
         {
           "ar": "عَشَرَةِ",
-          "en": "Ten",
+          "en": "ten",
           "start": 139,
           "end": 147
         },
         {
           "ar": "أَمْتَارٍ)",
-          "en": "Meters",
+          "en": "meters",
           "start": 148,
           "end": 158
         },
         {
           "ar": "عَرْضاً.",
-          "en": "Width",
+          "en": "wide",
           "start": 159,
           "end": 167
         }
@@ -374,163 +376,163 @@
       "mappings": [
         {
           "ar": "وَكَانَ",
-          "en": "And it was",
+          "en": "and was",
           "start": 0,
           "end": 7
         },
         {
           "ar": "طُولُ",
-          "en": "Length",
+          "en": "length",
           "start": 8,
           "end": 13
         },
         {
           "ar": "الرُّوَاقِ",
-          "en": "Portico",
+          "en": "the portico",
           "start": 14,
           "end": 24
         },
         {
           "ar": "الْقَائِمِ",
-          "en": "Standing/Erect",
+          "en": "standing",
           "start": 25,
           "end": 35
         },
         {
           "ar": "أَمَامَ",
-          "en": "In front of",
+          "en": "in front of",
           "start": 36,
           "end": 43
         },
         {
           "ar": "الْهَيْكَلِ",
-          "en": "The temple",
+          "en": "the temple",
           "start": 44,
           "end": 55
         },
         {
           "ar": "عِشْرِينَ",
-          "en": "Twenty",
+          "en": "twenty",
           "start": 56,
           "end": 65
         },
         {
           "ar": "ذِرَاعاً",
-          "en": "Cubits",
+          "en": "cubits",
           "start": 66,
           "end": 74
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(Approximately",
+          "en": "about",
           "start": 75,
           "end": 82
         },
         {
           "ar": "عَشَرَةِ",
-          "en": "Ten",
+          "en": "ten",
           "start": 83,
           "end": 91
         },
         {
           "ar": "أَمْتَارٍ)",
-          "en": "Meters",
+          "en": "meters",
           "start": 92,
           "end": 102
         },
         {
           "ar": "مُعَادِلاً",
-          "en": "Equal to",
+          "en": "equivalent to",
           "start": 103,
           "end": 113
         },
         {
           "ar": "لِعَرْضِ",
-          "en": "The width of",
+          "en": "to the width of",
           "start": 114,
           "end": 122
         },
         {
           "ar": "الْهَيْكَلِ،",
-          "en": "The temple",
+          "en": "the temple",
           "start": 123,
           "end": 135
         },
         {
           "ar": "وَارْتِفَاعُهُ",
-          "en": "And its height",
+          "en": "and its height",
           "start": 136,
           "end": 150
         },
         {
           "ar": "مِئَةً",
-          "en": "One hundred",
+          "en": "one hundred",
           "start": 151,
           "end": 157
         },
         {
           "ar": "وَعِشْرِينَ",
-          "en": "And twenty",
+          "en": "and twenty",
           "start": 158,
           "end": 169
         },
         {
           "ar": "ذِرَاعاً",
-          "en": "Cubits",
+          "en": "cubits",
           "start": 170,
           "end": 178
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(Approximately",
+          "en": "about",
           "start": 179,
           "end": 186
         },
         {
           "ar": "سِتِّينَ",
-          "en": "Sixty",
+          "en": "sixty",
           "start": 187,
           "end": 195
         },
         {
           "ar": "مِتْراً)،",
-          "en": "Meters)",
+          "en": "meters",
           "start": 196,
           "end": 205
         },
         {
           "ar": "وَقَدْ",
-          "en": "And indeed",
+          "en": "and indeed",
           "start": 206,
           "end": 212
         },
         {
           "ar": "غَشَّاهُ",
-          "en": "He overlaid",
+          "en": "he overlaid it",
           "start": 213,
           "end": 221
         },
         {
           "ar": "مِنَ",
-          "en": "From the",
+          "en": "from",
           "start": 222,
           "end": 226
         },
         {
           "ar": "الدَّاخِلِ",
-          "en": "Inside",
+          "en": "the inside",
           "start": 227,
           "end": 237
         },
         {
           "ar": "بِالذَّهَبِ",
-          "en": "With gold",
+          "en": "with the gold",
           "start": 238,
           "end": 249
         },
         {
           "ar": "النَّقِيِّ.",
-          "en": "Pure",
+          "en": "pure",
           "start": 250,
           "end": 261
         }
@@ -542,7 +544,7 @@
       "mappings": [
         {
           "ar": "وَغَطَّى",
-          "en": "and covered",
+          "en": "and paneled",
           "start": 0,
           "end": 8
         },
@@ -554,25 +556,25 @@
         },
         {
           "ar": "الدَّاخِلِيَّةَ",
-          "en": "interior",
+          "en": "the inner",
           "start": 22,
           "end": 37
         },
         {
           "ar": "بِخَشَبِ",
-          "en": "with wood",
+          "en": "with wood of",
           "start": 38,
           "end": 46
         },
         {
           "ar": "السَّرْوِ",
-          "en": "cedar",
+          "en": "juniper",
           "start": 47,
           "end": 56
         },
         {
           "ar": "وَغَشَّاهُ",
-          "en": "and overlaid",
+          "en": "and covered it",
           "start": 57,
           "end": 67
         },
@@ -590,25 +592,25 @@
         },
         {
           "ar": "نَقَشَ",
-          "en": "carved",
+          "en": "he carved",
           "start": 86,
           "end": 92
         },
         {
           "ar": "عَلَيْهَا",
-          "en": "upon them",
+          "en": "on it",
           "start": 93,
           "end": 102
         },
         {
           "ar": "أَشْكَالَ",
-          "en": "shapes",
+          "en": "designs",
           "start": 103,
           "end": 112
         },
         {
           "ar": "نَخِيلٍ",
-          "en": "palms",
+          "en": "palm trees",
           "start": 113,
           "end": 120
         },
@@ -626,19 +628,19 @@
       "mappings": [
         {
           "ar": "وَجَمَّلَ",
-          "en": "adorned",
+          "en": "and he adorned",
           "start": 0,
           "end": 9
         },
         {
           "ar": "الْهَيْكَلَ",
-          "en": "temple",
+          "en": "the temple",
           "start": 10,
           "end": 21
         },
         {
           "ar": "فَرَصَّعَهُ",
-          "en": "embellished",
+          "en": "and he inlaid it",
           "start": 22,
           "end": 33
         },
@@ -662,25 +664,25 @@
         },
         {
           "ar": "الذَّهَبُ",
-          "en": "gold",
+          "en": "the gold",
           "start": 64,
           "end": 73
         },
         {
           "ar": "الْمُسْتَخْدَمُ",
-          "en": "used",
+          "en": "the used",
           "start": 74,
           "end": 89
         },
         {
           "ar": "فَكَانَ",
-          "en": "was",
+          "en": "and it was",
           "start": 90,
           "end": 97
         },
         {
           "ar": "مِنْ",
-          "en": "of",
+          "en": "from",
           "start": 98,
           "end": 102
         },
@@ -692,7 +694,7 @@
         },
         {
           "ar": "فَرَوَايِمَ.",
-          "en": "of Farwa",
+          "en": "Parvaim",
           "start": 110,
           "end": 122
         }
@@ -704,25 +706,25 @@
       "mappings": [
         {
           "ar": "وَغَشَّى",
-          "en": "covered",
+          "en": "and he overlaid",
           "start": 0,
           "end": 8
         },
         {
           "ar": "أَخْشَابَ",
-          "en": "timbers",
+          "en": "beams",
           "start": 9,
           "end": 18
         },
         {
           "ar": "الْبَيْتِ",
-          "en": "of the house",
+          "en": "the temple",
           "start": 19,
           "end": 28
         },
         {
           "ar": "وَعَتَبَاتِهِ",
-          "en": "and its thresholds",
+          "en": "and its doorframes",
           "start": 29,
           "end": 42
         },
@@ -734,7 +736,7 @@
         },
         {
           "ar": "وَمَصَارِيعَهُ",
-          "en": "and its shutters",
+          "en": "and its doors",
           "start": 57,
           "end": 71
         },
@@ -746,7 +748,7 @@
         },
         {
           "ar": "وَنَقَشَ",
-          "en": "and carved",
+          "en": "and he carved",
           "start": 81,
           "end": 89
         },
@@ -776,25 +778,25 @@
       "mappings": [
         {
           "ar": "وَشَيَّدَ",
-          "en": "and he built",
+          "en": "and built",
           "start": 0,
           "end": 9
         },
         {
           "ar": "مِحْرَابَ",
-          "en": "sanctuary",
+          "en": "the sanctuary",
           "start": 10,
           "end": 19
         },
         {
           "ar": "قُدْسِ",
-          "en": "of",
+          "en": "sanctuary of",
           "start": 20,
           "end": 26
         },
         {
           "ar": "الأَقْدَاسِ",
-          "en": "the holy of holies",
+          "en": "the Holy Places",
           "start": 27,
           "end": 38
         },
@@ -812,19 +814,19 @@
         },
         {
           "ar": "مُسَاوِياً",
-          "en": "equal",
+          "en": "corresponding to",
           "start": 55,
           "end": 65
         },
         {
           "ar": "لِعَرْضِ",
-          "en": "to the width",
+          "en": "to the width of",
           "start": 66,
           "end": 74
         },
         {
           "ar": "الْهَيْكَلِ،",
-          "en": "of the temple",
+          "en": "the temple",
           "start": 75,
           "end": 87
         },
@@ -842,7 +844,7 @@
         },
         {
           "ar": "الشَّكْلِ،",
-          "en": "in shape",
+          "en": "the shape",
           "start": 106,
           "end": 116
         },
@@ -854,7 +856,7 @@
         },
         {
           "ar": "يُعَادِلُ",
-          "en": "equals",
+          "en": "corresponds to",
           "start": 125,
           "end": 134
         },
@@ -896,13 +898,13 @@
         },
         {
           "ar": "(أَيْ",
-          "en": "(that is",
+          "en": "that is",
           "start": 187,
           "end": 192
         },
         {
           "ar": "نَحْوُ",
-          "en": "approximately",
+          "en": "about",
           "start": 193,
           "end": 199
         },
@@ -932,13 +934,13 @@
         },
         {
           "ar": "أَمْتَارٍ)،",
-          "en": "meters)",
+          "en": "meters",
           "start": 232,
           "end": 243
         },
         {
           "ar": "وَغَشَّاهُ",
-          "en": "and he overlaid",
+          "en": "and he overlaid it",
           "start": 244,
           "end": 254
         },
@@ -956,13 +958,13 @@
         },
         {
           "ar": "وَزْنَةٍ",
-          "en": "weight",
+          "en": "talents",
           "start": 270,
           "end": 278
         },
         {
           "ar": "(نَحْوَ",
-          "en": "(approximately",
+          "en": "about",
           "start": 279,
           "end": 286
         },
@@ -1004,7 +1006,7 @@
         },
         {
           "ar": "جِرَامٍ)",
-          "en": "grams)",
+          "en": "grams",
           "start": 337,
           "end": 345
         },
@@ -1016,7 +1018,7 @@
         },
         {
           "ar": "الذَّهَبِ",
-          "en": "gold",
+          "en": "the gold",
           "start": 351,
           "end": 360
         },
@@ -1034,25 +1036,25 @@
       "mappings": [
         {
           "ar": "وَكَانَ",
-          "en": "and he was",
+          "en": "and was",
           "start": 0,
           "end": 7
         },
         {
           "ar": "وَزْنُ",
-          "en": "weight",
+          "en": "weight of",
           "start": 8,
           "end": 14
         },
         {
           "ar": "مَسَامِيرِ",
-          "en": "nails",
+          "en": "nails of",
           "start": 15,
           "end": 25
         },
         {
           "ar": "الذَّهَبِ",
-          "en": "of gold",
+          "en": "the gold",
           "start": 26,
           "end": 35
         },
@@ -1070,7 +1072,7 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 55,
           "end": 62
         },
@@ -1094,7 +1096,7 @@
         },
         {
           "ar": "وَغَشَّى",
-          "en": "and covered",
+          "en": "and overlaid",
           "start": 86,
           "end": 94
         },
@@ -1106,7 +1108,7 @@
         },
         {
           "ar": "الْعُلْيَا",
-          "en": "upper",
+          "en": "the upper",
           "start": 107,
           "end": 117
         },
@@ -1124,7 +1126,7 @@
       "mappings": [
         {
           "ar": "وَصَاغَ",
-          "en": "and fashioned",
+          "en": "and he fashioned",
           "start": 0,
           "end": 7
         },
@@ -1136,7 +1138,7 @@
         },
         {
           "ar": "كَرُوبَيْنِ",
-          "en": "cherubim",
+          "en": "two cherubim",
           "start": 20,
           "end": 31
         },
@@ -1148,19 +1150,19 @@
         },
         {
           "ar": "تِمْثَالانِ",
-          "en": "statues",
+          "en": "two statues",
           "start": 41,
           "end": 52
         },
         {
           "ar": "لِمَلاكَيْنِ)",
-          "en": "of angels",
+          "en": "for two cherubim",
           "start": 53,
           "end": 66
         },
         {
           "ar": "غَشَّاهُمَا",
-          "en": "covered them",
+          "en": "overlaid them",
           "start": 67,
           "end": 78
         },
@@ -1172,7 +1174,7 @@
         },
         {
           "ar": "وَوَضَعَهُمَا",
-          "en": "and placed them",
+          "en": "and he placed them",
           "start": 89,
           "end": 102
         },
@@ -1184,13 +1186,13 @@
         },
         {
           "ar": "قُدْسِ",
-          "en": "the holy",
+          "en": "holiness",
           "start": 107,
           "end": 113
         },
         {
           "ar": "الأَقْدَاسِ.",
-          "en": "holiness",
+          "en": "the Holy Ones",
           "start": 114,
           "end": 126
         }
@@ -1208,13 +1210,13 @@
         },
         {
           "ar": "طُولُ",
-          "en": "length",
+          "en": "length of",
           "start": 8,
           "end": 13
         },
         {
           "ar": "كُلِّ",
-          "en": "every",
+          "en": "of every",
           "start": 14,
           "end": 19
         },
@@ -1232,13 +1234,13 @@
         },
         {
           "ar": "أَجْنِحَةِ",
-          "en": "wings",
+          "en": "wings of",
           "start": 33,
           "end": 43
         },
         {
           "ar": "الكَرُوبَيْنِ",
-          "en": "cherubim",
+          "en": "the two cherubim",
           "start": 44,
           "end": 57
         },
@@ -1256,25 +1258,25 @@
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 74,
           "end": 81
         },
         {
           "ar": "مِتْرَيْنِ",
-          "en": "two",
+          "en": "two meters",
           "start": 82,
           "end": 92
         },
         {
           "ar": "وَنِصْفِ",
-          "en": "and a half",
+          "en": "and half of",
           "start": 93,
           "end": 101
         },
         {
           "ar": "الْمِتْرِ)،",
-          "en": "cubit",
+          "en": "the meter",
           "start": 102,
           "end": 113
         },
@@ -1292,7 +1294,7 @@
         },
         {
           "ar": "جُمْلَتِهَا",
-          "en": "total",
+          "en": "in its total",
           "start": 128,
           "end": 139
         },
@@ -1304,13 +1306,13 @@
         },
         {
           "ar": "ذِرَاعاً",
-          "en": "arms",
+          "en": "cubits",
           "start": 150,
           "end": 158
         },
         {
           "ar": "(نَحْوَ",
-          "en": "approximately",
+          "en": "about",
           "start": 159,
           "end": 166
         },
@@ -1328,13 +1330,13 @@
         },
         {
           "ar": "وَمَسَّ",
-          "en": "touched",
+          "en": "and touched",
           "start": 188,
           "end": 195
         },
         {
           "ar": "طَرَفُ",
-          "en": "edge",
+          "en": "tip",
           "start": 196,
           "end": 202
         },
@@ -1346,25 +1348,25 @@
         },
         {
           "ar": "الْكَرُوبيِمِ",
-          "en": "cherubim",
+          "en": "the cherubim",
           "start": 211,
           "end": 224
         },
         {
           "ar": "الْخَارِجِيِّ",
-          "en": "outer",
+          "en": "the outer",
           "start": 225,
           "end": 238
         },
         {
           "ar": "جِدَارَ",
-          "en": "wall",
+          "en": "the wall",
           "start": 239,
           "end": 246
         },
         {
           "ar": "الْهَيْكَلِ",
-          "en": "of the temple",
+          "en": "the temple",
           "start": 247,
           "end": 258
         },
@@ -1376,19 +1378,19 @@
         },
         {
           "ar": "طَرَفُهُ",
-          "en": "edge",
+          "en": "its tip",
           "start": 266,
           "end": 274
         },
         {
           "ar": "الدَّاخِلِيُّ",
-          "en": "inner",
+          "en": "the inner",
           "start": 275,
           "end": 288
         },
         {
           "ar": "فَتَلامَسَ",
-          "en": "touched",
+          "en": "and touched",
           "start": 289,
           "end": 299
         },
@@ -1400,7 +1402,7 @@
         },
         {
           "ar": "طَرَفِ",
-          "en": "edge",
+          "en": "tip",
           "start": 305,
           "end": 311
         },
@@ -1412,15 +1414,735 @@
         },
         {
           "ar": "الْكَرُوبِيمِ",
-          "en": "cherubim",
+          "en": "the cherubim",
           "start": 320,
           "end": 333
         },
         {
           "ar": "الآخَرِ.",
-          "en": "other",
+          "en": "the other",
           "start": 334,
           "end": 342
+        }
+      ]
+    },
+    "12": {
+      "ar": "وَكَذَلِكَ مَسَّ طَرَفُ جَنَاحِ الْكَرُوبِيمِ الثَّانِي الْخَارِجِيِّ جِدَارَ الْهَيْكَلِ أَمَّا طَرَفُ الْجَنَاحِ الدَّاخِلِيِّ فَتَلامَسَ مَعَ طَرَفِ جَنَاحِ الْكَرُوبِيمِ الأَوَّلِ الدَّاخِلِيِّ.",
+      "en": "Similarly one wing of the second cherub was five cubits long and touched the other temple wall, and its other wing, also five cubits long, touched the wing of the first cherub.",
+      "mappings": [
+        {
+          "ar": "وَكَذَلِكَ",
+          "en": "and so",
+          "start": 0,
+          "end": 10
+        },
+        {
+          "ar": "مَسَّ",
+          "en": "touched",
+          "start": 11,
+          "end": 16
+        },
+        {
+          "ar": "طَرَفُ",
+          "en": "the tip of",
+          "start": 17,
+          "end": 23
+        },
+        {
+          "ar": "جَنَاحِ",
+          "en": "wing of",
+          "start": 24,
+          "end": 31
+        },
+        {
+          "ar": "الْكَرُوبِيمِ",
+          "en": "the cherubim",
+          "start": 32,
+          "end": 45
+        },
+        {
+          "ar": "الثَّانِي",
+          "en": "the second",
+          "start": 46,
+          "end": 55
+        },
+        {
+          "ar": "الْخَارِجِيِّ",
+          "en": "the outer",
+          "start": 56,
+          "end": 69
+        },
+        {
+          "ar": "جِدَارَ",
+          "en": "the wall",
+          "start": 70,
+          "end": 77
+        },
+        {
+          "ar": "الْهَيْكَلِ",
+          "en": "the temple",
+          "start": 78,
+          "end": 89
+        },
+        {
+          "ar": "أَمَّا",
+          "en": "as for",
+          "start": 90,
+          "end": 96
+        },
+        {
+          "ar": "طَرَفُ",
+          "en": "the tip of",
+          "start": 97,
+          "end": 103
+        },
+        {
+          "ar": "الْجَنَاحِ",
+          "en": "the wing",
+          "start": 104,
+          "end": 114
+        },
+        {
+          "ar": "الدَّاخِلِيِّ",
+          "en": "the inner",
+          "start": 115,
+          "end": 128
+        },
+        {
+          "ar": "فَتَلامَسَ",
+          "en": "and touched",
+          "start": 129,
+          "end": 139
+        },
+        {
+          "ar": "مَعَ",
+          "en": "with",
+          "start": 140,
+          "end": 144
+        },
+        {
+          "ar": "طَرَفِ",
+          "en": "the tip of",
+          "start": 145,
+          "end": 151
+        },
+        {
+          "ar": "جَنَاحِ",
+          "en": "wing of",
+          "start": 152,
+          "end": 159
+        },
+        {
+          "ar": "الْكَرُوبِيمِ",
+          "en": "the cherubim",
+          "start": 160,
+          "end": 173
+        },
+        {
+          "ar": "الأَوَّلِ",
+          "en": "the first",
+          "start": 174,
+          "end": 183
+        },
+        {
+          "ar": "الدَّاخِلِيِّ.",
+          "en": "the inner",
+          "start": 184,
+          "end": 198
+        }
+      ]
+    },
+    "13": {
+      "ar": "وَكَانَ هَذَانِ الكَرُوبَانِ مُنْتَصِبَيْنِ عَلَى أَرْجُلِهِمَا فِي مُوَاجَهَةِ المِحْرَابِ بَاسِطَيْنِ أَجْنِحَتَهُمَا عَلَى امْتِدَادِ عِشْرِينَ ذِرَاعاً (نَحْوَ عَشَرَةِ أَمْتَارٍ).",
+      "en": "The wings of these cherubim extended twenty cubits. They stood on their feet, facing the main hall.",
+      "mappings": [
+        {
+          "ar": "وَكَانَ",
+          "en": "and were",
+          "start": 0,
+          "end": 7
+        },
+        {
+          "ar": "هَذَانِ",
+          "en": "these two",
+          "start": 8,
+          "end": 15
+        },
+        {
+          "ar": "الكَرُوبَانِ",
+          "en": "the cherubim",
+          "start": 16,
+          "end": 28
+        },
+        {
+          "ar": "مُنْتَصِبَيْنِ",
+          "en": "standing",
+          "start": 29,
+          "end": 43
+        },
+        {
+          "ar": "عَلَى",
+          "en": "on",
+          "start": 44,
+          "end": 49
+        },
+        {
+          "ar": "أَرْجُلِهِمَا",
+          "en": "their feet",
+          "start": 50,
+          "end": 63
+        },
+        {
+          "ar": "فِي",
+          "en": "in",
+          "start": 64,
+          "end": 67
+        },
+        {
+          "ar": "مُوَاجَهَةِ",
+          "en": "facing",
+          "start": 68,
+          "end": 79
+        },
+        {
+          "ar": "المِحْرَابِ",
+          "en": "the sanctuary",
+          "start": 80,
+          "end": 91
+        },
+        {
+          "ar": "بَاسِطَيْنِ",
+          "en": "spreading",
+          "start": 92,
+          "end": 103
+        },
+        {
+          "ar": "أَجْنِحَتَهُمَا",
+          "en": "their wings",
+          "start": 104,
+          "end": 119
+        },
+        {
+          "ar": "عَلَى",
+          "en": "over",
+          "start": 120,
+          "end": 125
+        },
+        {
+          "ar": "امْتِدَادِ",
+          "en": "extent of",
+          "start": 126,
+          "end": 136
+        },
+        {
+          "ar": "عِشْرِينَ",
+          "en": "twenty",
+          "start": 137,
+          "end": 146
+        },
+        {
+          "ar": "ذِرَاعاً",
+          "en": "cubits",
+          "start": 147,
+          "end": 155
+        },
+        {
+          "ar": "(نَحْوَ",
+          "en": "about",
+          "start": 156,
+          "end": 163
+        },
+        {
+          "ar": "عَشَرَةِ",
+          "en": "ten",
+          "start": 164,
+          "end": 172
+        },
+        {
+          "ar": "أَمْتَارٍ).",
+          "en": "meters",
+          "start": 173,
+          "end": 184
+        }
+      ]
+    },
+    "14": {
+      "ar": "وَصَنَعَ الْحِجَابَ (الْفَاصِلَ بَيْنَ الْمِحْرَابِ وَبَقِيَّةِ الْهَيْكَلِ) مِنْ قُمَاشٍ أَزْرَقِ اللَّوْنِ وَبَنَفْسَجِيٍّ وَأَحْمَرَ وَكَتَّانٍ، طُرِّزَ عَلَيْهِ رَسْمُ الْكَرُوبِيمِ.",
+      "en": "He made the curtain of blue, purple and crimson yarn and fine linen, with cherubim worked into it.",
+      "mappings": [
+        {
+          "ar": "وَصَنَعَ",
+          "en": "and he made",
+          "start": 0,
+          "end": 8
+        },
+        {
+          "ar": "الْحِجَابَ",
+          "en": "the curtain",
+          "start": 9,
+          "end": 19
+        },
+        {
+          "ar": "(الْفَاصِلَ",
+          "en": "the partition",
+          "start": 20,
+          "end": 31
+        },
+        {
+          "ar": "بَيْنَ",
+          "en": "between",
+          "start": 32,
+          "end": 38
+        },
+        {
+          "ar": "الْمِحْرَابِ",
+          "en": "the sanctuary",
+          "start": 39,
+          "end": 51
+        },
+        {
+          "ar": "وَبَقِيَّةِ",
+          "en": "and the rest of",
+          "start": 52,
+          "end": 63
+        },
+        {
+          "ar": "الْهَيْكَلِ)",
+          "en": "the sanctuary",
+          "start": 64,
+          "end": 76
+        },
+        {
+          "ar": "مِنْ",
+          "en": "from",
+          "start": 77,
+          "end": 81
+        },
+        {
+          "ar": "قُمَاشٍ",
+          "en": "cloth",
+          "start": 82,
+          "end": 89
+        },
+        {
+          "ar": "أَزْرَقِ",
+          "en": "blue",
+          "start": 90,
+          "end": 98
+        },
+        {
+          "ar": "اللَّوْنِ",
+          "en": "the color",
+          "start": 99,
+          "end": 108
+        },
+        {
+          "ar": "وَبَنَفْسَجِيٍّ",
+          "en": "and purple",
+          "start": 109,
+          "end": 124
+        },
+        {
+          "ar": "وَأَحْمَرَ",
+          "en": "and crimson",
+          "start": 125,
+          "end": 135
+        },
+        {
+          "ar": "وَكَتَّانٍ،",
+          "en": "and linen",
+          "start": 136,
+          "end": 147
+        },
+        {
+          "ar": "طُرِّزَ",
+          "en": "were embroidered",
+          "start": 148,
+          "end": 155
+        },
+        {
+          "ar": "عَلَيْهِ",
+          "en": "into it",
+          "start": 156,
+          "end": 164
+        },
+        {
+          "ar": "رَسْمُ",
+          "en": "image",
+          "start": 165,
+          "end": 171
+        },
+        {
+          "ar": "الْكَرُوبِيمِ.",
+          "en": "the cherubim",
+          "start": 172,
+          "end": 186
+        }
+      ]
+    },
+    "15": {
+      "ar": "وَأَقَامَ أَمَامَ الْهَيْكَلِ عَمُودَيْنِ، طُولُ كُلٍّ مِنْهُمَا خَمْسٌ وَثَلاثُونَ ذِرَاعاً (نَحْوَ سَبْعَةَ عَشَرَ مِتْراً وَنِصْفِ الْمِتْرِ)، وَضَعَ عَلَيْهِمَا تَاجَيْنِ، ارْتِفَاعُ كُلٍّ مِنْهُمَا خَمْسُ أَذْرُعٍ (نَحْوَ مِتْرَيْنِ وَنِصْفِ الْمِتْرِ).",
+      "en": "For the front of the temple he made two pillars, which together were thirty-five cubits long, each with a capital five cubits high.",
+      "mappings": [
+        {
+          "ar": "وَأَقَامَ",
+          "en": "and he made",
+          "start": 0,
+          "end": 9
+        },
+        {
+          "ar": "أَمَامَ",
+          "en": "in front of",
+          "start": 10,
+          "end": 17
+        },
+        {
+          "ar": "الْهَيْكَلِ",
+          "en": "the temple",
+          "start": 18,
+          "end": 29
+        },
+        {
+          "ar": "عَمُودَيْنِ،",
+          "en": "two pillars",
+          "start": 30,
+          "end": 42
+        },
+        {
+          "ar": "طُولُ",
+          "en": "the length of",
+          "start": 43,
+          "end": 48
+        },
+        {
+          "ar": "كُلٍّ",
+          "en": "each",
+          "start": 49,
+          "end": 54
+        },
+        {
+          "ar": "مِنْهُمَا",
+          "en": "of them both",
+          "start": 55,
+          "end": 64
+        },
+        {
+          "ar": "خَمْسٌ",
+          "en": "five",
+          "start": 65,
+          "end": 71
+        },
+        {
+          "ar": "وَثَلاثُونَ",
+          "en": "and thirty",
+          "start": 72,
+          "end": 83
+        },
+        {
+          "ar": "ذِرَاعاً",
+          "en": "cubits",
+          "start": 84,
+          "end": 92
+        },
+        {
+          "ar": "(نَحْوَ",
+          "en": "about",
+          "start": 93,
+          "end": 100
+        },
+        {
+          "ar": "سَبْعَةَ",
+          "en": "seven",
+          "start": 101,
+          "end": 109
+        },
+        {
+          "ar": "عَشَرَ",
+          "en": "ten",
+          "start": 110,
+          "end": 116
+        },
+        {
+          "ar": "مِتْراً",
+          "en": "meters",
+          "start": 117,
+          "end": 124
+        },
+        {
+          "ar": "وَنِصْفِ",
+          "en": "and half of",
+          "start": 125,
+          "end": 133
+        },
+        {
+          "ar": "الْمِتْرِ)،",
+          "en": "the meter",
+          "start": 134,
+          "end": 145
+        },
+        {
+          "ar": "وَضَعَ",
+          "en": "he put",
+          "start": 146,
+          "end": 152
+        },
+        {
+          "ar": "عَلَيْهِمَا",
+          "en": "on them both",
+          "start": 153,
+          "end": 164
+        },
+        {
+          "ar": "تَاجَيْنِ،",
+          "en": "two capitals",
+          "start": 165,
+          "end": 175
+        },
+        {
+          "ar": "ارْتِفَاعُ",
+          "en": "height of",
+          "start": 176,
+          "end": 186
+        },
+        {
+          "ar": "كُلٍّ",
+          "en": "each",
+          "start": 187,
+          "end": 192
+        },
+        {
+          "ar": "مِنْهُمَا",
+          "en": "of them both",
+          "start": 193,
+          "end": 202
+        },
+        {
+          "ar": "خَمْسُ",
+          "en": "five",
+          "start": 203,
+          "end": 209
+        },
+        {
+          "ar": "أَذْرُعٍ",
+          "en": "cubits",
+          "start": 210,
+          "end": 218
+        },
+        {
+          "ar": "(نَحْوَ",
+          "en": "about",
+          "start": 219,
+          "end": 226
+        },
+        {
+          "ar": "مِتْرَيْنِ",
+          "en": "two meters",
+          "start": 227,
+          "end": 237
+        },
+        {
+          "ar": "وَنِصْفِ",
+          "en": "and half of",
+          "start": 238,
+          "end": 246
+        },
+        {
+          "ar": "الْمِتْرِ).",
+          "en": "the meter",
+          "start": 247,
+          "end": 258
+        }
+      ]
+    },
+    "16": {
+      "ar": "وَصَنَعَ سَلاسِلَ مَضْفُورَةً مُمَاثِلَةً لِسَلاسِلِ الْمِحْرَابِ وَضَعَهَا عَلَى رَأْسَيِ الْعَمُودَيْنِ، كَمَا صَنَعَ مِئَةَ رُمَّانَةٍ عَلَّقَهَا بِالسَّلاسِلِ.",
+      "en": "He made interwoven chains and put them on top of the pillars. He also made a hundred pomegranates and attached them to the chains.",
+      "mappings": [
+        {
+          "ar": "وَصَنَعَ",
+          "en": "and he made",
+          "start": 0,
+          "end": 8
+        },
+        {
+          "ar": "سَلاسِلَ",
+          "en": "chains",
+          "start": 9,
+          "end": 17
+        },
+        {
+          "ar": "مَضْفُورَةً",
+          "en": "interwoven",
+          "start": 18,
+          "end": 29
+        },
+        {
+          "ar": "مُمَاثِلَةً",
+          "en": "similar",
+          "start": 30,
+          "end": 41
+        },
+        {
+          "ar": "لِسَلاسِلِ",
+          "en": "to the chains of",
+          "start": 42,
+          "end": 52
+        },
+        {
+          "ar": "الْمِحْرَابِ",
+          "en": "the sanctuary",
+          "start": 53,
+          "end": 65
+        },
+        {
+          "ar": "وَضَعَهَا",
+          "en": "and he put them",
+          "start": 66,
+          "end": 75
+        },
+        {
+          "ar": "عَلَى",
+          "en": "on",
+          "start": 76,
+          "end": 81
+        },
+        {
+          "ar": "رَأْسَيِ",
+          "en": "the tops of",
+          "start": 82,
+          "end": 90
+        },
+        {
+          "ar": "الْعَمُودَيْنِ،",
+          "en": "the two pillars",
+          "start": 91,
+          "end": 106
+        },
+        {
+          "ar": "كَمَا",
+          "en": "as",
+          "start": 107,
+          "end": 112
+        },
+        {
+          "ar": "صَنَعَ",
+          "en": "he made",
+          "start": 113,
+          "end": 119
+        },
+        {
+          "ar": "مِئَةَ",
+          "en": "hundred",
+          "start": 120,
+          "end": 126
+        },
+        {
+          "ar": "رُمَّانَةٍ",
+          "en": "pomegranates",
+          "start": 127,
+          "end": 137
+        },
+        {
+          "ar": "عَلَّقَهَا",
+          "en": "and attached them",
+          "start": 138,
+          "end": 148
+        },
+        {
+          "ar": "بِالسَّلاسِلِ.",
+          "en": "to the chains",
+          "start": 149,
+          "end": 163
+        }
+      ]
+    },
+    "17": {
+      "ar": "وَنَصَبَ الْعَمُودَيْنِ أَمَامَ الْهَيْكَلِ، وَاحِداً عَنْ يَمِينِهِ وَدَعَاهُ يَاكِينَ، وَالآخَرَ عَنْ شِمَالِهِ وَدَعاهُ بُوعَزَ.",
+      "en": "He erected the pillars in the front of the temple, one to the south and one to the north. The one to the south he named Jakin and the one to the north Boaz.",
+      "mappings": [
+        {
+          "ar": "وَنَصَبَ",
+          "en": "and erected",
+          "start": 0,
+          "end": 8
+        },
+        {
+          "ar": "الْعَمُودَيْنِ",
+          "en": "the two pillars",
+          "start": 9,
+          "end": 23
+        },
+        {
+          "ar": "أَمَامَ",
+          "en": "in front of",
+          "start": 24,
+          "end": 31
+        },
+        {
+          "ar": "الْهَيْكَلِ،",
+          "en": "the temple",
+          "start": 32,
+          "end": 44
+        },
+        {
+          "ar": "وَاحِداً",
+          "en": "one",
+          "start": 45,
+          "end": 53
+        },
+        {
+          "ar": "عَنْ",
+          "en": "to",
+          "start": 54,
+          "end": 58
+        },
+        {
+          "ar": "يَمِينِهِ",
+          "en": "his right",
+          "start": 59,
+          "end": 68
+        },
+        {
+          "ar": "وَدَعَاهُ",
+          "en": "and he named it",
+          "start": 69,
+          "end": 78
+        },
+        {
+          "ar": "يَاكِينَ،",
+          "en": "Jakin",
+          "start": 79,
+          "end": 88
+        },
+        {
+          "ar": "وَالآخَرَ",
+          "en": "and the other",
+          "start": 89,
+          "end": 98
+        },
+        {
+          "ar": "عَنْ",
+          "en": "to",
+          "start": 99,
+          "end": 103
+        },
+        {
+          "ar": "شِمَالِهِ",
+          "en": "to its north",
+          "start": 104,
+          "end": 113
+        },
+        {
+          "ar": "وَدَعاهُ",
+          "en": "and he named it",
+          "start": 114,
+          "end": 122
+        },
+        {
+          "ar": "بُوعَزَ.",
+          "en": "Boaz",
+          "start": 123,
+          "end": 131
         }
       ]
     }

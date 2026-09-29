@@ -1,6 +1,8 @@
 {
   "book": "PSA",
   "chapter": 148,
+  "model": "gemma4:12b",
+  "method": "retranslate-v1 (gemma4, word-by-word with the Arabic verse + English translation as context)",
   "verses": {
     "1": {
       "ar": "هَلِّلُويَا! سَبِّحُوا الرَّبَّ مِنَ السَّمَاوَاتِ. سَبِّحُوهُ فِي الأَعَالِي.",
@@ -8,49 +10,49 @@
       "mappings": [
         {
           "ar": "هَلِّلُويَا!",
-          "en": "Hallelujah",
+          "en": "Hallelujah!",
           "start": 0,
           "end": 12
         },
         {
           "ar": "سَبِّحُوا",
-          "en": "Praise",
+          "en": "praise",
           "start": 13,
           "end": 22
         },
         {
           "ar": "الرَّبَّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 23,
           "end": 31
         },
         {
           "ar": "مِنَ",
-          "en": "From",
+          "en": "from",
           "start": 32,
           "end": 36
         },
         {
           "ar": "السَّمَاوَاتِ.",
-          "en": "The heavens",
+          "en": "the heavens",
           "start": 37,
           "end": 51
         },
         {
           "ar": "سَبِّحُوهُ",
-          "en": "Praise Him",
+          "en": "praise him",
           "start": 52,
           "end": 62
         },
         {
           "ar": "فِي",
-          "en": "In",
+          "en": "in",
           "start": 63,
           "end": 66
         },
         {
           "ar": "الأَعَالِي.",
-          "en": "The heights",
+          "en": "the heights",
           "start": 67,
           "end": 78
         }
@@ -62,7 +64,7 @@
       "mappings": [
         {
           "ar": "سَبِّحُوهُ",
-          "en": "Praise",
+          "en": "praise him",
           "start": 0,
           "end": 10
         },
@@ -74,19 +76,19 @@
         },
         {
           "ar": "جَمِيعَ",
-          "en": "All",
+          "en": "all",
           "start": 15,
           "end": 22
         },
         {
           "ar": "مَلائِكَتِهِ.",
-          "en": "His angels",
+          "en": "his angels",
           "start": 23,
           "end": 36
         },
         {
           "ar": "سَبِّحُوهُ",
-          "en": "Praise",
+          "en": "praise him",
           "start": 37,
           "end": 47
         },
@@ -98,13 +100,13 @@
         },
         {
           "ar": "جَمِيعَ",
-          "en": "All",
+          "en": "all",
           "start": 52,
           "end": 59
         },
         {
           "ar": "أَجْنَادِهِ.",
-          "en": "His hosts",
+          "en": "his hosts",
           "start": 60,
           "end": 72
         }
@@ -116,7 +118,7 @@
       "mappings": [
         {
           "ar": "سَبِّحِيهِ",
-          "en": "Praise him",
+          "en": "praise him",
           "start": 0,
           "end": 10
         },
@@ -128,25 +130,25 @@
         },
         {
           "ar": "شَمْسُ",
-          "en": "Sun",
+          "en": "sun",
           "start": 15,
           "end": 21
         },
         {
           "ar": "وَيَا",
-          "en": "And",
+          "en": "and O",
           "start": 22,
           "end": 27
         },
         {
           "ar": "قَمَرُ.",
-          "en": "Moon",
+          "en": "moon",
           "start": 28,
           "end": 35
         },
         {
           "ar": "سَبِّحِيهِ",
-          "en": "Praise him",
+          "en": "praise him",
           "start": 36,
           "end": 46
         },
@@ -158,19 +160,19 @@
         },
         {
           "ar": "جَمِيعَ",
-          "en": "All",
+          "en": "all",
           "start": 51,
           "end": 58
         },
         {
           "ar": "الكَوَاكِبِ",
-          "en": "Stars",
+          "en": "the stars",
           "start": 59,
           "end": 70
         },
         {
           "ar": "المُشْرِقَةِ.",
-          "en": "Shining",
+          "en": "shining",
           "start": 71,
           "end": 84
         }
@@ -182,7 +184,7 @@
       "mappings": [
         {
           "ar": "سَبِّحِيهِ",
-          "en": "Praise",
+          "en": "praise him",
           "start": 0,
           "end": 10
         },
@@ -194,7 +196,7 @@
         },
         {
           "ar": "سَمَاءَ",
-          "en": "heavens",
+          "en": "heaven",
           "start": 15,
           "end": 22
         },
@@ -206,7 +208,7 @@
         },
         {
           "ar": "وَيَا",
-          "en": "and",
+          "en": "and O",
           "start": 38,
           "end": 43
         },
@@ -218,13 +220,13 @@
         },
         {
           "ar": "السُّحُبُ",
-          "en": "clouds",
+          "en": "the clouds",
           "start": 55,
           "end": 64
         },
         {
           "ar": "الَّتِي",
-          "en": "which",
+          "en": "that",
           "start": 65,
           "end": 72
         },
@@ -236,7 +238,7 @@
         },
         {
           "ar": "الجَلَدِ.",
-          "en": "the ice",
+          "en": "the expanse",
           "start": 80,
           "end": 89
         }
@@ -248,7 +250,7 @@
       "mappings": [
         {
           "ar": "لِتُسَبِّحْ",
-          "en": "Let them praise",
+          "en": "let them praise",
           "start": 0,
           "end": 11
         },
@@ -266,7 +268,7 @@
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "of the Lord",
+          "en": "the Lord",
           "start": 25,
           "end": 34
         },
@@ -278,7 +280,7 @@
         },
         {
           "ar": "بِأَمْرِهِ",
-          "en": "by his command",
+          "en": "at his command",
           "start": 45,
           "end": 55
         },
@@ -296,7 +298,7 @@
       "mappings": [
         {
           "ar": "وَثَبَّتَهَا",
-          "en": "established",
+          "en": "and he established them",
           "start": 0,
           "end": 12
         },
@@ -308,43 +310,43 @@
         },
         {
           "ar": "الدَّهْرِ",
-          "en": "age",
+          "en": "time",
           "start": 19,
           "end": 28
         },
         {
           "ar": "وَالأَبَدِ،",
-          "en": "and eternity",
+          "en": "and forever",
           "start": 29,
           "end": 40
         },
         {
           "ar": "وَاضِعاً",
-          "en": "issuing",
+          "en": "setting",
           "start": 41,
           "end": 49
         },
         {
           "ar": "لَهَا",
-          "en": "for it",
+          "en": "for her",
           "start": 50,
           "end": 55
         },
         {
           "ar": "حَدّاً",
-          "en": "a decree",
+          "en": "a limit",
           "start": 56,
           "end": 62
         },
         {
           "ar": "لَا",
-          "en": "never",
+          "en": "not",
           "start": 63,
           "end": 66
         },
         {
           "ar": "تَتَجَاوَزُهُ.",
-          "en": "it surpasses",
+          "en": "it will not pass it",
           "start": 67,
           "end": 81
         }
@@ -356,67 +358,67 @@
       "mappings": [
         {
           "ar": "سَبِّحِي",
-          "en": "Praise",
+          "en": "praise",
           "start": 0,
           "end": 8
         },
         {
           "ar": "الرَّبَّ",
-          "en": "The Lord",
+          "en": "the Lord",
           "start": 9,
           "end": 17
         },
         {
           "ar": "مِنْ",
-          "en": "From",
+          "en": "from",
           "start": 18,
           "end": 22
         },
         {
           "ar": "عَلَى",
-          "en": "The",
+          "en": "on",
           "start": 23,
           "end": 28
         },
         {
           "ar": "الأَرْضِ",
-          "en": "Earth",
+          "en": "the earth",
           "start": 29,
           "end": 37
         },
         {
           "ar": "يَا",
-          "en": "You",
+          "en": "O",
           "start": 38,
           "end": 41
         },
         {
           "ar": "وُحُوشَ",
-          "en": "Great sea creatures",
+          "en": "beasts",
           "start": 42,
           "end": 49
         },
         {
           "ar": "الْبَحْرِ",
-          "en": "Sea",
+          "en": "the sea",
           "start": 50,
           "end": 59
         },
         {
           "ar": "وَيَا",
-          "en": "You",
+          "en": "and O",
           "start": 60,
           "end": 65
         },
         {
           "ar": "كُلَّ",
-          "en": "All",
+          "en": "all",
           "start": 66,
           "end": 71
         },
         {
           "ar": "اللُّجَجِ.",
-          "en": "Ocean depths",
+          "en": "the depths",
           "start": 72,
           "end": 82
         }
@@ -434,25 +436,25 @@
         },
         {
           "ar": "النَّارُ",
-          "en": "fire",
+          "en": "the fire",
           "start": 11,
           "end": 19
         },
         {
           "ar": "وَالْبَرَدُ،",
-          "en": "and hail",
+          "en": "and the hail",
           "start": 20,
           "end": 32
         },
         {
           "ar": "وَالثَّلْجُ",
-          "en": "and snow",
+          "en": "and the snow",
           "start": 33,
           "end": 44
         },
         {
           "ar": "والضَّبَابُ،",
-          "en": "and clouds",
+          "en": "and the fog",
           "start": 45,
           "end": 57
         },
@@ -476,7 +478,7 @@
         },
         {
           "ar": "لأَمْرِهِ،",
-          "en": "his command",
+          "en": "for his command",
           "start": 95,
           "end": 105
         }
@@ -488,13 +490,13 @@
       "mappings": [
         {
           "ar": "الْجِبَالُ",
-          "en": "mountains",
+          "en": "the mountains",
           "start": 0,
           "end": 10
         },
         {
           "ar": "وَالتِّلالُ",
-          "en": "and all hills",
+          "en": "and the hills",
           "start": 11,
           "end": 22
         },
@@ -506,7 +508,7 @@
         },
         {
           "ar": "الأَشْجَارُ",
-          "en": "trees",
+          "en": "the trees",
           "start": 33,
           "end": 44
         },
@@ -518,13 +520,13 @@
         },
         {
           "ar": "وَالأَرْزُ",
-          "en": "and cedars",
+          "en": "and the cedars",
           "start": 59,
           "end": 69
         },
         {
           "ar": "كُلُّهُ،",
-          "en": "all",
+          "en": "all of it",
           "start": 70,
           "end": 78
         }
@@ -536,7 +538,7 @@
       "mappings": [
         {
           "ar": "الْحَيْوَانَاتُ",
-          "en": "animals",
+          "en": "the animals",
           "start": 0,
           "end": 15
         },
@@ -548,25 +550,25 @@
         },
         {
           "ar": "وَالْمَوَاشِي",
-          "en": "cattle",
+          "en": "and the cattle",
           "start": 30,
           "end": 43
         },
         {
           "ar": "كُلُّهَا،",
-          "en": "all",
+          "en": "all of them",
           "start": 44,
           "end": 53
         },
         {
           "ar": "الزَّوَاحِفُ",
-          "en": "reptiles",
+          "en": "the crawling creatures",
           "start": 54,
           "end": 66
         },
         {
           "ar": "وَالطُّيُورُ.",
-          "en": "birds",
+          "en": "and the birds",
           "start": 67,
           "end": 80
         }
@@ -596,13 +598,13 @@
         },
         {
           "ar": "الشُّعُوبِ",
-          "en": "nations",
+          "en": "the nations",
           "start": 27,
           "end": 37
         },
         {
           "ar": "وَحُكَّامُ",
-          "en": "and rulers",
+          "en": "and princes",
           "start": 38,
           "end": 48
         },
@@ -620,7 +622,7 @@
         },
         {
           "ar": "الرُّؤَسَاءِ،",
-          "en": "rulers",
+          "en": "the rulers",
           "start": 68,
           "end": 81
         }
@@ -632,25 +634,25 @@
       "mappings": [
         {
           "ar": "الْفِتْيَانُ",
-          "en": "young men",
+          "en": "the young men",
           "start": 0,
           "end": 12
         },
         {
           "ar": "وَالْفَتَيَاتُ",
-          "en": "women",
+          "en": "and the girls",
           "start": 13,
           "end": 27
         },
         {
           "ar": "وَالشُّيُوخُ",
-          "en": "old men",
+          "en": "and the old men",
           "start": 28,
           "end": 40
         },
         {
           "ar": "وَالشُّبَّانُ،",
-          "en": "young men",
+          "en": "and the youths",
           "start": 41,
           "end": 55
         }
@@ -662,61 +664,61 @@
       "mappings": [
         {
           "ar": "لِيُسَبِّحُوا",
-          "en": "That they may praise",
+          "en": "let them praise",
           "start": 0,
           "end": 13
         },
         {
           "ar": "اسْمَ",
-          "en": "Name",
+          "en": "the name",
           "start": 14,
           "end": 19
         },
         {
           "ar": "الرَّبِّ،",
-          "en": "Lord",
+          "en": "the Lord",
           "start": 20,
           "end": 29
         },
         {
           "ar": "لأَنَّهُ",
-          "en": "For",
+          "en": "for he",
           "start": 30,
           "end": 38
         },
         {
           "ar": "وَحْدَهُ",
-          "en": "Alone",
+          "en": "alone",
           "start": 39,
           "end": 47
         },
         {
           "ar": "مُتَعَالٍ.",
-          "en": "Exalted",
+          "en": "exalted",
           "start": 48,
           "end": 58
         },
         {
           "ar": "مَجْدُهُ",
-          "en": "His splendor",
+          "en": "his splendor",
           "start": 59,
           "end": 67
         },
         {
           "ar": "فَوْقَ",
-          "en": "Above",
+          "en": "above",
           "start": 68,
           "end": 74
         },
         {
           "ar": "الأَرْضِ",
-          "en": "Earth",
+          "en": "the earth",
           "start": 75,
           "end": 83
         },
         {
           "ar": "وَالسَّمَاوَاتِ.",
-          "en": "Heavens",
+          "en": "and the heavens",
           "start": 84,
           "end": 100
         }
@@ -728,25 +730,25 @@
       "mappings": [
         {
           "ar": "يَرْفَعُ",
-          "en": "He raises",
+          "en": "he raises",
           "start": 0,
           "end": 8
         },
         {
           "ar": "رَأْسَ",
-          "en": "a horn",
+          "en": "horn",
           "start": 9,
           "end": 15
         },
         {
           "ar": "شَعْبِهِ",
-          "en": "of his people",
+          "en": "his people",
           "start": 16,
           "end": 24
         },
         {
           "ar": "إِكْرَاماً",
-          "en": "as a honor",
+          "en": "for the honor of",
           "start": 25,
           "end": 35
         },
@@ -758,19 +760,19 @@
         },
         {
           "ar": "أَتْقِيَائِهِ،",
-          "en": "his faithful servants",
+          "en": "his faithful ones",
           "start": 44,
           "end": 58
         },
         {
           "ar": "لِبَنِي",
-          "en": "for the sons",
+          "en": "for the sons of",
           "start": 59,
           "end": 66
         },
         {
           "ar": "إِسْرَائِيلَ",
-          "en": "of Israel",
+          "en": "Israel",
           "start": 67,
           "end": 79
         },
@@ -782,7 +784,7 @@
         },
         {
           "ar": "الْمُقَرَّبِ",
-          "en": "close to him",
+          "en": "the close one",
           "start": 90,
           "end": 102
         },
