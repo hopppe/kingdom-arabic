@@ -2,6 +2,7 @@
 // Every function takes the SQLiteDatabase from useBibleDb() as its first argument.
 
 import { BOOK_ARABIC_NAMES, getBookCode, getBookName, getBookNumber } from './bibleData';
+import { isArabicQuery, normalizeArabicSearch } from '../utils/arabicSearch';
 
 const chapterCache = new Map();
 const MAX_CACHED_CHAPTERS = 20;
@@ -101,32 +102,43 @@ const escapeRegex = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 // Word-boundary searches are filtered in JS, so fetch enough LIKE candidates to fill a page.
 const SEARCH_CANDIDATE_LIMIT = 5000;
 
+const EMPTY_SEARCH = { results: [], totalCount: 0 };
+
 /**
- * English full-text search. All words must appear; a trailing space in the query
- * means "match whole words only". Returns { results, totalCount }.
+ * Verse search. Queries containing Arabic letters search the vowel-less Arabic text
+ * (so harakat and alef/ya/ta marbuta variants don't matter); others search the English.
+ * All words must appear; a trailing space in the query means "match whole words only".
+ * Returns { results, totalCount }.
  */
 export async function searchVerses(db, query, limit = 15) {
   if (!query || !query.trim()) {
-    return { results: [], totalCount: 0 };
+    return EMPTY_SEARCH;
   }
   const wholeWords = query.trimStart().endsWith(' ');
-  const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  if (words.length === 0) {
-    return { results: [], totalCount: 0 };
-  }
+  return isArabicQuery(query)
+    ? searchArabic(db, normalizeArabicSearch(query), wholeWords, limit)
+    : searchEnglish(db, query.trim().toLowerCase().split(/\s+/).filter(Boolean), wholeWords, limit);
+}
 
+// ar_search is space-padded, so a whole-word match is a LIKE on the word with spaces around it.
+async function searchArabic(db, words, wholeWords, limit) {
+  if (words.length === 0) {
+    return EMPTY_SEARCH;
+  }
+  const where = words.map(() => "ar_search LIKE ? ESCAPE '\\'").join(' AND ');
+  const params = words.map((word) => (wholeWords ? `% ${escapeLike(word)} %` : `%${escapeLike(word)}%`));
+  return runSearch(db, where, params, limit);
+}
+
+async function searchEnglish(db, words, wholeWords, limit) {
+  if (words.length === 0) {
+    return EMPTY_SEARCH;
+  }
   const where = words.map(() => "lower(en) LIKE ? ESCAPE '\\'").join(' AND ');
   const params = words.map((word) => `%${escapeLike(word)}%`);
 
   if (!wholeWords) {
-    const [countRow, rows] = await Promise.all([
-      db.getFirstAsync(`SELECT COUNT(*) AS total FROM verses WHERE ${where}`, params),
-      db.getAllAsync(
-        `SELECT book, chapter, verse, ar, en FROM verses WHERE ${where} ORDER BY book, chapter, verse LIMIT ?`,
-        [...params, limit]
-      ),
-    ]);
-    return { results: rows.map(toSearchResult), totalCount: countRow?.total || 0 };
+    return runSearch(db, where, params, limit);
   }
 
   const candidates = await db.getAllAsync(
@@ -136,6 +148,17 @@ export async function searchVerses(db, query, limit = 15) {
   const patterns = words.map((word) => new RegExp(`\\b${escapeRegex(word)}\\b`, 'i'));
   const matches = candidates.filter((row) => patterns.every((pattern) => pattern.test(row.en)));
   return { results: matches.slice(0, limit).map(toSearchResult), totalCount: matches.length };
+}
+
+async function runSearch(db, where, params, limit) {
+  const [countRow, rows] = await Promise.all([
+    db.getFirstAsync(`SELECT COUNT(*) AS total FROM verses WHERE ${where}`, params),
+    db.getAllAsync(
+      `SELECT book, chapter, verse, ar, en FROM verses WHERE ${where} ORDER BY book, chapter, verse LIMIT ?`,
+      [...params, limit]
+    ),
+  ]);
+  return { results: rows.map(toSearchResult), totalCount: countRow?.total || 0 };
 }
 
 const toSearchResult = (row) => {

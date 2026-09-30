@@ -18,20 +18,35 @@ const groupItems = (group) => [
   ...(group.hymns ?? []).map((hymn) => ({ id: hymn.id, hymn })),
 ];
 
+const countItems = (section) => section.groups.reduce((total, group) => total + groupItems(group).length, 0);
+
 /**
  * One part of the gathering (Arabic first, right-to-left).
- * mode 'plan' shows the picked item per group with a shuffle button; 'resources' shows every item.
+ * mode 'plan' shows the picked item per group with a shuffle button; 'resources' shows every item,
+ * folded away until the title is tapped (when `onToggle` is given) so the list is quick to scan.
  */
-export function SectionCard({ section, mode, number, picks, onReroll, onSwapSection, onOpenScripture, showEnglish }) {
+export function SectionCard({
+  section, mode, number, picks, onReroll, onSwapSection, onOpenScripture, showEnglish, expanded, onToggle,
+}) {
   const { theme } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const isPlan = mode === 'plan';
   const groups = isPlan ? section.groups.filter((group) => group.inPlan !== false) : section.groups;
   const links = (section.links ?? []).filter((link) => !link.platform || link.platform === Platform.OS);
+  const collapsible = !isPlan && Boolean(onToggle);
+  const showBody = !collapsible || expanded;
+  const itemCount = collapsible ? countItems(section) : 0;
 
   return (
     <View style={styles.card}>
-      <View style={styles.titleRow}>
+      <Pressable
+        style={styles.titleRow}
+        onPress={collapsible ? onToggle : undefined}
+        disabled={!collapsible}
+        accessibilityRole={collapsible ? 'button' : undefined}
+        accessibilityState={collapsible ? { expanded: Boolean(expanded) } : undefined}
+        accessibilityLabel={collapsible ? section.en : undefined}
+      >
         {isPlan ? (
           <View style={styles.number}>
             <Text style={styles.numberText}>{toArabicDigits(number)}</Text>
@@ -55,12 +70,22 @@ export function SectionCard({ section, mode, number, picks, onReroll, onSwapSect
             <Ionicons name="swap-horizontal" size={18} color={theme.colors.textSecondary} />
           </Pressable>
         )}
-      </View>
+        {collapsible && (
+          <View style={styles.toggle}>
+            {itemCount > 0 && (
+              <View style={styles.countBadge}>
+                <Text style={styles.countText}>{toArabicDigits(itemCount)}</Text>
+              </View>
+            )}
+            <Ionicons name={expanded ? 'chevron-up' : 'chevron-down'} size={18} color={theme.colors.textSecondary} />
+          </View>
+        )}
+      </Pressable>
 
       <Text style={styles.noteAr}>{section.noteAr}</Text>
       {showEnglish && <Text style={styles.noteEn}>{section.noteEn}</Text>}
 
-      {groups.map((group) => {
+      {showBody && groups.map((group) => {
         const picked = isPlan ? picks?.[group.key] : null;
         if (isPlan && !picked) return null;
         return (
@@ -90,7 +115,7 @@ export function SectionCard({ section, mode, number, picks, onReroll, onSwapSect
         );
       })}
 
-      {links.length > 0 && (
+      {showBody && links.length > 0 && (
         <View style={[styles.chipRow, styles.group]}>
           {links.map((link) => (
             <ExternalLink key={link.url} ar={link.ar} en={link.en} url={link.url} showEnglish={showEnglish} />
@@ -98,7 +123,7 @@ export function SectionCard({ section, mode, number, picks, onReroll, onSwapSect
         </View>
       )}
 
-      {section.lines && (
+      {showBody && section.lines && (
         <View style={styles.lines}>
           {section.lines.map((line) => (
             <View key={line.ar} style={styles.line}>
@@ -123,6 +148,16 @@ const createStyles = (theme) =>
     titleRow: { flexDirection: 'row-reverse', alignItems: 'center', gap: theme.spacing.sm },
     titleText: { flex: 1, alignItems: 'flex-end' },
     swapButton: { padding: 4 },
+    toggle: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+    countBadge: {
+      minWidth: 24,
+      paddingHorizontal: 6,
+      paddingVertical: 2,
+      borderRadius: 10,
+      alignItems: 'center',
+      backgroundColor: theme.colors.surfaceOverlay,
+    },
+    countText: { fontSize: theme.typography.fontSize.xs, fontWeight: theme.typography.fontWeight.semibold, color: theme.colors.textSecondary },
     titleAr: { ...theme.arabic.scaled(1.05), color: theme.colors.text, textAlign: 'right' },
     titleEn: { fontSize: theme.typography.fontSize.sm, color: theme.colors.textSecondary, marginTop: -4 },
     number: {

@@ -9,7 +9,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.ingenuitylabs.kingdomarabic",
-      "buildNumber": "6",
+      "buildNumber": "7",
       "infoPlist": {
         "CFBundleDevelopmentRegion": "en",
         "NSUserNotificationsUsageDescription": "Kingdom Arabic uses notifications to send you daily study reminders to help you stay consistent with your Arabic Bible learning.",
@@ -35,6 +35,9 @@
         "WAKE_LOCK",
         "SCHEDULE_EXACT_ALARM",
         "POST_NOTIFICATIONS"
+      ],
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW"
       ]
     },
     "web": {
@@ -45,7 +48,9 @@
       [
         "expo-audio",
         {
-          "microphonePermission": false
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": false
         }
       ],
       [

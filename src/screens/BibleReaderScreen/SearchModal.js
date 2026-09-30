@@ -14,6 +14,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getPreviewText } from '../../utils/verseSearch';
+import { getArabicPreviewText, isArabicQuery } from '../../utils/arabicSearch';
 import { isGatheringUnlockCode } from '../../utils/gathering/unlockCode';
 import { searchVerses } from '../../data/bibleRepository';
 import { useBibleDb } from '../../context/BibleDbContext';
@@ -86,11 +87,17 @@ export const SearchModal = ({
       <Text style={localStyles.resultReference}>
         {item.bookName} {item.chapter}:{item.verse}
       </Text>
-      <Text style={localStyles.resultPreview} numberOfLines={2}>
-        {getPreviewText(item.en, query, 100)}
-      </Text>
+      {isArabicQuery(query) ? (
+        <Text style={[theme.arabic.small, localStyles.resultPreviewArabic]} numberOfLines={2}>
+          {getArabicPreviewText(item.ar, query)}
+        </Text>
+      ) : (
+        <Text style={localStyles.resultPreview} numberOfLines={2}>
+          {getPreviewText(item.en, query, 100)}
+        </Text>
+      )}
     </TouchableOpacity>
-  ), [query, handleResultPress]);
+  ), [query, handleResultPress, theme, localStyles]);
 
   const keyExtractor = useCallback((item) =>
     `${item.book}-${item.chapter}-${item.verse}`,
@@ -125,7 +132,7 @@ export const SearchModal = ({
                   <TextInput
                     ref={inputRef}
                     style={localStyles.searchInput}
-                    placeholder="Search English text..."
+                    placeholder="Search English or Arabic..."
                     placeholderTextColor={theme.colors.textSecondary}
                     value={query}
                     onChangeText={handleSearch}
@@ -262,6 +269,11 @@ const createStyles = (theme) => StyleSheet.create({
     fontSize: 13,
     color: theme.colors.textSecondary,
     lineHeight: 18,
+  },
+  resultPreviewArabic: {
+    color: theme.colors.textSecondary,
+    textAlign: 'right',
+    writingDirection: 'rtl',
   },
   emptyContainer: {
     paddingVertical: 24,

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react';
-import { View, Text, ScrollView, Pressable, StyleSheet, Alert } from 'react-native';
+import { View, Text, ScrollView, Pressable, StyleSheet, Alert, LayoutAnimation } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../context/ThemeContext';
@@ -15,10 +15,10 @@ const SCREEN_EDGES = pushedScreenEdges();
 const TAB_PLAN = 'plan';
 const TAB_RESOURCES = 'resources';
 
-// Which tab was open and how far each was scrolled. On phones, opening a scripture
-// pops this screen off the stack, so "Back to Gathering" in the reader mounts it
-// fresh; this keeps the spot for that return (and for the life of the app).
-const screenMemory = { tab: TAB_PLAN, offsets: { [TAB_PLAN]: 0, [TAB_RESOURCES]: 0 } };
+// Which tab was open, how far each was scrolled and which resource cards were open.
+// On phones, opening a scripture pops this screen off the stack, so "Back to Gathering"
+// in the reader mounts it fresh; this keeps the spot for that return (and for the life of the app).
+const screenMemory = { tab: TAB_PLAN, offsets: { [TAB_PLAN]: 0, [TAB_RESOURCES]: 0 }, expanded: [] };
 
 /** "جمع روحاني": the parts of a spiritual gathering, plus a random plan. Arabic first. */
 export default function GatheringScreen({ navigation }) {
@@ -26,6 +26,7 @@ export default function GatheringScreen({ navigation }) {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const { picks, loaded, generate, reroll, clear, showEnglish, toggleEnglish } = useGatheringPlan();
   const [tab, setTab] = useState(screenMemory.tab);
+  const [expanded, setExpanded] = useState(screenMemory.expanded);
 
   const scrollRef = useRef(null);
   const pendingRestoreRef = useRef(screenMemory.offsets[screenMemory.tab]);
@@ -42,6 +43,15 @@ export default function GatheringScreen({ navigation }) {
     screenMemory.tab = next;
     pendingRestoreRef.current = screenMemory.offsets[next];
     setTab(next);
+  }, []);
+
+  const toggleSection = useCallback((key) => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setExpanded((current) => {
+      const next = current.includes(key) ? current.filter((item) => item !== key) : [...current, key];
+      screenMemory.expanded = next;
+      return next;
+    });
   }, []);
 
   const handleScroll = useCallback(
@@ -166,6 +176,8 @@ export default function GatheringScreen({ navigation }) {
                 mode="resources"
                 onOpenScripture={openScripture}
                 showEnglish={showEnglish}
+                expanded={expanded.includes(section.key)}
+                onToggle={() => toggleSection(section.key)}
               />
             ))}
           </View>

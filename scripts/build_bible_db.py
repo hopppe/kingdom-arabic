@@ -64,6 +64,15 @@ def normalize(word: str, keep_hamza: bool = False) -> str:
     return NON_ARABIC_LETTER_RE.sub("", text)
 
 
+def search_text(arabic: str) -> str:
+    """Verse text for Arabic search: each word normalized (ta marbuta folded to ha),
+    space-separated and space-padded so whole-word LIKE patterns match at the edges.
+    Must stay in sync with normalizeArabicSearch in src/utils/arabicSearch.js.
+    """
+    words = (normalize(word).replace("ة", "ه") for word in arabic.split())
+    return " " + " ".join(word for word in words if word) + " "
+
+
 def light_stem(norm: str) -> str:
     """Light10 stem of an already-normalized word; groups related word forms."""
     if norm in STEM_EXCEPTIONS:
@@ -105,6 +114,8 @@ def build(connection: sqlite3.Connection) -> dict[str, int]:
           verse INTEGER NOT NULL,
           ar TEXT NOT NULL,
           en TEXT NOT NULL,
+          -- Vowel-less, normalized Arabic for search (see search_text).
+          ar_search TEXT NOT NULL,
           PRIMARY KEY (book, chapter, verse)
         ) WITHOUT ROWID;
 
@@ -161,8 +172,8 @@ def build(connection: sqlite3.Connection) -> dict[str, int]:
                 arabic = mapped.get("ar") or unified[key].get("ar", "")
                 english = mapped.get("en") or unified[key].get("en", "")
                 cursor.execute(
-                    "INSERT INTO verses VALUES (?, ?, ?, ?, ?)",
-                    (book_id, chapter, verse, arabic, english),
+                    "INSERT INTO verses VALUES (?, ?, ?, ?, ?, ?)",
+                    (book_id, chapter, verse, arabic, english, search_text(arabic)),
                 )
                 stats["verses"] += 1
 

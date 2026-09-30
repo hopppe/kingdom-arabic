@@ -94,6 +94,30 @@ describe('searchVerses', () => {
     expect(totalCount).toBe(1);
     expect(results[0].book).toBe('1JN');
   });
+
+  it('searches the normalized Arabic column for Arabic queries', async () => {
+    const db = createFakeDb([
+      [/SELECT COUNT\(\*\) AS total FROM verses WHERE ar_search LIKE/, () => ({ total: 1 })],
+      [/SELECT book, chapter, verse, ar, en FROM verses WHERE ar_search LIKE/, () => [rows[0]]],
+    ]);
+    const { results, totalCount } = await searchVerses(db, 'أَحَبَّ الْعَالَمَ', 15);
+    expect(totalCount).toBe(1);
+    expect(results[0].book).toBe('JHN');
+    expect(db.getFirstAsync.mock.calls[0][1]).toEqual(['%احب%', '%العالم%']);
+  });
+
+  it('pads Arabic whole-word searches with spaces instead of filtering in JS', async () => {
+    const db = createFakeDb([
+      [/SELECT COUNT\(\*\) AS total FROM verses WHERE ar_search LIKE/, () => ({ total: 0 })],
+      [/SELECT book, chapter, verse, ar, en FROM verses WHERE ar_search LIKE/, () => []],
+    ]);
+    await searchVerses(db, 'محبة ', 15);
+    expect(db.getFirstAsync.mock.calls[0][1]).toEqual(['% محبه %']);
+  });
+
+  it('returns nothing for Arabic queries that normalize to no letters', async () => {
+    expect(await searchVerses(createFakeDb([]), 'ـــ')).toEqual({ results: [], totalCount: 0 });
+  });
 });
 
 describe('getRelatedForms', () => {

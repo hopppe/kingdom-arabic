@@ -64,6 +64,7 @@ scripts/                build_bible_db.py, mapping pipeline scripts; legacy-root
 
 ## Features (where to look)
 
+- **Search** (reader): queries with Arabic letters match `verses.ar_search` (vowel-less, alef/ya/ta marbuta folded; `utils/arabicSearch.js` must match `search_text` in the build script); others match English. Trailing space = whole words.
 - **Reader:** tap a word → gloss tooltip + saved to session; tap the tooltip or long-press a word → word study; long-press a verse number → bookmark / memorize / listen; tap a verse number → TTS. Reaching the end of a chapter (or pressing Next) logs a chapter read for the streak (ReadingProgressContext; there's no reading-progress UI).
 - **Flashcards:** Anki algorithm (new → learning 1m/10m → review; lapses → relearning; ease 1.3–2.5; fuzz). `recordAnswer` also logs activity.
 - **Memorize:** chunked meaning → fading words (25/50/75/100%) → first-letter cues → rebuild from tiles → free recall with self-grading; day-level SM-2 in `utils/memory/scheduler.js` (learning → reviewing → mastered at ≥21 days).
