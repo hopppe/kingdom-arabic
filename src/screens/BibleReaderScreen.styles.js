@@ -157,6 +157,30 @@ export const createStyles = (theme) => StyleSheet.create({
     color: theme.colors.text,
     textAlign: 'right',
   },
+  // Word-by-word view: words flow right to left, each above its gloss.
+  interlinearVerse: {
+    flexDirection: 'row-reverse',
+    flexWrap: 'wrap',
+    alignItems: 'flex-start',
+    columnGap: 14,
+    rowGap: 10,
+  },
+  interlinearWord: {
+    alignItems: 'center',
+  },
+  interlinearArabic: {
+    ...theme.arabic.body,
+    color: theme.colors.text,
+    textAlign: 'center',
+  },
+  interlinearGloss: {
+    // Long glosses wrap under their word instead of stretching it across the line.
+    maxWidth: 150,
+    fontSize: 13,
+    lineHeight: 17,
+    color: theme.colors.textSecondary,
+    textAlign: 'center',
+  },
   activeWordContainer: {
     backgroundColor: theme.colors.primary,
   },

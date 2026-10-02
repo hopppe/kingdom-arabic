@@ -25,12 +25,15 @@ const DEFAULT_PREFS = {
   colorScheme: 'system',
   arabicFont: DEFAULT_ARABIC_FONT,
   arabicTextSize: DEFAULT_ARABIC_TEXT_SIZE,
+  // Show each word's gloss beneath it in the reader.
+  interlinear: false,
 };
 
 const sanitizePrefs = (stored) => ({
   colorScheme: COLOR_SCHEMES[stored?.colorScheme] ? stored.colorScheme : DEFAULT_PREFS.colorScheme,
   arabicFont: isArabicFontAvailable(stored?.arabicFont) ? stored.arabicFont : DEFAULT_PREFS.arabicFont,
   arabicTextSize: ARABIC_TEXT_SIZES[stored?.arabicTextSize] ? stored.arabicTextSize : DEFAULT_PREFS.arabicTextSize,
+  interlinear: typeof stored?.interlinear === 'boolean' ? stored.interlinear : DEFAULT_PREFS.interlinear,
 });
 
 export const useTheme = () => {
@@ -123,6 +126,7 @@ export const ThemeProvider = ({ children }) => {
       setColorScheme: (colorScheme) => updatePrefs({ colorScheme }),
       setArabicFont: (arabicFont) => updatePrefs({ arabicFont }),
       setArabicTextSize: (arabicTextSize) => updatePrefs({ arabicTextSize }),
+      setInterlinear: (interlinear) => updatePrefs({ interlinear }),
     }),
     [theme, prefs, prefsLoaded, updatePrefs]
   );

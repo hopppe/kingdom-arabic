@@ -31,6 +31,7 @@ import { SettingsModal } from './SettingsModal';
 import { VerseActionsModal } from './VerseActionsModal';
 import { ReaderHeader } from './ReaderHeader';
 import { WordTooltip } from './WordTooltip';
+import InterlinearVerse from './InterlinearVerse';
 import WordStudyModal from './WordStudy/WordStudyModal';
 import { AllBookmarksModal } from './AllBookmarksModal';
 import { HelpModal } from './HelpModal';
@@ -55,7 +56,7 @@ const SWIPE_MIN_DISTANCE = 70;
 const SWIPE_MIN_VELOCITY = 500;
 
 export default function BibleReaderScreen({ navigation, route }) {
-  const { theme } = useTheme();
+  const { theme, prefs } = useTheme();
   const db = useBibleDb();
   const { addMultipleFlashcards, flashcards } = useFlashcards();
   const { unlocked: gatheringUnlocked, unlock: unlockGathering } = useGatheringAccess();
@@ -515,6 +516,18 @@ export default function BibleReaderScreen({ navigation, route }) {
     setWordStudy(entry);
   }, [findGlossEntry, setActiveWord]);
 
+  // Stable word handlers, so word-by-word verses only re-render when their own words change.
+  const wordHandlersRef = useRef({ handleWordPress, openWordStudy });
+  wordHandlersRef.current = { handleWordPress, openWordStudy };
+  const onInterlinearWordPress = useCallback(
+    (...args) => wordHandlersRef.current.handleWordPress(...args),
+    []
+  );
+  const onInterlinearWordLongPress = useCallback(
+    (...args) => wordHandlersRef.current.openWordStudy(...args),
+    []
+  );
+
   const openActiveWordStudy = useCallback(() => {
     if (activeWord) openWordStudy(activeWord.word, activeWord.verseIndex);
   }, [activeWord, openWordStudy]);
@@ -614,11 +627,26 @@ export default function BibleReaderScreen({ navigation, route }) {
 
   // Render verse component
   const renderVerse = (verseText, verseIndex) => {
-    // Each token is a word plus the whitespace after it (see renderWord).
-    const words = verseText.match(/\S+\s*/g) || [];
     const verseNum = chapter?.data?.verse_numbers?.[verseIndex] ?? verseIndex + 1;
     const verseIsBookmarked = isBookmarked(currentBook, currentChapter, verseNum);
-    const arabicWords = words.map((word, wordIndex) => renderWord(word, wordIndex, verseIndex));
+    const arabicWords = prefs.interlinear ? (
+      <InterlinearVerse
+        verseText={verseText}
+        glosses={chapter?.glosses?.[`verse_${verseIndex + 1}`]}
+        verseIndex={verseIndex}
+        activeWordId={activeWord?.verseIndex === verseIndex ? activeWord.id : null}
+        savedWordsSet={savedWordsSet}
+        flashcardWordsSet={flashcardWordsSet}
+        onWordPress={onInterlinearWordPress}
+        onWordLongPress={onInterlinearWordLongPress}
+        styles={styles}
+      />
+    ) : (
+      <Text style={styles.arabicVerse}>
+        {/* Each token is a word plus the whitespace after it (see renderWord). */}
+        {(verseText.match(/\S+\s*/g) || []).map((word, wordIndex) => renderWord(word, wordIndex, verseIndex))}
+      </Text>
+    );
     const englishText = chapter?.data?.content_english?.[verseIndex] ?? '';
     const isLinkedVerse = Boolean(
       gatheringReturn?.verse &&
@@ -640,11 +668,11 @@ export default function BibleReaderScreen({ navigation, route }) {
               <Text style={[styles.englishText, styles.englishSideBySide, styles.sideBySideColumn]}>
                 {englishText}
               </Text>
-              <Text style={[styles.arabicVerse, styles.sideBySideColumn]}>{arabicWords}</Text>
+              <View style={styles.sideBySideColumn}>{arabicWords}</View>
             </View>
           ) : (
             <View style={styles.paragraph}>
-              <Text style={styles.arabicVerse}>{arabicWords}</Text>
+              {arabicWords}
               {showTranslations && <Text style={styles.englishText}>{englishText}</Text>}
             </View>
           )}

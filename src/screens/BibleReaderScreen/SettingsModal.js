@@ -126,6 +126,9 @@ export const SettingsModal = ({
                 contentContainerStyle={localStyles.scrollInner}
                 showsVerticalScrollIndicator={false}
               >
+              {/* Reading: word-by-word, colors, font, size */}
+              <AppearanceSection />
+
               {/* Bookmarks Section */}
               <View style={localStyles.section}>
                 <TouchableOpacity style={localStyles.sectionHeader} onPress={() => closeThen(onShowAllBookmarks)}>
@@ -236,9 +239,6 @@ export const SettingsModal = ({
                   )
                 )}
               </View>
-
-              {/* Appearance Section */}
-              <AppearanceSection />
 
               {/* Backup / restore */}
               <BackupSection />
@@ -393,7 +393,7 @@ const createStyles = (theme) => StyleSheet.create({
     marginBottom: 8,
     gap: 10,
   },
-  // Extra space separates the quick actions above from Appearance below.
+  // Extra space separates the quick actions above from Your data below.
   reminderSection: {
     marginBottom: 24,
   },

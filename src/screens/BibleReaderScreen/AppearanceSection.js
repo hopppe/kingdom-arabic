@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Switch, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme, COLOR_SCHEMES } from '../../context/ThemeContext';
 import { ARABIC_TEXT_SIZES, buildArabicTextStyle, getAvailableArabicFonts } from '../../theme/arabicFonts';
@@ -36,8 +36,26 @@ const DropdownRow = ({ label, value, isOpen, onToggle, children, styles }) => (
   </View>
 );
 
+// A switch with a one-line explanation beneath its label.
+const SwitchRow = ({ label, description, value, onValueChange, theme, styles }) => (
+  <View style={styles.switchRow}>
+    <View style={styles.optionTextColumn}>
+      <Text style={styles.dropdownLabel}>{label}</Text>
+      <Text style={styles.optionDescription}>{description}</Text>
+    </View>
+    <Switch
+      value={value}
+      onValueChange={onValueChange}
+      accessibilityLabel={label}
+      trackColor={{ false: theme.colors.disabled, true: theme.colors.info }}
+      thumbColor={Platform.OS === 'android' ? theme.colors.white : undefined}
+    />
+  </View>
+);
+
+// "Reading" in Settings: how the reader shows the text.
 export const AppearanceSection = () => {
-  const { theme, prefs, setColorScheme, setArabicFont, setArabicTextSize } = useTheme();
+  const { theme, prefs, setColorScheme, setArabicFont, setArabicTextSize, setInterlinear } = useTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   // Only one dropdown open at a time: 'scheme' | 'font' | 'size' | null.
   const [openKey, setOpenKey] = useState(null);
@@ -52,7 +70,16 @@ export const AppearanceSection = () => {
 
   return (
     <View style={styles.section}>
-      <Text style={styles.sectionTitle}>Appearance</Text>
+      <Text style={styles.sectionTitle}>Reading</Text>
+
+      <SwitchRow
+        label="Word-by-word"
+        description="Show each word's meaning beneath it"
+        value={prefs.interlinear}
+        onValueChange={setInterlinear}
+        theme={theme}
+        styles={styles}
+      />
 
       <DropdownRow
         label="Color Scheme"
@@ -141,6 +168,16 @@ const createStyles = (theme) => ({
     backgroundColor: theme.colors.surface,
     marginBottom: 8,
     overflow: 'hidden',
+  },
+  switchRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    gap: 8,
+    borderRadius: 8,
+    backgroundColor: theme.colors.surface,
+    marginBottom: 8,
   },
   dropdownHeader: {
     flexDirection: 'row',

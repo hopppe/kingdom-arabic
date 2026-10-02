@@ -13,6 +13,7 @@ export const HelpModal = ({ visible, onClose }) => {
       title: 'Gestures',
       items: [
         'Tap a word → translation',
+        'Settings → Word-by-word → meanings under every word',
         'Hold a word → word study',
         'Tap a verse number → listen',
         'Hold a verse number → bookmark or memorize',
